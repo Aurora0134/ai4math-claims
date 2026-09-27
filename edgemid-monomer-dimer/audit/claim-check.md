@@ -27,3 +27,9 @@
 本包 LaTeX 质检门编译 **7 轮 / 顶 6 轮（+1 超顶）**：第 7 轮系 296s 断联后用户续跑指令明确授权的收官轮（按「修到缺字/错误双零、终编披露轮数取真实终值」执行），终轮 exit 0、缺字 0、TeX 错误 0，短笺披露节已嵌入真实终值 7。另有诊断性 tectonic 调用 5 次（probe×4 + tatami 对照重编×1）按双口径单列记账、未计入门禁轮数。工人自报『请主代理裁定追认或记降级』——本裁决书将 +1 如实记录，**超顶追认或降级记档的最终裁定权在用户**，已同步 run-state.md 待裁。
 
 终审结论：签发（PASS）。分级裁定：完全证明（两定理各自），措辞未越级；新颖性措辞未越 C9「查无占位」。
+
+## 勘误追记（2026-09-28，用户裁决「改模板＋回补首批公开包」）
+
+- 本包 `claim/claim.tex` 的 \texttt{lean4} 条目原引 DOI 尾号 \texttt{_27}，经 Crossref **题名**实测为同卷另一篇「An Automated Approach to the Collatz Conjecture」pp. 468--484；正确尾号 \texttt{_37}（「The Lean 4 Theorem Prover and Programming Language」pp. 625--635，与条目已写的 LNCS 页码互证）。该错引来自 \texttt{harness/templates/claim/claim.tex} 预置书目（模板同源缺陷同日已修）。
+- 修法＝只改 URL 尾号，**不改任何证明层内容**：三/两条定理的逐字 listing、公理打印、C9 记录、分级措辞全部不动；复编后页数 **10 页不变**（与本轮审计已核的页数口径一致，故先前逐页核验仍然有效），\texttt{paper-lint} PASS exit 0、缺字 0、无未解引用。
+- 落点：`claims/edgemid-monomer-dimer/claim.tex` 与包内 `zenodo/claim/claim.tex` + `claim.pdf` 同批更新（同哈希），并以镜像仓追加提交回补公开件；原 `c5865c0` 时间戳与版本链不动（SOP 08b「不撤包、版本机制保留原时间戳」）。

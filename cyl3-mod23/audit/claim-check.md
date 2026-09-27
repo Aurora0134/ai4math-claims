@@ -28,3 +28,9 @@
 
 ## 补记（主代理，2026-09-27 审计后卫生处理）
 审计归档后，主代理对三包 claim.tex 做行尾归一（本文件对应包：补丁注释块等处原有 CRLF 471 处已剥除为 LF；listing 体本就 0 CR）。归一后 listing 逐字节复核 logs/claim-listing-verify.py 仍 OVERALL PASS；zenodo/claim/ 与快照树副本已同步。纯卫生项，不影响任何裁决。
+
+## 勘误追记（2026-09-28，用户裁决「改模板＋回补首批公开包」）
+
+- 本包 `claim/claim.tex` 的 \texttt{lean4} 条目原引 DOI 尾号 \texttt{_27}，经 Crossref **题名**实测为同卷另一篇「An Automated Approach to the Collatz Conjecture」pp. 468--484；正确尾号 \texttt{_37}（「The Lean 4 Theorem Prover and Programming Language」pp. 625--635，与条目已写的 LNCS 页码互证）。该错引来自 \texttt{harness/templates/claim/claim.tex} 预置书目（模板同源缺陷同日已修）。
+- 修法＝只改 URL 尾号，**不改任何证明层内容**：三/两条定理的逐字 listing、公理打印、C9 记录、分级措辞全部不动；复编后页数 **10 页不变**（与本轮审计已核的页数口径一致，故先前逐页核验仍然有效），\texttt{paper-lint} PASS exit 0、缺字 0、无未解引用。
+- 落点：`claims/cyl3-mod23/claim.tex` 与包内 `zenodo/claim/claim.tex` + `claim.pdf` 同批更新（同哈希），并以镜像仓追加提交回补公开件；原 `c5865c0` 时间戳与版本链不动（SOP 08b「不撤包、版本机制保留原时间戳」）。
