@@ -29,6 +29,7 @@ Usage (from anywhere):
   python .../sanitize-package.py --check-only       # READ-ONLY: verify manifest and
                                                     # promises; writes nothing
   python .../sanitize-package.py --assert-promises  # promise gate only
+  python .../sanitize-package.py --check-zip        # READ-ONLY zip-vs-manifest check
 Exit 0 = every gate green. Run --check-only before any outbound act.
 
 AI-generated 2026-09-28. Writes only under the two zenodo/ trees.
@@ -223,6 +224,45 @@ def promises(pkg):
     return 0
 
 
+def check_zip():
+    """READ-ONLY: verify each package zip exists and carries exactly the
+    manifest file set (nothing is rebuilt or written; audit round-4 gap)."""
+    import zipfile
+    rc = 0
+    for pkg in (PAP, CLA):
+        zpath = os.path.join(pkg, "zenodo-package.zip")
+        man = os.path.join(pkg, "zenodo", "metadata", "FILE-MANIFEST.txt")
+        if not (os.path.exists(zpath) and os.path.exists(man)):
+            print("FAIL: zip or manifest missing for %s" % os.path.relpath(pkg, ROOT))
+            rc = 1
+            continue
+        want = set()
+        with io.open(man, encoding="utf-8") as fh:
+            for line in fh:
+                if line.startswith("#") or not line.strip():
+                    continue
+                parts = line.rstrip().split("  ")
+                if len(parts) == 3:
+                    want.add(parts[2])
+        want.add("metadata/FILE-MANIFEST.txt")
+        with zipfile.ZipFile(zpath) as z:
+            got = set(z.namelist())
+            drift = sorted(got ^ want)
+            bad = []
+            for rel in sorted(got & want):
+                body = z.read(rel)
+                if LOCAL_USER.encode() in body or HOME_PATH_RX.search(body.decode("utf-8", "replace")):
+                    bad.append(rel)
+        print("zip check [%s]: entries=%d manifest=%d set-diff=%s local-path-hits=%s"
+              % (os.path.relpath(pkg, ROOT), len(got), len(want),
+                 drift if drift else "NONE", bad if bad else "none"))
+        if drift or bad:
+            rc = 1
+    if rc == 0:
+        print("PASS: zips match their manifests and carry no machine-local path")
+    return rc
+
+
 def check_only():
     rc = manifests(write_manifest=False)
     for pkg in (PAP, CLA):
@@ -235,5 +275,7 @@ if __name__ == "__main__":
         raise SystemExit(check_only())
     if "--assert-promises" in sys.argv:
         raise SystemExit(promises(PAP) or promises(CLA))
+    if "--check-zip" in sys.argv:        # READ-ONLY zip verification
+        raise SystemExit(check_zip())
     sync_packages()
     raise SystemExit(manifests())

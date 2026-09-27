@@ -69,7 +69,7 @@ import «01-cchord-proved»   -- 与本包 proofs/01-cchord-proved.lean 同名�
 
 ## 已知观感项与边界（如实记档，不影响质检门）
 
-- **篇幅口径**：SOP 08b 职责节写「claim note，2–4 页」，本短笺编译为 **10 页**；超出部分全部是逐字 listing（三组冻结 statement 共 61 行 + C1 完整证明 25 行 + C3 装配段 11 行）与 C9 查新表，删它们会牺牲「冻结产物逐字快照」这条硬要求。与首批 `claims/cyl3-mod23`（同为 10 页）同口径，此处如实分列而不改文。
+- **篇幅口径**：SOP 08b 职责节写「claim note，2–4 页」，本短笺编译为 **10 页**；**用户 2026-09-28 裁决＝追认超顶并转为显式豁免**，条款已落 `harness/departments/08b-claim.md`《已知边界》（唯一正确收缩方式＝把逐字 listing 移出正文、留包内 `proofs/`，禁止删证据或降口径），卡面追认节见 `claims/chorded-cycle-mod4/card.md`；超出部分全部是逐字 listing（三组冻结 statement 共 61 行 + C1 完整证明 25 行 + C3 装配段 11 行）与 C9 查新表，删它们会牺牲「冻结产物逐字快照」这条硬要求。与首批 `claims/cyl3-mod23`（同为 10 页）同口径，此处如实分列而不改文。
 - `claim.pdf` 终轮 5 处 overfull hbox，实测 16.33 / 27.09 / 54.08 / 55.45 / **69.62 pt**，源于 listing 内长行（冻结件中文 docstring 不参与 listings 断行）；listing 源字节未动。（口径修正：先前版本写「7 处均 <20pt」，为生成方自报、审计实测证伪，已改为实测值并顺手做真修。）
 - 唯一字形告警为 `TU/SimSun(0)/m/it`（中文注释被 listings 的 commentstyle 斜体化时缺 slanted 变体），纯观感。
 - 短笺措辞上限：价值级只到 **new sequence / new recurrence**；组合语义桥只作 conjecture；负结果（统一 3 项递推不成立）只到计算层，不写成定理。
