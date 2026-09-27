@@ -2,6 +2,13 @@
 
 > AI 生成（2026-09-28）。本包为 SOP 08b 占位通道产物；上传/发布（外发）一律用户本人手动执行，见 `claims/chorded-cycle-mod4/UPLOAD.md`。本通道不依赖 arXiv 账号与背书。
 
+## 发布前必跑（只读）
+
+```bash
+python papers/chorded-cycle-mod4/audit/sanitize-package.py --check-only
+# 三件：FILE-MANIFEST 与盘上一致 / 包内外承诺对账 / 无本机路径
+```
+
 ## DOI
 
 - **未预留**：Zenodo 草稿页 "Get a DOI now!" 由用户执行后产生；本包不含真实 DOI。
@@ -22,7 +29,7 @@
 | `audit/welldef-verdict.md` + `audit/gate-c1.txt`/`gate-c2.txt`/`gate-c3.txt` + `audit/gate-recheck-frozen.txt` | 闸门二良定义与退化探针（主代理 gate ×3 + 宪兵复跑冻结件；8 探针×3 全 FAIL，宪兵补 `ring` 为第 9 条亦 FAIL → 非退化；R-C1 无 ZMod 4 decide 捷径裁决） |
 | `audit/audit-axioms-sidecar.log` | `#print axioms` 原文三行（三定理各 `[propext, Classical.choice, Quot.sound]`，无 sorryAx）。脱敏：原始 sidecar 每行都回显本机绝对编译路径，故包内件只保留三行 `depends on axioms`（由 `audit/sanitize-package.py` 生成，短笺 Verification evidence 段的 verbatim 块即这三行） |
 | `audit/audit-strict-compile.log` | 终稿 strict 编译输出（68 行 if_neg/if_pos deprecation 警告，无 error；该日志缺 `EXIT=` 行，EXIT=0 的载体是 `audit/final-01-cchord.txt` 的监察院两次复跑） |
-| `audit/c9-record.md` | C9 独占性复审全量记录逐字全文（新颖性证据主体；源 `tasks/20260927-mossad-select/c9-recheck/chunk-G.md` 第 1-11 / 86-109 / 111-120 行三段，源文件 sha256=`364f5e6b1485d8fc51a488700d398d4e51477aba8cf9618c2308552db5f731e6`；仅加打包者出处注记头与文末哈希自检附录，正文未改写） |
+| `audit/c9-record.md` | C9 独占性复审全量记录逐字全文（新颖性证据主体；源 `tasks/20260927-mossad-select/c9-recheck/chunk-G.md` 第 1-11 / 86-109 / 111-120 / 121-122 行四段，源文件 sha256=`364f5e6b1485d8fc51a488700d398d4e51477aba8cf9618c2308552db5f731e6`；仅加打包者出处注记头与文末哈希自检附录，正文未改写） |
 | `audit/lint.txt` / `audit/compile.txt` | 本包 paper-lint（PASS, exit 0）与 paper-compile（exit 0）输出 |
 | `audit/listing-verify.txt` | 短笺五处 lstlisting 与冻结产物逐字节核验记录（5/5 PASS） |
 | `audit/inspect-tex.py` / `audit/build-c9-record.py` / `audit/sanitize-package.py` | 装配与自检脚本：listing 注入与逐字节核验、非 ASCII 出网检查、C9 记录四段构建与自检、包内日志脱敏与本地路径复扫、FILE-MANIFEST 生成 |
