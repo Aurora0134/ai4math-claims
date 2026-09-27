@@ -1,0 +1,18 @@
+WELLDEF OK
+PROBE nlinarith FAIL
+PROBE norm_num FAIL
+PROBE simp FAIL
+PROBE ring_nf FAIL
+PROBE positivity FAIL
+PROBE omega FAIL
+PROBE linarith FAIL
+PROBE decide FAIL
+CHECK Nat.stepInduction OK
+CHECK Nat.strong_induction_on OK
+CHECK Int.ModEq.add OK
+CHECK Int.ModEq.sub OK
+CHECK Int.ModEq.mul_left OK
+CHECK Int.ModEq.mul_right OK
+CHECK Int.ModEq.trans OK
+CHECK Int.ModEq.eq OK
+CHECK Int.modEq_zero_iff_dvd OK

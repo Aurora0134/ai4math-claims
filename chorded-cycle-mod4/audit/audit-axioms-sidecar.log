@@ -1,0 +1,6 @@
+# axiom printout (sidecar #print axioms for the three declarations).
+# Machine-local paths stripped by audit/sanitize-package.py; the full
+# compile echo of this run is in audit-strict-compile.log.
+'cchordR2_mod_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+'cchordR0_mod_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+'cchordR1_even_iff' depends on axioms: [propext, Classical.choice, Quot.sound]

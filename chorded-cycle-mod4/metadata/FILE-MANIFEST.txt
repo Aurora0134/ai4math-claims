@@ -1,0 +1,27 @@
+# FILE-MANIFEST -- sha256  bytes  path (relative to this package root)
+# Generated 2026-09-28 by papers/chorded-cycle-mod4/audit/sanitize-package.py.
+# Every file of the deposit is listed; a publication check re-hashes this list.
+103fa8c6c05c43aec94248653f100d1a1d54a76fbe1fb764dc7a9f4b76d468d2  435  audit/audit-axioms-sidecar.log
+7628410f7cdf1bc241ee7776e1cbe9f8347ec7d616d7c0efa04786c52970fe16  9677  audit/audit-strict-compile.log
+edb492615834d3f620634aa751dadc675a8d26e1ba83c0bda86e267daa811f4f  4672  audit/build-c9-record.py
+c663e775be823b3e0c91c4645e097e36f1813bb811284837ceeeaac488172ac9  10196  audit/c9-record.md
+bee8274668b939eb20d2d9c84b3a87b49158b659870378c8dc9a67bbc67bd3e3  10341  audit/claim-check.md
+07a8e90cf238cc736715c66fdc4744aa183ac3b7c4eb7a1ecf8a6d1fce5289f7  13992  audit/compile.txt
+446e6f28c3296b2b1ae927dd53e7de97bc0a9660123e759a36fb014459b2a0c5  2580  audit/final-01-cchord.txt
+327b7a6ffa489bf738d292d14606cfc8f41d065ec31863610f8703dca9bccbee  164  audit/gate-c1.txt
+327b7a6ffa489bf738d292d14606cfc8f41d065ec31863610f8703dca9bccbee  164  audit/gate-c2.txt
+818beca189d168257f76e00bb6186f47ac27f89cfbf2277ecf955f40ff8343a6  406  audit/gate-c3.txt
+5d6631318144d66a484118d2d40a8bf130583c4a4cc363bb3fd6bba4094c2813  180  audit/gate-recheck-frozen.txt
+089ed44510769c77b2f2180f160e69d3463c8b5be289eb49e2da4661e96abe58  7343  audit/inspect-tex.py
+cecdbf1fd1998f48110508db56d9871f7517ee24ca24cb9d9ceb5222198dde66  62  audit/lint.txt
+e56db826575bb181e87115c4a0b885fc4939dc8d003a6053259bcaf3a47eb75b  3303  audit/listing-verify.txt
+5fd0aed7a1581fae8ffd51f825cec5deb75ce0cdd948e43fb06f106c0feb132b  6922  audit/sanitize-package.py
+bf1b8cf7a6e2bc714804034d4b1c327dd01d98545d442deff6d56dc20560d4ff  1723  audit/welldef-verdict.md
+eb376795296ab1e9d6cdab7e4d085f1a1b8a3f0abe64fa404da2ca0174cf2cbd  123941  claim/claim.pdf
+6e8bb5ef2900a414b475746083ef0be34b0b1205873e0bb413a2a01248e2a16e  25101  claim/claim.tex
+46f81550e32639cac8634af66e948d856a8a49945bca3b319ba460a861792186  7569  claim/lstlean.tex
+0dbefa46406b0d7ac62e2e4f42451cb84212b50fe940b37739fb9918f3a1939a  7450  metadata/README.md
+70503cf8df8224ff4bc3912d70a08e46e519caa2411ac2d2c077d4da23437f64  3986  metadata/zenodo.json
+a69d00e537675c40bd13e82344004e7f1abd370dc3d9e543396fbf1818c3a03b  3842  proofs/01-cchord-mods.lean
+af39d35ea29c9a01369473140319f9c330d326601463839875d11b14bbba2237  14523  proofs/01-cchord-proved.lean
+8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632  25  proofs/lean-toolchain

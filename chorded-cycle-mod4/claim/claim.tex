@@ -1,0 +1,487 @@
+% claim.tex -- AI4Math claim of record (AI-generated, 2026-09-28; instantiated
+% from harness/templates/claim/claim.tex per SOP 08b).
+% Machine-readable theorem anchors are the "% LEAN:" lines; scripts/paper-lint.sh
+% and the claim audit check them. All Lean listings are verbatim, byte-identical
+% contiguous excerpts of frozen artifacts of tasks/20260927-mossad-cchord:
+%   statements  : formalized/01-cchord-mods.lean (87 lines, sha256 a69d00e5...)
+%   proof bodies: final/01-cchord-proved.lean    (262 lines, sha256 af39d35e...)
+% Line ranges used: statement 22-42, 45-63, 66-86; final 43-67, 252-262.
+% Verification: audit/listing-verify.txt (audit/inspect-tex.py --verify).
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\input{lstlean}
+\lstset{language=lean}
+
+% --- local rendering patch (2026-09-28) ---
+% tectonic/XeTeX does not apply the listings literate table to multi-byte
+% characters, so the Unicode set used by the listings of THIS note is mapped to
+% math glyphs as active characters via the standard \lccode/\lowercase idiom
+% (ASCII-only source, no extra packages). Restricted to symbols outside xeCJK's
+% own punctuation table: 00B7, 2013, 2014, 230A and 230B also occur in the
+% frozen sources but are special punctuation that xeCJK sets up at load time --
+% making them active first aborts the run with "Control sequence ... already
+% defined" (observed 2026-09-27); those five route through xeCJK + SimSun
+% instead. Rendering only: listing source bytes are untouched, so the
+% byte-exactness checks are unaffected, and the \ifdefined guard leaves the
+% pdflatex path identical to the template.
+\ifdefined\XeTeXversion
+  {\lccode`\~="2022 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\bullet}}}}
+  {\lccode`\~="2115 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{N}}}}}
+  {\lccode`\~="2124 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{Z}}}}}
+  {\lccode`\~="2190 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftarrow}}}}
+  {\lccode`\~="2192 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rightarrow}}}}
+  {\lccode`\~="2194 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftrightarrow}}}}
+  {\lccode`\~="2200 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\forall}}}}
+  {\lccode`\~="2203 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\exists}}}}
+  {\lccode`\~="2227 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\wedge}}}}
+  {\lccode`\~="2228 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vee}}}}
+  {\lccode`\~="2261 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\equiv}}}}
+  {\lccode`\~="2264 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leq}}}}
+  {\lccode`\~="2265 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\geq}}}}
+  {\lccode`\~="22A2 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vdash}}}}
+  {\lccode`\~="27E8 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\langle}}}}
+  {\lccode`\~="27E9 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rangle}}}}
+  {\lccode`\~="00AC \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\neg}}}}
+  {\lccode`\~="2212 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{-}}}}
+  {\lccode`\~="2223 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mid}}}}
+\fi
+\ifdefined\XeTeXversion
+  \usepackage{xeCJK}
+  \setCJKmainfont{SimSun}
+\fi
+
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{conjecture}{Conjecture}
+
+\title{Mod-4 congruence and parity laws for the residue-class recurrences of
+chorded-cycle matching counts\\ (Lean 4 machine-checked claim of record)}
+\author{Aurora0134\thanks{Contact: via the GitHub account Aurora0134; ORCID to
+be added at Zenodo upload.}}
+\date{September 28, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $a(n)$ be the number of matchings (including the empty one) of the graph on
+$\mathbb{Z}/n\mathbb{Z}$ with the cycle edges plus all chords
+$\{i,i+\lfloor n/3\rfloor\}$. Exact enumeration for $n\ge 3$ starts
+$4,7,11,51,99,191,382,780,\dots$; the sequence splits by $n\bmod 3$ into three
+subfamilies whose terms are reproduced, up to $n=150$, by integer recurrences of
+orders $6$, $8$ and $8$ fitted over $\mathbb{Q}$ with Berlekamp--Massey. We state
+and machine-check, in Lean 4 (v4.34.0, mathlib v4.34.0), three congruence laws
+for those recurrence-defined sequences: constant $3\bmod 4$; a two-valued
+$\bmod 4$ law along $j+1\bmod 3$ for $j\ge 1$; and parity characterised by
+$(j+1)\bmod 5=3$. Every proof compiles with no \texttt{sorry} and
+\texttt{\#print axioms} reports only \{propext, Quot.sound, Classical.choice\}.
+Novelty adjudication: no occupying record found in OEIS, zbMATH, Math Stack
+Exchange, arXiv or the public Lean ecosystem under the query discipline recorded
+in the deposit; value tier \emph{new sequence / new recurrence}, not new
+mathematics. The combinatorial identification is not kernel-proved and is stated
+as a conjecture. This note is a priority claim of record, not a full paper.
+\end{abstract}
+
+\section{Introduction}
+
+Three theorems about three integer sequences defined by initial values and
+linear recurrences are reported here; the sequences come from counting matchings
+of cycles augmented by chords of length $\lfloor n/3\rfloor$, and the recurrences
+were obtained by exact rational fitting of enumerated data
+\cite{massey,godsil-gutman}. The proofs were produced by the AI4Math pipeline, in
+which LLM workers generate statements and proof scripts and the Lean 4 kernel is
+the sole adjudicator at every gate: statements are frozen by hash before
+proving, and a separate audit re-computes the symmetric difference, scans the
+whole file for \texttt{sorry}/\texttt{admit} including comments, and re-prints
+the axiom dependencies \cite{lean4,mathlib}. Verification strength is stated
+below verbatim. This note is a priority claim of record deposited so that a
+dated, citable public record exists ahead of any narrative paper; the fuller
+paper for the same three theorems is prepared separately and will reference
+this deposit. No literature review is attempted here.
+
+\section{Statement}\label{sec:statement}
+
+Throughout, the three sequences are \emph{defined} by the displayed initial
+values and recurrences; $0$-based indexing, with $c_r(j)$ corresponding to the
+combinatorial $a(3(j+1)+r)$.
+
+% LEAN: tasks/20260927-mossad-cchord :: cchordR2_mod_four grade=完全证明
+\begin{theorem}[constant congruence]\label{thm:r2}
+For the sequence $c_2$ of Listing~\ref{lst:r2} (nine seeds, order-$8$
+recurrence), $c_2(k)\equiv 3\pmod 4$ for every $k\in\mathbb{N}$.
+\end{theorem}
+
+\begin{lstlisting}[caption={Frozen formal statement, verbatim lines 22--42 of
+\texttt{formalized/01-cchord-mods.lean} (sha256 \texttt{a69d00e5}).},
+label={lst:r2}]
+/-- **序列 cchordR2（r=2 子族，阶 8 递推）**。
+初值 c(0..8) = 11, 191, 1475, 10615, 77623, 565895, 4127167, 30100411, 219522983
+（= counts.txt 中 a(5),a(8),a(11),a(14),a(17),a(20),a(23),a(26),a(29)）；
+递推 c(n+9) = 4c(n+8)+22c(n+7)+18c(n+6)−22c(n+5)−16c(n+4)+10c(n+3)+2c(n+2)−c(n+1)。 -/
+def cchordR2 : ℕ → ℤ
+  | 0 => 11
+  | 1 => 191
+  | 2 => 1475
+  | 3 => 10615
+  | 4 => 77623
+  | 5 => 565895
+  | 6 => 4127167
+  | 7 => 30100411
+  | 8 => 219522983
+  | n + 9 =>
+      4 * cchordR2 (n + 8) + 22 * cchordR2 (n + 7) + 18 * cchordR2 (n + 6)
+        - 22 * cchordR2 (n + 5) - 16 * cchordR2 (n + 4) + 10 * cchordR2 (n + 3)
+        + 2 * cchordR2 (n + 2) - cchordR2 (n + 1)
+
+/-- **C1（主攻）**：r=2 子族 mod 4 恒等于 3。 -/
+theorem cchordR2_mod_four : ∀ k : ℕ, cchordR2 k ≡ 3 [ZMOD 4] := by
+\end{lstlisting}
+
+% LEAN: tasks/20260927-mossad-cchord :: cchordR0_mod_four grade=完全证明
+\begin{theorem}[two-valued congruence along $j+1\bmod 3$]\label{thm:r0}
+For the sequence $c_0$ of Listing~\ref{lst:r0} (seven seeds, order-$6$
+recurrence) and every $j\ge 1$,
+$c_0(j)\equiv 2\pmod 4$ if $3\mid(j+1)$ and $c_0(j)\equiv 3\pmod 4$ otherwise.
+The hypothesis is needed: $c_0(0)=4\equiv 0\pmod 4$.
+\end{theorem}
+
+\begin{lstlisting}[caption={Frozen formal statement, verbatim lines 45--63 of
+\texttt{formalized/01-cchord-mods.lean}.},label={lst:r0}]
+/-- **序列 cchordR0（r=0 子族，阶 6 递推）**。
+初值 c(0..6) = 4, 51, 382, 2743, 19907, 144054, 1043147
+（= counts.txt 中 a(3),a(6),a(9),a(12),a(15),a(18),a(21)）；
+递推 c(n+7) = 5c(n+6)+16c(n+5)+3c(n+4)−10c(n+3)−c(n+2)+c(n+1)。 -/
+def cchordR0 : ℕ → ℤ
+  | 0 => 4
+  | 1 => 51
+  | 2 => 382
+  | 3 => 2743
+  | 4 => 19907
+  | 5 => 144054
+  | 6 => 1043147
+  | n + 7 =>
+      5 * cchordR0 (n + 6) + 16 * cchordR0 (n + 5) + 3 * cchordR0 (n + 4)
+        - 10 * cchordR0 (n + 3) - cchordR0 (n + 2) + cchordR0 (n + 1)
+
+/-- **C2（伴随）**：r=0 子族 mod 4 三分支（j≥1 起；j=0 处 ≡0 为已知首例外）。 -/
+theorem cchordR0_mod_four (j : ℕ) (hj : 1 ≤ j) :
+    cchordR0 j ≡ (if 3 ∣ (j + 1) then 2 else 3) [ZMOD 4] := by
+\end{lstlisting}
+
+% LEAN: tasks/20260927-mossad-cchord :: cchordR1_even_iff grade=完全证明
+\begin{theorem}[parity characterisation]\label{thm:r1}
+For the sequence $c_1$ of Listing~\ref{lst:r1} (nine seeds, order-$8$
+recurrence) and every $j\in\mathbb{N}$,
+$2\mid c_1(j)$ if and only if $(j+1)\bmod 5=3$.
+\end{theorem}
+
+\begin{lstlisting}[caption={Frozen formal statement, verbatim lines 66--86 of
+\texttt{formalized/01-cchord-mods.lean}.},label={lst:r1}]
+/-- **序列 cchordR1（r=1 子族，阶 8 递推）**。
+初值 c(0..8) = 7, 99, 780, 5591, 41281, 302139, 2217121, 16257026, 119231297
+（= counts.txt 中 a(4),a(7),a(10),a(13),a(16),a(19),a(22),a(25),a(28)）；
+递推 c(n+9) = 4c(n+8)+23c(n+7)+14c(n+6)−23c(n+5)−14c(n+4)+9c(n+3)+2c(n+2)−c(n+1)。 -/
+def cchordR1 : ℕ → ℤ
+  | 0 => 7
+  | 1 => 99
+  | 2 => 780
+  | 3 => 5591
+  | 4 => 41281
+  | 5 => 302139
+  | 6 => 2217121
+  | 7 => 16257026
+  | 8 => 119231297
+  | n + 9 =>
+      4 * cchordR1 (n + 8) + 23 * cchordR1 (n + 7) + 14 * cchordR1 (n + 6)
+        - 23 * cchordR1 (n + 5) - 14 * cchordR1 (n + 4) + 9 * cchordR1 (n + 3)
+        + 2 * cchordR1 (n + 2) - cchordR1 (n + 1)
+
+/-- **C3（伴随）**：r=1 子族奇偶 iff——偶数当且仅当 (j+1) % 5 = 3。 -/
+theorem cchordR1_even_iff (j : ℕ) : 2 ∣ cchordR1 j ↔ (j + 1) % 5 = 3 := by
+\end{lstlisting}
+
+\begin{conjecture}[combinatorial bridge, not proved here]\label{conj:bridge}
+For $r\in\{0,1,2\}$ and all $j\ge 0$, $c_r(j)=a(3(j+1)+r)$, where $a$ counts
+matchings of the chorded cycle described in the abstract.
+\end{conjecture}
+
+\section{Proof}\label{sec:proof}
+
+All three proofs are strong induction on the index with the seed window
+discharged by computation and the step closed by congruence algebra inside
+\texttt{Int.ModEq}; Theorems~\ref{thm:r0} and \ref{thm:r1} add a case split on
+$(j+1)\bmod 3$ and $(j+1)\bmod 5$ respectively. The complete proof of
+Theorem~\ref{thm:r2} is reproduced verbatim below. The other two declarations
+are longer --- Theorem~\ref{thm:r0} spans lines 86--137 and Theorem~\ref{thm:r1}
+lines 159--262 of the same final file --- and are excerpted here only where the
+argument has a distinctive shape: the closing assembly of Theorem~\ref{thm:r1}
+from its modulo-$2$ strengthening, which is where the if-and-only-if is won. The
+complete $262$-line file ships in this deposit under \texttt{proofs/}.
+
+\begin{lstlisting}[caption={Complete proof of Theorem~\ref{thm:r2}, verbatim
+lines 43--67 of \texttt{final/01-cchord-proved.lean} (sha256
+\texttt{af39d35e}).},label={lst:p2}]
+theorem cchordR2_mod_four : ∀ k : ℕ, cchordR2 k ≡ 3 [ZMOD 4] := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+    rcases lt_or_ge n 9 with h | h
+    · interval_cases n <;> decide
+    · obtain ⟨j, rfl⟩ : ∃ j, n = j + 9 := ⟨n - 9, by omega⟩
+      have rec9 : ∀ m : ℕ, cchordR2 (m + 9)
+          = 4 * cchordR2 (m + 8) + 22 * cchordR2 (m + 7) + 18 * cchordR2 (m + 6)
+            - 22 * cchordR2 (m + 5) - 16 * cchordR2 (m + 4) + 10 * cchordR2 (m + 3)
+            + 2 * cchordR2 (m + 2) - cchordR2 (m + 1) := fun m => by
+        simp only [cchordR2]
+      rw [rec9 j]
+      have h8 : cchordR2 (j + 8) ≡ 3 [ZMOD 4] := ih (j + 8) (by omega)
+      have h7 : cchordR2 (j + 7) ≡ 3 [ZMOD 4] := ih (j + 7) (by omega)
+      have h6 : cchordR2 (j + 6) ≡ 3 [ZMOD 4] := ih (j + 6) (by omega)
+      have h5 : cchordR2 (j + 5) ≡ 3 [ZMOD 4] := ih (j + 5) (by omega)
+      have h4 : cchordR2 (j + 4) ≡ 3 [ZMOD 4] := ih (j + 4) (by omega)
+      have h3 : cchordR2 (j + 3) ≡ 3 [ZMOD 4] := ih (j + 3) (by omega)
+      have h2 : cchordR2 (j + 2) ≡ 3 [ZMOD 4] := ih (j + 2) (by omega)
+      have h1 : cchordR2 (j + 1) ≡ 3 [ZMOD 4] := ih (j + 1) (by omega)
+      have key := (((((((h8.mul_left 4).add (h7.mul_left 22)).add (h6.mul_left 18)).sub
+          (h5.mul_left 22)).sub (h4.mul_left 16)).add (h3.mul_left 10)).add
+          (h2.mul_left 2)).sub h1
+      exact key.trans (by decide)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Excerpt: assembly of Theorem~\ref{thm:r1} from the
+modulo-$2$ strengthening \texttt{main} proved at lines 160--251 of the same
+file; verbatim lines 252--262 (contiguous block; the complete proofs of
+Theorem~\ref{thm:r0} and Theorem~\ref{thm:r1} are lines 86--137 and 159--262,
+in \texttt{proofs/}).},label={lst:p3}]
+  have h := main j
+  rw [← Int.modEq_zero_iff_dvd]
+  constructor
+  · intro hd
+    by_cases hc : (j + 1) % 5 = 3
+    · exact hc
+    · rw [if_neg hc] at h
+      exact absurd (h.symm.trans hd) (by decide)
+  · intro hc
+    rw [if_pos hc] at h
+    exact h
+\end{lstlisting}
+
+\section{Verification evidence}
+
+\begin{itemize}
+\item Toolchain: Lean \texttt{v4.34.0} (\texttt{leanprover/lean4:v4.34.0}),
+mathlib4 \texttt{v4.34.0}, revision \texttt{5ed29652}. Reproduction: with that
+pin, \texttt{lake env lean} on \texttt{proofs/01-cchord-proved.lean} compiles
+the file with exit code $0$ (measured $29.1$\,s for the strict pass).
+\item Statement integrity: the frozen statement file
+\texttt{formalized/01-cchord-mods.lean} ($87$ lines) has sha256
+\texttt{a69d00e537675c40bd13e82344004e7f}\allowbreak
+\texttt{1abd370dc3d9e543396fbf1818c3a03b}; the
+final file \texttt{final/01-cchord-proved.lean} ($262$ lines) has sha256
+\texttt{af39d35ea29c9a01369473140319f9c3}\allowbreak
+\texttt{30d326601463839875d11b14bbba2237}.
+The final file was compared with the frozen file by symmetric difference over
+the statement region: zero drift; the only differences are the three proof
+bodies replacing the \texttt{sorry} placeholders and one header-comment line.
+\item Kernel check: compiles with $0$ \texttt{sorry} (whole-file scan including
+comments, case-insensitive, also for \texttt{admit}/\texttt{sorryAx});
+\texttt{\#print axioms} output, verbatim (kept literal; the smaller monospace
+width is typesetting only):
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize,frame=none]
+'cchordR2_mod_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+'cchordR0_mod_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+'cchordR1_even_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{lstlisting}
+The strict re-compile emits $68$ deprecation warnings
+(\texttt{if\_neg}/\texttt{if\_pos}) and no error; warnings are not treated as a
+refusal ground by the audit, and are recorded here. The log ships as
+\texttt{audit/audit-strict-compile.log}, with machine-specific path prefixes
+replaced by \texttt{<repo>/} for the public deposit.
+\item Grading by the audit department: all three theorems
+\emph{complete proof}; lowest grade reached for the case = \emph{complete
+proof}; no scaffolding route was used.
+\item Audit chain (originals in this deposit under \texttt{audit/}): final
+adjudication \texttt{final-01-cchord.txt} (four independent checks),
+well-definedness verdict \texttt{welldef-verdict.md} with gate logs
+\texttt{gate-c1.txt}, \texttt{gate-c2.txt}, \texttt{gate-c3.txt} and the
+rechecker log \texttt{gate-recheck-frozen.txt}, axiom printout
+\texttt{audit-axioms-sidecar.log} (the three lines quoted above are its whole
+content), and this note's claim check \texttt{claim-check.md} --- added to
+\texttt{audit/} after the audit department returns its adjudication, and a
+prerequisite for publication. The semantic-fidelity check (roundtrip
+re-translation) of the underlying task ran on the same model node as its
+formalisation; that independence weakness is mitigated, not removed, by kernel
+adjudication and manual review.
+\end{itemize}
+
+\section{Novelty evidence}\label{sec:novelty}
+
+Adjudication copied from the pipeline's exclusivity review (C9 gate), which ran
+before the problem was accepted and re-derived the data independently: verdict
+\textbf{no occupying record found}, value tier \textbf{new sequence / new
+recurrence}. It is not a claim of new mathematics and not a first-discovery
+claim. Summary by channel; the full query log, including every zero-hit query,
+is in this deposit at \texttt{audit/c9-record.md}.
+
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lll}
+\hline
+channel & queries & result \\
+\hline
+OEIS sequence search \cite{oeis} & 9 & zero hits: supplied seed and its
+drop-first / drop-two variants (3), real sequence and its drop-first /
+drop-two variants (3), $\times2$ (1), $+1$ (1), tail segment (1) \\
+OEIS per-residue subsequences & 3 & zero hits (\texttt{4,51,382,2743},
+\texttt{7,99,780,5591}, \texttt{11,191,1475,10615}) \\
+OEIS perfect-matching variant & 2 & zero hits \\
+OEIS keywords & 2 & 10 hits each, none matching counts of this family \\
+zbMATH & 4 & \texttt{Hosoya index circulant graph}: clean zero reading; three
+other queries return hits in other directions (Pfaffian property; pancyclicity
+and Hamilton-type chorded-cycle results \cite{chorded-survey}; matching
+polynomials) \\
+Math Stack Exchange, arXiv & 2 & zero hits \\
+OpenAlex & 1 & HTTP 429 on this candidate, not verified (gap disclosed) \\
+public Lean ecosystem & 2 & zero hits; one repository tree walk rate-limited \\
+library layer & 3 & mathlib has \texttt{circulantGraph} \cite{mathlib-circulant}
+but no matching-count theorem; compfiles none; sequencelib none \\
+\hline
+\end{tabular}%
+}
+\end{center}
+
+Two points of the record are part of the evidence. The externally supplied seed
+began $2,2,\dots$, and those two terms are artefacts of that pipeline's
+degenerate $n=1,2$ cases; the sequence used here starts at $n=3$ with $4$. And
+the general web search layer was unavailable during the review, so literature
+coverage is zbMATH-, arXiv- and Math-Stack-Exchange-centric; a
+Chinese-language database was not searched. If any of these channels later
+returns a hit on chorded-cycle matching counts, the tier above weakens
+accordingly, and this deposit will be amended by a later version rather than by
+editing this record.
+
+\section{Scope and limitations}
+
+Grade and boundary, stated as the audit states them. (a) The theorems cover the
+recurrence-defined sequences only; their equality with matching counts of the
+chorded cycle is not kernel-proved and is Conjecture~\ref{conj:bridge}. Its
+empirical support is enumeration by exact programs: the counting main program
+produced $3\le n\le 150$, cross-checked against a brute-force enumerator for
+$3\le n\le 16$ and against a second layout for $3\le n\le 36$, and against the
+externally supplied seed only for $3\le n\le 15$; the enumerators themselves are
+not verified, and the scripts and their outputs stay in the working repository
+under \texttt{tasks/20260927-mossad-cchord/}. (b)
+Theorem~\ref{thm:r0} holds for $j\ge 1$; at $j=0$ the value is $4$, which is
+$\equiv 0\pmod 4$. (c) Indexing is $0$-based: $c_r(j)$ corresponds to
+$a(3(j+1)+r)$. (d) The recurrences are computational findings: Berlekamp--Massey
+fits over $\mathbb{Q}$ verified digit-for-digit against enumeration, not
+derived from a transfer-matrix argument, and the natural uniform step-$3$
+ansatz is refuted on the enumerated window by exact rational arithmetic ($136$
+failures out of $139$ test indices, $12\le n\le 150$) --- a computation, not a
+theorem of this note. (e) The gate-four sign-off of the underlying task was
+exercised by the author's instruction to deposit this claim on 2026-09-27, while
+the task report file still carries its draft header; both facts are recorded
+here as they stand. (f) This note carries no literature review and is a deposit
+record, not a survey; the narrative paper for the same result is separate.
+
+\section*{Data availability}
+
+The deposit package for this claim contains the claim note (LaTeX source and
+PDF), the Lean sources (\texttt{proofs/}: frozen statement file, final proof
+file, \texttt{lean-toolchain}), the verification and audit logs, and the full
+C9 query log with zero-hit entries (\texttt{audit/}). Zenodo: the DOI is
+reserved at upload by the author and is recorded in \texttt{metadata/README.md}
+of this package once created; see \texttt{UPLOAD.md} in the source repository.
+Public mirror of this deposit: the claim lane's repository
+\url{https://github.com/Aurora0134/ai4math-claims}, directory
+\texttt{chorded-cycle-mod4/} (pushed under the author's standing instruction;
+the commit and timestamp are recorded in the source repository's
+\texttt{claims/chorded-cycle-mod4/card.md}).
+Claim note under CC BY 4.0, code under MIT.
+
+\section*{Use of generative AI}
+
+(a) AI performed: candidate generation and the exclusivity review,
+autoformalisation of the three statements, the roundtrip semantic check, proof
+search and proof-script writing, error classification and repair, and the
+assembly of this note including its verbatim listings. (b) Model, node and
+budget: all task-stage sampling ran on one node, wire-id
+\texttt{anthropic/a6api-main/kimi-k3}, with no cross-node switching, and
+consumed $1$ LLM call of a permitted $8$ and $15$ kernel compiles of a
+permitted $24$, copied verbatim from the task ledger. This note consumed $0$
+pipeline LLM calls against a cap of $4$; the drafting session ran with its
+model selection key in auto-routing mode (last observed relay node
+\texttt{stepfun/step-5-preview}), which is disclosed rather than replaced by the
+task node's name. (c) Final adjudication: all statements and proofs reported
+here were checked by the Lean 4 kernel: every proof compiles with no
+\texttt{sorry}, and \texttt{\#print axioms} reports only \{propext, Quot.sound,
+Classical.choice\}. (d) The AI system is not an author; the human author
+reviewed the evidence and is responsible for all content.
+
+\section*{Author contributions}
+
+CRediT-style: the human author adjudicated topic selection, statement semantics
+and the deposit decision; the AI4Math pipeline (an LLM) generated the candidate
+propositions, the proof searches and the text drafts. The AI system is not
+listed as an author.
+
+\begin{thebibliography}{9}
+% Reused from papers/chorded-cycle-mod4/paper.tex, where each entry was verified
+% on 2026-09-27 against Crossref title metadata (four DOIs), the arXiv export API
+% plus a 200 landing page (preprint), and 200 fetches for oeis.org and the pinned
+% mathlib file. Raw responses: papers/chorded-cycle-mod4/audit/bib-verify/. No
+% entry is quoted from memory; the DOI carried by our paper template for
+% reference lean4 was found to be wrong (it resolves to a Collatz paper in the
+% same volume) and is corrected to ..._37 here, verified by title metadata.
+\bibitem{lean4}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean 4 theorem prover and programming language.
+\newblock \emph{Automated Deduction -- CADE-28}, LNCS, pp.~625--635, 2021.
+\url{https://doi.org/10.1007/978-3-030-79876-5_37}
+
+\bibitem{mathlib}
+The mathlib Community.
+\newblock The Lean mathematical library.
+\newblock \emph{CPP 2020}, pp.~367--381, 2020.
+\url{https://doi.org/10.1145/3372885.3373824}
+
+\bibitem{mathlib-circulant}
+I.~Renison and B.~Mehta.
+\newblock \texttt{Mathlib/Combinatorics/SimpleGraph/Circulant.lean}, mathlib4,
+tag \texttt{v4.34.0}.
+\newblock
+\url{https://raw.githubusercontent.com/leanprover-community/mathlib4/v4.34.0/Mathlib/Combinatorics/SimpleGraph/Circulant.lean}
+
+\bibitem{godsil-gutman}
+C.~D. Godsil and I.~Gutman.
+\newblock On the theory of the matching polynomial.
+\newblock \emph{Journal of Graph Theory} 5 (1981), pp.~137--144.
+\url{https://doi.org/10.1002/jgt.3190050203}
+
+\bibitem{massey}
+J.~L. Massey.
+\newblock Shift-register synthesis and BCH decoding.
+\newblock \emph{IEEE Transactions on Information Theory} 15 (1969),
+pp.~122--127.
+\url{https://doi.org/10.1109/TIT.1969.1054260}
+
+\bibitem{chorded-survey}
+B.~Elliott, R.~Gould and K.~Hirohata.
+\newblock On degree sum conditions and vertex-disjoint chorded cycles.
+\newblock \emph{arXiv:1911.08686 [math.CO]}, 2019.
+\url{https://arxiv.org/abs/1911.08686}
+
+\bibitem{oeis}
+The OEIS Foundation.
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\newblock \url{https://oeis.org/}
+\end{thebibliography}
+
+\end{document}

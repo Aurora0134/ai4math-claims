@@ -1,0 +1,10 @@
+WELLDEF OK
+PROBE nlinarith FAIL
+PROBE norm_num FAIL
+PROBE simp FAIL
+PROBE ring FAIL
+PROBE ring_nf FAIL
+PROBE positivity FAIL
+PROBE omega FAIL
+PROBE linarith FAIL
+PROBE decide FAIL

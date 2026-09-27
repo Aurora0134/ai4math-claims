@@ -1,0 +1,38 @@
+# 监察院终审裁决书 — 20260927-mossad-cchord · 闸门三（agent-85，2026-09-27）
+
+## 裁决：【通过 · 签发】
+
+逐定理分级（宪条 4，不得越级）：
+
+| 定理 | 裁定 |
+|---|---|
+| cchordR2_mod_four（C1：r=2 子族 mod 4 恒 ≡3） | 完全证明 |
+| cchordR0_mod_four（C2：r=0 子族 mod 4 三分支，j≥1） | 完全证明 |
+| cchordR1_even_iff（C3：r=1 子族偶数 ⇔ (j+1)%5=3） | 完全证明 |
+
+全案实际达成最低级 = 完全证明；无脚手架介入（「脚手架通过」不适用）。
+
+## 四项独立核查（全部机械复核，非采信生成方自报）
+
+1. **statement 对称差 PASS**：冻结件 sha256 a69d00e5…a03b（与 freeze.md 一致）；statement 区 awk 抽取（def 块 + theorem 头至 `:= by`）双侧各 46 行 diff 为空；全文件 diff 仅 4 处段头（头注释 1 行散文交付说明无 statement 文本 + 三处 sorry→proof body）。
+2. **sorry/admit 全文扫描 PASS**：零命中（含注释、大小写不敏感）。
+3. **strict 终审复跑 PASS**：`scripts/lean-verify final/01-cchord-proved.lean` EXIT=0（29.1s）；68 行全为 if_neg/if_pos deprecation 警告，无 error（linter 警告不作否决依据）。
+4. **公理白名单 PASS**：公理副本核源后复跑 EXIT=0（29.6s）；三定理各 depends on axioms: [propext, Classical.choice, Quot.sound] ⊆ 白名单，无 sorryAx、无编外公理。
+
+附加核查：主张口径符合——theorem 层无图/匹配组合对象，语义桥未进 theorem 层（comb.excluded.semantics-bridge 先例）。
+
+## 报告必须披露的限定语（外交部 report.md 硬要求）
+
+(a) 定理层结论仅覆盖「递推定义版序列」，与「C_n 加全部 ⌊n/3⌋ 弦图匹配计数」的等同性未经 kernel 证明——只能按 OEIS/文献背书 + 计算探针以猜想层降级声明；
+(b) C2 仅对 j≥1 成立（j=0 处 ≡0 mod 4 为已知首例外，已写入冻结 statement docstring）；
+(c) 三条序列索引为 0-based，cchordRr j 对应 a(3(j+1)+r)。
+
+## 预算
+
+llm 0；compile 2（本审计两次复跑）→ 任务水位 compile 15/24、llm 1/8。
+
+## 发现（不否决）
+
+1. attempts/final-strict.out 与 final-axioms.out 未落 EXIT 行——已由两次独立复跑闭环；建议后续工序重定向后追加 `echo "EXIT=$?" >> <out>`。
+2. 68 条 deprecation 警告（if_neg/if_pos → ite_eq_right/left），未来重构可顺手替换，本案不处理。
+3. 无不一致项；军政部轮次史（r2 omega 假设形态、r3 intro 多余）已闭环，未触发换路铁律。

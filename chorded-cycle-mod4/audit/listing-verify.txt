@@ -1,0 +1,27 @@
+== claim.tex -- 2026-09-27 ==
+source sha256: 01-cchord-mods.lean=a69d00e537675c40bd13e82344004e7f1abd370dc3d9e543396fbf1818c3a03b  01-cchord-proved.lean=af39d35ea29c9a01369473140319f9c330d326601463839875d11b14bbba2237
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption.
+PASS statement: cchordR2 def + C1 header [01-cchord-mods.lean lines 22-42] bytes=832 sha256(body)=ba2488d770fe084e
+PASS statement: cchordR0 def + C2 header [01-cchord-mods.lean lines 45-63] bytes=764 sha256(body)=70680538fa4bf867
+PASS statement: cchordR1 def + C3 header [01-cchord-mods.lean lines 66-86] bytes=860 sha256(body)=6b5b18d46aae564f
+PASS proof: C1 complete [01-cchord-proved.lean lines 43-67] bytes=1431 sha256(body)=5c745dd4e7cc1fe4
+SKIP proof: C2 inductive step (excerpt): no 'lines 104--115' caption found (range carried elsewhere)
+PASS proof: C3 iff assembly (excerpt) [01-cchord-proved.lean lines 252-262] bytes=256 sha256(body)=8de6ab8cc82dc1bc
+== claim.tex -- 2026-09-27 ==
+source sha256: 01-cchord-mods.lean=a69d00e537675c40bd13e82344004e7f1abd370dc3d9e543396fbf1818c3a03b  01-cchord-proved.lean=af39d35ea29c9a01369473140319f9c330d326601463839875d11b14bbba2237
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption.
+PASS statement: cchordR2 def + C1 header [01-cchord-mods.lean lines 22-42] bytes=832 sha256(body)=ba2488d770fe084e
+PASS statement: cchordR0 def + C2 header [01-cchord-mods.lean lines 45-63] bytes=764 sha256(body)=70680538fa4bf867
+PASS statement: cchordR1 def + C3 header [01-cchord-mods.lean lines 66-86] bytes=860 sha256(body)=6b5b18d46aae564f
+PASS proof: C1 complete [01-cchord-proved.lean lines 43-67] bytes=1431 sha256(body)=5c745dd4e7cc1fe4
+SKIP proof: C2 inductive step (excerpt): no 'lines 104--115' caption found (range carried elsewhere)
+PASS proof: C3 iff assembly (excerpt) [01-cchord-proved.lean lines 252-262] bytes=256 sha256(body)=8de6ab8cc82dc1bc
+== claim.tex -- 2026-09-27 ==
+source sha256: 01-cchord-mods.lean=a69d00e537675c40bd13e82344004e7f1abd370dc3d9e543396fbf1818c3a03b  01-cchord-proved.lean=af39d35ea29c9a01369473140319f9c330d326601463839875d11b14bbba2237
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption.
+PASS statement: cchordR2 def + C1 header [01-cchord-mods.lean lines 22-42] bytes=832 sha256(body)=ba2488d770fe084e
+PASS statement: cchordR0 def + C2 header [01-cchord-mods.lean lines 45-63] bytes=764 sha256(body)=70680538fa4bf867
+PASS statement: cchordR1 def + C3 header [01-cchord-mods.lean lines 66-86] bytes=860 sha256(body)=6b5b18d46aae564f
+PASS proof: C1 complete [01-cchord-proved.lean lines 43-67] bytes=1431 sha256(body)=5c745dd4e7cc1fe4
+SKIP proof: C2 inductive step (excerpt): no 'lines 104--115' caption found (range carried elsewhere)
+PASS proof: C3 iff assembly (excerpt) [01-cchord-proved.lean lines 252-262] bytes=256 sha256(body)=8de6ab8cc82dc1bc

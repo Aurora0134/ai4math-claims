@@ -11,6 +11,7 @@
 | `tatami-mod8-defect/` | 递推定义 tatami 计数序列的 mod-8 周期 4 定理 + 两条伴随恒等式（`tatami_mod8_period4`、`bcorner_odd`、`bcorner_eq`） | 占位短笺（`claim/`）+ 冻结 statement 与 0-sorry 证明（`proofs/`）+ 闸门与查新证据（`audit/`）+ 元数据（`metadata/`） | Lean 4 kernel 全编译，公理 ⊆ {propext, Quot.sound, Classical.choice}；冻结 sha256 在包内 | 上传后回填 |
 | `cyl3-mod23/` | 圆柱三孔递推族双定理（`cyl3_master`、`cyl3_matrix_family`） | 同上结构 | 同上 | 上传后回填 |
 | `edgemid-monomer-dimer/` | 边中点单体-二聚体递推双定理（`edgemid_master`、`edgemid_matrix_family`） | 同上结构 | 同上 | 上传后回填 |
+| `chorded-cycle-mod4/` | 圈 C_n 加全部 ⌊n/3⌋ 弦的匹配数按 n mod 3 三子族递推的模性质三定理（`cchordR2_mod_four`、`cchordR0_mod_four`、`cchordR1_even_iff`；语义桥属猜想层，未进 kernel） | 同上结构，另含 `metadata/FILE-MANIFEST.txt`（逐件 sha256 清单）与包内工具脚本 | 同上；查新证据 = C9 记录四段逐字抽取（含零命中查询与通道降级备忘） | 上传后回填 |
 
 ## 工具链钉版
 
