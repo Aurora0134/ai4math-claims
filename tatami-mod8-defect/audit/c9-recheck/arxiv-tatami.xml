@@ -1,0 +1,374 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/j3nIpwt/naVVFZf+SflMv+hgRC4</id>
+  <title>arXiv Query: search_query=all:"tatami"&amp;id_list=&amp;start=0&amp;max_results=40</title>
+  <updated>2026-09-27T12:09:19Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=all:%22tatami%22&amp;start=0&amp;max_results=40&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>40</opensearch:itemsPerPage>
+  <opensearch:totalResults>16</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/1103.3309v1</id>
+    <title>Auspicious tatami mat arrangements</title>
+    <updated>2011-03-16T22:15:29Z</updated>
+    <link href="https://arxiv.org/abs/1103.3309v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1103.3309v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>An \emph{auspicious tatami mat arrangement} is a tiling of a rectilinear region with two types of tiles, $1 \times 2$ tiles (dimers) and $1 \times 1$ tiles (monomers). The tiles must cover the region and satisfy the constraint that no four corners of the tiles meet; such tilings are called \emph{tatami tilings}. The main focus of this paper is when the rectilinear region is a rectangle. We provide a structural characterization of rectangular tatami tilings and use it to prove that the tiling is completely determined by the tiles that are on its border. We prove that the number of tatami tilings of an $n \times n$ square with $n$ monomers is $n2^{n-1}$. We also show that, for fixed-height, the generating function for the number of tatami tilings of a rectangle is a rational function, and outline an algorithm that produces the generating function.</summary>
+    <category term="math.CO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2011-03-16T22:15:29Z</published>
+    <arxiv:comment>23 pages, expands on conference proceedings in A. Erickson, F. Ruskey, M. Schurch and J. Woodcock, Auspicious Tatami Mat Arrangements, The 16th Annual International Computing and Combinatorics Conference (COCOON 2010), July 19-21, Nha Trang, Vietnam. LNCS 6196 (2010) 288-297. A list of tatami related discoveries is available at http://alejandroerickson.com/joomla/tatami-blog/collected-resources</arxiv:comment>
+    <arxiv:primary_category term="math.CO"/>
+    <author>
+      <name>Alejandro Erickson</name>
+    </author>
+    <author>
+      <name>Frank Ruskey</name>
+    </author>
+    <author>
+      <name>Mark Schurch</name>
+    </author>
+    <author>
+      <name>Jennifer Woodcock</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2408.13507v2</id>
+    <title>Tatami Printer: Physical ZKPs for Tatami Puzzles</title>
+    <updated>2025-02-09T08:42:04Z</updated>
+    <link href="https://arxiv.org/abs/2408.13507v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2408.13507v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Tatami puzzles are pencil puzzles with an objective to partition a rectangular grid into rectangular regions such that no four regions share a corner point, as well as satisfying other constraints. In this paper, we develop a physical card-based protocol called Tatami printer that can help verify solutions of Tatami puzzles. We then use the Tatami printer to construct zero-knowledge proof protocols for two such puzzles: Tatamibari and Square Jam. These protocols enable a prover to show a verifier the existence of the puzzles' solutions without revealing them.</summary>
+    <category term="cs.CR" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-08-24T08:02:52Z</published>
+    <arxiv:comment>This paper has appeared at CIAC 2025</arxiv:comment>
+    <arxiv:primary_category term="cs.CR"/>
+    <author>
+      <name>Suthee Ruangwises</name>
+    </author>
+    <arxiv:doi>10.1007/978-3-031-92932-8_8</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1007/978-3-031-92932-8_8" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1403.4776v1</id>
+    <title>Generating Tatami Coverings Efficiently</title>
+    <updated>2014-03-19T12:01:52Z</updated>
+    <link href="https://arxiv.org/abs/1403.4776v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1403.4776v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present two algorithms to list certain classes of monomino-domino coverings which conform to the \emph{tatami} restriction; no four tiles meet. Our methods exploit structural features of tatami coverings in order to create the lists in $O(1)$ time per covering. This is faster than known methods for generating certain classes of matchings in bipartite graphs.
+  We discuss tatami coverings of $n\times n$ grids with $n$ monominoes and $v$ vertical dominoes, as well as tatami coverings of a two-way infinitely-wide strip of constant height, subject to the constraint that they have a finite number of non-trivial structural "features".
+  These two classes are representative of two differing structural characterisations of tatami coverings which may be adapted to count other classes of tatami coverings or locally restricted matchings, such as tatami coverings of rectangles.</summary>
+    <category term="math.CO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2014-03-19T12:01:52Z</published>
+    <arxiv:comment>8 pages, submitted to a conference</arxiv:comment>
+    <arxiv:primary_category term="math.CO"/>
+    <author>
+      <name>Alejandro Erickson</name>
+    </author>
+    <author>
+      <name>Frank Ruskey</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1305.6669v1</id>
+    <title>Domino Tatami Covering is NP-complete</title>
+    <updated>2013-05-29T01:00:33Z</updated>
+    <link href="https://arxiv.org/abs/1305.6669v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1305.6669v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>A covering with dominoes of a rectilinear region is called \emph{tatami} if no four dominoes meet at any point. We describe a reduction from planar 3SAT to Domino Tatami Covering. As a consequence it is NP-complete to decide whether there is a perfect matching of a graph that meets every 4-cycle, even if the graph is restricted to be an induced subgraph of the grid-graph. The gadgets used in the reduction were discovered with the help of a SAT-solver.</summary>
+    <category term="cs.CC" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="math.CO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2013-05-29T01:00:33Z</published>
+    <arxiv:comment>10 pages, accepted at The International Workshop on Combinatorial Algorithms (IWOCA) 2013</arxiv:comment>
+    <arxiv:primary_category term="cs.CC"/>
+    <author>
+      <name>Alejandro Erickson</name>
+    </author>
+    <author>
+      <name>Frank Ruskey</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1301.5969v2</id>
+    <title>Tatami Maker: A combinatorially rich mechanical game board</title>
+    <updated>2013-03-18T04:28:56Z</updated>
+    <link href="https://arxiv.org/abs/1301.5969v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1301.5969v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Japanese tatami mats are often arranged so that no four mats meet. This local restriction imposes a rich combinatorial structure when applied to monomino-domino coverings of rectilinear grids. We describe a modular, mechanical game board, prototyped with a desktop 3D printer, that enforces this restriction, and transforms tatami pen-and- paper puzzles into interactive sculptures. We review some recent mathematical discoveries on tatami coverings and present five new combinatorial games implemented on the game board.</summary>
+    <category term="math.CO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2013-01-25T06:38:10Z</published>
+    <arxiv:comment>8 pages, Accepted at Bridges Conference 2013</arxiv:comment>
+    <arxiv:primary_category term="math.CO"/>
+    <author>
+      <name>Alejandro Erickson</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1311.6135v1</id>
+    <title>Paving Rectangular Regions with Rectangular Tiles: Tatami and Non-Tatami Tilings</title>
+    <updated>2013-11-24T15:43:45Z</updated>
+    <link href="https://arxiv.org/abs/1311.6135v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1311.6135v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The number of complete tilings of m X n floors for tiles of shape 1 X 2, 1 X 3, 1 X 4 and 2 X 3 is computed numerically for floors up to width m=9 and variable floor lengths n. Counts are obtained for two classes, for fixed tile stack orientation on one hand and for counts up to rotations and reflections on the other hand. Counts are refined by the number of points on the floor where 4 tiles meet, i.e., by the degree of violation of the requirement for Tatami tilings.</summary>
+    <category term="math.CO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2013-11-24T15:43:45Z</published>
+    <arxiv:comment>46 pages, 1 figure, 66 tables</arxiv:comment>
+    <arxiv:primary_category term="math.CO"/>
+    <author>
+      <name>Richard J. Mathar</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1509.05983v3</id>
+    <title>Monte Carlo estimation of the number of tatami tilings</title>
+    <updated>2016-03-08T08:26:41Z</updated>
+    <link href="https://arxiv.org/abs/1509.05983v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1509.05983v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Motivated by the way Japanese tatami mats are placed on the floor, we consider domino tilings with a constraint and estimate the number of such tilings of plane regions. We map the system onto a monomer-dimer model with a novel local interaction on the dual lattice. We use a variant of the Hamiltonian replica exchange Monte Carlo method and the multi-parameter reweighting technique to study the model. The properties of the quantity are studied beyond exact enumeration and combinatorial method. The logarithm of the number of the tilings is linear in the boundary length of the region for all the regions studied.</summary>
+    <category term="cond-mat.stat-mech" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="math.CO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="physics.comp-ph" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2015-09-20T09:12:16Z</published>
+    <arxiv:comment>16 pages, 11 figures, (v2)Revised presentation, results unchanged. (v3)Typos corrected. Data and Discussions for more plane regions added</arxiv:comment>
+    <arxiv:primary_category term="cond-mat.stat-mech"/>
+    <arxiv:journal_ref>Int.J.Mod.Phys.C 27(2016)1650128</arxiv:journal_ref>
+    <author>
+      <name>Kenji Kimura</name>
+    </author>
+    <author>
+      <name>Saburo Higuchi</name>
+    </author>
+    <arxiv:doi>10.1142/S012918311650128X</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1142/S012918311650128X" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1304.0070v1</id>
+    <title>Enumerating maximal tatami mat coverings of square grids with $v$ vertical dominoes</title>
+    <updated>2013-03-30T06:11:20Z</updated>
+    <link href="https://arxiv.org/abs/1304.0070v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1304.0070v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We enumerate a certain class of monomino-domino coverings of square grids, which conform to the \emph{tatami} restriction; no four tiles meet. Let $\mathbf T_{n}$ be the set of monomino-domino tatami coverings of the $n\times n$ grid with the maximum number, $n$, of monominoes, oriented so that they have a monomino in each of the top left and top right corners. We give an algorithm for exhaustively generating the coverings in $\mathbf T_{n}$ with exactly $v$ vertical dominoes in constant amortized time, and an explicit formula for counting them. The polynomial that generates these counts has the factorisation {align*} P_n(z)\prod_{j\ge 1} S_{\lfloor \frac{n-2}{2^j} \rfloor}(z), {align*} where $S_n(z) = \prod_{i=1}^{n} (1 + z^i)$, and $P_n(z)$ is an irreducible polynomial, at least for ${1 &lt; n &lt; 200}$. We present some compelling properties and conjectures about $P_n(z)$. For example $P_n(1) = n2^{ν(n-2)-1}$ for all $n \ge 2$, where $ν(n)$ is the number of 1s in the binary representation of $n$ and deg$(P_n(z)) = \sum_{k=1}^{n-2} Od(k)$, where $Od(k)$ is the largest odd divisor of $k$.</summary>
+    <category term="math.CO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2013-03-30T06:11:20Z</published>
+    <arxiv:comment>22 pages</arxiv:comment>
+    <arxiv:primary_category term="math.CO"/>
+    <author>
+      <name>Alejandro Erickson</name>
+    </author>
+    <author>
+      <name>Frank Ruskey</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1110.5103v1</id>
+    <title>Monomer-dimer tatami tilings of square regions</title>
+    <updated>2011-10-24T00:51:03Z</updated>
+    <link href="https://arxiv.org/abs/1110.5103v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1110.5103v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We prove that the number of monomer-dimer tilings of an $n\times n$ square grid, with $m&lt;n$ monomers in which no four tiles meet at any point is $m2^m+(m+1)2^{m+1}$, when $m$ and $n$ have the same parity. In addition, we present a new proof of the result that there are $n2^{n-1}$ such tilings with $n$ monomers, which divides the tilings into $n$ classes of size $2^{n-1}$. The sum of these tilings over all monomer counts has the closed form $2^{n-1}(3n-4)+2$ and, curiously, this is equal to the sum of the squares of all parts in all compositions of $n$. We also describe two algorithms and a Gray code ordering for generating the $n2^{n-1}$ tilings with $n$ monomers, which are both based on our new proof.</summary>
+    <category term="math.CO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.DM" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2011-10-24T00:51:03Z</published>
+    <arxiv:comment>Expanded conference proceedings: A. Erickson, M. Schurch, Enumerating tatami mat arrangements of square grids, in: 22nd International Workshop on Combinatorial Al- gorithms (IWOCA), volume 7056 of Lecture Notes in Computer Science (LNCS), Springer Berlin / Heidelberg, 2011, p. 12 pages. More on Tatami tilings at http://alejandroerickson.com/joomla/tatami-blog/collected-resources</arxiv:comment>
+    <arxiv:primary_category term="math.CO"/>
+    <author>
+      <name>Alejandro Erickson</name>
+    </author>
+    <author>
+      <name>Mark Schurch</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1706.05627v1</id>
+    <title>Safety on Judo Children: Methodology and Results</title>
+    <updated>2017-06-18T09:50:35Z</updated>
+    <link href="https://arxiv.org/abs/1706.05627v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1706.05627v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Many doctors although they have not firsthand experience of judo, describe it as a sport unsuitable for children. Theoretically speaking falls derived by Judo throwing techniques,could be potentially dangerous,especially for kids,if poorly managed.A lot of researches were focalized on trauma or injuries taking place in judo, both during training and competition The goal of this Research is to define and apply a scientific methodology to evaluate the hazard in falls by judo throws for children during training.By organizing the research there are defined: Five throws with different falls and flight time. The maximum impact forces and velocities. The contact surfaces of bodies on the Tatami. The Elastocaloric effect to evaluate the energy absorption by Tatami Materials. The maximum Strain on the Tatami. The impact reaction Stress on the children bodies. After valuated the mechanic of falls.Is performed the evaluation of contact body surfaces on the Tatami, by a Japanese AVIO Thermal Camera. To connect the impact biomechanics with the potential trauma, the only worldwide accepted methodology both from Medical and Engineering people is the Crash test Methodology. Connecting in this way, the mechanical results with the resulting physiological hazard of Judo throwing techniques. With this use it is proved that correct falls of judo throws are safe for judo boy, on IJF approved Tatami.The last two troubles that our analysis has singled out about still judo throwing techniques training for kids are: The wrong combination of kids during training and the potential long term trauma that have for organ target both Liver and Spleen. These unevaluated problems are present in kids training, in such delicate issues a Digital Assistant named (Hazard Training Sentinel) that is able to alert if cumulative stress for spleen and liver could be dangerous for a specific boy.</summary>
+    <category term="physics.pop-ph" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2017-06-18T09:50:35Z</published>
+    <arxiv:comment>23 pages, 21 figures, 5 tables, Paper submitted during 4th European Science of Judo Research Symposium and 3rd Scientific and Professional Conference on Judo: Applicable Research in Judo 12-13. June 2017. Porec, Croatia</arxiv:comment>
+    <arxiv:primary_category term="physics.pop-ph"/>
+    <author>
+      <name>Attilio Sacripanti</name>
+    </author>
+    <author>
+      <name>Tania De Blasis</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1008.0682v2</id>
+    <title>Polarization-analyzed resonant inelastic x-ray scattering of the orbital excitations in KCuF3</title>
+    <updated>2010-08-12T09:37:30Z</updated>
+    <link href="https://arxiv.org/abs/1008.0682v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1008.0682v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We report a Cu K-edge resonant inelastic x-ray scattering (RIXS) study of orbital excitations in KCuF3 . By performing the polarization analysis of the scattered photons, we disclose that the excitation between the eg orbitals and the excitations from t2g to eg exhibit distinct polarization dependence. The polarization dependence of the respective excitations is interpreted based on a phenomenological consideration of the symmetry of the RIXS process that yields a necessary condition for observing the excitations. In addition, we show that the orbital excitations are dispersionless within our experimental resolution.</summary>
+    <category term="cond-mat.str-el" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2010-08-04T01:11:59Z</published>
+    <arxiv:comment>5 pages, 3 figures</arxiv:comment>
+    <arxiv:primary_category term="cond-mat.str-el"/>
+    <arxiv:journal_ref>Phys. Rev. B 83, 241101(R) (2011)</arxiv:journal_ref>
+    <author>
+      <name>K. Ishii</name>
+    </author>
+    <author>
+      <name>S. Ishihara</name>
+    </author>
+    <author>
+      <name>Y. Murakami</name>
+    </author>
+    <author>
+      <name>K. Ikeuchi</name>
+    </author>
+    <author>
+      <name>K. Kuzushita</name>
+    </author>
+    <author>
+      <name>T. Inami</name>
+    </author>
+    <author>
+      <name>K. Ohwada</name>
+    </author>
+    <author>
+      <name>M. Yoshida</name>
+    </author>
+    <author>
+      <name>I. Jarrige</name>
+    </author>
+    <author>
+      <name>N. Tatami</name>
+    </author>
+    <author>
+      <name>S. Niioka</name>
+    </author>
+    <author>
+      <name>D. Bizen</name>
+    </author>
+    <author>
+      <name>Y. Ando</name>
+    </author>
+    <author>
+      <name>J. Mizuki</name>
+    </author>
+    <author>
+      <name>S. Maekawa</name>
+    </author>
+    <author>
+      <name>Y. Endoh</name>
+    </author>
+    <arxiv:doi>10.1103/PhysRevB.83.241101</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1103/PhysRevB.83.241101" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2009.02906v1</id>
+    <title>Suwari Seoi Safety: from children Dojo to High Level Competition (Biomechanical Part)</title>
+    <updated>2020-09-07T06:54:48Z</updated>
+    <link href="https://arxiv.org/abs/2009.02906v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2009.02906v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In this paper we face the problem of safety connected to a class of throws that are more often applied in every level of competitions. However, to our knowledge it has never been a scientific study on this subject in Japan and, to our great amazement, in Europe, only one, and in very recent times. While the family of techniques that is applied with two knees on the ground has gone over time, increasing, without increasing the immediate traumas. this posed the problem if these techniques were really dangerous. It was decided to investigate in a comprehensive way, on the immediate traumas, by Biomechanics of the technique aimed at the safety of Tori, from children in the dojo up to high-level competitions. With the purpose to clarify: if the technique is dangerous, in its correct execution, for children and athletes, if the technique is dangerous for the accumulation of traumas in the long run build up a mathematical model of interaction between knees and Tatami. The experimental part was developed with a thermal imaging camera that allowed to highlight the actual impact surfaces and therefore to trace the stress received by the knees, both for the children and for the athletes of the Italian National Team. the results have made clear that, if well done and on a certified tatami, the technique has a negligible probability of immediate trauma.</summary>
+    <category term="physics.pop-ph" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2020-09-07T06:54:48Z</published>
+    <arxiv:comment>51 pages, 68 Figures, 19 Tables, 12 Diagrams</arxiv:comment>
+    <arxiv:primary_category term="physics.pop-ph"/>
+    <arxiv:journal_ref>A very short version of this basic article will be published with some esteemed colleagues in ASJ The Art and Science of Judo Journal N 1 2021 IJF Academy Edition</arxiv:journal_ref>
+    <author>
+      <name>Attilio Sacripanti</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2108.08909v1</id>
+    <title>A Simple Approach to the Tiling Problem Using Recursive Sequence</title>
+    <updated>2021-08-18T10:13:27Z</updated>
+    <link href="https://arxiv.org/abs/2108.08909v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2108.08909v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The tiling problem has been a famous problem that has appeared in many Mathematics problems. Many of its solutions are rooted in high-level Mathematics. Thus we hope to tackle this problem using more elementary Mathematics concepts. In this report, we start with the simplest cases, with the smaller numbers: the number of ways to tile a $2 \times n$, $3 \times n$, $4 \times n$ rectangular board using $2 \times 1$ domino tiles, where the number of rows is fixed and we present a recursive formula based on $m$ and the earlier terms. This allows us to deduce the non-recursive formula for each case that is only dependent on $m$. For each case, we also expand and generalize the problem, not just for $2$, $3$, $4$ but for any positive integer $k$, for certain types of configurations of the board. We also focus on one of the famous variations of the tiling problem: tatami tiling, and present a solution for simple cases: $2 \times n$, $3 \times n$, $4 \times n$. In the end, we have managed to find a simpler solution for three different configurations of the board, with some we even deduced the non-recursive formula. We have also solved simple cases of the tatami tiling problem, with the hope to tackle the general case in the future. We realized that our method only works on a case-by-case basis, with little success in solving the general case. This approach is also applicable in many other counting problems which we wish to pursue for further research.</summary>
+    <category term="math.HO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="math.CO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2021-08-18T10:13:27Z</published>
+    <arxiv:comment>A project submitted for the Singapore Mathematics Project Festival 2019</arxiv:comment>
+    <arxiv:primary_category term="math.HO"/>
+    <author>
+      <name>Le Viet Hung</name>
+    </author>
+    <author>
+      <name>Tan Yiming</name>
+    </author>
+    <author>
+      <name>Huang Keyi</name>
+    </author>
+    <author>
+      <name>Jin Qingyang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2601.00937v1</id>
+    <title>Biomechanics of Tori body motion during competition Sutemi, Makikomi, Tai Atari</title>
+    <updated>2026-01-02T13:19:47Z</updated>
+    <link href="https://arxiv.org/abs/2601.00937v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2601.00937v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Background Objectives:The biomechanics of Tori s body motion during Sutemi,sacrifice techniques,Makikomi wrapping techniques,and Tai Atari,Body Strike techniques in judo is crucial for understanding these techniques' effectiveness and safety. This study examined the biomechanics by analysing the entire body of the tori during execution. Methods:We analysed Tori s body motion using original biomechanical models, considering the balance of sacrificing to throw Uke and body mass to strike the opponent. General equations for Sutemi, Makikomi, and Tai atari were established, and their utilisation in high level male competition was statistically analysed. Results:The results show that effective Sutemi and Makikomi execution depends on the correct use of Tori's body mass.The biomechanical model revealed the relationships between angular falling speed, body angle, and athlete height.The model allowed us to evaluate the falling velocity, showing that the angular velocity and acceleration were proportional to the gravitational acceleration and body-Tatami angle and inversely proportional to the athlete height.The stopping and sliding forces are directly proportional to the sum of the Tori and Uke masses and the body Tatami angle but are independent of the athletes eight. Tai Atari s force was quantified to evaluate its situational applicability in competition. Conclusion:This study advanced the biomechanical understanding of Sutemi, Makikomi, and Tai Atari using two original theoretical models, highlighting the importance of Tori s body mass motion. The findings obtained can influence training and competition strategies, enhance technique effectiveness, and reduce injury risks.</summary>
+    <category term="physics.pop-ph" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="physics.med-ph" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-01-02T13:19:47Z</published>
+    <arxiv:comment>17 pages, 10 figures, presented at IJF Journal presented 22 October 2025, accepted 10 November 2025</arxiv:comment>
+    <arxiv:primary_category term="physics.pop-ph"/>
+    <arxiv:journal_ref>The Art and Sciences of Judo IJF Journal Volume 5 Number 2 2026 pages 24-39</arxiv:journal_ref>
+    <author>
+      <name>Attilio Sacripanti</name>
+    </author>
+    <author>
+      <name>Envic Galea</name>
+    </author>
+    <author>
+      <name>Florin Daniel Lascau</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2006.13527v2</id>
+    <title>Adversarial Model for Rotated Indoor Scenes Planning</title>
+    <updated>2020-07-07T03:43:11Z</updated>
+    <link href="https://arxiv.org/abs/2006.13527v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2006.13527v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In this paper, we propose an adversarial model for producing furniture layout for interior scene synthesis when the interior room is rotated. The proposed model combines a conditional adversarial network, a rotation module, a mode module, and a rotation discriminator module. As compared with the prior work on scene synthesis, our proposed three modules enhance the ability of auto-layout generation and reduce the mode collapse during the rotation of the interior room. We conduct our experiments on a proposed real-world interior layout dataset that contains 14400 designs from the professional designers. Our numerical results demonstrate that the proposed model yields higher-quality layouts for four types of rooms, including the bedroom, the bathroom, the study room, and the tatami room.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2020-06-24T07:29:07Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Xinhan Di</name>
+    </author>
+    <author>
+      <name>Pengqian Yu</name>
+    </author>
+    <author>
+      <name>Hong Zhu</name>
+    </author>
+    <author>
+      <name>Lei Cai</name>
+    </author>
+    <author>
+      <name>Qiuyan Sheng</name>
+    </author>
+    <author>
+      <name>Changyu Sun</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1608.04454v1</id>
+    <title>Cosmological surveys with multi-object spectrographs</title>
+    <updated>2016-08-16T01:16:43Z</updated>
+    <link href="https://arxiv.org/abs/1608.04454v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1608.04454v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Multi-object spectroscopy has been a key technique contributing to the current era of 'precision cosmology'. From the first exploratory surveys of the large-scale structure and evolution of the universe to the current generation of superbly detailed maps spanning a wide range of redshifts, multi-object spectroscopy has been a fundamentally important tool for mapping the rich structure of the cosmic web and extracting cosmological information of increasing variety and precision. This will continue to be true for the foreseeable future, as we seek to map the evolving geometry and structure of the universe over the full extent of cosmic history in order to obtain the most precise and comprehensive measurements of cosmological parameters. Here I briefly summarize the contributions that multi-object spectroscopy has made to cosmology so far, then review the major surveys and instruments currently in play and their prospects for pushing back the cosmological frontier. Finally, I examine some of the next generation of instruments and surveys to explore how the field will develop in coming years, with a particular focus on specialised multi-object spectrographs for cosmology and the capabilities of multi-object spectrographs on the new generation of extremely large telescopes.</summary>
+    <category term="astro-ph.IM" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="astro-ph.CO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2016-08-16T01:16:43Z</published>
+    <arxiv:comment>Ground-based and Airborne Instrumentation for Astronomy VI, edited by Christopher J. Evans, Luc Simard, Hideki Tatami, Proc. of SPIE Vol. 9908, 99081S, 2016 SPIE, CCC code: 0277-786X/16/$18, doi: 10.1117/12.2231829</arxiv:comment>
+    <arxiv:primary_category term="astro-ph.IM"/>
+    <author>
+      <name>Matthew Colless</name>
+    </author>
+    <arxiv:doi>10.1117/12.2231829</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1117/12.2231829" title="doi"/>
+  </entry>
+</feed>

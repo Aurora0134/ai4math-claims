@@ -1,0 +1,406 @@
+% claim.tex -- tatami-mod8-defect priority claim note (SOP 08b claim channel).
+% AI-generated 2026-09-27 by the AI4Math paper department (claim lane).
+% lstlean.tex copied unchanged from harness/templates/paper/lstlean.tex.
+% Machine-readable anchors: every theorem carries a % LEAN: line (task id +
+% declaration name + grade); paper-lint.sh and the claim audit check against it.
+% All Lean listings are byte-exact mechanical excerpts of the frozen final
+% development tasks/20260926-beian-select/final/01-proof-complete.lean.
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\input{lstlean}
+\lstset{language=lean}
+% --- XeTeX rendering patch (backported from papers/cyl3-mod23/paper.tex,
+%     extended with <= >= |- <-> emdash). Rendering-only; source bytes of
+%     listings unchanged. Guarded so pdflatex keeps literate-table behaviour.
+\ifdefined\XeTeXversion
+  {\lccode`\~="2022 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\bullet}}}}
+  {\lccode`\~="2115 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{N}}}}}
+  {\lccode`\~="2124 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{Z}}}}}
+  {\lccode`\~="2190 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftarrow}}}}
+  {\lccode`\~="2192 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rightarrow}}}}
+  {\lccode`\~="2194 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftrightarrow}}}}
+  {\lccode`\~="2200 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\forall}}}}
+  {\lccode`\~="2203 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\exists}}}}
+  {\lccode`\~="2227 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\wedge}}}}
+  {\lccode`\~="2228 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vee}}}}
+  {\lccode`\~="2261 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\equiv}}}}
+  {\lccode`\~="2264 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leq}}}}
+  {\lccode`\~="2265 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\geq}}}}
+  {\lccode`\~="22A2 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vdash}}}}
+  {\lccode`\~="27E8 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\langle}}}}
+  {\lccode`\~="27E9 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rangle}}}}
+\fi
+\ifdefined\XeTeXversion
+  \usepackage{xeCJK}
+  \setCJKmainfont{SimSun}
+\fi
+
+\newtheorem{theorem}{Theorem}
+
+\title{A mod-8 period-4 theorem and two companion identities for
+recurrence-defined tatami counting sequences\\
+(Lean 4 machine-checked claim of record)}
+\author{Aurora0134\thanks{Contact: via the GitHub account Aurora0134; ORCID to
+be added at Zenodo upload.}}
+\date{September 27, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We record three theorems about two recurrence-defined integer sequences:
+$a(n)$, given by the base values and the order-6 recurrence of OEIS entry
+A180970, and $b(n)$, a corner-defect companion sequence satisfying the same
+order-6 recurrence. For all $n \geq 4$, $a(n) \bmod 8$ depends only on
+$n \bmod 4$, with pattern $(4,2,4,6)$; $b(n)$ is odd for all $n \geq 4$; and
+$20\,b(n)$ equals a fixed linear combination of $a(n), \dots, a(n-5)$ for all
+$n \geq 10$. All proofs are machine-checked by the Lean 4 kernel (0
+\texttt{sorry}; axioms within \{propext, Quot.sound, Classical.choice\}). A
+structured novelty search found no occupying record. The artifact package is
+deposited on Zenodo. This note is a priority claim of record, not a full
+paper.
+\end{abstract}
+
+\section{Introduction}
+
+Let $a(n)$ be the integer sequence with base values
+$a(0), \dots, a(8) = 1, 3, 13, 22, 44, 90, 196, 406, 852$ and the order-6
+recurrence $a(n) = a(n-1) + 2a(n-2) + 2a(n-4) - a(n-5) - a(n-6)$ for
+$n \geq 9$; these are exactly the base values and the recurrence signature
+$(1,2,0,2,-1,-1)$ of OEIS entry A180970, the number of tatami tilings of a
+$3 \times n$ grid with monomers allowed \cite{oeis-a180970}. The
+identification of this recurrence-defined sequence with the tatami counting
+sequence rests on the OEIS record and the Erickson--Ruskey literature
+\cite{auspicious,ejc-monodimer,square-tatami} and is \emph{not} itself
+formalized here. Let $b(n)$ (the corner-defect companion) be the integer
+sequence with $b(0) := 0$ (a conventional value on which no theorem below
+depends), machine-enumerated definition inputs
+$b(1), \dots, b(9) = 2, 8, 24, 41, 85, 177, 381, 787, 1655$, and the same
+order-6 recurrence for $n \geq 10$.
+
+This note records three theorems about these two recurrence-defined
+sequences, produced by AI4Math, a highly automated LLM-plus-kernel pipeline
+in which the Lean 4 kernel is the sole arbiter of correctness. The present
+text is a priority claim of record --- a short deposit note accompanying a
+Zenodo artifact package; a fuller narrative paper is prepared separately
+through the pipeline's paper lane. Every theorem stated below is a
+\emph{complete proof} in the pipeline's grading: it compiles with 0
+\texttt{sorry}, its axioms stay within the standard whitelist, and the
+statement was frozen before proving.
+
+\section{Statement}
+
+The formal development defines the two sequences and the residue pattern
+\lean{pat8} as follows (frozen snapshot; the definitions below are
+byte-identical to the frozen statement file \texttt{01-statement.lean},
+sha256 \texttt{59560f57...82b187f}).
+
+\begin{lstlisting}[caption={Formal definitions of \texttt{a180970}, \texttt{pat8} and \texttt{bcorner} (verbatim excerpt, lines 12--54 of \texttt{final/01-proof-complete.lean}; byte-identical to the frozen statement file).},label={lst:defs}]
+/-- A180970 as a recurrence-defined sequence: base values a(0..8) and the
+order-6 recurrence a(n) = a(n-1) + 2 a(n-2) + 2 a(n-4) - a(n-5) - a(n-6)
+for n ≥ 9 (OEIS signature (1,2,0,2,-1,-1)). -/
+def a180970 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 3
+  | 2 => 13
+  | 3 => 22
+  | 4 => 44
+  | 5 => 90
+  | 6 => 196
+  | 7 => 406
+  | 8 => 852
+  | n + 9 =>
+      a180970 (n + 8) + 2 * a180970 (n + 7) + 2 * a180970 (n + 5)
+        - a180970 (n + 4) - a180970 (n + 3)
+
+/-- Residue pattern: a(n) % 8 = pat8 (n % 4). -/
+def pat8 : ℕ → ℤ
+  | 0 => 4
+  | 1 => 2
+  | 2 => 4
+  | _ => 6
+
+/-- Corner-defect sequence b_c(n), recurrence-defined version: tatami tilings of a
+3×n grid with one corner cell removed.  Base values b(1..9) from exact enumeration
+(machine probe, n ≤ 20); b(0) := 0 is a conventional value (a 3×0 grid has no corner
+cell) — no theorem below depends on it.  For n ≥ 10 the same order-6 recurrence as
+the base sequence holds: b(n) = b(n-1) + 2 b(n-2) + 2 b(n-4) - b(n-5) - b(n-6). -/
+def bcorner : ℕ → ℤ
+  | 0 => 0
+  | 1 => 2
+  | 2 => 8
+  | 3 => 24
+  | 4 => 41
+  | 5 => 85
+  | 6 => 177
+  | 7 => 381
+  | 8 => 787
+  | 9 => 1655
+  | n + 10 =>
+      bcorner (n + 9) + 2 * bcorner (n + 8) + 2 * bcorner (n + 6)
+        - bcorner (n + 5) - bcorner (n + 4)
+\end{lstlisting}
+
+% LEAN: tasks/20260926-beian-select :: tatami_mod8_period4  grade=完全证明
+\begin{theorem}[mod-8 period 4]\label{thm:p1}
+For every integer $n \geq 4$, the residue $a(n) \bmod 8$ depends only on
+$n \bmod 4$: with $p(0) = 4$, $p(1) = 2$, $p(2) = 4$ and $p(3) = 6$, one has
+$a(n) \bmod 8 = p(n \bmod 4)$.
+\end{theorem}
+
+% LEAN: tasks/20260926-beian-select :: bcorner_odd  grade=完全证明
+\begin{theorem}[corner-defect parity]\label{thm:p2}
+For every integer $n \geq 4$, $b(n)$ is odd.
+\end{theorem}
+
+% LEAN: tasks/20260926-beian-select :: bcorner_eq  grade=完全证明
+\begin{theorem}[defect--base identity]\label{thm:p3}
+For every integer $n \geq 10$,
+\[
+20\,b(n) \;=\; 4a(n) + 33a(n-1) - 9a(n-2) + 8a(n-3) + a(n-4) - 3a(n-5).
+\]
+\end{theorem}
+
+\section{Proof}
+
+The complete machine proofs are reproduced below verbatim from the frozen
+final development. Listing~\ref{lst:p1} and Listing~\ref{lst:p2} are the full
+proofs of Theorem~\ref{thm:p1} and Theorem~\ref{thm:p2};
+Listing~\ref{lst:p3} shows the statement of Theorem~\ref{thm:p3} (its
+97-line proof is included in full in the artifact package,
+\texttt{proofs/01-proof-complete.lean}). All listings are excerpts of the
+single file \texttt{01-proof-complete.lean} (207 lines, sha256
+\texttt{b0f4a692...4789a1}). A narrative prose proof is not the duty of this
+note; it belongs to the full paper lane.
+
+\begin{lstlisting}[caption={Complete proof of Theorem~\ref{thm:p1} (verbatim excerpt, lines 56--84 of \texttt{final/01-proof-complete.lean}).},label={lst:p1}]
+/-- **P1 (主攻)**: the mod-8 residue of A180970(n) depends only on n mod 4,
+with pattern (4, 2, 4, 6) — equivalently a(n) % 8 = pat8 (n % 4) for all n ≥ 4.
+Statement form verbatim from the r2 smoke-round kernel-accepted text. -/
+theorem tatami_mod8_period4 (n r : ℕ) (hn : 4 ≤ n) (hr : n % 4 = r) :
+    a180970 n % 8 = pat8 r := by
+  induction n using Nat.strong_induction_on generalizing r with
+  | _ n ih =>
+    rcases lt_or_ge n 10 with h | h
+    · interval_cases n
+      all_goals norm_num at hr
+      all_goals subst r
+      all_goals norm_num [a180970, pat8]
+    · obtain ⟨j, rfl⟩ : ∃ j, n = j + 9 := ⟨n - 9, by omega⟩
+      have hj : 1 ≤ j := by omega
+      have rec9 : ∀ m : ℕ, a180970 (m + 9)
+          = a180970 (m + 8) + 2 * a180970 (m + 7) + 2 * a180970 (m + 5)
+            - a180970 (m + 4) - a180970 (m + 3) := fun m => by
+        simp only [a180970]
+      rw [rec9 j]
+      have h8 := ih (j + 8) (by omega) ((r + 3) % 4) (by omega) (by omega)
+      have h7 := ih (j + 7) (by omega) ((r + 2) % 4) (by omega) (by omega)
+      have h5 := ih (j + 5) (by omega) r (by omega) (by omega)
+      have h4 := ih (j + 4) (by omega) ((r + 3) % 4) (by omega) (by omega)
+      have h3 := ih (j + 3) (by omega) ((r + 2) % 4) (by omega) (by omega)
+      have hml := Nat.mod_lt (j + 9) (show 0 < 4 by norm_num)
+      have rl : r < 4 := by omega
+      interval_cases r <;>
+        simp only [Nat.reduceAdd, Nat.reduceMod, pat8] at h8 h7 h5 h4 h3 ⊢ <;>
+        omega
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Complete proof of Theorem~\ref{thm:p2} (verbatim excerpt, lines 86--104 of \texttt{final/01-proof-complete.lean}).},label={lst:p2}]
+/-- **P2 (伴随)**: the corner-defect sequence b_c(n) is odd for all n ≥ 4. -/
+theorem bcorner_odd (n : ℕ) (hn : 4 ≤ n) :
+    bcorner n % 2 = 1 := by
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+    rcases lt_or_ge n 10 with h | h
+    · interval_cases n <;> norm_num [bcorner]
+    · obtain ⟨j, rfl⟩ : ∃ j, n = j + 10 := ⟨n - 10, by omega⟩
+      have rec10 : ∀ m : ℕ, bcorner (m + 10)
+          = bcorner (m + 9) + 2 * bcorner (m + 8) + 2 * bcorner (m + 6)
+            - bcorner (m + 5) - bcorner (m + 4) := fun m => by
+        simp only [bcorner]
+      rw [rec10 j]
+      have h9 := ih (j + 9) (by omega) (by omega)
+      have h8 := ih (j + 8) (by omega) (by omega)
+      have h6 := ih (j + 6) (by omega) (by omega)
+      have h5 := ih (j + 5) (by omega) (by omega)
+      have h4 := ih (j + 4) (by omega) (by omega)
+      omega
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Formal statement of Theorem~\ref{thm:p3} (verbatim excerpt, lines 106--110 of \texttt{final/01-proof-complete.lean}); proof (97 lines) in artifact package \texttt{proofs/}.},label={lst:p3}]
+/-- **P3 (伴随)**: exact defect↔base linear identity for n ≥ 10:
+20·b(n) = 4a(n) + 33a(n-1) - 9a(n-2) + 8a(n-3) + a(n-4) - 3a(n-5). -/
+theorem bcorner_eq (n : ℕ) (hn : 10 ≤ n) :
+    20 * bcorner n = 4 * a180970 n + 33 * a180970 (n - 1) - 9 * a180970 (n - 2)
+      + 8 * a180970 (n - 3) + a180970 (n - 4) - 3 * a180970 (n - 5) := by
+\end{lstlisting}
+
+\section{Verification evidence}
+
+\begin{itemize}
+\item Toolchain: Lean v4.34.0 (\texttt{leanprover/lean4:v4.34.0})
+\cite{lean4}, mathlib4 v4.34.0 (rev \texttt{5ed29652}) \cite{mathlib}.
+\item Statement integrity: frozen statement
+\texttt{formalized/01-statement.lean}, sha256
+\texttt{59560f5735f2c8b58a31d631a4ed28806ca23292d195fa098231fb04682b187f};
+final development \texttt{final/01-proof-complete.lean}, sha256
+\texttt{b0f4a692990680e67817e0975484718132a6c54b9a1664598e44d9d0534789a1};
+symmetric difference after stripping proof bodies: zero (59/59 lines
+character-identical).
+\item Kernel check: strict compile exit 0 with empty diagnostics; a
+byte-level scan of the whole file (comments included) finds 0 occurrences of
+\texttt{sorry}/\texttt{admit}. Axiom audit as recorded in the final-audit
+record (\texttt{audit/final-01-audit.md}):
+\begin{verbatim}
+tatami_mod8_period4 : [propext, Classical.choice, Quot.sound]  (exactly the whitelist)
+bcorner_odd         : [propext, Quot.sound]                    (subset)
+bcorner_eq          : [propext, Quot.sound]                    (subset)
+sorryAx             : absent
+\end{verbatim}
+\item Audit chain: gate-2 well-definedness compilation plus degeneracy
+probing (24/24 bare-tactic probes fail, so no theorem is closable by a bare
+decision procedure), statement freeze with symmetric-difference comparison,
+gate-3 final strict compilation and axiom audit. Evidence originals are in
+the artifact package \texttt{audit/}.
+\end{itemize}
+
+\section{Novelty evidence}
+
+The pipeline's C9 novelty review adjudicated this result as \emph{no
+occupying record found} (proposition layer). This is a statement about
+search evidence, not a claim to new mathematics; the object A180970 itself
+is an occupied OEIS record \cite{oeis-a180970}, and this note claims
+properties of the recurrence-defined sequences, not the entry. Query
+channels and query-string summary (full query log, including zero-hit
+evidence files, in \texttt{audit/c9-record.md} of the package, copied
+verbatim from the source records):
+
+\begin{center}
+\begin{tabular}{p{0.22\textwidth}p{0.47\textwidth}p{0.22\textwidth}}
+\hline
+channel & query summary & result \\
+\hline
+OEIS sequence layer & 9 strings: corner / short-edge / long-edge defect
+sequences, each original and with 1 or 2 leading terms dropped & all null \\
+OEIS sequence layer & positive control $22, 44, 90, 196, 406, 852$ &
+hits A180970 (channel works) \\
+OEIS record layer & full A180970 record re-fetched; case-insensitive scan
+for \texttt{mod|period|congru} & no hit \\
+literature layer & arXiv \texttt{all:"tatami"} (40 results);
+\texttt{abs:"tatami" AND abs:"congruence"}; OpenAlex \texttt{tatami tilings}
+& 0 relevant; no occupant \\
+library layer & mathlib, compfiles, sequencelib, local rg for
+\texttt{tatami} / \texttt{A180970} & zero hits \\
+\hline
+\end{tabular}
+\end{center}
+
+The exclusivity re-review (2026-09-27, independent re-query before deposit)
+maintained the adjudication \emph{no occupying record found}; its recorded
+residual gaps: CNKI not searched (login required), Semantic Scholar not
+re-tested, the teaching-literature layer (textbooks and problem sheets) not
+systematically swept, and the record covers the proposition layer only --- not
+the combinatorial identification with tatami counting, which is layered as in
+Section~\ref{sec:scope}.
+
+\section{Scope and limitations}\label{sec:scope}
+
+Grading boundary, verbatim from the final audit: the three theorems are
+complete proofs, strictly as statements about the recurrence-defined integer
+sequences; they do not cover any combinatorial counting meaning. Not
+formalized here: (i) the identification $a(n) = \text{A180970}(n) = {}$the
+tatami tiling count, which is backed by the OEIS record and the
+Erickson--Ruskey literature \cite{oeis-a180970,auspicious,ejc-monodimer}
+(and the square-grid closed forms of \cite{square-tatami} as background
+only); and (ii) the reading of $b(n)$ as the number of tatami tilings of a
+$3 \times n$ grid with one corner cell removed, which remains at the
+computational-conjecture layer (exact machine enumeration probe for
+$n \leq 20$ plus transfer-matrix general theory) and is not part of the
+proved content. The base values $b(1), \dots, b(9)$ are machine-enumerated
+definition inputs; $b(0) := 0$ is a conventional value that no theorem
+depends on. This note contains no literature survey; it is a deposit record,
+not a survey article.
+
+\section*{Data availability}
+
+Artifact package: Zenodo deposit (DOI to be reserved at upload; see
+UPLOAD.md in this package) with a public mirror on GitHub (URL recorded in
+claims/tatami-mod8-defect/card.md upon push). Note under CC BY 4.0, code
+under MIT.
+
+\section*{Use of generative AI}
+
+(a) Stage mapping: candidate-proposition generation, formalization into Lean
+statements, proof search, and text drafting (including this note) were
+performed by AI (LLM) stages of the AI4Math pipeline; topic adjudication,
+statement-semantics verification and gate sign-off were human. (b)
+Model/node/budget (numbers copied verbatim from the source task ledger
+\texttt{tasks/20260926-beian-select/budget.log}): a single resolved model
+node, wire-id \texttt{anthropic/a6api-main/kimi-k3} (resolution level L2
+relay), no cross-node switching; LLM sampling for the whole source task
+totals llm-call $2/68$ (selection smoke $1$, tokens in/out $109/45$;
+formalization roundtrip $1$, tokens $821/2418$); Lean compilations $22/36$
+(plus $22/24$ on the selection smoke track). This claim-note stage used
+llm-call $0$ of its budget $4$, and $6$ LaTeX compilations of its budget $6$
+(counting the final rebuild that embedded this number and the author handle;
+ledger \texttt{claims/tatami-mod8-defect/budget.log}). (c) Final
+arbiter: All statements and proofs reported here were checked by the Lean 4
+kernel: every proof compiles with no \texttt{sorry}, and \texttt{\#print
+axioms} reports only \{propext, Quot.sound, Classical.choice\}. (d) The
+human author reviewed and is responsible for all content; the AI system is
+not an author.
+
+\section*{Author contributions}
+
+CRediT-style: the human author was responsible for topic selection and
+adjudication, verification of statement semantics, gate sign-off, and the
+decision to deposit; the AI4Math pipeline (an LLM system) performed
+proposition generation, proof search, and text drafting. The AI system is
+not listed as an author.
+
+\begin{thebibliography}{9}
+
+\bibitem{lean4}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean 4 theorem prover and programming language.
+\newblock \emph{CADE-28}, LNCS 12699, pp.~625--635, 2021.
+\url{https://doi.org/10.1007/978-3-030-79876-5_37}
+
+\bibitem{mathlib}
+The mathlib Community.
+\newblock The Lean mathematical library.
+\newblock \emph{CPP 2020}, pp.~367--381, 2020.
+\url{https://doi.org/10.1145/3372885.3373824}
+
+\bibitem{auspicious}
+A.~Erickson, F.~Ruskey, M.~Schurch, and J.~Woodcock.
+\newblock Auspicious tatami mat arrangements.
+\newblock \emph{arXiv:1103.3309 [math.CO]}, 2011.
+\url{https://arxiv.org/abs/1103.3309}
+
+\bibitem{ejc-monodimer}
+A.~Erickson, F.~Ruskey, J.~Woodcock, and M.~Schurch.
+\newblock Monomer-dimer tatami tilings of rectangular regions.
+\newblock \emph{Electron. J. Combin.} 18(1), \#P109, 2011.
+\url{https://doi.org/10.37236/596}
+
+\bibitem{square-tatami}
+A.~Erickson and M.~Schurch.
+\newblock Monomer-dimer tatami tilings of square regions.
+\newblock \emph{arXiv:1110.5103 [math.CO]}, 2011.
+\url{https://arxiv.org/abs/1110.5103}
+
+\bibitem{oeis-a180970}
+The OEIS Foundation.
+\newblock Entry A180970 (F.~Ruskey, 2010): number of tatami tilings of a
+$3 \times n$ grid (with monomers allowed).
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\url{https://oeis.org/A180970}
+
+\end{thebibliography}
+
+\end{document}

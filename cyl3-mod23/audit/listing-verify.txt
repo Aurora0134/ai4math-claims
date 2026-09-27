@@ -1,0 +1,16 @@
+# listing-verify.txt -- byte-exact verification of claim.tex lstlisting blocks
+# sources:
+#   tasks/20260926-cyl3-pipeline/formalized/04-statement-p1.lean
+#     sha256 4740b9d53e97360c49d0eefe97a7abc470134acf8e61273963d7a55de8e733bc
+#   tasks/20260926-cyl3-pipeline/formalized/04-statement-p2.lean
+#     sha256 8cac6fa4ec068dc913ff90769bda34333bddd9d22c7463d2cecab0e3edc1d7fe
+#   tasks/20260926-cyl3-pipeline/final/04-proof-complete.lean
+#     sha256 566e9e1d7053602eda7853943f582e3d3726009c32f9dc4b6ce3ca8ee19c5ae8
+# method: mechanical splice at build time (build-claim.py), then independent
+# read-back of claim.tex lstlisting bodies vs frozen sources; date 2026-09-27
+
+Listing 1 (lst:p1  vs 04-statement-p1.lean lines 11-13): PASS (byte-identical) (181 chars)
+Listing 2 (lst:p2  vs 04-statement-p2.lean lines 13-18): PASS (byte-identical) (309 chars)
+Listing 3 (lst:full vs 04-proof-complete.lean lines 1-69): PASS (byte-identical) (4007 chars)
+
+OVERALL: ALL 3 LISTINGS PASS (byte-identical)

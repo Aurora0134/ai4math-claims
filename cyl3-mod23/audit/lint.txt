@@ -1,0 +1,1 @@
+PASS: paper-lint 全绿 (claims/cyl3-mod23/claim.tex)

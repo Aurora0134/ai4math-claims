@@ -1,0 +1,17 @@
+== 闸门二·良定义裁决（宪兵 dept-welldef，2026-09-26）
+对象：tasks/20260926-beian-select/formalized/01-statement.lean（P1/P2/P3，proof 全 sorry 占位）
+快照：formalized/01-snapshot.md（整文件 sha256=59560f5735f2c8b58a31d631a4ed28806ca23292d195fa098231fb04682b187f；statement 段=第26行至EOF，段级 sha256=c2d28a0e350c6167e7fee60f04354a2023b0b225af5635354f7ab31affd00842）
+
+总裁决：通过
+1. 完整性：sha256 复跑逐字符一致；statement 段 diff 为空 → 对称差零。
+2. 良定义：source scripts/lake-env.sh && bash scripts/lean-verify --allow-sorry <文件> → exit 0，0 error；仅 3 条预期 sorry warning（行 75/80/86）。
+3. 退化检测（合并编译法，24 裸探针 = 8 tactic × 3 theorem）：
+   - P1 tatami_mod8_period4：0 PASS / 8 FAIL → 非退化
+   - P2 bcorner_odd：0 PASS / 8 FAIL → 非退化
+   - P3 bcorner_eq：0 PASS / 8 FAIL → 非退化
+   （错误形态：linarith/nlinarith failed to find a contradiction；norm_num/ring_nf unsolved goals；simp made no progress；positivity not a positivity goal；omega could not prove the goal；decide Expected type must not contain free variables）
+4. C2 复核：conclusion-given ✓；新定义单列 def ✓；pat8 通配分支在 hr 下不可达（Nat.mod_lt），头注已声明，语义无漂移；% 为 ℤ emod，序列正值与 ℕ 余数一致。
+
+statement 自本裁决签发即冻结（宪条 2）：proof 侧只许替换 3 处 sorry 体；比对基准 = 01-snapshot.md。
+措辞纪律（转外交部/论文部）：P2/P3 的「= tatami 角孔计数」组合含义属计算猜想层，不得越级写成已证等同；P1 按 n%4 四分支书写，勿引用 pat8 不可达分支。
+消耗：宪兵编译 3/3（轮 2 heredoc 转义事故作废 1 轮，如实记）；llm-call 0。

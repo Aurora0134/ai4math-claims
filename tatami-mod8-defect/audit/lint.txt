@@ -1,0 +1,1 @@
+PASS: paper-lint 全绿 (claims/tatami-mod8-defect/claim.tex)

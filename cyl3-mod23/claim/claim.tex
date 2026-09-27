@@ -1,0 +1,471 @@
+% claim.tex -- cyl3-mod23 priority claim note (SOP 08b claim channel).
+% AI-generated 2026-09-27 by the AI4Math paper department (claim lane).
+% lstlean.tex copied unchanged from harness/templates/paper/lstlean.tex.
+% Machine-readable anchors: every theorem carries a % LEAN: line (task id +
+% declaration name + grade); paper-lint.sh and the claim audit check against it.
+% All Lean listings are byte-exact mechanical splices of the frozen artifacts
+% of tasks/20260926-cyl3-pipeline (see audit/listing-verify.txt in this
+% package). The listing's Chinese header comments are pipeline provenance
+% notes (not mathematical content); they render through the package's CJK
+% fontset (xeCJK/SimSun), a rendering-only preamble addition copied from the
+% sanctioned claims/tatami-mod8-defect pattern and extended to this file's
+% symbol inventory. Frozen source bytes are unchanged.
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\input{lstlean}
+\lstset{language=lean}
+% --- XeTeX rendering patch (verbatim from claims/tatami-mod8-defect/claim.tex
+%     2026-09-27 sanctioned block, itself backported from
+%     papers/cyl3-mod23/paper.tex; extended with the 6 further math symbols
+%     of this frozen file's inventory: 00D7 2083 2099 2212 2223 27FA;
+%     00B7/2014/2026 are in xeCJK's punctuation lists (MiddlePunct/LongPunct,
+%     xeCJK.sty) and are left to xeCJK's own CJK font routing).
+%     Rendering-only; source bytes of listings unchanged. Guarded so pdflatex
+%     keeps literate-table behaviour.
+\ifdefined\XeTeXversion
+  {\lccode`\~="2022 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\bullet}}}}
+  {\lccode`\~="2115 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{N}}}}}
+  {\lccode`\~="2124 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{Z}}}}}
+  {\lccode`\~="2190 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftarrow}}}}
+  {\lccode`\~="2192 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rightarrow}}}}
+  {\lccode`\~="2194 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftrightarrow}}}}
+  {\lccode`\~="2200 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\forall}}}}
+  {\lccode`\~="2203 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\exists}}}}
+  {\lccode`\~="2227 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\wedge}}}}
+  {\lccode`\~="2228 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vee}}}}
+  {\lccode`\~="2261 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\equiv}}}}
+  {\lccode`\~="2264 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leq}}}}
+  {\lccode`\~="2265 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\geq}}}}
+  {\lccode`\~="22A2 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vdash}}}}
+  {\lccode`\~="27E8 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\langle}}}}
+  {\lccode`\~="27E9 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rangle}}}}
+  {\lccode`\~="00D7 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\times}}}}
+  {\lccode`\~="2083 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{{}_3}}}}
+  {\lccode`\~="2099 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{{}_n}}}}
+  {\lccode`\~="2212 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{-}}}}
+  {\lccode`\~="2223 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mid}}}}
+  {\lccode`\~="27FA \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\Longleftrightarrow}}}}
+\fi
+\ifdefined\XeTeXversion
+  \usepackage{xeCJK}
+  \setCJKmainfont{SimSun}
+\fi
+
+\newtheorem{theorem}{Theorem}
+
+\title{Mod-2 period-6 and mod-3 anti-period laws for the recurrence family
+$(6,9,0,-1)$, with a matrix-functional generalization\\
+(Lean 4 machine-checked claim of record)}
+\author{Aurora0134\thanks{Contact: via the GitHub account Aurora0134; ORCID to
+be added at Zenodo upload.}}
+\date{September 27, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We record two theorems about the order-4 integer recurrence $c(n+4) =
+6c(n+3) + 9c(n+2) - c(n)$ --- the recurrence of the matching counts of the
+$3 \times n$ cylindrical grid (OEIS entry A033515). Theorem~1: every
+integer sequence satisfying this recurrence has period dividing $6$ modulo
+$2$, and satisfies the anti-period relation $c(n+4) \equiv -c(n) \pmod 3$.
+Theorem~2: every matrix-power functional of an $8 \times 8$ integer matrix
+annihilated by $x^4 - 6x^3 - 9x^2 + 1$ inherits the same recurrence,
+uniformly in the vector and the coordinate. All proofs are machine-checked
+by the Lean 4 kernel (0 \texttt{sorry}; axioms within \{propext, Quot.sound,
+Classical.choice\}). A structured novelty search found no occupying record.
+The artifact package is deposited on Zenodo. This note is a priority claim
+of record, not a full paper.
+\end{abstract}
+
+\section{Introduction}
+
+The graph $C_3 \mathbin{\square} P_n$ --- the $3 \times n$ grid wrapped
+around a cylinder, also called the stacked prism graph --- has a classical
+matching count, OEIS entry A033515 \cite{oeis-a033515}, whose record lists
+the order-4 recurrence $c(n+4) = 6c(n+3) + 9c(n+2) - c(n)$. Numerical
+probes of three fixed three-hole defect configurations of the same grid
+found (computationally; see Section~\ref{sec:scope}) counting sequences
+that satisfy the same recurrence with different initial values.
+
+This note records two theorems about that recurrence family, produced by
+AI4Math, a highly automated LLM-plus-kernel pipeline in which the Lean 4
+kernel is the sole arbiter of correctness. The present text is a priority
+claim of record --- a short deposit note accompanying a Zenodo artifact
+package; a fuller narrative paper is prepared separately through the
+pipeline's paper lane. Every theorem stated below is a \emph{complete
+proof} in the pipeline's grading: it compiles with 0 \texttt{sorry}, its
+axioms stay within the standard whitelist, and the statement was frozen
+before proving.
+
+\section{Statement}
+
+The formal development quantifies over an \emph{arbitrary} integer sequence
+satisfying the recurrence, so Theorem~\ref{thm:master} covers the whole
+family (all initial values) at once; congruences use mathlib's
+\texttt{Int.ModEq} notation \texttt{[ZMOD m]}. The listings below reproduce
+the frozen theorem signatures verbatim (byte-identical excerpts of the
+frozen statement files \texttt{04-statement-p1.lean} and
+\texttt{04-statement-p2.lean}; the files' placeholder \texttt{sorry} bodies
+are not reproduced; the Chinese docstrings omitted here remain in the
+package's \texttt{proofs/} directory).
+
+% LEAN: tasks/20260926-cyl3-pipeline :: cyl3_master grade=完全证明
+\begin{theorem}[recurrence-family congruence law]\label{thm:master}
+Let $c : \mathbb{N} \to \mathbb{Z}$ satisfy $c(n+4) = 6c(n+3) + 9c(n+2) -
+c(n)$ for all $n$. Then, for all $n$,
+\[
+  c(n+6) \;\equiv\; c(n) \pmod 2
+  \qquad\text{and}\qquad
+  c(n+4) \;\equiv\; -c(n) \pmod 3.
+\]
+\end{theorem}
+
+\begin{lstlisting}[caption={Formal statement of Theorem~\ref{thm:master} (verbatim excerpt, lines 11--13 of the frozen \texttt{formalized/04-statement-p1.lean}, sha256 \texttt{4740b9d5...e733bc}).},label={lst:p1}]
+theorem cyl3_master (c : ℕ → ℤ)
+    (h : ∀ n, c (n+4) = 6 * c (n+3) + 9 * c (n+2) - c n) :
+    (∀ n, c (n+6) ≡ c n [ZMOD 2]) ∧ (∀ n, c (n+4) ≡ -c n [ZMOD 3]) := by
+\end{lstlisting}
+
+% LEAN: tasks/20260926-cyl3-pipeline :: cyl3_matrix_family grade=完全证明
+\begin{theorem}[matrix-level inheritance]\label{thm:matrix}
+Let $T$ be an $8 \times 8$ integer matrix with $T^4 = 6T^3 + 9T^2 - I$,
+let $v$ be an integer vector of length $8$, and let $i$ be a coordinate.
+Then the sequence $a(n) = ((T^n)\,v)_i$ satisfies the same recurrence: for
+all $n$,
+\[
+  a(n+4) \;=\; 6\,a(n+3) \;+\; 9\,a(n+2) \;-\; a(n).
+\]
+\end{theorem}
+
+\begin{lstlisting}[caption={Formal statement of Theorem~\ref{thm:matrix} (verbatim excerpt, lines 13--18 of the frozen \texttt{formalized/04-statement-p2.lean}, sha256 \texttt{8cac6fa4...c1d7fe}).},label={lst:p2}]
+theorem cyl3_matrix_family {T : Matrix (Fin 8) (Fin 8) ℤ}
+    (v : Fin 8 → ℤ) (i : Fin 8)
+    (hT : T ^ 4 = 6 • T ^ 3 + 9 • T ^ 2 - (1 : Matrix (Fin 8) (Fin 8) ℤ))
+    (n : ℕ) :
+    (T ^ (n+4)).mulVec v i
+      = 6 * (T ^ (n+3)).mulVec v i + 9 * (T ^ (n+2)).mulVec v i - (T ^ n).mulVec v i := by
+\end{lstlisting}
+
+\section{Proof}
+
+The complete machine proofs are reproduced below verbatim:
+Listing~\ref{lst:full} is the entire frozen final development
+\texttt{final/04-proof-complete.lean} (69 lines, sha256
+\texttt{566e9e1d...c5ae8}), mechanically spliced byte-for-byte. Its Chinese
+header comments are pipeline provenance notes (route sketches and source
+pointers), not mathematical content. A narrative prose proof is not the
+duty of this note; it belongs to the full paper lane.
+
+\begin{lstlisting}[caption={Complete development, verbatim: lines 1--69 (the whole file) of the frozen \texttt{final/04-proof-complete.lean}, sha256 \texttt{566e9e1d...c5ae8}.},label={lst:full}]
+import Mathlib.Data.Int.ModEq
+import Mathlib.Data.Matrix.Mul
+
+/-!
+# 04-proof-complete（军政部 r1）
+
+两定理定理头与 tasks/20260926-cyl3-pipeline/formalized/04-statement-p{1,2}.lean
+冻结文本逐字一致；本文件只写 proof body。AI 生成（dept-04-prove，
+node=anthropic/a6api-main/kimi-k3），kernel 实编裁决为准。
+
+- P1 路线（03 同型 r2 实证形态）：Int.modEq_iff_dvd 显式 dvd 证人 + ring；
+  模 2 由 `c (n+4) ≡ c (n+2) + c n` 在 n 与 n+2 两处展开后 add_right/trans 收束；
+  模 3 反周期一步证人（6、9 被 3 整除）。
+- P2 路线（EdgemidSmoke03r3.lean edgemid_matrix_family 同型临摹，系数 6,9,−1）：
+  hgen = pow_add + hT + Matrix.mul_sub/mul_add + mul_smul_comm×2 + Matrix.mul_one
+  + ← pow_add×2；mulVec 线性 = Matrix.sub_mulVec/add_mulVec + smul_mulVec×2；
+  收尾 first | rfl | simp only [smul_eq_mul] | …（03 r3 已编译验证）。
+-/
+
+/-- P1（`cyl3_master`，修正档=稳妥）：任一满足四阶线性递推
+`c (n+4) = 6 * c (n+3) + 9 * c (n+2) - c n` 的整数序列，
+模 2 以 6 为周期，且模 3 有反周期 `c (n+4) ≡ -c n [ZMOD 3]`
+（推论：`3 ∣ c n ⟺ 3 ∣ c (n % 4)` 型整除刻画与基线奇偶模式）。
+人话语义：带缺陷圆柱格 C₃×Pₙ（3×n，三种固定孔位）匹配计数族的
+统一同余律——无孔基线（OEIS A033515）与同行相邻/对角/三角三种
+三孔缺陷序列同满足递推 (6,9,0,−1)，本定理对该递推整族一次覆盖。
+题源：tasks/20260926-beian-select/candidates/04-cylinder-3holes-review.md（收窄命题 P1）。 -/
+theorem cyl3_master (c : ℕ → ℤ)
+    (h : ∀ n, c (n+4) = 6 * c (n+3) + 9 * c (n+2) - c n) :
+    (∀ n, c (n+6) ≡ c n [ZMOD 2]) ∧ (∀ n, c (n+4) ≡ -c n [ZMOD 3]) := by
+  have key : ∀ m, c (m+4) ≡ c (m+2) + c m [ZMOD 2] := by
+    intro m
+    refine Int.modEq_iff_dvd.2 ⟨-(3 * c (m+3) + 4 * c (m+2) - c m), ?_⟩
+    rw [h m]
+    ring
+  refine ⟨fun n => ?_, fun n => ?_⟩
+  · have h1 : c (n+4) ≡ c (n+2) + c n [ZMOD 2] := key n
+    have h2 : c (n+6) ≡ c (n+4) + c (n+2) [ZMOD 2] := key (n+2)
+    have h3 : c (n+6) ≡ (c (n+2) + c n) + c (n+2) [ZMOD 2] := h2.trans (h1.add_right _)
+    exact h3.trans (Int.modEq_iff_dvd.2 ⟨-c (n+2), by ring⟩)
+  · refine Int.modEq_iff_dvd.2 ⟨-(2 * c (n+3) + 3 * c (n+2)), ?_⟩
+    rw [h n]
+    ring
+
+/-- P2（`cyl3_matrix_family`，挑战档）：8×8 整数转移矩阵 `T` 一旦被
+四次多项式零化（`T ^ 4 = 6 • T ^ 3 + 9 • T ^ 2 - 1`），其任意矩阵幂
+泛函 `(T ^ (n+k)).mulVec v i` 都满足同一个四阶递推
+`a (n+4) = 6 * a (n+3) + 9 * a (n+2) - a n`——一条引理统一三种
+固定孔位缺陷计数在转移矩阵层的共有结构（矩阵泛函层统一递推定理）。
+人话语义：这是转移矩阵法（Lundow 1996/1998 口径）的泛函形式化；
+「该矩阵确实等于缺陷匹配计数」的组合语义桥不进 kernel，
+论文/报告层按主张降级如实声明，不得拔高为计数本体定理。
+题源：tasks/20260926-beian-select/candidates/04-cylinder-3holes-review.md（收窄命题 P2）。 -/
+theorem cyl3_matrix_family {T : Matrix (Fin 8) (Fin 8) ℤ}
+    (v : Fin 8 → ℤ) (i : Fin 8)
+    (hT : T ^ 4 = 6 • T ^ 3 + 9 • T ^ 2 - (1 : Matrix (Fin 8) (Fin 8) ℤ))
+    (n : ℕ) :
+    (T ^ (n+4)).mulVec v i
+      = 6 * (T ^ (n+3)).mulVec v i + 9 * (T ^ (n+2)).mulVec v i - (T ^ n).mulVec v i := by
+  have hgen : T ^ (n+4)
+      = 6 • T ^ (n+3) + 9 • T ^ (n+2) - (T^n : Matrix (Fin 8) (Fin 8) ℤ) := by
+    rw [pow_add, hT, Matrix.mul_sub, Matrix.mul_add,
+        mul_smul_comm, mul_smul_comm,
+        Matrix.mul_one, ← pow_add, ← pow_add]
+  -- 收尾：rw 自带 rfl 不足以穿透 Pi 逐点作用（r2 实测 unsolved goals），
+  -- 显式 `rfl` tactic 以全 defeq 收官（r1 级联实测首支即中，故仅留此一支）。
+  rw [hgen, Matrix.sub_mulVec, Matrix.add_mulVec,
+      Matrix.smul_mulVec, Matrix.smul_mulVec]
+  rfl
+\end{lstlisting}
+
+\section{Verification evidence}
+
+\begin{itemize}
+\item Toolchain: Lean v4.34.0 (\texttt{leanprover/lean4:v4.34.0})
+\cite{lean4}, mathlib4 v4.34.0 (rev \texttt{5ed29652}) \cite{mathlib}.
+\item Statement integrity: frozen statements
+\texttt{formalized/04-statement-p1.lean}, sha256
+\texttt{4740b9d53e97360c49d0eefe97a7abc470134acf8e61273963d7a55de8e733bc},
+and \texttt{formalized/04-statement-p2.lean}, sha256
+\texttt{8cac6fa4ec068dc913ff90769bda34333bddd9d22c7463d2cecab0e3edc1d7fe}
+(LF-normalized); final development
+\texttt{final/04-proof-complete.lean}, sha256
+\texttt{566e9e1d7053602eda7853943f582e3d3726009c32f9dc4b6ce3ca8ee19c5ae8};
+symmetric difference of the two theorem heads (up to \texttt{:= by})
+against the frozen basis: zero (verbatim).
+\item Kernel check: strict re-compilation (\texttt{scripts/lean-verify},
+strict mode) exit 0 with empty diagnostics; a byte-level scan of the whole
+file (comments included) finds 0 occurrences of
+\texttt{sorry}/\texttt{admit}. Axiom audit (sidecar re-compilation),
+verbatim output (\texttt{audit/audit-axioms-sidecar.log}):
+\begin{verbatim}
+'cyl3_master' depends on axioms: [propext, Classical.choice, Quot.sound]
+'cyl3_matrix_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+Both are within the standard whitelist \{propext, Quot.sound,
+Classical.choice\}; no \texttt{sorryAx}.
+\item Degeneracy probing: the well-definedness gate ran 14 bare-tactic
+probes (7 against each statement: \texttt{nlinarith}, \texttt{norm\_num},
+\texttt{simp}, \texttt{ring\_nf}, \texttt{positivity}, \texttt{omega},
+\texttt{linarith}); all failed as required, so neither theorem is closable
+by a bare decision procedure.
+\item Audit chain: gate-2 well-definedness compilation plus degeneracy
+probing, statement freeze with sha256 pins, gate-3 final strict compilation
+and axiom audit (\texttt{audit/final-04-audit.md}: all four checks pass;
+grading \emph{complete proof} for both theorems). Evidence originals are in
+the artifact package \texttt{audit/}.
+\end{itemize}
+
+\section{Novelty evidence}
+
+The pipeline's C9 novelty re-review (2026-09-26; independent re-query
+before deposit) adjudicated, per proposition: (A) the three fixed
+three-hole defect sequences --- \emph{no occupying record found},
+established and strengthened (the sequences were recomputed by an
+independent enumerator implementation, then probed on OEIS through 19
+sequence-shape queries and 6 keyword groups and on the literature channels
+below); (P1) Theorem~\ref{thm:master} --- \emph{no occupying record found},
+positioned as a congruence-law observation accompanying the new sequences
+(new-sequence tier; an elementary Pisano-type instance of classical
+modular-period theory, not new mathematics); (P2)
+Theorem~\ref{thm:matrix} --- \emph{no occupying record found}, positioned
+as a library-lemma-level first formalization; (P3) the full combinatorial
+semantics --- occupied at the literature layer
+\cite{lundow1996,lundow1998,oeis-a033515,oeis-a287428}, hence not a
+contribution of this note. This is search evidence, not a claim to new
+mathematics. Query-channel summary (the full query log, including zero-hit
+evidence files, is copied verbatim into \texttt{audit/c9-record.md} of this
+package):
+
+\begin{center}
+\begin{tabular}{p{0.24\textwidth}p{0.46\textwidth}p{0.20\textwidth}}
+\hline
+channel & query summary & result \\
+\hline
+OEIS sequence layer & 26 queries (19 sequence-shape probes of the defect
+families plus recurrence-text and generating-function probes) + 2 record
+reads; calibration query hits A033515 (channel works) & defect variants:
+all null \\
+arXiv & 8 query groups (incl.\ 3 http trial-and-error); nearest lines
+arXiv:2109.12716 \cite{dey-krishnan}, cond-mat/0611449 \cite{kong},
+2406.05750 \cite{arora} read and delineated & no occupant \\
+OpenAlex & 5 broad + 3 title-exact queries & no occupant \\
+zbMATH & 4 query groups & no occupant; 3 records license-masked (gap) \\
+Semantic Scholar & 1 query & HTTP 429, not retried (gap) \\
+general web (Bing/DDG) & 5 fetches & channel degraded (gap) \\
+CNKI & not searched (login required) & gap \\
+formal libraries & mathlib / compfiles / sequencelib probes
+(\texttt{Hosoya}, \texttt{monomer}, \texttt{A033515}, \dots) & zero hits;
+A033515 absent from sequencelib \\
+\hline
+\end{tabular}
+\end{center}
+
+Recorded residual gaps, verbatim in substance from the re-review: CNKI not
+searched (login required); one Semantic Scholar query rate-limited (HTTP
+429) and not retried; three zbMATH records license-masked and unreadable;
+the general web search layer degraded (Bing localization pollution;
+DuckDuckGo blocked by DNS pollution and proxy failure).
+
+\section{Scope and limitations}\label{sec:scope}
+
+Grading boundary, per the final audit's transfer wording: the two theorems
+are \emph{complete proofs}, strictly as statements about the recurrence
+family (an arbitrary integer sequence $c$) and about matrix-power
+functionals. The kernel did \emph{not} prove that any concrete defect
+matching-count sequence equals this recurrence or this matrix: the
+statement ``the three fixed three-hole defect counting sequences satisfy
+the recurrence $(6,9,0,-1)$'' rests on the OEIS record and the
+transfer-matrix literature (A033515 and A287428 are registered, not new
+\cite{oeis-a033515,oeis-a287428,lundow1996,lundow1998}) plus a local
+computational probe (range $n \leq 14$, two independently implemented
+enumerators agreeing term by term); it is reported at the
+computational-conjecture layer and is not part of the kernel-proved
+content. Probe values, copied verbatim from the source records:
+
+\begin{center}
+\begin{tabular}{lll}
+\hline
+family (fixed three-hole configurations) & first values & start \\
+\hline
+baseline, no holes (OEIS A033515, registered) &
+$1, 4, 32, 228, 1655, 11978, 86731, 627960$ & $n \geq 0$ \\
+row3: three adjacent holes in one row &
+$22, 135, 1006, 7251, 52538, 380352, 2753948, 19939605$ & $n \geq 3$ \\
+diag3: three diagonal holes &
+$13, 83, 615, 4437, 32144, 232714, 1684965, 12199779$ & $n \geq 3$ \\
+tri3: three triangular holes &
+$3, 19, 141, 1017, 7368, 53342, 386223, 2796399$ & $n \geq 2$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Further boundaries. Theorem~\ref{thm:matrix} is an elementary consequence
+of the annihilation hypothesis (Cayley--Hamilton-type reasoning); the
+contribution is the packaging as one reusable kernel-checked lemma ---
+a library-lemma-level first formalization, not new mathematics. A fourth
+configuration with a moving hole was recorded with a sixth-order recurrence
+fit; it stays at record level and is not a contribution claim. The novelty
+evidence above is negative search evidence with the stated residual gaps;
+it supports no first-discovery claim beyond the stated tier. The source
+pipeline report is marked ``pending gate-4 human sign-off''; this deposit
+is issued under the depositing author's explicit start instruction of
+2026-09-27 (recorded in this package's card). This note contains no
+literature survey; it is a deposit record, not a survey article.
+
+\section*{Data availability}
+
+Artifact package: Zenodo deposit (DOI to be reserved at upload; see
+UPLOAD.md in this package), with a public mirror on GitHub at
+\url{https://github.com/Aurora0134/ai4math-claims}. Note under CC BY 4.0,
+code under MIT.
+
+\section*{Use of generative AI}
+
+(a) Stage mapping: candidate-proposition generation, formalization into
+Lean statements, proof search, and text drafting (including this note) were
+performed by AI (LLM) stages of the AI4Math pipeline; topic adjudication,
+statement-semantics verification and gate sign-off were human. (b)
+Model/node/budget (numbers copied verbatim from the source task ledger
+\texttt{tasks/20260926-cyl3-pipeline/budget.log}): a single resolved model
+node, wire-id \texttt{anthropic/a6api-main/kimi-k3} (resolution level L2
+relay), no cross-node switching; the source task totals llm-call $1/6$ (the
+roundtrip semantic judge), kernel compilations $12/24$, diagnostic probes
+$0/4$; the separate full-paper lane used LaTeX compilations $6/10$; the C9
+exclusivity re-review used 0 LLM calls and 60 retrieval requests. This
+claim-note stage used llm-call $0$ of its budget $4$, and $5$ LaTeX
+compilations of its budget $6$ (counting the final rebuild that embedded
+this number; ledger \texttt{claims/cyl3-mod23/budget.log}). (c) Final
+arbiter: all statements and proofs reported here were checked by the Lean 4
+kernel: every proof compiles with no \texttt{sorry}, and \texttt{\#print
+axioms} reports only \{propext, Quot.sound, Classical.choice\} for both
+theorems. (d) The human author reviewed and is responsible for all content;
+the AI system is not an author.
+
+\section*{Author contributions}
+
+CRediT-style: the human author was responsible for topic selection and
+adjudication, verification of statement semantics, gate sign-off, and the
+decision to deposit; the AI4Math pipeline (an LLM system) performed
+proposition generation, proof search, and text drafting. The AI system is
+not listed as an author.
+
+\begin{thebibliography}{9}
+
+\bibitem{lean4}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean 4 theorem prover and programming language.
+\newblock \emph{CADE-28}, LNCS 12699, pp.~625--635, 2021.
+\url{https://doi.org/10.1007/978-3-030-79876-5_27}
+
+\bibitem{mathlib}
+The mathlib Community.
+\newblock The Lean mathematical library.
+\newblock \emph{CPP 2020}, pp.~367--381, 2020.
+\url{https://doi.org/10.1145/3372885.3373824}
+
+\bibitem{dey-krishnan}
+P.~S. Dey and K.~Krishnan.
+\newblock Disordered monomer-dimer model on cylinder graphs.
+\newblock \emph{arXiv:2109.12716 [math.PR]}, 2021.
+\url{https://arxiv.org/abs/2109.12716}
+
+\bibitem{kong}
+Y.~Kong.
+\newblock Exact asymptotics of monomer-dimer model on rectangular
+semi-infinite lattices.
+\newblock \emph{arXiv:cond-mat/0611449 [cond-mat.stat-mech]}, 2006.
+\url{https://arxiv.org/abs/cond-mat/0611449}
+
+\bibitem{arora}
+A.~Arora.
+\newblock The monopole-dimer model on high-dimensional cylindrical, toroidal,
+M\"obius and Klein grids.
+\newblock \emph{arXiv:2406.05750 [math.CO]}, 2024.
+\url{https://arxiv.org/abs/2406.05750}
+
+\bibitem{lundow1996}
+P.~H. Lundow.
+\newblock Computation of matching polynomials and the number of 1-factors in
+polygraphs.
+\newblock Research reports No.~12, Department of Mathematics, Ume{\aa}
+University, 1996; as referenced in OEIS A033515 \cite{oeis-a033515}.
+
+\bibitem{lundow1998}
+P.~H. Lundow.
+\newblock Enumeration of matchings in polygraphs.
+\newblock 1998; as referenced in OEIS A033515 \cite{oeis-a033515}.
+
+\bibitem{oeis-a033515}
+The OEIS Foundation.
+\newblock Entry A033515 (P.~H. Lundow): number of matchings in graph
+$C_3 \times P_n$.
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\url{https://oeis.org/A033515}
+
+\bibitem{oeis-a287428}
+The OEIS Foundation.
+\newblock Entry A287428 (A.~Howroyd, 2017): $T(m,n)$, number of matchings in
+the stacked prism graph $C_m \times P_n$.
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\url{https://oeis.org/A287428}
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,459 @@
+note: Running TeX ...
+(claim.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24> (article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(size11.cloFontconfig error: Cannot load default config file: No such file: (null)
+)) (fontenc.sty (t1lmr.fd)) (inputenc.sty
+
+Package inputenc Warning: inputenc package ignored with utf8 based engines.
+
+) (amsmath.sty
+For additional information on amsmath, use the `?' option.
+(amstext.sty (amsgen.sty)) (amsbsy.sty) (amsopn.sty)) (amssymb.sty
+(amsfonts.sty)) (amsthm.sty) (hyperref.sty (ltxcmds.sty) (iftex.sty)
+(pdftexcmds.sty (infwarerr.sty)) (keyval.sty) (kvsetkeys.sty) (kvdefinekeys.sty
+) (pdfescape.sty) (hycolor.sty) (letltxmacro.sty) (auxhook.sty) (kvoptions.sty)
+(pd1enc.def) (intcalc.sty) (etexcmds.sty) (puenc.def) (url.sty) (bitset.sty
+(bigintcalc.sty)) (atbegshi-ltx.sty)) (hxetex.def (stringenc.sty)
+(rerunfilecheck.sty (atveryend-ltx.sty) (uniquecounter.sty))) (lstlean
+(listings.sty (lstmisc.sty) (listings.cfg)) (xcolor.sty (color.cfg) (xetex.def)
+)) (xeCJK.sty (expl3.sty (l3backend-xetex.def)) (ctexhook.sty) (l3keys2e.sty)
+(xtemplate.sty) (xparse.sty) (fontspec.sty (fontspec-xetex.sty (fontenc.sty)
+(fontspec.cfg))) (xeCJK-listings.sty) (xeCJK.cfg))warning: accessing absolute path `C:/WINDOWS/fonts\simsun.ttc`; build may not be reproducible in other environments
+
+No file claim.aux.
+(ts1cmr.fd) (nameref.sty (refcount.sty) (gettitlestring.sty))
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
+(umsa.fd) (umsb.fd)
+
+Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
+(xeCJK)                
+(xeCJK)                Try to use `\setCJKmonofont[...]{...}' to define it.
+
+
+LaTeX Warning: Citation `oeis-a180970' on page 1 undefined on input line 75.
+
+
+LaTeX Warning: Citation `auspicious' on page 1 undefined on input line 78.
+
+
+LaTeX Warning: Citation `ejc-monodimer' on page 1 undefined on input line 78.
+
+
+LaTeX Warning: Citation `square-tatami' on page 1 undefined on input line 78.
+
+
+warning: claim.tex:84: Overfull \hbox (91.92215pt too wide) in paragraph at lines 70--84
+Overfull \hbox (91.92215pt too wide) in paragraph at lines 70--84
+\TU/lmr/m/n/10.95 Let $\OML/cmm/m/it/10.95 a\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/1
+0.95 n\OT1/cmr/m/n/10.95 )$ \TU/lmr/m/n/10.95 be the integer sequence with base
+ values $\OML/cmm/m/it/10.95 a\OT1/cmr/m/n/10.95 (0)\OML/cmm/m/it/10.95 ; [] ; 
+a\OT1/cmr/m/n/10.95 (8) = 1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 3\OML/cmm/m
+/it/10.95 ; \OT1/cmr/m/n/10.95 13\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 22\OM
+L/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 44\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.9
+5 90\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 196\OML/cmm/m/it/10.95 ; \OT1/cmr/
+m/n/10.95 406\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 852$
+[1]
+warning: claim.tex:94: Overfull \hbox (4.8034pt too wide) in paragraph at lines 85--94
+Overfull \hbox (4.8034pt too wide) in paragraph at lines 85--94
+\TU/lmr/m/n/10.95 quences, produced by AI4Math, a highly automated LLM-plus-ker
+nel pipeline
+
+warning: claim.tex:101: Overfull \hbox (4.013pt too wide) in paragraph at lines 97--101
+Overfull \hbox (4.013pt too wide) in paragraph at lines 97--101
+\TU/lmr/m/n/10.95 the frozen statement file \TU/lmtt/m/n/10.95 01-statement.lea
+n\TU/lmr/m/n/10.95 , sha256 \TU/lmtt/m/n/10.95 59560f57...82b187f\TU/lmr/m/n/10
+.95 ). 
+[2]
+
+LaTeX Font Warning: Font shape `TU/SimSun(0)/m/it' undefined
+(Font)              using `TU/SimSun(0)/m/n' instead on input line 130.
+
+
+warning: claim.tex:153: Overfull \hbox (0.26338pt too wide) in paragraph at lines 150--153
+Overfull \hbox (0.26338pt too wide) in paragraph at lines 150--153
+[][]\TU/lmr/bx/n/10.95 Theorem 1 \TU/lmr/m/n/10.95 (mod-8 period 4)\TU/lmr/bx/n
+/10.95 . []\TU/lmr/m/it/10.95 For every integer $\OML/cmm/m/it/10.95 n \OMS/cms
+y/m/n/10.95 ^^U \OT1/cmr/m/n/10.95 4$\TU/lmr/m/it/10.95 , the residue $\OML/cmm
+/m/it/10.95 a\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 n\OT1/cmr/m/n/10.95 )  []
+
+LaTeX Warning: Reference `lst:p1' on page 3 undefined on input line 171.
+
+
+LaTeX Warning: Reference `lst:p2' on page 3 undefined on input line 171.
+
+
+LaTeX Warning: Reference `thm:p1' on page 3 undefined on input line 172.
+
+
+LaTeX Warning: Reference `thm:p2' on page 3 undefined on input line 172.
+
+
+LaTeX Warning: Reference `lst:p3' on page 3 undefined on input line 173.
+
+
+LaTeX Warning: Reference `thm:p3' on page 3 undefined on input line 173.
+
+
+warning: claim.tex:179: Overfull \hbox (67.48996pt too wide) in paragraph at lines 170--179
+Overfull \hbox (67.48996pt too wide) in paragraph at lines 170--179
+\TU/lmr/m/n/10.95 97-line proof is included in full in the artifact package, \T
+U/lmtt/m/n/10.95 proofs/01-proof-complete.lean\TU/lmr/m/n/10.95 ).
+[3]
+
+LaTeX Warning: Reference `thm:p1' on page 4 undefined on input line 180.
+
+
+LaTeX Warning: Reference `thm:p1' on page 4 undefined on input line 180.
+
+[4]
+
+LaTeX Warning: Reference `thm:p2' on page 5 undefined on input line 212.
+
+
+LaTeX Warning: Reference `thm:p2' on page 5 undefined on input line 212.
+
+
+LaTeX Warning: Reference `thm:p3' on page 5 undefined on input line 234.
+
+
+LaTeX Warning: Reference `thm:p3' on page 5 undefined on input line 234.
+
+[5]
+
+LaTeX Warning: Citation `lean4' on page 6 undefined on input line 246.
+
+
+LaTeX Warning: Citation `mathlib' on page 6 undefined on input line 246.
+
+
+warning: claim.tex:254: Overfull \hbox (11.56056pt too wide) in paragraph at lines 247--254
+Overfull \hbox (11.56056pt too wide) in paragraph at lines 247--254
+[]\TU/lmr/m/n/10.95 Statement integrity: frozen statement \TU/lmtt/m/n/10.95 fo
+rmalized/01-statement.lean\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:254: Overfull \hbox (73.07216pt too wide) in paragraph at lines 247--254
+Overfull \hbox (73.07216pt too wide) in paragraph at lines 247--254
+\TU/lmr/m/n/10.95 sha256 \TU/lmtt/m/n/10.95 59560f5735f2c8b58a31d631a4ed28806ca
+23292d195fa098231fb04682b187f\TU/lmr/m/n/10.95 ;
+
+warning: claim.tex:254: Overfull \hbox (325.2309pt too wide) in paragraph at lines 247--254
+Overfull \hbox (325.2309pt too wide) in paragraph at lines 247--254
+\TU/lmr/m/n/10.95 final development \TU/lmtt/m/n/10.95 final/01-proof-complete.
+lean\TU/lmr/m/n/10.95 , sha256 \TU/lmtt/m/n/10.95 b0f4a692990680e67817e09754847
+18132a6c54b9a1664598e44d9d0534789a1\TU/lmr/m/n/10.95 ;
+
+warning: claim.tex:263: Overfull \hbox (161.76738pt too wide) in paragraph at lines 263--263
+Overfull \hbox (161.76738pt too wide) in paragraph at lines 263--263
+ []\TU/lmtt/m/n/10.95 tatami_mod8_period4 : [propext, Classical.choice, Quot.so
+und]  (exactly the whitelist)[] 
+
+warning: claim.tex:263: Overfull \hbox (75.53615pt too wide) in paragraph at lines 263--263
+Overfull \hbox (75.53615pt too wide) in paragraph at lines 263--263
+ []\TU/lmtt/m/n/10.95 bcorner_odd         : [propext, Quot.sound]              
+      (subset)[] 
+
+warning: claim.tex:263: Overfull \hbox (75.53615pt too wide) in paragraph at lines 263--263
+Overfull \hbox (75.53615pt too wide) in paragraph at lines 263--263
+ []\TU/lmtt/m/n/10.95 bcorner_eq          : [propext, Quot.sound]              
+      (subset)[] 
+
+warning: claim.tex:269: Overfull \hbox (0.68747pt too wide) in paragraph at lines 264--269
+Overfull \hbox (0.68747pt too wide) in paragraph at lines 264--269
+[]\TU/lmr/m/n/10.95 Audit chain: gate-2 well-definedness compilation plus degen
+eracy prob-
+
+LaTeX Warning: Citation `oeis-a180970' on page 6 undefined on input line 276.
+
+
+warning: claim.tex:287: Underfull \hbox (badness 7888) in paragraph at lines 287--287
+Underfull \hbox (badness 7888) in paragraph at lines 287--287
+[]\TU/lmr/m/n/10.95 OEIS sequence
+
+warning: claim.tex:288: Underfull \hbox (badness 1590) in paragraph at lines 287--288
+Underfull \hbox (badness 1590) in paragraph at lines 287--288
+\TU/lmr/m/n/10.95 long-edge defect sequences, each
+
+warning: claim.tex:289: Underfull \hbox (badness 7888) in paragraph at lines 289--289
+Underfull \hbox (badness 7888) in paragraph at lines 289--289
+[]\TU/lmr/m/n/10.95 OEIS sequence
+
+warning: claim.tex:289: Underfull \hbox (badness 10000) in paragraph at lines 289--289
+Underfull \hbox (badness 10000) in paragraph at lines 289--289
+[]\TU/lmr/m/n/10.95 positive control
+
+warning: claim.tex:291: Underfull \hbox (badness 10000) in paragraph at lines 290--291
+Underfull \hbox (badness 10000) in paragraph at lines 290--291
+[]\TU/lmr/m/n/10.95 hits A180970
+
+warning: claim.tex:291: Underfull \hbox (badness 10000) in paragraph at lines 291--291
+Underfull \hbox (badness 10000) in paragraph at lines 291--291
+[]\TU/lmr/m/n/10.95 OEIS record
+
+warning: claim.tex:292: Underfull \hbox (badness 6396) in paragraph at lines 291--292
+Underfull \hbox (badness 6396) in paragraph at lines 291--292
+[]\TU/lmr/m/n/10.95 full A180970 record re-fetched;
+
+warning: claim.tex:292: Underfull \hbox (badness 10000) in paragraph at lines 291--292
+Underfull \hbox (badness 10000) in paragraph at lines 291--292
+\TU/lmr/m/n/10.95 case-insensitive scan for
+
+warning: claim.tex:295: Underfull \hbox (badness 10000) in paragraph at lines 293--295
+Underfull \hbox (badness 10000) in paragraph at lines 293--295
+[]\TU/lmr/m/n/10.95 arXiv \TU/lmtt/m/n/10.95 all:"tatami" \TU/lmr/m/n/10.95 (40
+ re-
+
+warning: claim.tex:295: Underfull \hbox (badness 10000) in paragraph at lines 293--295
+Underfull \hbox (badness 10000) in paragraph at lines 293--295
+\TU/lmr/m/n/10.95 sults); \TU/lmtt/m/n/10.95 abs:"tatami" AND
+
+warning: claim.tex:295: Underfull \hbox (badness 10000) in paragraph at lines 293--295
+Underfull \hbox (badness 10000) in paragraph at lines 293--295
+\TU/lmtt/m/n/10.95 abs:"congruence"\TU/lmr/m/n/10.95 ; OpenAlex
+
+warning: claim.tex:296: Underfull \hbox (badness 2941) in paragraph at lines 295--296
+Underfull \hbox (badness 2941) in paragraph at lines 295--296
+[]\TU/lmr/m/n/10.95 0 relevant; no
+
+warning: claim.tex:300: Overfull \hbox (3.60132pt too wide) in paragraph at lines 283--300
+Overfull \hbox (3.60132pt too wide) in paragraph at lines 283--300
+ [] 
+[6]
+
+LaTeX Warning: Reference `sec:scope' on page 7 undefined on input line 308.
+
+
+LaTeX Warning: Citation `oeis-a180970' on page 7 undefined on input line 317.
+
+
+LaTeX Warning: Citation `auspicious' on page 7 undefined on input line 317.
+
+
+LaTeX Warning: Citation `ejc-monodimer' on page 7 undefined on input line 317.
+
+
+LaTeX Warning: Citation `square-tatami' on page 7 undefined on input line 318.
+
+[7]
+warning: claim.tex:356: Overfull \hbox (5.20963pt too wide) in paragraph at lines 337--356
+Overfull \hbox (5.20963pt too wide) in paragraph at lines 337--356
+\TU/lmtt/m/n/10.95 tasks/20260926-beian-select/budget.log\TU/lmr/m/n/10.95 ): a
+ single resolved model node,
+
+warning: claim.tex:356: Overfull \hbox (4.83426pt too wide) in paragraph at lines 337--356
+Overfull \hbox (4.83426pt too wide) in paragraph at lines 337--356
+\TU/lmr/m/n/10.95 wire-id \TU/lmtt/m/n/10.95 anthropic/a6api-main/kimi-k3 \TU/l
+mr/m/n/10.95 (resolution level L2 relay), no cross-
+
+warning: claim.tex:356: Overfull \hbox (33.33469pt too wide) in paragraph at lines 337--356
+Overfull \hbox (33.33469pt too wide) in paragraph at lines 337--356
+\TU/lmr/m/n/10.95 number and the author handle; ledger \TU/lmtt/m/n/10.95 claim
+s/tatami-mod8-defect/budget.log\TU/lmr/m/n/10.95 ).
+[8] [9] (claim.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `claim.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information)
+Output written on claim.xdv (9 pages, 203176 bytes).
+Transcript written on claim.log.
+note: Rerunning TeX because "claim.aux" changed ...
+(claim.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24> (article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(size11.clo)) (fontenc.sty (t1lmr.fd)) (inputenc.sty
+
+Package inputenc Warning: inputenc package ignored with utf8 based engines.
+
+) (amsmath.sty
+For additional information on amsmath, use the `?' option.
+(amstext.sty (amsgen.sty)) (amsbsy.sty) (amsopn.sty)) (amssymb.sty
+(amsfonts.sty)) (amsthm.sty) (hyperref.sty (ltxcmds.sty) (iftex.sty)
+(pdftexcmds.sty (infwarerr.sty)) (keyval.sty) (kvsetkeys.sty) (kvdefinekeys.sty
+) (pdfescape.sty) (hycolor.sty) (letltxmacro.sty) (auxhook.sty) (kvoptions.sty)
+(pd1enc.def) (intcalc.sty) (etexcmds.sty) (puenc.def) (url.sty) (bitset.sty
+(bigintcalc.sty)) (atbegshi-ltx.sty)) (hxetex.def (stringenc.sty)
+(rerunfilecheck.sty (atveryend-ltx.sty) (uniquecounter.sty))) (lstlean
+(listings.sty (lstmisc.sty) (listings.cfg)) (xcolor.sty (color.cfg) (xetex.def)
+)) (xeCJK.sty (expl3.sty (l3backend-xetex.def)) (ctexhook.sty) (l3keys2e.sty)
+(xtemplate.sty) (xparse.sty) (fontspec.sty (fontspec-xetex.sty (fontenc.sty)
+(fontspec.cfg))) (xeCJK-listings.sty) (xeCJK.cfg)) (claim.aux) (ts1cmr.fd)
+(nameref.sty (refcount.sty) (gettitlestring.sty)) (claim.out) (claim.out)
+(umsa.fd) (umsb.fd)
+
+Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
+(xeCJK)                
+(xeCJK)                Try to use `\setCJKmonofont[...]{...}' to define it.
+
+
+warning: claim.tex:84: Overfull \hbox (91.92215pt too wide) in paragraph at lines 70--84
+Overfull \hbox (91.92215pt too wide) in paragraph at lines 70--84
+\TU/lmr/m/n/10.95 Let $\OML/cmm/m/it/10.95 a\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/1
+0.95 n\OT1/cmr/m/n/10.95 )$ \TU/lmr/m/n/10.95 be the integer sequence with base
+ values $\OML/cmm/m/it/10.95 a\OT1/cmr/m/n/10.95 (0)\OML/cmm/m/it/10.95 ; [] ; 
+a\OT1/cmr/m/n/10.95 (8) = 1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 3\OML/cmm/m
+/it/10.95 ; \OT1/cmr/m/n/10.95 13\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 22\OM
+L/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 44\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.9
+5 90\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 196\OML/cmm/m/it/10.95 ; \OT1/cmr/
+m/n/10.95 406\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 852$
+[1]
+warning: claim.tex:94: Overfull \hbox (4.8034pt too wide) in paragraph at lines 85--94
+Overfull \hbox (4.8034pt too wide) in paragraph at lines 85--94
+\TU/lmr/m/n/10.95 quences, produced by AI4Math, a highly automated LLM-plus-ker
+nel pipeline
+
+warning: claim.tex:101: Overfull \hbox (4.013pt too wide) in paragraph at lines 97--101
+Overfull \hbox (4.013pt too wide) in paragraph at lines 97--101
+\TU/lmr/m/n/10.95 the frozen statement file \TU/lmtt/m/n/10.95 01-statement.lea
+n\TU/lmr/m/n/10.95 , sha256 \TU/lmtt/m/n/10.95 59560f57...82b187f\TU/lmr/m/n/10
+.95 ). 
+[2]
+
+LaTeX Font Warning: Font shape `TU/SimSun(0)/m/it' undefined
+(Font)              using `TU/SimSun(0)/m/n' instead on input line 130.
+
+
+warning: claim.tex:153: Overfull \hbox (0.26338pt too wide) in paragraph at lines 150--153
+Overfull \hbox (0.26338pt too wide) in paragraph at lines 150--153
+[][]\TU/lmr/bx/n/10.95 Theorem 1 \TU/lmr/m/n/10.95 (mod-8 period 4)\TU/lmr/bx/n
+/10.95 . []\TU/lmr/m/it/10.95 For every integer $\OML/cmm/m/it/10.95 n \OMS/cms
+y/m/n/10.95 ^^U \OT1/cmr/m/n/10.95 4$\TU/lmr/m/it/10.95 , the residue $\OML/cmm
+/m/it/10.95 a\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 n\OT1/cmr/m/n/10.95 )  []
+
+warning: claim.tex:179: Overfull \hbox (6.0057pt too wide) in paragraph at lines 170--179
+Overfull \hbox (6.0057pt too wide) in paragraph at lines 170--179
+\TU/lmr/m/n/10.95 is included in full in the artifact package, \TU/lmtt/m/n/10.
+95 proofs/01-proof-complete.lean\TU/lmr/m/n/10.95 ).
+[3] [4] [5]
+warning: claim.tex:254: Overfull \hbox (11.56056pt too wide) in paragraph at lines 247--254
+Overfull \hbox (11.56056pt too wide) in paragraph at lines 247--254
+[]\TU/lmr/m/n/10.95 Statement integrity: frozen statement \TU/lmtt/m/n/10.95 fo
+rmalized/01-statement.lean\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:254: Overfull \hbox (73.07216pt too wide) in paragraph at lines 247--254
+Overfull \hbox (73.07216pt too wide) in paragraph at lines 247--254
+\TU/lmr/m/n/10.95 sha256 \TU/lmtt/m/n/10.95 59560f5735f2c8b58a31d631a4ed28806ca
+23292d195fa098231fb04682b187f\TU/lmr/m/n/10.95 ;
+
+warning: claim.tex:254: Overfull \hbox (325.2309pt too wide) in paragraph at lines 247--254
+Overfull \hbox (325.2309pt too wide) in paragraph at lines 247--254
+\TU/lmr/m/n/10.95 final development \TU/lmtt/m/n/10.95 final/01-proof-complete.
+lean\TU/lmr/m/n/10.95 , sha256 \TU/lmtt/m/n/10.95 b0f4a692990680e67817e09754847
+18132a6c54b9a1664598e44d9d0534789a1\TU/lmr/m/n/10.95 ;
+
+warning: claim.tex:263: Overfull \hbox (161.76738pt too wide) in paragraph at lines 263--263
+Overfull \hbox (161.76738pt too wide) in paragraph at lines 263--263
+ []\TU/lmtt/m/n/10.95 tatami_mod8_period4 : [propext, Classical.choice, Quot.so
+und]  (exactly the whitelist)[] 
+
+warning: claim.tex:263: Overfull \hbox (75.53615pt too wide) in paragraph at lines 263--263
+Overfull \hbox (75.53615pt too wide) in paragraph at lines 263--263
+ []\TU/lmtt/m/n/10.95 bcorner_odd         : [propext, Quot.sound]              
+      (subset)[] 
+
+warning: claim.tex:263: Overfull \hbox (75.53615pt too wide) in paragraph at lines 263--263
+Overfull \hbox (75.53615pt too wide) in paragraph at lines 263--263
+ []\TU/lmtt/m/n/10.95 bcorner_eq          : [propext, Quot.sound]              
+      (subset)[] 
+
+warning: claim.tex:269: Overfull \hbox (0.68747pt too wide) in paragraph at lines 264--269
+Overfull \hbox (0.68747pt too wide) in paragraph at lines 264--269
+[]\TU/lmr/m/n/10.95 Audit chain: gate-2 well-definedness compilation plus degen
+eracy prob-
+
+warning: claim.tex:287: Underfull \hbox (badness 7888) in paragraph at lines 287--287
+Underfull \hbox (badness 7888) in paragraph at lines 287--287
+[]\TU/lmr/m/n/10.95 OEIS sequence
+
+warning: claim.tex:288: Underfull \hbox (badness 1590) in paragraph at lines 287--288
+Underfull \hbox (badness 1590) in paragraph at lines 287--288
+\TU/lmr/m/n/10.95 long-edge defect sequences, each
+
+warning: claim.tex:289: Underfull \hbox (badness 7888) in paragraph at lines 289--289
+Underfull \hbox (badness 7888) in paragraph at lines 289--289
+[]\TU/lmr/m/n/10.95 OEIS sequence
+
+warning: claim.tex:289: Underfull \hbox (badness 10000) in paragraph at lines 289--289
+Underfull \hbox (badness 10000) in paragraph at lines 289--289
+[]\TU/lmr/m/n/10.95 positive control
+
+warning: claim.tex:291: Underfull \hbox (badness 10000) in paragraph at lines 290--291
+Underfull \hbox (badness 10000) in paragraph at lines 290--291
+[]\TU/lmr/m/n/10.95 hits A180970
+
+warning: claim.tex:291: Underfull \hbox (badness 10000) in paragraph at lines 291--291
+Underfull \hbox (badness 10000) in paragraph at lines 291--291
+[]\TU/lmr/m/n/10.95 OEIS record
+
+warning: claim.tex:292: Underfull \hbox (badness 6396) in paragraph at lines 291--292
+Underfull \hbox (badness 6396) in paragraph at lines 291--292
+[]\TU/lmr/m/n/10.95 full A180970 record re-fetched;
+
+warning: claim.tex:292: Underfull \hbox (badness 10000) in paragraph at lines 291--292
+Underfull \hbox (badness 10000) in paragraph at lines 291--292
+\TU/lmr/m/n/10.95 case-insensitive scan for
+
+warning: claim.tex:295: Underfull \hbox (badness 10000) in paragraph at lines 293--295
+Underfull \hbox (badness 10000) in paragraph at lines 293--295
+[]\TU/lmr/m/n/10.95 arXiv \TU/lmtt/m/n/10.95 all:"tatami" \TU/lmr/m/n/10.95 (40
+ re-
+
+warning: claim.tex:295: Underfull \hbox (badness 10000) in paragraph at lines 293--295
+Underfull \hbox (badness 10000) in paragraph at lines 293--295
+\TU/lmr/m/n/10.95 sults); \TU/lmtt/m/n/10.95 abs:"tatami" AND
+
+warning: claim.tex:295: Underfull \hbox (badness 10000) in paragraph at lines 293--295
+Underfull \hbox (badness 10000) in paragraph at lines 293--295
+\TU/lmtt/m/n/10.95 abs:"congruence"\TU/lmr/m/n/10.95 ; OpenAlex
+
+warning: claim.tex:296: Underfull \hbox (badness 2941) in paragraph at lines 295--296
+Underfull \hbox (badness 2941) in paragraph at lines 295--296
+[]\TU/lmr/m/n/10.95 0 relevant; no
+
+warning: claim.tex:300: Overfull \hbox (3.60132pt too wide) in paragraph at lines 283--300
+Overfull \hbox (3.60132pt too wide) in paragraph at lines 283--300
+ [] 
+[6] [7]
+warning: claim.tex:356: Overfull \hbox (5.20963pt too wide) in paragraph at lines 337--356
+Overfull \hbox (5.20963pt too wide) in paragraph at lines 337--356
+\TU/lmtt/m/n/10.95 tasks/20260926-beian-select/budget.log\TU/lmr/m/n/10.95 ): a
+ single resolved model node,
+
+warning: claim.tex:356: Overfull \hbox (4.83426pt too wide) in paragraph at lines 337--356
+Overfull \hbox (4.83426pt too wide) in paragraph at lines 337--356
+\TU/lmr/m/n/10.95 wire-id \TU/lmtt/m/n/10.95 anthropic/a6api-main/kimi-k3 \TU/l
+mr/m/n/10.95 (resolution level L2 relay), no cross-
+
+warning: claim.tex:356: Overfull \hbox (33.33469pt too wide) in paragraph at lines 337--356
+Overfull \hbox (33.33469pt too wide) in paragraph at lines 337--356
+\TU/lmr/m/n/10.95 number and the author handle; ledger \TU/lmtt/m/n/10.95 claim
+s/tatami-mod8-defect/budget.log\TU/lmr/m/n/10.95 ).
+[8] [9] (claim.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ )
+(see the transcript file for additional information)
+Output written on claim.xdv (9 pages, 205992 bytes).
+Transcript written on claim.log.
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+[1][2][3][4][5][6][7][8][9]103140 bytes written
+note: Writing `claim.pdf` (100.72265625 KiB)
+note: Writing `claim.log` (25.09375 KiB)
+note: Skipped writing 2 intermediate files (use --keep-intermediates to keep them)

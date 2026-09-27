@@ -1,0 +1,480 @@
+note: Running TeX ...
+(claim.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24> (article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(size11.cloFontconfig error: Cannot load default config file: No such file: (null)
+)) (fontenc.sty (t1lmr.fd)) (inputenc.sty
+
+Package inputenc Warning: inputenc package ignored with utf8 based engines.
+
+) (amsmath.sty
+For additional information on amsmath, use the `?' option.
+(amstext.sty (amsgen.sty)) (amsbsy.sty) (amsopn.sty)) (amssymb.sty
+(amsfonts.sty)) (amsthm.sty) (hyperref.sty (ltxcmds.sty) (iftex.sty)
+(pdftexcmds.sty (infwarerr.sty)) (keyval.sty) (kvsetkeys.sty) (kvdefinekeys.sty
+) (pdfescape.sty) (hycolor.sty) (letltxmacro.sty) (auxhook.sty) (kvoptions.sty)
+(pd1enc.def) (intcalc.sty) (etexcmds.sty) (puenc.def) (url.sty) (bitset.sty
+(bigintcalc.sty)) (atbegshi-ltx.sty)) (hxetex.def (stringenc.sty)
+(rerunfilecheck.sty (atveryend-ltx.sty) (uniquecounter.sty))) (graphicx.sty
+(graphics.sty (trig.sty) (graphics.cfg) (xetex.def))) (lstlean (listings.sty
+(lstmisc.sty) (listings.cfg)) (xcolor.sty (color.cfg))) (xeCJK.sty (expl3.sty
+(l3backend-xetex.def)) (ctexhook.sty) (l3keys2e.sty) (xtemplate.sty)
+(xparse.sty) (fontspec.sty (fontspec-xetex.sty (fontenc.sty) (fontspec.cfg)))
+(xeCJK-listings.sty) (xeCJK.cfg))warning: accessing absolute path `C:/WINDOWS/fonts\simsun.ttc`; build may not be reproducible in other environments
+
+No file claim.aux.
+(ts1cmr.fd) (nameref.sty (refcount.sty) (gettitlestring.sty))
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
+(umsa.fd) (umsb.fd)
+
+Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
+(xeCJK)                
+(xeCJK)                Try to use `\setCJKmonofont[...]{...}' to define it.
+
+
+LaTeX Warning: Citation `oeis-a033515' on page 1 undefined on input line 90.
+
+
+LaTeX Warning: Reference `sec:scope' on page 1 undefined on input line 93.
+
+[1]
+
+LaTeX Warning: Reference `thm:master' on page 2 undefined on input line 109.
+
+
+LaTeX Warning: Reference `thm:master' on page 2 undefined on input line 129.
+
+
+LaTeX Warning: Reference `thm:master' on page 2 undefined on input line 129.
+
+
+warning: claim.tex:129: Underfull \hbox (badness 4621) in paragraph at lines 129--129
+Underfull \hbox (badness 4621) in paragraph at lines 129--129
+[]\TU/lmr/m/n/10.95 Listing 1: Formal statement of Theorem [] (verbatim excerpt
+,
+
+LaTeX Warning: Reference `thm:matrix' on page 2 undefined on input line 146.
+
+
+LaTeX Warning: Reference `thm:matrix' on page 2 undefined on input line 146.
+
+
+warning: claim.tex:146: Underfull \hbox (badness 4621) in paragraph at lines 146--146
+Underfull \hbox (badness 4621) in paragraph at lines 146--146
+[]\TU/lmr/m/n/10.95 Listing 2: Formal statement of Theorem [] (verbatim excerpt
+,
+[2]
+
+LaTeX Warning: Reference `lst:full' on page 3 undefined on input line 158.
+
+
+LaTeX Font Warning: Font shape `TU/SimSun(0)/m/it' undefined
+(Font)              using `TU/SimSun(0)/m/n' instead on input line 170.
+
+[3] [4]
+
+LaTeX Warning: Citation `lean4' on page 5 undefined on input line 241.
+
+
+LaTeX Warning: Citation `mathlib' on page 5 undefined on input line 241.
+
+
+warning: claim.tex:252: Overfull \hbox (33.12111pt too wide) in paragraph at lines 242--252
+Overfull \hbox (33.12111pt too wide) in paragraph at lines 242--252
+[]\TU/lmr/m/n/10.95 Statement integrity: frozen statements \TU/lmtt/m/n/10.95 f
+ormalized/04-statement-p1.lean\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:252: Overfull \hbox (73.07216pt too wide) in paragraph at lines 242--252
+Overfull \hbox (73.07216pt too wide) in paragraph at lines 242--252
+\TU/lmr/m/n/10.95 sha256 \TU/lmtt/m/n/10.95 4740b9d53e97360c49d0eefe97a7abc4701
+34acf8e61273963d7a55de8e733bc\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:252: Overfull \hbox (274.03967pt too wide) in paragraph at lines 242--252
+Overfull \hbox (274.03967pt too wide) in paragraph at lines 242--252
+\TU/lmr/m/n/10.95 and \TU/lmtt/m/n/10.95 formalized/04-statement-p2.lean\TU/lmr
+/m/n/10.95 , sha256 \TU/lmtt/m/n/10.95 8cac6fa4ec068dc913ff90769bda34333bddd9d2
+2c7463d2cecab0e3edc1d7fe
+
+warning: claim.tex:252: Overfull \hbox (1.25116pt too wide) in paragraph at lines 242--252
+Overfull \hbox (1.25116pt too wide) in paragraph at lines 242--252
+\TU/lmr/m/n/10.95 (LF-normalized); final development \TU/lmtt/m/n/10.95 final/0
+4-proof-complete.lean\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:252: Overfull \hbox (73.07216pt too wide) in paragraph at lines 242--252
+Overfull \hbox (73.07216pt too wide) in paragraph at lines 242--252
+\TU/lmr/m/n/10.95 sha256 \TU/lmtt/m/n/10.95 566e9e1d7053602eda7853943f582e3d372
+6009c32f9dc4b6ce3ca8ee19c5ae8\TU/lmr/m/n/10.95 ;
+
+warning: claim.tex:257: Overfull \hbox (10.06264pt too wide) in paragraph at lines 252--257
+Overfull \hbox (10.06264pt too wide) in paragraph at lines 252--257
+[]\TU/lmr/m/n/10.95 Kernel check: strict re-compilation (\TU/lmtt/m/n/10.95 scr
+ipts/lean-verify\TU/lmr/m/n/10.95 , strict mode)
+
+warning: claim.tex:257: Overfull \hbox (49.52116pt too wide) in paragraph at lines 252--257
+Overfull \hbox (49.52116pt too wide) in paragraph at lines 252--257
+\TU/lmr/m/n/10.95 (sidecar re-compilation), verbatim output (\TU/lmtt/m/n/10.95
+ audit/audit-axioms-sidecar.log\TU/lmr/m/n/10.95 ): 
+
+warning: claim.tex:260: Overfull \hbox (81.2849pt too wide) in paragraph at lines 260--260
+Overfull \hbox (81.2849pt too wide) in paragraph at lines 260--260
+ []\TU/lmtt/m/n/10.95 'cyl3_master' depends on axioms: [propext, Classical.choi
+ce, Quot.sound][] 
+
+warning: claim.tex:260: Overfull \hbox (121.52614pt too wide) in paragraph at lines 260--260
+Overfull \hbox (121.52614pt too wide) in paragraph at lines 260--260
+ []\TU/lmtt/m/n/10.95 'cyl3_matrix_family' depends on axioms: [propext, Classic
+al.choice, Quot.sound][] 
+[5]
+warning: claim.tex:268: Overfull \hbox (3.65472pt too wide) in paragraph at lines 263--268
+Overfull \hbox (3.65472pt too wide) in paragraph at lines 263--268
+[]\TU/lmr/m/n/10.95 Degeneracy probing: the well-definedness gate ran 14 bare-t
+actic probes
+
+warning: claim.tex:273: Overfull \hbox (0.68747pt too wide) in paragraph at lines 268--273
+Overfull \hbox (0.68747pt too wide) in paragraph at lines 268--273
+[]\TU/lmr/m/n/10.95 Audit chain: gate-2 well-definedness compilation plus degen
+eracy prob-
+
+LaTeX Warning: Reference `thm:master' on page 6 undefined on input line 283.
+
+
+LaTeX Warning: Reference `thm:matrix' on page 6 undefined on input line 287.
+
+
+LaTeX Warning: Citation `lundow1996' on page 6 undefined on input line 290.
+
+
+LaTeX Warning: Citation `lundow1998' on page 6 undefined on input line 290.
+
+
+LaTeX Warning: Citation `oeis-a033515' on page 6 undefined on input line 290.
+
+
+LaTeX Warning: Citation `oeis-a287428' on page 6 undefined on input line 290.
+
+
+warning: claim.tex:301: Underfull \hbox (badness 10000) in paragraph at lines 301--301
+Underfull \hbox (badness 10000) in paragraph at lines 301--301
+[]\TU/lmr/m/n/10.95 OEIS sequence
+
+warning: claim.tex:303: Underfull \hbox (badness 7186) in paragraph at lines 301--303
+Underfull \hbox (badness 7186) in paragraph at lines 301--303
+[]\TU/lmr/m/n/10.95 26 queries (19 sequence-shape
+
+warning: claim.tex:303: Underfull \hbox (badness 6842) in paragraph at lines 301--303
+Underfull \hbox (badness 6842) in paragraph at lines 301--303
+\TU/lmr/m/n/10.95 recurrence-text and generating-
+
+warning: claim.tex:303: Underfull \hbox (badness 3525) in paragraph at lines 301--303
+Underfull \hbox (badness 3525) in paragraph at lines 301--303
+\TU/lmr/m/n/10.95 calibration query hits A033515
+
+LaTeX Warning: Citation `dey-krishnan' on page 6 undefined on input line 306.
+
+
+LaTeX Warning: Citation `kong' on page 6 undefined on input line 306.
+
+
+LaTeX Warning: Citation `arora' on page 6 undefined on input line 307.
+
+
+warning: claim.tex:307: Underfull \hbox (badness 4805) in paragraph at lines 305--307
+Underfull \hbox (badness 4805) in paragraph at lines 305--307
+[]\TU/lmr/m/n/10.95 8 query groups (incl. 3 http
+
+warning: claim.tex:307: Underfull \hbox (badness 10000) in paragraph at lines 305--307
+Underfull \hbox (badness 10000) in paragraph at lines 305--307
+\TU/lmr/m/n/10.95 trial-and-error); nearest lines
+
+warning: claim.tex:307: Underfull \hbox (badness 10000) in paragraph at lines 305--307
+Underfull \hbox (badness 10000) in paragraph at lines 305--307
+\TU/lmr/m/n/10.95 arXiv:2109.12716 [[]], cond-
+
+warning: claim.tex:311: Underfull \hbox (badness 10000) in paragraph at lines 311--311
+Underfull \hbox (badness 10000) in paragraph at lines 311--311
+[]\TU/lmr/m/n/10.95 general web
+
+warning: claim.tex:312: Underfull \hbox (badness 10000) in paragraph at lines 311--312
+Underfull \hbox (badness 10000) in paragraph at lines 311--312
+[]\TU/lmr/m/n/10.95 channel de-
+
+warning: claim.tex:314: Underfull \hbox (badness 10000) in paragraph at lines 313--314
+Underfull \hbox (badness 10000) in paragraph at lines 313--314
+\TU/lmr/m/n/10.95 probes (\TU/lmtt/m/n/10.95 Hosoya\TU/lmr/m/n/10.95 , \TU/lmtt
+/m/n/10.95 monomer\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:316: Underfull \hbox (badness 10000) in paragraph at lines 314--316
+Underfull \hbox (badness 10000) in paragraph at lines 314--316
+[]\TU/lmr/m/n/10.95 zero hits;
+
+warning: claim.tex:316: Underfull \hbox (badness 10000) in paragraph at lines 314--316
+Underfull \hbox (badness 10000) in paragraph at lines 314--316
+\TU/lmr/m/n/10.95 A033515 ab-
+
+warning: claim.tex:316: Underfull \hbox (badness 10000) in paragraph at lines 314--316
+Underfull \hbox (badness 10000) in paragraph at lines 314--316
+\TU/lmr/m/n/10.95 sent from
+[6]
+warning: claim.tex:325: Overfull \hbox (6.124pt too wide) in paragraph at lines 320--325
+Overfull \hbox (6.124pt too wide) in paragraph at lines 320--325
+\TU/lmr/m/n/10.95 not searched (login required); one Semantic Scholar query rat
+e-limited (HTTP
+
+LaTeX Warning: Citation `oeis-a033515' on page 7 undefined on input line 336.
+
+
+LaTeX Warning: Citation `oeis-a287428' on page 7 undefined on input line 336.
+
+
+LaTeX Warning: Citation `lundow1996' on page 7 undefined on input line 336.
+
+
+LaTeX Warning: Citation `lundow1998' on page 7 undefined on input line 336.
+
+[7]
+warning: claim.tex:357: Overfull \hbox (169.63339pt too wide) in paragraph at lines 343--357
+Overfull \hbox (169.63339pt too wide) in paragraph at lines 343--357
+ [] 
+
+LaTeX Warning: Reference `thm:matrix' on page 8 undefined on input line 359.
+
+
+warning: claim.tex:400: Overfull \hbox (10.95837pt too wide) in paragraph at lines 381--400
+Overfull \hbox (10.95837pt too wide) in paragraph at lines 381--400
+\TU/lmtt/m/n/10.95 tasks/20260926-cyl3-pipeline/budget.log\TU/lmr/m/n/10.95 ): 
+a single resolved model node,
+
+warning: claim.tex:400: Overfull \hbox (4.83426pt too wide) in paragraph at lines 381--400
+Overfull \hbox (4.83426pt too wide) in paragraph at lines 381--400
+\TU/lmr/m/n/10.95 wire-id \TU/lmtt/m/n/10.95 anthropic/a6api-main/kimi-k3 \TU/l
+mr/m/n/10.95 (resolution level L2 relay), no cross-
+
+warning: claim.tex:400: Overfull \hbox (1.36069pt too wide) in paragraph at lines 381--400
+Overfull \hbox (1.36069pt too wide) in paragraph at lines 381--400
+\TU/lmr/m/n/10.95 build that embedded this number; ledger \TU/lmtt/m/n/10.95 cl
+aims/cyl3-mod23/budget.log\TU/lmr/m/n/10.95 ).
+[8] [9]
+
+LaTeX Warning: Citation `oeis-a033515' on page 10 undefined on input line 448.
+
+
+LaTeX Warning: Citation `oeis-a033515' on page 10 undefined on input line 453.
+
+[10] (claim.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `claim.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information)
+Output written on claim.xdv (10 pages, 242420 bytes).
+Transcript written on claim.log.
+note: Rerunning TeX because "claim.out" changed ...
+(claim.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24> (article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(size11.clo)) (fontenc.sty (t1lmr.fd)) (inputenc.sty
+
+Package inputenc Warning: inputenc package ignored with utf8 based engines.
+
+) (amsmath.sty
+For additional information on amsmath, use the `?' option.
+(amstext.sty (amsgen.sty)) (amsbsy.sty) (amsopn.sty)) (amssymb.sty
+(amsfonts.sty)) (amsthm.sty) (hyperref.sty (ltxcmds.sty) (iftex.sty)
+(pdftexcmds.sty (infwarerr.sty)) (keyval.sty) (kvsetkeys.sty) (kvdefinekeys.sty
+) (pdfescape.sty) (hycolor.sty) (letltxmacro.sty) (auxhook.sty) (kvoptions.sty)
+(pd1enc.def) (intcalc.sty) (etexcmds.sty) (puenc.def) (url.sty) (bitset.sty
+(bigintcalc.sty)) (atbegshi-ltx.sty)) (hxetex.def (stringenc.sty)
+(rerunfilecheck.sty (atveryend-ltx.sty) (uniquecounter.sty))) (graphicx.sty
+(graphics.sty (trig.sty) (graphics.cfg) (xetex.def))) (lstlean (listings.sty
+(lstmisc.sty) (listings.cfg)) (xcolor.sty (color.cfg))) (xeCJK.sty (expl3.sty
+(l3backend-xetex.def)) (ctexhook.sty) (l3keys2e.sty) (xtemplate.sty)
+(xparse.sty) (fontspec.sty (fontspec-xetex.sty (fontenc.sty) (fontspec.cfg)))
+(xeCJK-listings.sty) (xeCJK.cfg)) (claim.aux) (ts1cmr.fd) (nameref.sty
+(refcount.sty) (gettitlestring.sty)) (claim.out) (claim.out) (umsa.fd) (umsb.fd
+)
+
+Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
+(xeCJK)                
+(xeCJK)                Try to use `\setCJKmonofont[...]{...}' to define it.
+
+[1]
+warning: claim.tex:129: Underfull \hbox (badness 6300) in paragraph at lines 129--129
+Underfull \hbox (badness 6300) in paragraph at lines 129--129
+[]\TU/lmr/m/n/10.95 Listing 1: Formal statement of Theorem []1[] (verbatim exce
+rpt,
+
+warning: claim.tex:146: Underfull \hbox (badness 6300) in paragraph at lines 146--146
+Underfull \hbox (badness 6300) in paragraph at lines 146--146
+[]\TU/lmr/m/n/10.95 Listing 2: Formal statement of Theorem []2[] (verbatim exce
+rpt,
+[2]
+
+LaTeX Font Warning: Font shape `TU/SimSun(0)/m/it' undefined
+(Font)              using `TU/SimSun(0)/m/n' instead on input line 170.
+
+[3] [4]
+warning: claim.tex:252: Overfull \hbox (33.12111pt too wide) in paragraph at lines 242--252
+Overfull \hbox (33.12111pt too wide) in paragraph at lines 242--252
+[]\TU/lmr/m/n/10.95 Statement integrity: frozen statements \TU/lmtt/m/n/10.95 f
+ormalized/04-statement-p1.lean\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:252: Overfull \hbox (73.07216pt too wide) in paragraph at lines 242--252
+Overfull \hbox (73.07216pt too wide) in paragraph at lines 242--252
+\TU/lmr/m/n/10.95 sha256 \TU/lmtt/m/n/10.95 4740b9d53e97360c49d0eefe97a7abc4701
+34acf8e61273963d7a55de8e733bc\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:252: Overfull \hbox (274.03967pt too wide) in paragraph at lines 242--252
+Overfull \hbox (274.03967pt too wide) in paragraph at lines 242--252
+\TU/lmr/m/n/10.95 and \TU/lmtt/m/n/10.95 formalized/04-statement-p2.lean\TU/lmr
+/m/n/10.95 , sha256 \TU/lmtt/m/n/10.95 8cac6fa4ec068dc913ff90769bda34333bddd9d2
+2c7463d2cecab0e3edc1d7fe
+
+warning: claim.tex:252: Overfull \hbox (1.25116pt too wide) in paragraph at lines 242--252
+Overfull \hbox (1.25116pt too wide) in paragraph at lines 242--252
+\TU/lmr/m/n/10.95 (LF-normalized); final development \TU/lmtt/m/n/10.95 final/0
+4-proof-complete.lean\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:252: Overfull \hbox (73.07216pt too wide) in paragraph at lines 242--252
+Overfull \hbox (73.07216pt too wide) in paragraph at lines 242--252
+\TU/lmr/m/n/10.95 sha256 \TU/lmtt/m/n/10.95 566e9e1d7053602eda7853943f582e3d372
+6009c32f9dc4b6ce3ca8ee19c5ae8\TU/lmr/m/n/10.95 ;
+
+warning: claim.tex:257: Overfull \hbox (10.06264pt too wide) in paragraph at lines 252--257
+Overfull \hbox (10.06264pt too wide) in paragraph at lines 252--257
+[]\TU/lmr/m/n/10.95 Kernel check: strict re-compilation (\TU/lmtt/m/n/10.95 scr
+ipts/lean-verify\TU/lmr/m/n/10.95 , strict mode)
+
+warning: claim.tex:257: Overfull \hbox (49.52116pt too wide) in paragraph at lines 252--257
+Overfull \hbox (49.52116pt too wide) in paragraph at lines 252--257
+\TU/lmr/m/n/10.95 (sidecar re-compilation), verbatim output (\TU/lmtt/m/n/10.95
+ audit/audit-axioms-sidecar.log\TU/lmr/m/n/10.95 ): 
+
+warning: claim.tex:260: Overfull \hbox (81.2849pt too wide) in paragraph at lines 260--260
+Overfull \hbox (81.2849pt too wide) in paragraph at lines 260--260
+ []\TU/lmtt/m/n/10.95 'cyl3_master' depends on axioms: [propext, Classical.choi
+ce, Quot.sound][] 
+
+warning: claim.tex:260: Overfull \hbox (121.52614pt too wide) in paragraph at lines 260--260
+Overfull \hbox (121.52614pt too wide) in paragraph at lines 260--260
+ []\TU/lmtt/m/n/10.95 'cyl3_matrix_family' depends on axioms: [propext, Classic
+al.choice, Quot.sound][] 
+[5]
+warning: claim.tex:268: Overfull \hbox (3.65472pt too wide) in paragraph at lines 263--268
+Overfull \hbox (3.65472pt too wide) in paragraph at lines 263--268
+[]\TU/lmr/m/n/10.95 Degeneracy probing: the well-definedness gate ran 14 bare-t
+actic probes
+
+warning: claim.tex:273: Overfull \hbox (0.68747pt too wide) in paragraph at lines 268--273
+Overfull \hbox (0.68747pt too wide) in paragraph at lines 268--273
+[]\TU/lmr/m/n/10.95 Audit chain: gate-2 well-definedness compilation plus degen
+eracy prob-
+
+warning: claim.tex:301: Underfull \hbox (badness 10000) in paragraph at lines 301--301
+Underfull \hbox (badness 10000) in paragraph at lines 301--301
+[]\TU/lmr/m/n/10.95 OEIS sequence
+
+warning: claim.tex:303: Underfull \hbox (badness 7186) in paragraph at lines 301--303
+Underfull \hbox (badness 7186) in paragraph at lines 301--303
+[]\TU/lmr/m/n/10.95 26 queries (19 sequence-shape
+
+warning: claim.tex:303: Underfull \hbox (badness 6842) in paragraph at lines 301--303
+Underfull \hbox (badness 6842) in paragraph at lines 301--303
+\TU/lmr/m/n/10.95 recurrence-text and generating-
+
+warning: claim.tex:303: Underfull \hbox (badness 3525) in paragraph at lines 301--303
+Underfull \hbox (badness 3525) in paragraph at lines 301--303
+\TU/lmr/m/n/10.95 calibration query hits A033515
+
+warning: claim.tex:307: Underfull \hbox (badness 4805) in paragraph at lines 305--307
+Underfull \hbox (badness 4805) in paragraph at lines 305--307
+[]\TU/lmr/m/n/10.95 8 query groups (incl. 3 http
+
+warning: claim.tex:307: Underfull \hbox (badness 10000) in paragraph at lines 305--307
+Underfull \hbox (badness 10000) in paragraph at lines 305--307
+\TU/lmr/m/n/10.95 trial-and-error); nearest lines
+
+warning: claim.tex:307: Underfull \hbox (badness 10000) in paragraph at lines 305--307
+Underfull \hbox (badness 10000) in paragraph at lines 305--307
+\TU/lmr/m/n/10.95 arXiv:2109.12716 [[]], cond-
+
+warning: claim.tex:307: Underfull \hbox (badness 1184) in paragraph at lines 305--307
+Underfull \hbox (badness 1184) in paragraph at lines 305--307
+\TU/lmr/m/n/10.95 mat/0611449 [[]], 2406.05750 [[]]
+
+warning: claim.tex:311: Underfull \hbox (badness 10000) in paragraph at lines 311--311
+Underfull \hbox (badness 10000) in paragraph at lines 311--311
+[]\TU/lmr/m/n/10.95 general web
+
+warning: claim.tex:312: Underfull \hbox (badness 10000) in paragraph at lines 311--312
+Underfull \hbox (badness 10000) in paragraph at lines 311--312
+[]\TU/lmr/m/n/10.95 channel de-
+
+warning: claim.tex:314: Underfull \hbox (badness 10000) in paragraph at lines 313--314
+Underfull \hbox (badness 10000) in paragraph at lines 313--314
+\TU/lmr/m/n/10.95 probes (\TU/lmtt/m/n/10.95 Hosoya\TU/lmr/m/n/10.95 , \TU/lmtt
+/m/n/10.95 monomer\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:316: Underfull \hbox (badness 10000) in paragraph at lines 314--316
+Underfull \hbox (badness 10000) in paragraph at lines 314--316
+[]\TU/lmr/m/n/10.95 zero hits;
+
+warning: claim.tex:316: Underfull \hbox (badness 10000) in paragraph at lines 314--316
+Underfull \hbox (badness 10000) in paragraph at lines 314--316
+\TU/lmr/m/n/10.95 A033515 ab-
+
+warning: claim.tex:316: Underfull \hbox (badness 10000) in paragraph at lines 314--316
+Underfull \hbox (badness 10000) in paragraph at lines 314--316
+\TU/lmr/m/n/10.95 sent from
+[6]
+warning: claim.tex:325: Overfull \hbox (6.124pt too wide) in paragraph at lines 320--325
+Overfull \hbox (6.124pt too wide) in paragraph at lines 320--325
+\TU/lmr/m/n/10.95 not searched (login required); one Semantic Scholar query rat
+e-limited (HTTP
+[7]
+warning: claim.tex:357: Overfull \hbox (169.63339pt too wide) in paragraph at lines 343--357
+Overfull \hbox (169.63339pt too wide) in paragraph at lines 343--357
+ [] 
+
+warning: claim.tex:400: Overfull \hbox (10.95837pt too wide) in paragraph at lines 381--400
+Overfull \hbox (10.95837pt too wide) in paragraph at lines 381--400
+\TU/lmtt/m/n/10.95 tasks/20260926-cyl3-pipeline/budget.log\TU/lmr/m/n/10.95 ): 
+a single resolved model node,
+
+warning: claim.tex:400: Overfull \hbox (4.83426pt too wide) in paragraph at lines 381--400
+Overfull \hbox (4.83426pt too wide) in paragraph at lines 381--400
+\TU/lmr/m/n/10.95 wire-id \TU/lmtt/m/n/10.95 anthropic/a6api-main/kimi-k3 \TU/l
+mr/m/n/10.95 (resolution level L2 relay), no cross-
+
+warning: claim.tex:400: Overfull \hbox (1.36069pt too wide) in paragraph at lines 381--400
+Overfull \hbox (1.36069pt too wide) in paragraph at lines 381--400
+\TU/lmr/m/n/10.95 build that embedded this number; ledger \TU/lmtt/m/n/10.95 cl
+aims/cyl3-mod23/budget.log\TU/lmr/m/n/10.95 ).
+[8] [9] [10] (claim.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ )
+(see the transcript file for additional information)
+Output written on claim.xdv (10 pages, 245472 bytes).
+Transcript written on claim.log.
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+[1][2][3][4][5][6][7][8][9][10]153758 bytes written
+note: Writing `claim.log` (25.302734375 KiB)
+note: Writing `claim.pdf` (150.154296875 KiB)
+note: Skipped writing 2 intermediate files (use --keep-intermediates to keep them)

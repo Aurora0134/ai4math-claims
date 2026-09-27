@@ -1,0 +1,16 @@
+# compile gate output (SOP 08b quality gate 2)
+# date: 2026-09-27; tool: scripts/paper-compile.sh (tectonic 0.17 portable)
+# gate compile #7 (final; embeds truthful count 7 in the AI-disclosure section)
+# --- raw tectonic output (tail) ---
+Output written on claim.xdv (10 pages, 224032 bytes).
+Transcript written on claim.log.
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+[1][2][3][4][5][6][7][8][9][10]130796 bytes written
+note: Writing `claim.pdf` (127.73046875 KiB)
+note: Writing `claim.log` (24.75390625 KiB)
+note: Skipped writing 2 intermediate files (use --keep-intermediates to keep them)
+# --- log checks ---
+Missing character warnings in claim.log: 0
+TeX error lines (^!) in claim.log: 0
+VERDICT: exit 0, missing-char 0, error 0 -- GREEN

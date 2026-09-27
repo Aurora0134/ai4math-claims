@@ -1,0 +1,15 @@
+WELLDEF OK
+PROBE nlinarith FAIL
+PROBE norm_num FAIL
+PROBE simp FAIL
+PROBE ring_nf FAIL
+PROBE positivity FAIL
+PROBE omega FAIL
+PROBE linarith FAIL
+CHECK Int.modEq_iff_dvd OK
+CHECK Int.ModEq.trans OK
+CHECK Matrix.add_mulVec OK
+CHECK Matrix.smul_mulVec OK
+CHECK Matrix.mulVec_mulVec OK
+CHECK Matrix.sub_mulVec OK
+CHECK mul_smul_comm OK

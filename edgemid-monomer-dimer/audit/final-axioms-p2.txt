@@ -1,0 +1,2 @@
+WELLDEF OK
+AXIOMS edgemid_matrix_family [propext, Classical.choice, Quot.sound]

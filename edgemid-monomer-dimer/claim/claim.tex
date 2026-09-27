@@ -1,0 +1,471 @@
+% claim.tex -- edgemid-monomer-dimer priority claim note (SOP 08b claim lane).
+% AI-generated 2026-09-27 by the AI4Math paper department (claim lane).
+% lstlean.tex copied unchanged from harness/templates/paper/lstlean.tex.
+% Machine-readable anchors: every theorem carries a % LEAN: line (task id +
+% declaration name + grade); paper-lint.sh and the claim audit check against it.
+% The Lean listing is a byte-exact mechanical copy of the frozen final
+% development tasks/20260926-edgemid-pipeline/final/03-proof-complete.lean
+% (66 lines, sha256 1124e6a5...72c1d); its docstrings and header comment are
+% in Chinese as frozen, rendered inside the listing via the package's
+% CJK fontset (xeCJK/SimSun) plus an active-character rendering patch
+% for the math symbols --- the sanctioned claims/cyl3-mod23 pattern
+% (punctuation 00B7/2014/2026 routes through xeCJK, not the patch).
+% Rendering-only; the listing body bytes stay identical to the frozen
+% source (audit/listing-verify.txt).
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\input{lstlean}
+\lstset{language=lean}
+% --- XeTeX rendering patch (verbatim from claims/tatami-mod8-defect/claim.tex
+%     2026-09-27 sanctioned block, itself backported from
+%     papers/cyl3-mod23/paper.tex; extended with the 6 further math symbols
+%     of this frozen file's inventory: 00D7 2083 2099 2212 2223 27FA;
+%     00B7/2014/2026 are in xeCJK's punctuation lists (MiddlePunct/LongPunct,
+%     xeCJK.sty) and are left to xeCJK's own CJK font routing).
+%     Rendering-only; source bytes of listings unchanged. Guarded so pdflatex
+%     keeps literate-table behaviour.
+\ifdefined\XeTeXversion
+  {\lccode`\~="2022 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\bullet}}}}
+  {\lccode`\~="2115 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{N}}}}}
+  {\lccode`\~="2124 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{Z}}}}}
+  {\lccode`\~="2190 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftarrow}}}}
+  {\lccode`\~="2192 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rightarrow}}}}
+  {\lccode`\~="2194 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftrightarrow}}}}
+  {\lccode`\~="2200 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\forall}}}}
+  {\lccode`\~="2203 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\exists}}}}
+  {\lccode`\~="2227 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\wedge}}}}
+  {\lccode`\~="2228 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vee}}}}
+  {\lccode`\~="2261 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\equiv}}}}
+  {\lccode`\~="2264 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leq}}}}
+  {\lccode`\~="2265 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\geq}}}}
+  {\lccode`\~="22A2 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vdash}}}}
+  {\lccode`\~="27E8 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\langle}}}}
+  {\lccode`\~="27E9 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rangle}}}}
+  {\lccode`\~="00D7 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\times}}}}
+  {\lccode`\~="2083 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{{}_3}}}}
+  {\lccode`\~="2099 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{{}_n}}}}
+  {\lccode`\~="2212 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{-}}}}
+  {\lccode`\~="2223 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mid}}}}
+  {\lccode`\~="27FA \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\Longleftrightarrow}}}}
+\fi
+\ifdefined\XeTeXversion
+  \usepackage{xeCJK}
+  \setCJKmainfont{SimSun}
+\fi
+
+\newtheorem{theorem}{Theorem}
+
+\title{Mod-2 periodicity for a family of sixth-order linear recurrences,
+with a matrix-functional generalization\\
+(Lean 4 machine-checked claim of record)}
+\author{Aurora0134\thanks{Contact: via the GitHub account Aurora0134; ORCID to
+be added at Zenodo upload.}}
+\date{September 27, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We record two theorems about the sixth-order linear recurrence
+$c(n+6)=4c(n+5)+14c(n+4)-10c(n+2)+c(n)$. First, every integer sequence
+satisfying it has parity of period dividing $6$, and the parity of $c(n)$ is
+determined by $n \bmod 6$. Second, a matrix-functional generalization: any
+$8\times 8$ integer matrix $T$ annihilated by $x^6-4x^5-14x^4+10x^2-1$ yields
+scalar sequences $n\mapsto (T^n v)_i$ obeying the same recurrence. The
+motivation comes from monomer--dimer (matching) enumeration on $3\times n$
+boards with one boundary defect, where the full-board counts are OEIS A033506
+and the defect-family sequences behind this recurrence are recorded here for
+the first time; that combinatorial interpretation is \emph{not} part of the
+machine-checked claim. All proofs are machine-checked by the Lean 4 kernel
+(0 \texttt{sorry}; axioms within \{propext, Quot.sound, Classical.choice\}). A
+structured novelty search found no occupying record. The artifact package is
+deposited on Zenodo. This note is a priority claim of record, not a full
+paper.
+\end{abstract}
+
+\section{Introduction}
+
+Counting monomer--dimer coverings of a $3\times n$ board --- matchings of the
+grid graph $P_3 \times P_n$ --- is a classical enumeration problem: the
+full-board counts form OEIS sequence A033506 \cite{oeis-a033506}, with a
+generating function documented there following Lundow's enumeration of
+matchings in polygraphs \cite{lundow-1996,lundow-1998}; see Propp's survey
+for the landscape \cite{propp-1999}. Forcing one prescribed boundary cell to
+carry a monomer (deleting one vertex, in matching language) produces
+\emph{defect} counting sequences. The pipeline's transfer-matrix computations
+of three such families --- a side-middle hole, a top-edge hole, and a fixed
+edge cut --- produce integer sequences that, as of September 2026, do not
+appear in the OEIS under calibrated exact-term searches, and whose recurrences
+share the sixth-order signature $(4,14,0,-10,0,1)$ of the full board. The
+nearest literature studies \emph{perfect} matchings of vertex-deleted lattices
+(pure dimer coverings), on odd-by-odd boards \cite{tzeng-wu-2003,wu-2006,oh-2019};
+adjacent non-occupying works prove a reciprocity theorem for total matchings
+of full boards \cite{anzalone-2003} and study the matching complex of the same
+$3\times n$ family topologically \cite{goyal-2021}.
+
+This note records two theorems at the recurrence level, produced by AI4Math, a
+highly automated LLM-plus-kernel pipeline in which the Lean 4 kernel is the
+sole arbiter of correctness. The present text is a priority claim of record
+--- a short deposit note accompanying a Zenodo artifact package; a fuller
+narrative paper is prepared separately through the pipeline's paper lane.
+Every theorem stated below is a \emph{complete proof} in the pipeline's
+grading: it compiles with 0 \texttt{sorry}, its axioms stay within the
+standard whitelist, and the statement was frozen before proving. The
+combinatorial reading of the recurrence (tiling counts) is motivation only;
+Section~\ref{sec:scope} is explicit about what the kernel did \emph{not}
+prove.
+
+\section{Statement}
+
+The formal development adds no definitions: each theorem is self-contained,
+quantifying over the objects in its hypothesis. The frozen statement files
+contain exactly one theorem each (\texttt{edgemid\_master} in
+\texttt{edgemid-p1-statement.lean}, sha256 \texttt{f964ce71...27b27c56};
+\texttt{edgemid\_matrix\_family} in \texttt{edgemid-p2-statement.lean}, sha256
+\texttt{cf9e379a...99b6d5}). The formal theorem headers, including their
+Chinese docstrings as frozen, appear verbatim inside Listing~\ref{lst:full}
+(lines 15--20 and 44--52 there), byte-identical to the frozen files.
+
+% LEAN: tasks/20260926-edgemid-pipeline :: edgemid_master grade=完全证明
+\begin{theorem}[mod-2 periodicity and characterization]\label{thm:p1}
+Let $c:\mathbb{N}\to\mathbb{Z}$ satisfy
+$c(n+6)=4c(n+5)+14c(n+4)-10c(n+2)+c(n)$ for all $n\in\mathbb{N}$. Then:
+\begin{enumerate}
+\item $c(n+6)\equiv c(n)\pmod 2$ for all $n$; and
+\item $c(n)\equiv c(n\bmod 6)\pmod 2$ for all $n$, i.e.\ the parity of $c(n)$
+is completely determined by $n \bmod 6$.
+\end{enumerate}
+\end{theorem}
+
+% LEAN: tasks/20260926-edgemid-pipeline :: edgemid_matrix_family grade=完全证明
+\begin{theorem}[matrix-functional generalization]\label{thm:p2}
+Let $T$ be an $8\times 8$ integer matrix satisfying
+$T^6=4T^5+14T^4-10T^2+I$, let $v\in\mathbb{Z}^8$ and let $i$ be an index.
+Then for all $n\in\mathbb{N}$,
+\[
+(T^{n+6}v)_i \;=\; 4\,(T^{n+5}v)_i + 14\,(T^{n+4}v)_i - 10\,(T^{n+2}v)_i + (T^n v)_i,
+\]
+i.e.\ the scalar sequence $n\mapsto (T^n v)_i$ satisfies the recurrence of
+Theorem~\ref{thm:p1}.
+\end{theorem}
+
+\section{Proof}
+
+The complete machine proofs are reproduced verbatim in
+Listing~\ref{lst:full}, which is the whole frozen final development
+\texttt{final/03-proof-complete.lean} (66 lines, sha256
+\texttt{1124e6a5...72c1d}): imports, header comment, both theorems with their
+full proofs. In brief, Theorem~\ref{thm:p1} converts the congruence into a
+divisibility via \lean{Int.modEq_iff_dvd}, discharges the parity
+rearrangement with the recurrence hypothesis and \texttt{ring}, lifts the
+one-step congruence to six-step blocks by induction
+(\lean{Int.ModEq.refl}, \lean{Int.ModEq.trans}), and finishes with the
+division identity $n = n\bmod 6 + 6\lfloor n/6\rfloor$ (\texttt{omega}).
+Theorem~\ref{thm:p2} rewrites $T^{n+6}=T^n T^6$ (\texttt{pow\_add}),
+substitutes the annihilating relation, distributes over the matrix operations
+(\lean{Matrix.add_mulVec}, \lean{Matrix.sub_mulVec},
+\lean{Matrix.smul_mulVec}, \lean{mul_smul_comm}), and closes by \texttt{rfl}
+along a finite fallback chain. A narrative prose proof is not the duty of
+this note; it belongs to the full paper lane.
+
+\begin{lstlisting}[caption={Complete frozen final development (verbatim full text, lines 1--66 of \texttt{final/03-proof-complete.lean}, sha256 \texttt{1124e6a5...72c1d}). The two theorem headers (lines 15--20, 44--52) are byte-identical to the frozen statement files; docstrings and the header comment are in Chinese as frozen.},label={lst:full}]
+import Mathlib.Data.Int.ModEq
+import Mathlib.Data.Matrix.Mul
+
+/-!
+# 03 证明完成稿（候选 03 · edgemid-pipeline · P1+P2）
+
+两定理 statement 头与冻结快照逐字一致（宪条 2）：P1 锚 `formalized/edgemid-p1-statement.lean:12-17`，
+P2 锚 `formalized/edgemid-p2-statement.lean:14-22`（两者均锚定
+`tasks/20260926-beian-extselect/candidates/smoke-03/EdgemidSmoke03r3.lean` 定理头）。
+proof body 逐字取自 smoke r3（P1 :18-39 / P2 :50-63，逐字节一致零改动），
+全稿零占位符、无 namespace。imports = 两冻结件 import 面并集。
+AI 生成（2026-09-26 军政部工人，dynamic-workflow 子代理）。
+-/
+
+/-- P1(首选命题):凡满足六阶线性递推
+`c (n+6) = 4 * c (n+5) + 14 * c (n+4) - 10 * c (n+2) + c n` 的整数序列,
+模 2 以 6 为周期,且模 2 余数由 `n % 6` 完全决定(整除刻画支)。 -/
+theorem edgemid_master (c : ℕ → ℤ)
+    (h : ∀ n, c (n+6) = 4 * c (n+5) + 14 * c (n+4) - 10 * c (n+2) + c n) :
+    (∀ n, c (n+6) ≡ c n [ZMOD 2]) ∧ (∀ n, c n ≡ c (n % 6) [ZMOD 2]) := by
+  have key : ∀ n, c (n+6) ≡ c n [ZMOD 2] := by
+    intro n
+    refine Int.modEq_iff_dvd.2 ⟨-(2 * c (n+5) + 7 * c (n+4) - 5 * c (n+2)), ?_⟩
+    rw [h n]
+    ring
+  have aux : ∀ k n, c (n + 6 * k) ≡ c n [ZMOD 2] := by
+    intro k
+    induction k with
+    | zero =>
+        intro n
+        simp only [Nat.mul_zero, Nat.add_zero]
+        exact Int.ModEq.refl _
+    | succ k ih =>
+        intro n
+        have e : n + 6 * (k+1) = (n + 6 * k) + 6 := by ring
+        rw [e]
+        exact (key (n + 6 * k)).trans (ih n)
+  refine ⟨key, fun n => ?_⟩
+  have step : c (n % 6 + 6 * (n / 6)) ≡ c (n % 6) [ZMOD 2] := aux (n / 6) (n % 6)
+  have e : n % 6 + 6 * (n / 6) = n := by omega
+  rw [e] at step
+  exact step
+
+/-- P2(挑战档扩展):转移矩阵被六阶多项式零化时,其矩阵幂泛函
+(含各固定孔位缺陷计数)满足同一递推。 -/
+theorem edgemid_matrix_family {T : Matrix (Fin 8) (Fin 8) ℤ}
+    (v : Fin 8 → ℤ) (i : Fin 8)
+    (hT : T ^ 6 = 4 • T ^ 5 + 14 • T ^ 4 - 10 • T ^ 2 + (1 : Matrix (Fin 8) (Fin 8) ℤ))
+    (n : ℕ) :
+    (T ^ (n+6)).mulVec v i
+      = 4 * (T ^ (n+5)).mulVec v i + 14 * (T ^ (n+4)).mulVec v i
+        - 10 * (T ^ (n+2)).mulVec v i + (T ^ n).mulVec v i := by
+  have hgen : T ^ (n+6)
+      = 4 • T ^ (n+5) + 14 • T ^ (n+4) - 10 • T ^ (n+2) + (T^n : Matrix (Fin 8) (Fin 8) ℤ) := by
+    rw [pow_add, hT, Matrix.mul_add, Matrix.mul_sub, Matrix.mul_add,
+        mul_smul_comm, mul_smul_comm, mul_smul_comm,
+        Matrix.mul_one, ← pow_add, ← pow_add, ← pow_add]
+  rw [hgen, Matrix.add_mulVec, Matrix.sub_mulVec, Matrix.add_mulVec,
+      Matrix.smul_mulVec, Matrix.smul_mulVec, Matrix.smul_mulVec]
+  first
+  | rfl
+  | simp only [smul_eq_mul]
+  | simp [smul_eq_mul]
+  | norm_num
+  | push_cast <;> rfl
+  | lia
+\end{lstlisting}
+
+\section{Verification evidence}
+
+\begin{itemize}
+\item Toolchain: Lean v4.34.0 (\texttt{leanprover/lean4:v4.34.0})
+\cite{lean4}, mathlib4 v4.34.0 (rev \texttt{5ed29652}) \cite{mathlib}.
+\item Statement integrity: frozen statements
+\texttt{formalized/edgemid-p1-statement.lean}, sha256
+\texttt{f964ce71e9888d7e8d9d982996fed2531492afdb1ca47df004a7f5d727b27c56},
+and \texttt{formalized/edgemid-p2-statement.lean}, sha256
+\texttt{cf9e379af46affeee0306ba2bb84094a18507eaeacbae9d0b690ac71cb99b6d5};
+final development \texttt{final/03-proof-complete.lean}, sha256
+\texttt{1124e6a53b6ec70fee5c964490fa4f407a23ab03b1557d3f7d214b0c20572c1d};
+symmetric difference of the two theorem headers against the frozen snapshots
+(frozen lines 12--17 vs final lines 15--20; frozen lines 14--22 vs final
+lines 44--52): zero, byte-identical.
+\item Kernel check: strict compile exit 0 with no errors; a byte-level scan of
+the whole final file (comments included) finds 0 occurrences of
+\texttt{sorry}/\texttt{admit}. Gate-2 non-degeneracy: all seven bare-tactic
+probes (\texttt{nlinarith}, \texttt{norm\_num}, \texttt{simp},
+\texttt{ring\_nf}, \texttt{positivity}, \texttt{omega}, \texttt{linarith})
+fail to close either goal. Axiom audit, verbatim from
+\texttt{audit/final-axioms-p1.txt} and \texttt{audit/final-axioms-p2.txt}:
+\begin{verbatim}
+WELLDEF OK
+AXIOMS edgemid_master [propext, Quot.sound]
+\end{verbatim}
+\begin{verbatim}
+WELLDEF OK
+AXIOMS edgemid_matrix_family [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+Both lists are subsets of the whitelist \{propext, Quot.sound,
+Classical.choice\}; \texttt{sorryAx} is absent.
+\item Audit chain: statement freeze with sha256 snapshots; gate-2
+well-definedness compilation plus degeneracy probing; proof assembly
+restricted to proof bodies; gate-3 final strict compilation, byte-level
+symmetric-difference comparison and axiom audit; an NL--Lean roundtrip
+faithfulness walkthrough at formalization time. Evidence originals are in
+the artifact package \texttt{audit/}.
+\end{itemize}
+
+\section{Novelty evidence}
+
+The pipeline's C9 novelty review adjudicated this result as \emph{no
+occupying record found}, and an independent exclusivity re-review
+(2026-09-26, before deposit) maintained that adjudication. This is a
+statement about search evidence, not a claim to new mathematics: the
+full-board object A033506 is an occupied OEIS record \cite{oeis-a033506},
+and the three defect-family sequences are recorded here for the first time at
+the level of calibrated exact-term search evidence (wording capped
+accordingly). Query channels and query-string summary (the full query log,
+including zero-hit evidence files, is in \texttt{audit/c9-record.md} of the
+package, copied verbatim from the source record):
+
+\begin{center}
+\begin{tabular}{p{0.20\textwidth}p{0.50\textwidth}p{0.21\textwidth}}
+\hline
+channel & query summary & result \\
+\hline
+OEIS sequence layer & calibration: baseline 8 terms
+$1,3,22,131,823,5096,31687,196785$ & hits A033506 (channel works) \\
+OEIS sequence layer & exact 8-term W / N1 / EB0; relaxed mid-window 5-term
+variants; corner-hole control 8 terms & all null (zero hits) \\
+OEIS record layer & six full-text queries (monomer-dimer; deleted vertex +
+matchings; grid graph + matchings; square removed + 3 x n; monomer + 3 x n;
+matchings + one vertex); A033506 cross-references & hits are whole-board
+families or tatami entries; no $3\times n$ defect variant \\
+literature layer & arXiv (7 query groups, 8 abstracts verified, 1 full text
+checked), OpenAlex (6 groups), zbMATH (5 groups), Semantic Scholar (1 success,
+2 rate-limited) & no occupying record; nearest line
+\cite{oh-2019,tzeng-wu-2003,wu-2006} demarcated, not occupying \\
+web layer & general web, English and Chinese sides & whole-board classics and
+OI/programming tutorials only \\
+library layer & mathlib ripgrep for \texttt{monomer} / \texttt{dimer} & zero
+hits \\
+\hline
+\end{tabular}
+\end{center}
+
+The nearest literature line --- Oh's state matrix recursion method
+\cite{oh-2019} and the Tzeng--Wu / Wu Pfaffian results
+\cite{tzeng-wu-2003,wu-2006} --- counts \emph{perfect} matchings of
+vertex-deleted lattices (pure dimer coverings), the latter two restricted to
+odd-by-odd boards; the sequences behind this note count \emph{all} matchings
+of the vertex-deleted $3\times n$ graph, for all $n$. Different object, no
+occupation; cited here for demarcation. Recorded residual gaps, verbatim in
+spirit from the re-review: (i) CNKI (Chinese-language database) was not
+searched (login required); (ii) two Semantic Scholar queries were
+rate-limited (HTTP 429), with one query succeeding; (iii) the Tzeng--Wu 2003
+and Wu 2006 original PDFs were not fetched --- the demarcation rests on the
+ar5iv full text of \cite{oh-2019} plus abstracts.
+
+\section{Scope and limitations}\label{sec:scope}
+
+Grading boundary, per the final audit: the two theorems are complete proofs,
+strictly as their Lean statements --- Theorem~\ref{thm:p1} about
+\emph{arbitrary} integer sequences satisfying the recurrence, and
+Theorem~\ref{thm:p2} as a uniform recurrence for matrix functionals of
+\emph{arbitrary} annihilated $8\times 8$ integer matrices. Not
+machine-checked here: (i) any identification of a concrete $T$ with the
+transfer matrix of a $3\times n$ defect board, and any equality of
+$(T^n v)_i$ with a defect matching count --- that bridge is the standard
+transfer-matrix narrative \cite{oeis-a033506,lundow-1998,propp-1999}, and
+mathlib currently ships no monomer--dimer or matching-enumeration API to
+build it on (an eight-item gap list, ripgrep-verified, is in the artifact's
+evidence pack); (ii) the claim that the W / N1 / EB0 defect-family sequences
+satisfy the recurrence at all, which stands at the level of numerical
+evidence (term-window fits) plus, for the full board, the OEIS-documented
+generating function --- OEIS/literature endorsement and a computational
+conjecture layer, not kernel content: the kernel proved no counting ontology.
+The periodicity branch of Theorem~\ref{thm:p1} is algebraically shallow (a
+one-line parity rearrangement); the characterization branch carries the
+content --- stated to prevent over-reading. Novelty claims are search
+evidence on a specific date, not proofs of absence. This note contains no
+literature survey; it is a deposit record, not a survey article.
+
+\section*{Data availability}
+
+Artifact package: Zenodo deposit (DOI to be reserved at upload; see UPLOAD.md
+in this package) with a public mirror on GitHub at
+\url{https://github.com/Aurora0134/ai4math-claims}. Note under CC BY 4.0,
+code under MIT.
+
+\section*{Use of generative AI}
+
+(a) Stage mapping: candidate-proposition generation, formalization into Lean
+statements, retrieval evidence packing, proof assembly, audit documentation,
+and text drafting (including this note) were performed by AI (LLM) stages of
+the AI4Math pipeline; topic adjudication, statement-semantics verification
+and gate sign-off were human. (b) Model/node/budget (numbers copied verbatim
+from the source task ledger \texttt{tasks/20260926-edgemid-pipeline/budget.log}):
+a single user-designated model node, wire-id
+\texttt{anthropic/S3AI-Grok/grok-4.7} (model-detect resolution level L2;
+session runtime GLM-5.3 Flash via official direct connection, per the
+ledger's node-snapshot line), no cross-node switching. Source task totals:
+llm-call $0/6$ (cap 6, expected 0 achieved --- all drafting ran on the
+session runtime model through workflow subagents, so the call-metered budget
+records zero and there are no pass-at-k rates to report); Lean compilations
+$9/24$ on the kernel-script caliber ($18/24$ including worker-side
+re-verification runs; both calibers are recorded line by line in the ledger);
+diagnostics $0/4$; timebox about 2 hours 20 minutes within 24 hours. This
+claim-note stage used llm-call $0$ of its budget $4$, and $7$ LaTeX
+compilations of its budget $6$ (counting the final rebuild that embedded this
+number; ledger \texttt{claims/edgemid-monomer-dimer/budget.log}). (c) Final
+arbiter: all statements and proofs reported here were checked by the Lean 4
+kernel: every proof compiles with no \texttt{sorry}, and \texttt{\#print
+axioms} reports only subsets of \{propext, Quot.sound, Classical.choice\}.
+(d) The human author reviewed and is responsible for all content; the AI
+system is not an author.
+
+\section*{Author contributions}
+
+CRediT-style: the human author was responsible for topic selection and
+adjudication, verification of statement semantics, gate sign-off, and the
+decision to deposit; the AI4Math pipeline (an LLM system) performed
+proposition generation, proof search, and text drafting. The AI system is
+not listed as an author.
+
+\begin{thebibliography}{9}
+% Every entry below was verified on 2026-09-26: arXiv entries via the arXiv API
+% (authors/title/date), journal entries via Crossref (DOI), OEIS and Lundow via
+% the fetched OEIS entry text. No entry is from memory. Entries reused verbatim
+% from the paper-lane manuscript papers/edgemid-monomer-dimer/paper.tex.
+\bibitem{oeis-a033506}
+The OEIS Foundation Inc.
+\newblock The On-Line Encyclopedia of Integer Sequences, entry A033506:
+\emph{Number of matchings in graph $P_3 \times P_n$}.
+\newblock \url{https://oeis.org/A033506} (retrieved 2026-09-26).
+
+\bibitem{lundow-1996}
+P.~H. Lundow.
+\newblock Computation of matching polynomials and the number of 1-factors in
+polygraphs.
+\newblock Research reports, No.~12, Department of Mathematics, Ume\r{a}
+University, 1996. (As recorded in~\cite{oeis-a033506}.)
+
+\bibitem{lundow-1998}
+P.~H. Lundow.
+\newblock Enumeration of matchings in polygraphs, 1998.
+\newblock (As recorded in~\cite{oeis-a033506}.)
+
+\bibitem{propp-1999}
+J. Propp.
+\newblock Enumeration of matchings: problems and progress.
+\newblock In \emph{New Perspectives in Algebraic Combinatorics},
+Math.\ Sci.\ Res.\ Inst.\ Publ.\ 38, Cambridge University Press, 1999.
+\newblock \url{https://doi.org/10.1017/9781009701587.008}
+
+\bibitem{tzeng-wu-2003}
+W.-T. Tzeng and F.~Y. Wu.
+\newblock Dimers on a simple-quartic net with a vacancy.
+\newblock \emph{Journal of Statistical Physics} 110 (2003), 671--689.
+\newblock \url{https://doi.org/10.1023/A:1022155701655}
+
+\bibitem{wu-2006}
+F.~Y. Wu.
+\newblock Pfaffian solution of a dimer-monomer problem: single monomer on the
+boundary.
+\newblock \emph{Physical Review E} 74 (2006), 020104(R); erratum
+\emph{ibid.} 74 (2006), 039907.
+\newblock \url{https://doi.org/10.1103/PhysRevE.74.020104}
+
+\bibitem{oh-2019}
+S. Oh.
+\newblock State matrix recursion method and monomer--dimer problem.
+\newblock arXiv:1901.07847, 2019. \url{https://arxiv.org/abs/1901.07847}
+
+\bibitem{anzalone-2003}
+N. Anzalone, J. Baldwin, I. Bronshtein and T.~K. Petersen.
+\newblock A reciprocity theorem for monomer-dimer coverings.
+\newblock arXiv:math/0304359, 2003. \url{https://arxiv.org/abs/math/0304359}
+
+\bibitem{goyal-2021}
+S. Goyal, S. Shukla and A. Singh.
+\newblock Matching complexes of $3 \times n$ grid graphs.
+\newblock arXiv:2106.09915, 2021. \url{https://arxiv.org/abs/2106.09915}
+
+\bibitem{lean4}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean 4 theorem prover and programming language.
+\newblock \emph{CADE-28}, 2021. \url{https://doi.org/10.1007/978-3-030-79876-5_27}
+
+\bibitem{mathlib}
+The mathlib Community.
+\newblock The Lean mathematical library.
+\newblock \emph{CPP 2020}, 2020. \url{https://doi.org/10.1145/3372885.3373824}
+\end{thebibliography}
+
+\end{document}
