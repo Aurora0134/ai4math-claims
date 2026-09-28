@@ -1,0 +1,1 @@
+# frozen copy of scripts/sanitize-package.py (repository-level gate tool), copied byte-identical at packaging time 2026-09-28; the copy is shipped in the deposit so the gate is reproducible. No local edits.

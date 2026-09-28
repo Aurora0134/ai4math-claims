@@ -1,0 +1,80 @@
+# 监察院终审裁决书 · comb09-4ntwocorner（闸门三：证明闭环）
+
+- AI4Math 流水线 · AI 生成 · 2026-09-28 · 部门 05 监察院（SOP 05 终态审计）
+- 终审对象：`tasks/20260928-comb09-4ntwocorner/final/01-comb09-4ntwocorner-proved.lean`
+- 冻结快照：`tasks/20260928-comb09-4ntwocorner/formalized/01-comb09-4ntwocorner-statements.statement.txt`
+  sha256 复算 = `4cb1083846bcc64e249717309e63d071d0ecf5bb03f23d85affeaab8152ce005`（与 formalized/manifest.json 及 budget.log 快照行记载一致）
+- 节点快照：`anthropic/a6api-main/kimi-k3`（会话环境自述 `_a6api-main/kimi-k3` + model-detect L2 last* 2026-09-28 取证；该持久记录同日有漂移观测，已在任务卡如实披露）；禁止跨节点，本岗 llm-call 0 次。
+- 执行形态：zcode 端点 `scripts/agent-call.py` 拒派（exit 2 预期），按宪条 7 兜底条款本岗由主链会话派发执行，**不算失败**。
+- 本部门不调用 LLM、不采信任何自评；以下判定全部为本岗当场复跑命令的输出。
+
+## 检查一：statement 对称差比对 —— PASS（无篡改）
+
+方法：python 提取两文件全部顶级 `def`/`theorem` 声明，去注释（Lean 嵌套块注释 + 行注释）并将空白归一化为单空格后逐字节比对；docstring 另做包含性复核。
+结果：
+- 快照 8 条声明全部在终稿中存在且头部/定义体逐字节一致：
+  `def atc` / `def ot` / `def et` / `theorem atc_interleave` / `def pat2` / `theorem atc_mod2_period5` / `def pat4` / `theorem atc_mod4_period10`（8/8 MATCH）。
+- 快照 8 条 docstring 在终稿中全部逐字包含（0 missing）。
+- 终稿唯一新增声明 = 辅助引理 `theorem atc_sq`（平方递推，T1 证明层中间件）——属证明体新增材料，非 statement 变更，SOP 04 允许。
+判定：statement 未动，不构成宪条 2 之「statement 篡改」。
+
+## 检查二：严格编译复跑 —— PASS（EXIT=0）
+
+命令：`bash scripts/lean-verify tasks/20260928-comb09-4ntwocorner/final/01-comb09-4ntwocorner-proved.lean`
+输出：`LEAN-VERIFY-EXIT=0`，stdout/stderr 零诊断（无 error、无任何输出）。
+语义（scripts/lean-verify 默认严格模式）：compile 无 error ∪ 全文无 sorry/admit 占位，二者同时满足方 exit 0。
+
+## 检查三：sorry/admit grep 双保险（含注释） —— PASS（0 处）
+
+- `grep -nE '\bsorry\b|\badmit\b' <final>` → 0 匹配（grep exit 1，计数 0）。
+- `grep -niE 'sorryax|native_decide|admit' <final>` → 0 匹配。
+
+## 检查四：公理审计 —— PASS（白名单子集，sorryAx 零出现）
+
+主链产物（`audit/axioms-*.txt`，主链 gate-batch --axioms）逐条复核：
+- `atc_interleave`     [propext, Classical.choice, Quot.sound]
+- `atc_mod2_period5`   [propext, Quot.sound]
+- `atc_mod4_period10`  [propext, Quot.sound]
+三条均恰为白名单 {propext, Quot.sound, Classical.choice} 的子集；sorryAx 零出现。
+
+本岗抽查复跑（一次）：`bash scripts/gate-batch.sh --base tasks/20260928-comb09-4ntwocorner/final/01-comb09-4ntwocorner-proved.lean --axioms atc_interleave --out tasks/20260928-comb09-4ntwocorner/attempts/final-audit/axioms-recheck.txt`
+输出：`WELLDEF OK` / `AXIOMS atc_interleave [propext, Classical.choice, Quot.sound]`，GATE-BATCH-EXIT=0。
+该次编译以**合并终稿全文**为 base（三定理 + atc_sq 一次编译），主定理公理列表与主链产物逐字一致。
+
+## 附加：合并完整性机械复核（对「proof 逐字合并」主张的取证）
+
+终稿中三条 theorem 章节与 `attempts/final-{atc_interleave,atc_mod2_period5,atc_mod4_period10}.lean`（各经主链 lean-verify 严格模式单文件 EXIT=0）在去注释/归一化空白/去 set_option 行后逐字节一致：3/3 True。
+
+## 分级结论：**完全证明**
+
+依据（SOP 05 动作 5 + 宪条 4，取实际达到的最低级）：
+- 0 sorry、0 admit（grep 与 lean-verify 双重确认）；
+- `#print axioms` 恰为白名单子集，sorryAx 零出现；
+- statement 未动（对称差比对 8/8 一致）；
+- 三条定理全部证毕：T1 主攻 `atc_interleave` + T2 `atc_mod2_period5` + T3 `atc_mod4_period10`；**无未证定理、无条件假设、无降级**，故不存在需要按「弱化后证明/失败」措辞列名的名单。
+
+## 限定语（scope qualifications；不影响本分级）
+
+1. kernel 层仅证「初值 + 整数系数递推定义的纯序列（ℕ → ℤ）」定理；组合语义桥（atc = 4×n 网格删右列上下两角图 G_n 全部匹配数）按 OEIS/文献背书 + 探针猜想层降级声明，**不进 kernel 主张**（任务卡锁定口径）。下游报告/论文必须维持「已证定理（公式侧）+ 计数猜想（语义侧）」两级措辞。
+2. 占位围栏（任务卡 / claims.md §0，逐字）：九阶递推即 A033507（无缺陷 4×n 全匹配）的挂名递推（同谱姊妹序列），禁止对递推本身作新颖性主张；PM 子列 = OEIS A129113 已挂名占位，禁止以其作新颖性主张。
+3. 证据链注记：`audit/.gate-batch.map` 只保留主链最后一次 gate-batch 运行（atc_mod4_period10）的行号图，前两次运行的 map 被同名文件覆盖；该两次的公理结论以 `audit/axioms-atc_interleave.txt`、`audit/axioms-atc_mod2_period5.txt` 为凭，本岗抽查复跑已对主定理 atc_interleave 独立复核一致。
+4. 主链闸门二退化检测在案（`audit/gate-atc_*.txt`）：三定理各 9 个裸探针（nlinarith/norm_num/simp/ring/ring_nf/positivity/omega/linarith/decide）全部 FAIL，无非平凡闭合信号。
+
+## 复现命令清单
+
+1. `sha256sum tasks/20260928-comb09-4ntwocorner/formalized/01-comb09-4ntwocorner-statements.statement.txt`
+   → `4cb1083846bcc64e249717309e63d071d0ecf5bb03f23d85affeaab8152ce005`
+2. `bash scripts/lean-verify tasks/20260928-comb09-4ntwocorner/final/01-comb09-4ntwocorner-proved.lean`
+   → EXIT=0（零诊断）
+3. `grep -nE '\bsorry\b|\badmit\b' tasks/20260928-comb09-4ntwocorner/final/01-comb09-4ntwocorner-proved.lean`
+   → 0 匹配
+4. `bash scripts/gate-batch.sh --base tasks/20260928-comb09-4ntwocorner/final/01-comb09-4ntwocorner-proved.lean --axioms atc_interleave --out tasks/20260928-comb09-4ntwocorner/attempts/final-audit/axioms-recheck.txt`
+   → `WELLDEF OK` / `AXIOMS atc_interleave [propext, Classical.choice, Quot.sound]`
+5. `cat tasks/20260928-comb09-4ntwocorner/audit/axioms-atc_interleave.txt`（及 axioms-atc_mod2_period5.txt / axioms-atc_mod4_period10.txt）
+
+## 预算记账（本岗，以 budget.log 落盘行为准）
+
+本岗：Lean 编译 2 次（lean-verify ×1 + gate-batch ×1）、采样（agent-run）1 次（本终审派发）、llm-call 0 次。
+累计（含主链各岗，按 budget.log 各行数量加总）：Lean 编译 20 / 上限 32；采样 6 / 上限 20；llm-call 1 / 上限 6。未超限。
+
+—— 监察院终审工人（闸门三），2026-09-28

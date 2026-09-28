@@ -1,0 +1,554 @@
+note: Running TeX ...
+(claim.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24> (article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(size11.cloFontconfig error: Cannot load default config file: No such file: (null)
+)) (fontenc.sty (t1lmr.fd)) (inputenc.sty
+
+Package inputenc Warning: inputenc package ignored with utf8 based engines.
+
+) (amsmath.sty
+For additional information on amsmath, use the `?' option.
+(amstext.sty (amsgen.sty)) (amsbsy.sty) (amsopn.sty)) (amssymb.sty
+(amsfonts.sty)) (amsthm.sty) (hyperref.sty (ltxcmds.sty) (iftex.sty)
+(pdftexcmds.sty (infwarerr.sty)) (keyval.sty) (kvsetkeys.sty) (kvdefinekeys.sty
+) (pdfescape.sty) (hycolor.sty) (letltxmacro.sty) (auxhook.sty) (kvoptions.sty)
+(pd1enc.def) (intcalc.sty) (etexcmds.sty) (puenc.def) (url.sty) (bitset.sty
+(bigintcalc.sty)) (atbegshi-ltx.sty)) (hxetex.def (stringenc.sty)
+(rerunfilecheck.sty (atveryend-ltx.sty) (uniquecounter.sty))) (lstlean
+(listings.sty (lstmisc.sty) (listings.cfg)) (xcolor.sty (color.cfg) (xetex.def)
+)) (xeCJK.sty (expl3.sty (l3backend-xetex.def)) (ctexhook.sty) (l3keys2e.sty)
+(xtemplate.sty) (xparse.sty) (fontspec.sty (fontspec-xetex.sty (fontenc.sty)
+(fontspec.cfg))) (xeCJK-listings.sty) (xeCJK.cfg))warning: accessing absolute path `C:/WINDOWS/fonts\simsun.ttc`; build may not be reproducible in other environments
+
+No file claim.aux.
+(ts1cmr.fd) (nameref.sty (refcount.sty) (gettitlestring.sty))
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
+(umsa.fd) (umsb.fd)
+
+Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
+(xeCJK)                
+(xeCJK)                Try to use `\setCJKmonofont[...]{...}' to define it.
+
+[1] [2]
+
+LaTeX Warning: Reference `thm:t1' on page 3 undefined on input line 182.
+
+
+LaTeX Warning: Reference `thm:t1' on page 3 undefined on input line 182.
+
+[3]
+
+LaTeX Warning: Reference `thm:t2' on page 4 undefined on input line 193.
+
+
+LaTeX Warning: Reference `thm:t2' on page 4 undefined on input line 193.
+
+
+LaTeX Warning: Reference `thm:t3' on page 4 undefined on input line 204.
+
+
+LaTeX Warning: Reference `thm:t3' on page 4 undefined on input line 204.
+
+
+LaTeX Warning: Reference `thm:t4' on page 4 undefined on input line 215.
+
+
+LaTeX Warning: Reference `thm:t4' on page 4 undefined on input line 215.
+
+
+LaTeX Warning: Reference `thm:t3' on page 4 undefined on input line 227.
+
+
+warning: claim.tex:229: Underfull \hbox (badness 2158) in paragraph at lines 219--229
+Underfull \hbox (badness 2158) in paragraph at lines 219--229
+[]\TU/lmr/m/n/10.95 The four residue tables, read over one full period from $\O
+ML/cmm/m/it/10.95 n \OT1/cmr/m/n/10.95 =
+
+warning: claim.tex:229: Underfull \hbox (badness 1902) in paragraph at lines 219--229
+Underfull \hbox (badness 1902) in paragraph at lines 219--229
+\OT1/cmr/m/n/10.95 0$\TU/lmr/m/n/10.95 , are $[]  []  \OT1/cmr/m/n/10.95 2$\TU/
+lmr/m/n/10.95 : $\OT1/cmr/m/n/10.95 (0\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 
+0\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/1
+0.95 1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 ; \OT1/cmr/
+m/n/10.95 0)$\TU/lmr/m/n/10.95 ; $[]  []  \OT1/cmr/m/n/10.95 2$\TU/lmr/m/n/10.9
+5 : $\OT1/cmr/m/n/10.95 (1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML/cmm/m/
+it/10.95 ; \OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML/c
+mm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0)$\TU/lmr/m/n/10.95 ; $[]  []  \OT1/cmr/m/n
+/10.95 8$\TU/lmr/m/n/10.95 :
+
+LaTeX Warning: Reference `thm:t1' on page 4 undefined on input line 244.
+
+
+LaTeX Warning: Reference `thm:t3' on page 4 undefined on input line 246.
+
+
+LaTeX Warning: Reference `thm:t4' on page 4 undefined on input line 247.
+
+
+LaTeX Warning: Reference `thm:t2' on page 4 undefined on input line 249.
+
+
+LaTeX Warning: Reference `thm:t4' on page 4 undefined on input line 250.
+
+[4]
+
+LaTeX Warning: Reference `thm:t1' on page 5 undefined on input line 256.
+
+
+LaTeX Warning: Reference `thm:t1' on page 5 undefined on input line 256.
+
+
+LaTeX Warning: Reference `thm:t1' on page 5 undefined on input line 271.
+
+
+LaTeX Warning: Reference `thm:t1' on page 5 undefined on input line 271.
+
+[5]
+
+LaTeX Warning: Reference `thm:t1' on page 6 undefined on input line 285.
+
+
+LaTeX Warning: Reference `thm:t1' on page 6 undefined on input line 285.
+
+
+LaTeX Warning: Reference `thm:t3' on page 6 undefined on input line 305.
+
+
+LaTeX Warning: Reference `thm:t3' on page 6 undefined on input line 305.
+
+[6]
+
+LaTeX Warning: Reference `thm:t4' on page 7 undefined on input line 332.
+
+
+LaTeX Warning: Reference `thm:t4' on page 7 undefined on input line 332.
+
+
+LaTeX Warning: Reference `thm:t4' on page 7 undefined on input line 343.
+
+
+LaTeX Warning: Reference `thm:t4' on page 7 undefined on input line 343.
+
+[7]
+
+LaTeX Warning: Citation `lean4' on page 8 undefined on input line 356.
+
+
+LaTeX Warning: Citation `mathlib' on page 8 undefined on input line 357.
+
+
+warning: claim.tex:368: Overfull \hbox (17.30933pt too wide) in paragraph at lines 359--368
+Overfull \hbox (17.30933pt too wide) in paragraph at lines 359--368
+[]\TU/lmr/m/n/10.95 Statement integrity: frozen statement \TU/lmtt/m/n/10.95 fo
+rmalized/01-notch-mods.lean\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:368: Overfull \hbox (113.52365pt too wide) in paragraph at lines 359--368
+Overfull \hbox (113.52365pt too wide) in paragraph at lines 359--368
+\TU/lmr/m/n/10.95 69 lines, sha256 \TU/lmtt/m/n/10.95 9a787b6be05dc345343edf675
+d107801e674e3abae095356ace390fac8426fb8\TU/lmr/m/n/10.95 ;
+
+warning: claim.tex:368: Underfull \hbox (badness 2334) in paragraph at lines 359--368
+Underfull \hbox (badness 2334) in paragraph at lines 359--368
+\TU/lmr/m/n/10.95 delivered development \TU/lmtt/m/n/10.95 final/01-notch-prove
+d.lean\TU/lmr/m/n/10.95 , 621 lines,
+
+warning: claim.tex:368: Overfull \hbox (73.07216pt too wide) in paragraph at lines 359--368
+Overfull \hbox (73.07216pt too wide) in paragraph at lines 359--368
+\TU/lmr/m/n/10.95 sha256 \TU/lmtt/m/n/10.95 6f1a7440f5830633e9309ab5629e1630892
+8bb6421f64f4d4b1988b8929db4aa\TU/lmr/m/n/10.95 .
+
+warning: claim.tex:376: Underfull \hbox (badness 2142) in paragraph at lines 368--376
+Underfull \hbox (badness 2142) in paragraph at lines 368--376
+\TU/lmtt/m/n/10.95 axiom\TU/lmr/m/n/10.95 , \TU/lmtt/m/n/10.95 unsafe\TU/lmr/m/
+n/10.95 , \TU/lmtt/m/n/10.95 implemented_by\TU/lmr/m/n/10.95 , \TU/lmtt/m/n/10.
+95 extern\TU/lmr/m/n/10.95 , \TU/lmtt/m/n/10.95 macro_rules\TU/lmr/m/n/10.95 , 
+\TU/lmtt/m/n/10.95 elab\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:381: Overfull \hbox (75.53615pt too wide) in paragraph at lines 381--381
+Overfull \hbox (75.53615pt too wide) in paragraph at lines 381--381
+ []\TU/lmtt/m/n/10.95 'a3_odd_iff' depends on axioms: [propext, Classical.choic
+e, Quot.sound][] 
+
+warning: claim.tex:381: Overfull \hbox (110.02864pt too wide) in paragraph at lines 381--381
+Overfull \hbox (110.02864pt too wide) in paragraph at lines 381--381
+ []\TU/lmtt/m/n/10.95 'a3_mod8_periodic' depends on axioms: [propext, Classical
+.choice, Quot.sound][] 
+
+warning: claim.tex:381: Overfull \hbox (75.53615pt too wide) in paragraph at lines 381--381
+Overfull \hbox (75.53615pt too wide) in paragraph at lines 381--381
+ []\TU/lmtt/m/n/10.95 'a4_odd_iff' depends on axioms: [propext, Classical.choic
+e, Quot.sound][] 
+
+warning: claim.tex:381: Overfull \hbox (104.27989pt too wide) in paragraph at lines 381--381
+Overfull \hbox (104.27989pt too wide) in paragraph at lines 381--381
+ []\TU/lmtt/m/n/10.95 'a4_mod4_eq2_iff' depends on axioms: [propext, Classical.
+choice, Quot.sound][] 
+[8]
+warning: claim.tex:415: Underfull \hbox (badness 10000) in paragraph at lines 415--415
+Underfull \hbox (badness 10000) in paragraph at lines 415--415
+[]\TU/lmr/m/n/9 OEIS, sequence
+note: downloading lmmono9-regular.otf
+
+warning: claim.tex:417: Overfull \hbox (17.95782pt too wide) in paragraph at lines 415--417
+Overfull \hbox (17.95782pt too wide) in paragraph at lines 415--417
+[]\TU/lmtt/m/n/9 a3 \TU/lmr/m/n/9 head \TU/lmtt/m/n/9 2,10,67,407,2546,15782,98
+104,609304
+
+warning: claim.tex:418: Underfull \hbox (badness 10000) in paragraph at lines 418--418
+Underfull \hbox (badness 10000) in paragraph at lines 418--418
+[]\TU/lmr/m/n/9 OEIS, sequence
+
+warning: claim.tex:420: Underfull \hbox (badness 10000) in paragraph at lines 420--420
+Underfull \hbox (badness 10000) in paragraph at lines 420--420
+[]\TU/lmr/m/n/9 OEIS, keyword
+
+warning: claim.tex:422: Underfull \hbox (badness 10000) in paragraph at lines 421--422
+Underfull \hbox (badness 10000) in paragraph at lines 421--422
+[]\TU/lmr/m/n/9 no notched-count
+
+warning: claim.tex:422: Underfull \hbox (badness 10000) in paragraph at lines 422--422
+Underfull \hbox (badness 10000) in paragraph at lines 422--422
+[]\TU/lmr/m/n/9 OEIS, triangle
+note: downloading lmroman9-bold.otf
+
+LaTeX Warning: Citation `oeis-a210662' on page 9 undefined on input line 423.
+
+
+warning: claim.tex:424: Underfull \hbox (badness 10000) in paragraph at lines 422--424
+Underfull \hbox (badness 10000) in paragraph at lines 422--424
+[]\TU/lmr/m/n/9 A210662 rows/columns cut by hand:
+
+warning: claim.tex:424: Underfull \hbox (badness 10000) in paragraph at lines 422--424
+Underfull \hbox (badness 10000) in paragraph at lines 422--424
+\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 (3\OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9 ^^A\OT1/cmr
+/m/n/9 ) = 3\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 22\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9
+ 131$\TU/lmr/m/n/9 ; $\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 n; \OT1/
+cmr/m/n/9 3) =
+
+warning: claim.tex:425: Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 425--425
+[]\TU/lmr/m/n/9 OEIS, derived
+
+warning: claim.tex:428: Underfull \hbox (badness 10000) in paragraph at lines 428--428
+Underfull \hbox (badness 10000) in paragraph at lines 428--428
+[]\TU/lmr/m/n/9 OEIS, derived
+note: downloading lmroman9-italic.otf
+
+warning: claim.tex:430: Underfull \hbox (badness 10000) in paragraph at lines 429--430
+Underfull \hbox (badness 10000) in paragraph at lines 429--430
+[]\TU/lmr/bx/n/9 A001353 occu-
+
+warning: claim.tex:433: Underfull \hbox (badness 10000) in paragraph at lines 430--433
+Underfull \hbox (badness 10000) in paragraph at lines 430--433
+\TU/lmr/m/n/9 90; \TU/lmtt/m/n/9 matchings grid graph corner \TU/lmr/m/n/9 1;
+
+warning: claim.tex:433: Underfull \hbox (badness 6380) in paragraph at lines 430--433
+Underfull \hbox (badness 6380) in paragraph at lines 430--433
+\TU/lmtt/m/n/9 deficient graph matchings \TU/lmr/m/n/9 2; \TU/lmtt/m/n/9 monome
+r
+
+warning: claim.tex:434: Underfull \hbox (badness 3884) in paragraph at lines 433--434
+Underfull \hbox (badness 3884) in paragraph at lines 433--434
+[]\TU/lmr/m/n/9 no same proposi-
+
+warning: claim.tex:436: Underfull \hbox (badness 1515) in paragraph at lines 435--436
+Underfull \hbox (badness 1515) in paragraph at lines 435--436
+[]\TU/lmr/m/n/9 none matching; 0
+
+warning: claim.tex:438: Underfull \hbox (badness 10000) in paragraph at lines 436--438
+Underfull \hbox (badness 10000) in paragraph at lines 436--438
+[]\TU/lmr/m/n/9 HTTP 429
+
+warning: claim.tex:438: Underfull \hbox (badness 2359) in paragraph at lines 436--438
+Underfull \hbox (badness 2359) in paragraph at lines 436--438
+\TU/lmr/m/it/9 ified\TU/lmr/m/n/9 , no evidence
+
+warning: claim.tex:441: Underfull \hbox (badness 5622) in paragraph at lines 438--441
+Underfull \hbox (badness 5622) in paragraph at lines 438--441
+[]\TU/lmr/m/n/9 degraded in that
+
+warning: claim.tex:441: Underfull \hbox (badness 1308) in paragraph at lines 438--441
+Underfull \hbox (badness 1308) in paragraph at lines 438--441
+\TU/lmr/m/n/9 session (no search
+
+warning: claim.tex:441: Underfull \hbox (badness 10000) in paragraph at lines 438--441
+Underfull \hbox (badness 10000) in paragraph at lines 438--441
+\TU/lmr/m/n/9 tool, one engine
+
+warning: claim.tex:441: Underfull \hbox (badness 10000) in paragraph at lines 438--441
+Underfull \hbox (badness 10000) in paragraph at lines 438--441
+\TU/lmr/m/n/9 other returning
+
+warning: claim.tex:441: Underfull \hbox (badness 1092) in paragraph at lines 438--441
+Underfull \hbox (badness 1092) in paragraph at lines 438--441
+\TU/lmr/m/n/9 SEO noise); liter-
+
+warning: claim.tex:441: Underfull \hbox (badness 10000) in paragraph at lines 438--441
+Underfull \hbox (badness 10000) in paragraph at lines 438--441
+\TU/lmr/m/n/9 ature conclusion
+
+warning: claim.tex:442: Underfull \hbox (badness 10000) in paragraph at lines 441--442
+Underfull \hbox (badness 10000) in paragraph at lines 441--442
+[]\TU/lmr/m/n/9 mathlib (no \TU/lmtt/m/n/9 GridGraph\TU/lmr/m/n/9 ;
+
+warning: claim.tex:442: Underfull \hbox (badness 10000) in paragraph at lines 441--442
+Underfull \hbox (badness 10000) in paragraph at lines 441--442
+\TU/lmtt/m/n/9 SimpleGraph/Matching.lean \TU/lmr/m/n/9 has predi-
+
+warning: claim.tex:444: Underfull \hbox (badness 10000) in paragraph at lines 444--444
+Underfull \hbox (badness 10000) in paragraph at lines 444--444
+[]\TU/lmr/m/n/9 Lean ecosystem
+
+warning: claim.tex:447: Underfull \hbox (badness 10000) in paragraph at lines 446--447
+Underfull \hbox (badness 10000) in paragraph at lines 446--447
+[]\TU/lmtt/m/n/9 0,1,1,2,3,5,8,13 $\OMS/cmsy/m/n/9 !$ \TU/lmr/m/n/9 A000045;
+
+warning: claim.tex:448: Underfull \hbox (badness 5696) in paragraph at lines 447--448
+Underfull \hbox (badness 5696) in paragraph at lines 447--448
+[]\TU/lmr/m/n/9 channel confirmed
+[9]
+
+LaTeX Warning: Citation `oeis-a001353' on page 10 undefined on input line 457.
+
+[10] [11] [12] [13] [14] (claim.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `claim.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information)
+Output written on claim.xdv (14 pages, 276456 bytes).
+Transcript written on claim.log.
+note: Rerunning TeX because "claim.out" changed ...
+(claim.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24> (article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(size11.clo)) (fontenc.sty (t1lmr.fd)) (inputenc.sty
+
+Package inputenc Warning: inputenc package ignored with utf8 based engines.
+
+) (amsmath.sty
+For additional information on amsmath, use the `?' option.
+(amstext.sty (amsgen.sty)) (amsbsy.sty) (amsopn.sty)) (amssymb.sty
+(amsfonts.sty)) (amsthm.sty) (hyperref.sty (ltxcmds.sty) (iftex.sty)
+(pdftexcmds.sty (infwarerr.sty)) (keyval.sty) (kvsetkeys.sty) (kvdefinekeys.sty
+) (pdfescape.sty) (hycolor.sty) (letltxmacro.sty) (auxhook.sty) (kvoptions.sty)
+(pd1enc.def) (intcalc.sty) (etexcmds.sty) (puenc.def) (url.sty) (bitset.sty
+(bigintcalc.sty)) (atbegshi-ltx.sty)) (hxetex.def (stringenc.sty)
+(rerunfilecheck.sty (atveryend-ltx.sty) (uniquecounter.sty))) (lstlean
+(listings.sty (lstmisc.sty) (listings.cfg)) (xcolor.sty (color.cfg) (xetex.def)
+)) (xeCJK.sty (expl3.sty (l3backend-xetex.def)) (ctexhook.sty) (l3keys2e.sty)
+(xtemplate.sty) (xparse.sty) (fontspec.sty (fontspec-xetex.sty (fontenc.sty)
+(fontspec.cfg))) (xeCJK-listings.sty) (xeCJK.cfg)) (claim.aux) (ts1cmr.fd)
+(nameref.sty (refcount.sty) (gettitlestring.sty)) (claim.out) (claim.out)
+(umsa.fd) (umsb.fd)
+
+Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
+(xeCJK)                
+(xeCJK)                Try to use `\setCJKmonofont[...]{...}' to define it.
+
+[1] [2] [3]
+warning: claim.tex:229: Underfull \hbox (badness 2158) in paragraph at lines 219--229
+Underfull \hbox (badness 2158) in paragraph at lines 219--229
+[]\TU/lmr/m/n/10.95 The four residue tables, read over one full period from $\O
+ML/cmm/m/it/10.95 n \OT1/cmr/m/n/10.95 =
+
+warning: claim.tex:229: Underfull \hbox (badness 1902) in paragraph at lines 219--229
+Underfull \hbox (badness 1902) in paragraph at lines 219--229
+\OT1/cmr/m/n/10.95 0$\TU/lmr/m/n/10.95 , are $[]  []  \OT1/cmr/m/n/10.95 2$\TU/
+lmr/m/n/10.95 : $\OT1/cmr/m/n/10.95 (0\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 
+0\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/1
+0.95 1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 ; \OT1/cmr/
+m/n/10.95 0)$\TU/lmr/m/n/10.95 ; $[]  []  \OT1/cmr/m/n/10.95 2$\TU/lmr/m/n/10.9
+5 : $\OT1/cmr/m/n/10.95 (1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML/cmm/m/
+it/10.95 ; \OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML/c
+mm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0)$\TU/lmr/m/n/10.95 ; $[]  []  \OT1/cmr/m/n
+/10.95 8$\TU/lmr/m/n/10.95 :
+[4] [5] [6] [7]
+warning: claim.tex:368: Overfull \hbox (17.30933pt too wide) in paragraph at lines 359--368
+Overfull \hbox (17.30933pt too wide) in paragraph at lines 359--368
+[]\TU/lmr/m/n/10.95 Statement integrity: frozen statement \TU/lmtt/m/n/10.95 fo
+rmalized/01-notch-mods.lean\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:368: Overfull \hbox (113.52365pt too wide) in paragraph at lines 359--368
+Overfull \hbox (113.52365pt too wide) in paragraph at lines 359--368
+\TU/lmr/m/n/10.95 69 lines, sha256 \TU/lmtt/m/n/10.95 9a787b6be05dc345343edf675
+d107801e674e3abae095356ace390fac8426fb8\TU/lmr/m/n/10.95 ;
+
+warning: claim.tex:368: Underfull \hbox (badness 2334) in paragraph at lines 359--368
+Underfull \hbox (badness 2334) in paragraph at lines 359--368
+\TU/lmr/m/n/10.95 delivered development \TU/lmtt/m/n/10.95 final/01-notch-prove
+d.lean\TU/lmr/m/n/10.95 , 621 lines,
+
+warning: claim.tex:368: Overfull \hbox (73.07216pt too wide) in paragraph at lines 359--368
+Overfull \hbox (73.07216pt too wide) in paragraph at lines 359--368
+\TU/lmr/m/n/10.95 sha256 \TU/lmtt/m/n/10.95 6f1a7440f5830633e9309ab5629e1630892
+8bb6421f64f4d4b1988b8929db4aa\TU/lmr/m/n/10.95 .
+
+warning: claim.tex:376: Underfull \hbox (badness 2142) in paragraph at lines 368--376
+Underfull \hbox (badness 2142) in paragraph at lines 368--376
+\TU/lmtt/m/n/10.95 axiom\TU/lmr/m/n/10.95 , \TU/lmtt/m/n/10.95 unsafe\TU/lmr/m/
+n/10.95 , \TU/lmtt/m/n/10.95 implemented_by\TU/lmr/m/n/10.95 , \TU/lmtt/m/n/10.
+95 extern\TU/lmr/m/n/10.95 , \TU/lmtt/m/n/10.95 macro_rules\TU/lmr/m/n/10.95 , 
+\TU/lmtt/m/n/10.95 elab\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:381: Overfull \hbox (75.53615pt too wide) in paragraph at lines 381--381
+Overfull \hbox (75.53615pt too wide) in paragraph at lines 381--381
+ []\TU/lmtt/m/n/10.95 'a3_odd_iff' depends on axioms: [propext, Classical.choic
+e, Quot.sound][] 
+
+warning: claim.tex:381: Overfull \hbox (110.02864pt too wide) in paragraph at lines 381--381
+Overfull \hbox (110.02864pt too wide) in paragraph at lines 381--381
+ []\TU/lmtt/m/n/10.95 'a3_mod8_periodic' depends on axioms: [propext, Classical
+.choice, Quot.sound][] 
+
+warning: claim.tex:381: Overfull \hbox (75.53615pt too wide) in paragraph at lines 381--381
+Overfull \hbox (75.53615pt too wide) in paragraph at lines 381--381
+ []\TU/lmtt/m/n/10.95 'a4_odd_iff' depends on axioms: [propext, Classical.choic
+e, Quot.sound][] 
+
+warning: claim.tex:381: Overfull \hbox (104.27989pt too wide) in paragraph at lines 381--381
+Overfull \hbox (104.27989pt too wide) in paragraph at lines 381--381
+ []\TU/lmtt/m/n/10.95 'a4_mod4_eq2_iff' depends on axioms: [propext, Classical.
+choice, Quot.sound][] 
+[8]
+warning: claim.tex:415: Underfull \hbox (badness 10000) in paragraph at lines 415--415
+Underfull \hbox (badness 10000) in paragraph at lines 415--415
+[]\TU/lmr/m/n/9 OEIS, sequence
+
+warning: claim.tex:417: Overfull \hbox (17.95782pt too wide) in paragraph at lines 415--417
+Overfull \hbox (17.95782pt too wide) in paragraph at lines 415--417
+[]\TU/lmtt/m/n/9 a3 \TU/lmr/m/n/9 head \TU/lmtt/m/n/9 2,10,67,407,2546,15782,98
+104,609304
+
+warning: claim.tex:418: Underfull \hbox (badness 10000) in paragraph at lines 418--418
+Underfull \hbox (badness 10000) in paragraph at lines 418--418
+[]\TU/lmr/m/n/9 OEIS, sequence
+
+warning: claim.tex:420: Underfull \hbox (badness 10000) in paragraph at lines 420--420
+Underfull \hbox (badness 10000) in paragraph at lines 420--420
+[]\TU/lmr/m/n/9 OEIS, keyword
+
+warning: claim.tex:422: Underfull \hbox (badness 10000) in paragraph at lines 421--422
+Underfull \hbox (badness 10000) in paragraph at lines 421--422
+[]\TU/lmr/m/n/9 no notched-count
+
+warning: claim.tex:422: Underfull \hbox (badness 10000) in paragraph at lines 422--422
+Underfull \hbox (badness 10000) in paragraph at lines 422--422
+[]\TU/lmr/m/n/9 OEIS, triangle
+
+warning: claim.tex:424: Underfull \hbox (badness 10000) in paragraph at lines 422--424
+Underfull \hbox (badness 10000) in paragraph at lines 422--424
+[]\TU/lmr/m/n/9 A210662 rows/columns cut by hand:
+
+warning: claim.tex:424: Underfull \hbox (badness 10000) in paragraph at lines 422--424
+Underfull \hbox (badness 10000) in paragraph at lines 422--424
+\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 (3\OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9 ^^A\OT1/cmr
+/m/n/9 ) = 3\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 22\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9
+ 131$\TU/lmr/m/n/9 ; $\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 n; \OT1/
+cmr/m/n/9 3) =
+
+warning: claim.tex:425: Underfull \hbox (badness 10000) in paragraph at lines 425--425
+Underfull \hbox (badness 10000) in paragraph at lines 425--425
+[]\TU/lmr/m/n/9 OEIS, derived
+
+warning: claim.tex:428: Underfull \hbox (badness 10000) in paragraph at lines 428--428
+Underfull \hbox (badness 10000) in paragraph at lines 428--428
+[]\TU/lmr/m/n/9 OEIS, derived
+
+warning: claim.tex:430: Underfull \hbox (badness 10000) in paragraph at lines 429--430
+Underfull \hbox (badness 10000) in paragraph at lines 429--430
+[]\TU/lmr/bx/n/9 A001353 occu-
+
+warning: claim.tex:433: Underfull \hbox (badness 10000) in paragraph at lines 430--433
+Underfull \hbox (badness 10000) in paragraph at lines 430--433
+\TU/lmr/m/n/9 90; \TU/lmtt/m/n/9 matchings grid graph corner \TU/lmr/m/n/9 1;
+
+warning: claim.tex:433: Underfull \hbox (badness 6380) in paragraph at lines 430--433
+Underfull \hbox (badness 6380) in paragraph at lines 430--433
+\TU/lmtt/m/n/9 deficient graph matchings \TU/lmr/m/n/9 2; \TU/lmtt/m/n/9 monome
+r
+
+warning: claim.tex:434: Underfull \hbox (badness 3884) in paragraph at lines 433--434
+Underfull \hbox (badness 3884) in paragraph at lines 433--434
+[]\TU/lmr/m/n/9 no same proposi-
+
+warning: claim.tex:436: Underfull \hbox (badness 1515) in paragraph at lines 435--436
+Underfull \hbox (badness 1515) in paragraph at lines 435--436
+[]\TU/lmr/m/n/9 none matching; 0
+
+warning: claim.tex:438: Underfull \hbox (badness 10000) in paragraph at lines 436--438
+Underfull \hbox (badness 10000) in paragraph at lines 436--438
+[]\TU/lmr/m/n/9 HTTP 429
+
+warning: claim.tex:438: Underfull \hbox (badness 2359) in paragraph at lines 436--438
+Underfull \hbox (badness 2359) in paragraph at lines 436--438
+\TU/lmr/m/it/9 ified\TU/lmr/m/n/9 , no evidence
+
+warning: claim.tex:441: Underfull \hbox (badness 5622) in paragraph at lines 438--441
+Underfull \hbox (badness 5622) in paragraph at lines 438--441
+[]\TU/lmr/m/n/9 degraded in that
+
+warning: claim.tex:441: Underfull \hbox (badness 1308) in paragraph at lines 438--441
+Underfull \hbox (badness 1308) in paragraph at lines 438--441
+\TU/lmr/m/n/9 session (no search
+
+warning: claim.tex:441: Underfull \hbox (badness 10000) in paragraph at lines 438--441
+Underfull \hbox (badness 10000) in paragraph at lines 438--441
+\TU/lmr/m/n/9 tool, one engine
+
+warning: claim.tex:441: Underfull \hbox (badness 10000) in paragraph at lines 438--441
+Underfull \hbox (badness 10000) in paragraph at lines 438--441
+\TU/lmr/m/n/9 other returning
+
+warning: claim.tex:441: Underfull \hbox (badness 1092) in paragraph at lines 438--441
+Underfull \hbox (badness 1092) in paragraph at lines 438--441
+\TU/lmr/m/n/9 SEO noise); liter-
+
+warning: claim.tex:441: Underfull \hbox (badness 10000) in paragraph at lines 438--441
+Underfull \hbox (badness 10000) in paragraph at lines 438--441
+\TU/lmr/m/n/9 ature conclusion
+
+warning: claim.tex:442: Underfull \hbox (badness 10000) in paragraph at lines 441--442
+Underfull \hbox (badness 10000) in paragraph at lines 441--442
+[]\TU/lmr/m/n/9 mathlib (no \TU/lmtt/m/n/9 GridGraph\TU/lmr/m/n/9 ;
+
+warning: claim.tex:442: Underfull \hbox (badness 10000) in paragraph at lines 441--442
+Underfull \hbox (badness 10000) in paragraph at lines 441--442
+\TU/lmtt/m/n/9 SimpleGraph/Matching.lean \TU/lmr/m/n/9 has predi-
+
+warning: claim.tex:444: Underfull \hbox (badness 10000) in paragraph at lines 444--444
+Underfull \hbox (badness 10000) in paragraph at lines 444--444
+[]\TU/lmr/m/n/9 Lean ecosystem
+
+warning: claim.tex:447: Underfull \hbox (badness 10000) in paragraph at lines 446--447
+Underfull \hbox (badness 10000) in paragraph at lines 446--447
+[]\TU/lmtt/m/n/9 0,1,1,2,3,5,8,13 $\OMS/cmsy/m/n/9 !$ \TU/lmr/m/n/9 A000045;
+
+warning: claim.tex:448: Underfull \hbox (badness 5696) in paragraph at lines 447--448
+Underfull \hbox (badness 5696) in paragraph at lines 447--448
+[]\TU/lmr/m/n/9 channel confirmed
+[9] [10] [11] [12] [13] [14] (claim.aux) )
+(see the transcript file for additional information)
+Output written on claim.xdv (14 pages, 278964 bytes).
+Transcript written on claim.log.
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+[1][2][3][4][5][6][7][8][9][10note: downloading cmr9.pfb
+note: downloading cmmi9.pfb
+][11][12][13][14]133137 bytes written
+note: Writing `claim.log` (26.0205078125 KiB)
+note: Writing `claim.pdf` (130.0166015625 KiB)
+note: Skipped writing 2 intermediate files (use --keep-intermediates to keep them)

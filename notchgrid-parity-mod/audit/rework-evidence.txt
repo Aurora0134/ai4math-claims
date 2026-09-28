@@ -1,0 +1,303 @@
+# rework-evidence -- claims/notchgrid-parity-mod (gate-3 rework, 2026-09-28)
+# executor: dept-paper claim lane worker (Qoder desktop session; 0 llm-call; 3 LaTeX
+#   compile rounds consumed, rounds 7, 8 and 9 of the raised cap of 9 -- round 7 applied
+#   the five corrections, round 8 restored one wording invariant the round-7 prose had
+#   broken, round 9 applied the package-promise correction N1 raised by the second audit
+#   round; both are described at the bottom of this file).
+# purpose: the gate-3 verdict (audit/claim-check.md) found five factual assertions in
+#   the note that did not match the source artifact. Each correction is a claim about
+#   the artifact, so each is recomputed HERE, mechanically, from the read-only sources,
+#   before the sentence was rewritten. Nothing below is quoted from the auditor's text
+#   without being recomputed first: the commands and their outputs are recorded so
+#   the re-audit can re-run them (constitution clause 1: the kernel and the byte-level
+#   re-extraction adjudicate, not any worker's self-report).
+
+======================================================================
+F1  proof-skeleton claim (claim.tex, Proof section + residue-table sentence)
+======================================================================
+
+Per-theorem tactic fingerprint, read off
+tasks/20260927-mossad-notch/final/01-notch-proved.lean (621 lines, sha256
+6f1a7440f5830633e9309ab5629e16308928bb6421f64f4d4b1988b8929db4aa) by counting literal
+occurrences inside each theorem's own line span:
+
+  span       | theorem            | if-chain | have main | mod_cases | Int.odd_iff | simp only | decide
+  -----------+--------------------+----------+-----------+-----------+-------------+-----------+-------
+  34-120     | a3_odd_iff   (T1)  |     1    |     1     |     1     |      2      |   [a3] 1  |   7
+  122-144    | a3_mod8_periodic(T3)|     0    |     0     |     0     |      0      |   [a3] 1  |   1
+  166-277    | a4_odd_iff   (T2)  |     1    |     1     |     1     |      2      |   [a4] 1  |   6
+  281-621    | a4_mod4_eq2_iff(T4) |     3    |     1     |     2     |      0      |   [a4] 1  |  21
+
+  command form: sed -n 'A,Bp' FILE | grep -c PATTERN   (per pattern, per span)
+
+  T3 details read line by line (122-144, numbers re-read with cat -n):
+    122 declaration header (quoted as listing lst:t3)
+    123-124  induction n using Nat.strong_induction_on / | _ n ih =>
+    125     rcases lt_or_ge n 12 with hlt | hge          <- base window 12, not the order 5
+    126     · interval_cases n <;> decide                <- the single decide of T3
+    127     · obtain (j, rfl) : exists j, n = j + 12 := (n - 12, by omega)
+    128-130   have rec5 : forall m, a3 (m+5) = ... := fun m => by simp only [a3]
+    131-133   have e1 := rec5 (j + 19)          <- expansion 1 of 2: a3 (j + 12 + 12)
+    134-136   have e2 := rec5 (j + 7)           <- expansion 2 of 2: a3 (j + 12)
+    137-141   have h23 .. h19 := ih (j + 11) ... ih (j + 7) (by omega)  <- IH per predecessor
+    142       have key := ((((h23.mul_left 5).add (h22.mul_left 9)).sub (h21.mul_left 9))
+                             .sub h20).add h19             <- Int.ModEq linear combination
+    143-144   rw [e1, e2] ; exact key            <- closes by rewrite; NO decide at the close
+    (line map re-read with `cat -n` over `sed -n '122,144p'`; the gate-3 verdict's own
+     "132-137" for the two expansions is off by one at the head -- 131-136 -- which does
+     not change its finding)
+  Consequence for the wording: the pre-rework sentence "All four proofs share one
+  skeleton ... then bridge back to Odd through Int.odd_iff" is false for T3 on four
+  counts (no if-chain, no mod_cases, no Int.odd_iff, no closing decide) and also false
+  for T4 on the last clause (T4 has no Odd bridge at all). The note now states the
+  skeleton as shared by T1/T2/T4, scopes the Odd bridge to "the two parity theorems",
+  and describes T3 as a direct congruence calculation. The residue-table sentence at the
+  end of Section 2 was carrying the same disease ("the pattern EACH Lean proof
+  establishes as an inner lemma") and now says the table appears as an inner lemma in
+  T1/T2/T4 only, T3 being proved as a shift identity -- the same ruling the paper lane
+  reached for its copy of the sentence (the sibling paper package's paper.tex:320-324, in the source repository and not shipped,
+  papers/notchgrid-parity-mod/audit/paper-check.md ED-5). Both of those are files of the
+  sibling narrative-paper package in the source repository; neither ships with this
+  deposit, and they are cited as the provenance of the adopted wording, not as material
+  a reader of the deposit can open.
+
+======================================================================
+F2  "two enumeration methods agreeing term by term up to n = 24"
+======================================================================
+
+Source of truth: tasks/20260927-mossad-notch/phase0/compute.py
+  line 84:  b3 = [count_brute(3, n) for n in range(1, 9)]     -> brute force n = 1..8
+  line 85:  b4 = [count_brute(4, n) for n in range(1, 7)]     -> brute force n = 1..6
+  lines 79-80, 86-87: the DP runs nmax = 24 and the cross-check compares only
+                      a3[:8] / a4[:6]
+  file header, lines 4-5: "方法1 = 逐列 mask DP ... 方法2 = 顶点递归暴力枚举
+                      （n<=8 / n<=6 对拍，每个匹配恰计一次）"
+tasks/20260927-mossad-notch/phase0/counts.txt: 24 data rows (n = 1..24), both columns
+  produced by the mask DP; its header lines record "方法2(暴力对拍 n<=8/6) ... PASS".
+So "up to n = 24" was wrong twice over: the brute force never ran past n = 8 (3 x n)
+and n = 6 (4 x n), and the shared window in the note's own 0-indexed convention is the
+first 8 / first 6 entries. The second method is also mis-described in the pre-rework
+text as "enumeration of edge subsets"; compute.py's count_brute is a recursion over
+matchings that takes the least uncovered vertex and either leaves it unmatched or pairs
+it with a neighbour (each matching generated exactly once) -- which is how the paper
+lane describes it (the sibling paper package's paper.tex:200-204, 670-675, in the source repository and not shipped). Both
+sections corrected, plus the copy of the sentence in zenodo/metadata/zenodo.json.
+
+======================================================================
+F3  truncated-subtraction counterfactual (Statement section)
+======================================================================
+
+The deleted sentence asserted that "truncated subtraction on N would make the defining
+equations false as written". Tested directly: both recurrences iterated with monus
+(a - b := max(a-b, 0)) in the two plausible association orders --
+  order L: left fold, exactly as written term by term
+  order G: positive terms summed first, then the negative block subtracted once --
+against plain integer arithmetic on Z, over n <= 300:
+
+  a3: Z vs monus-L diffs = 0 ; Z vs monus-G diffs = 0
+  a4: Z vs monus-L diffs = 0 ; Z vs monus-G diffs = 0
+  min value over the window: a3 = 2 , a4 = 3   (both sequences stay >= 0, so the
+  subtraction never underflows and the two semantics coincide on this data)
+
+The counterfactual is therefore false as an assertion and was removed. What replaces it
+is the positive, checkable reason for the N -> Z codomain, in the same words the paper
+lane adopted for its copy of the sentence (the sibling paper package's paper.tex:333-337, source repository, not shipped): the negative coefficients
+let the equations be read as ordinary subtraction on Z, and the codomain makes the
+Int.ModEq congruences and the Odd bridge usable without a coercion layer. Whether N
+would have served is not a claim this note makes.
+
+====================================================================
+invariant re-checks after the rework (run again, not inherited)
+====================================================================
+  logs/notchgrid-claim-listings.py verify -> 7/7 PASS, ALL BYTE-EXACT
+  logs/notchgrid-claim-listings.py frozen -> 6/6 verbatim in the frozen file
+  \lean{} span check                      -> 13 spans / 8 distinct / 0 unresolved
+  sha256sum of the two Lean artifacts (read directly, not transcribed):
+    9a787b6be05dc345343edf675d107801e674e3abae095356ace390fac8426fb8  69 lines frozen
+    6f1a7440f5830633e9309ab5629e16308928bb6421f64f4d4b1988b8929db4aa 621 lines final
+  template patch integrity: the XeTeX rendering patch and the xeCJK/SimSun block of
+    claim.tex diff byte-clean against harness/templates/claim/claim.tex. The command
+    output for that check is recorded in
+    claims/notchgrid-parity-mod/audit/selfcheck.md (rework section), a working ledger of
+    the source repository's deliverable directory that is deliberately not shipped with
+    this deposit: a reader of the deposit cannot retrieve it, and it is named here as
+    provenance of the check, not as material included in the deposit.
+  printed-text word scan after each compile round (PyMuPDF text extraction of the
+    rendered PDF, not the source file): "??" 0, "<<" 0, "sorry" 4 / "admit" 1 (all in
+    negative disclosure sentences, same counts as pre-rework), "new mathematics" 1 (in
+    the sentence "not a claim to new mathematics"), "we prove" / "we show" /
+    "proves that the number of matchings" / "首创" / "新数学" 0.
+
+======================================================================
+round 8, and why a second rework round was spent (recorded, not smoothed over)
+======================================================================
+Round 7 restored 12 pages and exit 0, but its new prose had put the literal English
+word "first" into the PRINTED text four times: "the first eight and six entries", "the
+first 8 entries of the 3 x n column and the first 6 of the 4 x n column", and "the
+first packaging used the then cap of 6".
+
+This package records its own wording invariant that the word "first" has ZERO hits in
+the printed text (card.md 措辞红线 4; the gate-3 audit verified exactly that at its
+判据 2, and allowed the single occurrence inside a LaTeX comment). All four new uses are
+ordinals, not priority claims, so on a reading of substance nothing was overclaimed --
+but the invariant exists precisely so that the next reviewer can scan the word
+mechanically instead of adjudicating each hit, and a broken invariant that has to be
+argued about is worth nothing. So the wording was changed to "the leading ... entries"
+and "the original packaging" (same meaning, claim strength not raised), and the
+disclosure sentence was set to the true round number 8 -- which is what makes round 8
+necessary as its own compile round rather than a free edit.
+
+Cost accounting: rounds 7 and 8 both belong to the rework, so at the end of that session
+the package stood at 8 of the raised cap of 9, with the single remaining round pre-claimed
+by the DOI backfill (UPLOAD.md step 1, in the source repository). That sentence is
+superseded by the round-9 section below: the user ruled that the remaining round be spent
+on correction N1 instead, and that the DOI backfill be requested as a tenth round when it
+is actually performed.
+
+======================================================================
+round 9: correction N1 (an in-package promise that did not hold), and what was
+recomputed before the sentence was rewritten
+======================================================================
+Finding. The second audit round (audit/claim-recheck.md, F1-F5 all accepted, four new
+findings) recorded N1: the Data availability section told the reader to consult the
+upload checklist as though it were one of the files shipped with the note (its verbatim
+wording is quoted in that verdict, at finding N1). That checklist is not one of the files
+of the deposit -- it sits in the deliverable directory claims/notchgrid-parity-mod/ of
+the source repository, together with the budget ledger and this package's own claim card,
+and none of the three is copied into zenodo/. The
+same note states in its Introduction that repository paths quoted in it are not publicly
+retrievable at deposit time, so the sentence contradicted the note itself as well as the
+package inventory.
+
+Mechanical check before rewording, run against the deposit tree as it stood (31 files
+then, before the four additions of this session -- the verbatim copy of the second-round
+verdict, compile-run9.log, sanitize-package.py and FILE-MANIFEST.txt, i.e. 31 -> 35). The
+gate-3 third-round bookkeeping rework recorded at the bottom of this file adds one further
+shipped file, the verbatim copy of its own verdict, so the deposit stands at 36 files after
+it; the three negative checks below were re-run in that round and still return 0, 0 and 1:
+  find zenodo -type f | grep -c 'UPLOAD[.]md'          -> 0
+  find zenodo -type f | grep -c 'budget[.]log'         -> 0
+  find zenodo -type f | grep -c 'claim[.]tex'          -> 1  (claim/claim.tex)
+  find zenodo -type f | grep -c '01-notch-proved'      -> 1  (proofs/, so the other
+      in-package promise in the note, "shipped in full in this package at
+      proofs/01-notch-proved.lean", holds and was left untouched)
+Precedent check: the two most recent claim packages of this channel already use the
+correct wording, and the replacement adopts their sentence verbatim --
+  claims/chorded-cycle-mod4/zenodo/claim/claim.tex line 401
+  claims/pendant-ladder-interleave/zenodo/claim/claim.tex line 716
+  both: "see \texttt{UPLOAD.md} in the source repository."
+
+Change made (compile round 9, the only tex edits being these two sentences):
+  claim.tex:460  "in this package"          -> "in the source repository"
+  claim.tex:490-491  "$8$ LaTeX compile rounds"  -> "$9$ LaTeX compile rounds", and the
+                 parenthetical now says what round 9 was spent on and that the DOI
+                 backfill needs one further round under separate user authorization.
+  zenodo/metadata/README.md, zenodo/metadata/zenodo.json, card.md, UPLOAD.md,
+  budget.log, audit/compile.txt, zenodo/audit/compile-log.txt: the same round number and
+  the same three "this package" pointers corrected in the bookkeeping files (none of them
+  participates in the compile).
+
+Post-round checks (all re-run on the round-9 artefacts, not inherited):
+  paper-lint from the repository root                    -> PASS, exit 0 (run 10)
+  exit code of compile round 9                           -> 0, 12 pages held
+  Missing character / Overfull / Underfull               -> 0 / 0 / 4 distinct lines
+  ?? and << in the extracted PDF text                   -> 0 and 0
+  printed-text word scan (tex stripped + PDF extracted)  -> "first" 0, "new mathematics"
+      1 hit and it is inside "not a claim to new mathematics", "proves that the number of
+      matchings" 0, non-ASCII outside listings and comments 0
+  listing re-extraction, 7 blocks                        -> ALL BYTE-EXACT (unchanged:
+      no listing line was touched by this round)
+  statement/def listings in the frozen file              -> 6/6 verbatim
+  lean spans in the prose                                -> 13 spans / 8 distinct /
+      0 unresolved (round 9 added no identifier)
+  "% LEAN:" anchors                                      -> 4 lines, unchanged, at
+      claim.tex:174/185/196/206
+Cost accounting: 9 of 9. The cap is reached exactly; no round remains, and no further
+round may be taken without the user authorizing a tenth one.
+======================================================================
+round 3 of the gate-3 line (2026-09-28, third verdict): six findings closed on ZERO
+compile rounds, and what was recomputed before any sentence was written
+======================================================================
+The third verdict (audit/claim-recheck2.md, shipped here verbatim as
+zenodo/audit/claim-recheck2.md) found no judgement red and no new issue in the evidence or
+wording layer: F-a to F-f all sit in the bookkeeping, transcription and instruction files.
+This round therefore edited no .tex, ran no tectonic and consumed no compile round; the cap
+stands at 9 of 9 with 0 remaining, unchanged. The proof that the note itself was not touched
+is mechanical, not claimed: paper-lint re-run from the repository root gives exit 0
+(audit/lint.txt run 11) and the file hash is still
+  claim.tex 1287ae80b7fd3d89c831e68e8c187a8d3c82c8712a6a02530863395257c7d7dc
+  claim.pdf babece736bde4c9858cfe1d77acb1c31bf00877f508dc83a2e802cd2f6dcf7a8
+which is the pair compile.txt records for round 9.
+
+Checks run before the corrections below were written into the records:
+
+  F-a (bare "audit/<file>" pointers naming files that do not ship -- 4 locations, all in
+      this file or its two sibling transcriptions):
+        find zenodo -type f | grep -c 'selfcheck[.]md'      -> 0   (so the pointer was false)
+        find zenodo -type f | grep -c 'UPLOAD[.]md'         -> 0   (round-9 finding, unchanged)
+        find zenodo -type f | grep -c 'budget[.]log'        -> 0
+        find zenodo -type f | grep -c 'card[.]md'           -> 0
+      Each of the four now gives the full repository path and says in words that the file is
+      of the source repository / source task directory and does not ship with the deposit:
+        this file, template-patch bullet   -> claims/notchgrid-parity-mod/audit/selfcheck.md
+        this file, F1 consequence paragraph-> papers/notchgrid-parity-mod/... (paper sibling pkg)
+        diff-conclusion.txt                -> tasks/20260927-mossad-notch/audit/final-01-notch.txt
+        compile-log.txt, GATE 2 bullet     -> tasks/20260927-mossad-notch/audit/gate-t{1..4}.txt
+                                               and .../audit/recheck/welldef-full.txt
+      This is the third occurrence of the same family across three audit rounds (first round
+      F4, second round N1, third round F-a), so it is recorded as a family, not as an
+      isolated slip; whether the line should stop on a type-level reading is the user's call,
+      and the verdict expressly declined to make it.
+
+  F-b (the gate's own coverage report described 25 of 35 files):
+        scanned surfaces printed by gate 2 ............ 15
+        files declared not scanned, after the fix ..... 21   (was 10)
+        15 + 21 = 36 = the number of files in the tree, and gate 2 now FAILS if that
+        arithmetic does not hold, so the self-description can no longer be quietly partial
+      measured, per raw log, for the string "in this package":
+        compile-run1.log 0 | run2..run8 2 each | run9 0
+      (a typesetter echoes the .tex it compiles; runs 2-8 therefore replay the very wording
+      finding N1 judged false, twice each, inside Underfull \hbox diagnostics). The logs are
+      archive evidence and were NOT rewritten; they are declared out of the containment scan
+      with that reason printed, and audit/compile.txt plus README carry the reading note.
+
+  F-c (two checkable figures inside a transcription):
+        this file's own history: 31 files at the round-9 check, + 4 files added by that
+        session (claim-recheck.md copy, compile-run9.log, sanitize-package.py,
+        FILE-MANIFEST.txt) = 35, and + 1 file added by this round (claim-recheck2.md) = 36.
+        The old text said "the two additions of this session", which reconciles with neither.
+        claim.tex line pointer for the disclosure sentence corrected 489 -> 490-491; 489 is
+        the tail of the source-task budget sentence above it (read off the shipped file,
+        which was not modified).
+
+  F-d: compile-log.txt translates Chinese source records (its GATE 3 grade table quotes
+       完全证明), so "every line is quoted" was false for those lines; it now says "quoted or
+       translated" and names the two strings kept verbatim in their original characters.
+
+  F-e / F-f: UPLOAD.md, which does not ship. The "five carriers" instruction is replaced by an
+       exhaustive 14-location list, and the stop condition reads "any item not GREEN stops the
+       send" instead of the self-contradictory "any item not RED" it had.
+
+Invariant re-checks run after the edits (this round's own, not inherited):
+  paper-lint from the repository root ................. PASS, exit 0 (run 11), hash unchanged
+  sanitize-package.py --selftest ...................... 5/5 OK, exit 0 -- the pre-fix N1
+      sentence still FAILS the rule and the replaced sentence still passes, so widening the
+      declared-skip list did not blunt the rule that caught N1
+  sanitize-package.py --assert-promises (gate 2) ...... PASS, exit 0, coverage 15 + 21 = 36
+  cmp census root vs package ........................... 26 same-named pairs (claim.tex,
+      claim.pdf, lstlean.tex + 23 files under audit/), ALL byte-identical, 0 out of sync;
+      4 files exist only inside the deposit (audit/axioms.txt, audit/c9-record.md,
+      audit/compile-log.txt, audit/diff-conclusion.txt -- the package-side transcriptions),
+      2 only in the deliverable directory and deliberately not shipped (audit/selfcheck.md,
+      audit/sanitize-package.txt, both because they quote the wordings under adjudication)
+  "% LEAN:" anchors ................................... 4 lines, still at 174/185/196/206
+  listing re-extraction ............................... not re-run: no listing byte and no tex
+      byte changed this round (7/7 byte-exact as recorded by round 9 above)
+  every line written by this round in every file it touched: 0 bare carriage returns and 0
+      tabs, LF line endings, UTF-8, and no literal machine-local username or home path
+      anywhere in the tree (gate 3 re-run green)
+Cost accounting: llm-call 0 of 4, LaTeX compile rounds 9 of 9 (0 consumed this round), Lean
+kernel compiles 0. The DOI backfill still needs a tenth round and still requires the user's
+explicit authorization to raise the cap; nothing in this round moved that number.
+======================================================================
+

@@ -1,0 +1,2 @@
+WELLDEF OK
+AXIOMS atc_interleave [propext, Classical.choice, Quot.sound]

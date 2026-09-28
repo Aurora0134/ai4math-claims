@@ -1,0 +1,42 @@
+# compile.txt — claims/grid3n-diag-2notch/claim.tex 编译关键行摘录（SOP 08b 占位质检门②）
+
+> 工具：scripts/paper-compile.sh（tectonic 0.17.0 便携版，XeTeX 路径，缓存钉在
+> downloads/tectonic/）。原始完整日志：claims/grid3n-diag-2notch/claim.log。
+> 指标口径与先例 claims/chorded-cycle-mod4/audit/compile.txt 一致：
+> 页数 = 末遍 "Output written"；Missing character = claim.log 全文计数；
+> Overfull = 末遍计数与逐条 pt 值。
+
+## 轮次台账（本卡 LaTeX 顶 6 轮；paper-lint 静态检查不占此顶）
+
+| 轮 | 时刻口径 | exit | 页数 | Missing character | Overfull | 说明 |
+|---|---|---|---|---|---|---|
+| 1 | 2026-09-28 装配后首轮 | 0 | 14 | 0 | 3（146.06 / 121.36 / 21.06 pt） | 首轮即 exit 0；两处大盒出自 Verification evidence 长路径串（\texttt 不可断行） |
+| 2 | 2026-09-28 修订轮 | 0 | 14 | 0 | 0 | 长路径串改 \path{}（url 包，可在 / _ . 处断行，仅排版层）；sha256 串沿用 \allowbreak 可断点 |
+| 3 | 2026-09-28 终轮 | 0 | 14 | 0 | 0 | 摘要行内数学 `$1\times 2$` 重排为不跨行（脱敏门结构后检的逐行 `$...$` 剥离会跨行误配 delimiter、吞闭括号，属排版-对账交互，非 LaTeX 错误；LaTeX 侧两轮均已 exit 0） |
+| 4 | 2026-09-28 审计修复轮（F-A/F-B/F-C） | 0 | 14 | 0 | 0 | 精简主张审计首轮 3 条 FINDINGS（全 low）修复：工具钉版句补 `\cite{lean4}`/`\cite{mathlib}`、AI 披露 (b) 补节点漂移限定句；纯散文层改动，listing 源字节零改动（复验 11/11 PASS） |
+
+| 5 | 2026-09-28 镜像推送轮（措辞条件式→事实） | 0 | 14 | 0 | 0 | 用户指令「gh推送授权，全做」后：Data availability 的 GitHub 镜像句由条件式改为事实陈述（仓库 URL + 目录 + 指令日期 + card.md 指针，照先例 chorded-cycle-mod4 句式）；纯散文层改动，listing 源字节零改动（复验 11/11 PASS 于本轮前在案） |
+
+五轮均 exit 0（无失败轮）。如实计数：本线 LaTeX 轮 5/6。
+
+## 终轮关键行（claim.log 摘录；仅录 claim.log 中真实存在的行，tectonic 控制台输出不入本块）
+
+```
+Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
+Package rerunfilecheck Info: File `claim.out' has not changed.
+Output written on claim.xdv (14 pages, 374700 bytes).
+```
+
+- `Missing character` 计数：0（claim.log 全文 grep -c）。
+- 末遍 `Overfull \hbox` 计数：0（第 1 轮 3 处，第 2 轮起 0）。
+- 未解引用：0（无 "Citation ... undefined" / "Reference ... undefined" /
+  "There were undefined references" / "Label(s) may have changed" 任一出现；
+  rerunfilecheck 报 claim.out 未变，末遍自洽）。
+- 唯一字形告警：`TU/SimSun(0)/m/it` undefined（中文注释被 listings commentstyle
+  斜体化时缺 slanted 变体，纯观感，与先例包同型）。
+- Underfull \hbox 9 处（badness 最高 10000，纯观感，不列入闸门指标）。
+- 页数口径：14 页 > SOP 08b 职责节「claim note，2–4 页」；超出部分全部为逐字
+  冻结快照（statement 侧 7 块 + 终稿侧 4 块，共 11 处 lstlisting）与 C9 查新表。
+  页数超标属显式豁免（SOP 08b《已知边界》页数豁免条款 + 用户 2026-09-28 裁决
+  「追认超顶，转显式豁免」；卡面「页数口径」节与 zenodo/metadata/README.md 各记
+  一行）。未为凑页数删除任何证据。

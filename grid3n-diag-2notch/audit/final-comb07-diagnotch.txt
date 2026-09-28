@@ -1,0 +1,151 @@
+# 监察院终审裁决书 · comb-07 diagnotch（闸门三）
+
+- 任务线：comb-07（pool-comb-07 · 3×n 网格删两对角角的全匹配数 · 七阶递推线）
+- 终审对象：`tasks/20260928-comb07-diagnotch/final/01-comb07-diagnotch-proved.lean`（sha256=51721e9e315db12a35ca62218d8d458f32443e97f666e4a2ab452d0056f7cb43）
+- 冻结快照：`tasks/20260928-comb07-diagnotch/formalized/01-comb07-diagnotch-statements.statement.txt`（sha256=317ed6b1b963077f1e140f47ff7c2483767f1215b0366bbe2d5a1210ddcb0bcb，与 budget.log 第 3/7 行及终稿头注所记快照哈希逐字一致，已 `sha256sum` 复核）
+- 终审工人：监察院（SOP 05）；本部门不调用 LLM；一切判定以可复现命令为准
+- 节点快照：wire-id `anthropic/a6api-main/kimi-k3`（来源：本会话环境自述 + model-detect L2 last* 2026-09-28 取证；该持久记录同日有漂移观测，已在任务卡如实披露）。本终审 0 次 llm-call、0 次派发采样（审计无生成类动作）
+- 执行形态：zcode 端点 `scripts/agent-call.py` 拒派（exit 2 预期），按 SOP 兜底走本会话派发；本终审不含生成类动作，未发生派发
+- 终审时间：2026-09-28
+
+---
+
+## 检查一 · statement 对称差比对（SOP 05 动作 1 / 宪条 2）
+
+方法：Python 提取两文件全部顶层声明（6 def + 4 theorem），剥离注释（含嵌套 `/- -/` 与 `--`）、压缩空白后逐字节比对；比对范围 = theorem 声明头部（到 `:= by` 为止）+ def 声明全文（签名+方程，附加从严项）。
+
+结果原文：
+
+```
+final decls: [('def','adiag'),('def','onotch'),('def','enotch'),('def','pat2'),('def','pat6o'),('def','pat6e'),('theorem','adiag_interleave'),('theorem','adiag_mod2_period12'),('theorem','onotch_mod2_period6'),('theorem','enotch_mod2_period6')]
+snap  decls: [('def','adiag'),('def','onotch'),('def','enotch'),('theorem','adiag_interleave'),('def','pat2'),('theorem','adiag_mod2_period12'),('def','pat6o'),('def','pat6e'),('theorem','onotch_mod2_period6'),('theorem','enotch_mod2_period6')]
+
+decl-name symmetric difference (final Δ snap): []
+decl-name symmetric difference (snap Δ final): []
+
+=== theorem 声明头部逐字节比对（忽略空白与注释）===
+[MATCH] adiag_interleave
+[MATCH] adiag_mod2_period12
+[MATCH] onotch_mod2_period6
+[MATCH] enotch_mod2_period6
+
+=== def 声明全文（签名+方程）逐字节比对（忽略空白与注释，附加检查）===
+[MATCH] adiag
+[MATCH] onotch
+[MATCH] enotch
+[MATCH] pat2
+[MATCH] pat6o
+[MATCH] pat6e
+
+VERDICT: STATEMENT INTACT (无篡改)
+```
+
+如实记载：两文件声明**次序**不同——快照把 `pat2`/`pat6o`/`pat6e` 三个 def 穿插在定理之间，终稿把 6 个 def 全部前置。声明次序不属冻结 statement 的内容，且前置后所有依赖（定理引用 def）仍全部满足，编译通过亦佐证。逐声明内容零差异。
+
+**结论：PASS——statement 未动，无篡改。**
+
+附加核查（合并忠实性，终稿头注与 attempts/prove-manifest.json 声称 4 条 proof 逐字合并自 attempts/final-*.lean）：逐条提取终稿与 attempts 两犯的 proof body（`:= by` 之后全文）比对，4/4 逐字一致（adiag_interleave 4835 chars、adiag_mod2_period12 4032 chars、onotch_mod2_period6 2253 chars、enotch_mod2_period6 2253 chars）。合并声称成立。
+
+## 检查二 · 严格编译复跑（SOP 05 动作 2 / 宪条 1）
+
+命令与输出原文：
+
+```
+$ bash scripts/lean-verify tasks/20260928-comb07-diagnotch/final/01-comb07-diagnotch-proved.lean
+LEAN-VERIFY-EXIT=0
+```
+
+严格模式准则 = 编译无 error ∪ 文件中无 sorry/admit 文本；exit 0 且 stderr 无任何输出（连 warning 都没有）。**结论：PASS。**
+
+## 检查三 · sorry/admit grep 双保险（SOP 05 动作 3 / 宪条 3）
+
+命令与输出原文：
+
+```
+$ grep -nE '\bsorry\b|\badmit\b' tasks/20260928-comb07-diagnotch/final/01-comb07-diagnotch-proved.lean
+GREP-EXIT=1 (1 = 零命中)
+
+$ grep -nE '\bnative_decide\b|\baxiom\b|\bunsafe\b|\bClassical\.choice\b' tasks/20260928-comb07-diagnotch/final/01-comb07-diagnotch-proved.lean
+GREP2-EXIT=1 (1 = 零命中)
+```
+
+全文（含注释）sorry/admit 零命中；native_decide / axiom / unsafe / 直书 Classical.choice 亦零命中。**结论：PASS，0 sorry。**
+
+## 检查四 · 公理审计（SOP 05 动作 4 / 宪条 3）
+
+主链产物复核（audit/axioms-*.txt，gate-batch --axioms 产物，逐条原文）：
+
+```
+WELLDEF OK
+AXIOMS adiag_interleave [propext, Classical.choice, Quot.sound]        (audit/axioms-adiag_interleave.txt:1-2)
+WELLDEF OK
+AXIOMS adiag_mod2_period12 [propext, Quot.sound]                       (audit/axioms-adiag_mod2_period12.txt:1-2)
+WELLDEF OK
+AXIOMS onotch_mod2_period6 [propext, Quot.sound]                       (audit/axioms-onotch_mod2_period6.txt:1-2)
+WELLDEF OK
+AXIOMS enotch_mod2_period6 [propext, Quot.sound]                       (audit/axioms-enotch_mod2_period6.txt:1-2)
+```
+
+监察院独立抽查（SOP 合并步：final 副本尾部追加 4 条 `#print axioms`，再跑一次严格模式编译；副本留档 audit/final-comb07-diagnotch-axiomsprobe.lean）：
+
+```
+$ cp final/01-comb07-diagnotch-proved.lean audit/final-comb07-diagnotch-axiomsprobe.lean
+$ printf '\n\n#print axioms adiag_interleave\n#print axioms adiag_mod2_period12\n#print axioms onotch_mod2_period6\n#print axioms enotch_mod2_period6\n' >> audit/final-comb07-diagnotch-axiomsprobe.lean
+$ bash scripts/lean-verify tasks/20260928-comb07-diagnotch/audit/final-comb07-diagnotch-axiomsprobe.lean
+'adiag_interleave' depends on axioms: [propext, Classical.choice, Quot.sound]
+'adiag_mod2_period12' depends on axioms: [propext, Quot.sound]
+'onotch_mod2_period6' depends on axioms: [propext, Quot.sound]
+'enotch_mod2_period6' depends on axioms: [propext, Quot.sound]
+AXIOMS-PROBE-EXIT=0
+```
+
+四条定理公理集均恰为白名单 {propext, Quot.sound, Classical.choice} 的子集；sorryAx 零出现；抽查复跑与主链 gate-batch 产物逐条一致。**结论：PASS。**
+
+---
+
+## 分级结论（SOP 05 动作 5，取实际达到的最低级）
+
+**完全证明。**
+
+判据逐项：
+1. 0 sorry（检查二/三：lean-verify 严格模式 exit 0；grep 零命中）✓
+2. 公理恰为白名单子集、sorryAx 零出现（检查四）✓
+3. statement 未动（检查一：4 theorem 头 + 6 def 全文逐字节一致；快照 sha256 与在案记录一致）✓
+
+未证出/未立项项：无。冻结快照内 4 条定理全部证明；T4（mod 4 周期 12 / mod 3 周期 968 / 任意模存在性）按任务卡为备选不进首批，本就不在 statement 快照内，不构成弱化事由。
+
+## 复现命令清单
+
+```bash
+cd <repository root>
+# 0. 快照哈希核对
+sha256sum tasks/20260928-comb07-diagnotch/formalized/01-comb07-diagnotch-statements.statement.txt
+#   期望 317ed6b1b963077f1e140f47ff7c2483767f1215b0366bbe2d5a1210ddcb0bcb
+
+# 1. statement 对称差比对（Python：提取声明、剥注释、压缩空白、逐字节比对；见上「检查一」原文）
+# 2. 严格编译复跑
+bash scripts/lean-verify tasks/20260928-comb07-diagnotch/final/01-comb07-diagnotch-proved.lean
+#   期望 exit 0、无输出
+# 3. sorry/admit 双保险
+grep -nE '\bsorry\b|\badmit\b' tasks/20260928-comb07-diagnotch/final/01-comb07-diagnotch-proved.lean
+#   期望零命中（exit 1）
+# 4. 公理审计抽查（合并步）
+cp tasks/20260928-comb07-diagnotch/final/01-comb07-diagnotch-proved.lean tasks/20260928-comb07-diagnotch/audit/final-comb07-diagnotch-axiomsprobe.lean
+printf '\n\n#print axioms adiag_interleave\n#print axioms adiag_mod2_period12\n#print axioms onotch_mod2_period6\n#print axioms enotch_mod2_period6\n' >> tasks/20260928-comb07-diagnotch/audit/final-comb07-diagnotch-axiomsprobe.lean
+bash scripts/lean-verify tasks/20260928-comb07-diagnotch/audit/final-comb07-diagnotch-axiomsprobe.lean
+#   期望 exit 0 且四条 depends on axioms 均为白名单子集
+```
+
+## 限定语（如实记载，不影响本分级，但后续论文/报告措辞不得越界）
+
+1. **kernel 层口径**：本线定理层只证「递推定义版序列」（ℕ → ℤ 的 def，初值与整数系数递推显式写进 def）的公式侧定理；statement 不含图/网格/匹配组合对象。「a(n) = 该图的匹配数」是组合语义桥，不在 theorem 层——「完全证明」分级仅覆盖 4 条公式侧定理，组合计数侧仍为猜想（按任务卡「已证定理（公式侧）+ 计数猜想（语义侧）」两级呈现）。
+2. **占位围栏**：PM（完美匹配）偶 n 子列 = OEIS A061278 已挂名占位，禁止以其作新颖性主张；价值级「新序列·新递推」成立（七阶递推与母族 A033506 不同谱，2026-09-28 机器双向核验互不满足）。
+3. 终稿相对快照重新编排了声明次序（def 前置），逐声明内容零差异；此为组装形态，非 statement 变更。
+4. 主链产物 audit/gate-batch.src.lean 与本终审留档 audit/final-comb07-diagnotch-axiomsprobe.lean 均为编译探针源，非交付 statement。
+
+## 预算记账
+
+本次终审消耗 Lean 编译 2 次（检查二 1 次 + 检查四抽查 1 次），llm-call 0 次，派发采样 0 次；已按行追加 tasks/20260928-comb07-diagnotch/budget.log。卡面 Lean 编译上限 32，终审前账余 9，本次后账余 7。
+
+---
+AI4Math 流水线 · 监察院终审（SOP 05）· AI 生成 · 2026-09-28

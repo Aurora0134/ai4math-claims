@@ -1,0 +1,28 @@
+# FILE-MANIFEST -- sha256  bytes  path (relative to this package root)
+# Generated 2026-09-28 by the claim packager (audit/sanitize-package.py frozen copy;
+# the repository-level scripts/sanitize-package.py --write-manifest writes sizes only,
+# so this manifest carries per-file sha256 as SOP 08b requires).
+# Every file of the deposit is listed except this manifest itself; a
+# publication check re-hashes this list before any outbound act.
+# rows = 21 ; deposit = 22 files (manifest self included)
+0eb53d3cb4ea5e0bc14de67511c872b48004ff2048c44f0d82eba35ce90946e2  75  audit/axioms-adiag_interleave.txt
+7a072bbe7025b890aca1562b5a6e6bce2a06d005baf5bd9a2f93cb134fe76f4e  60  audit/axioms-adiag_mod2_period12.txt
+01636e9366476abbf1c0c52054d572bcfc59b69e244c002239a306b69cbe7066  60  audit/axioms-enotch_mod2_period6.txt
+ba0e475402bd390daf70dc312bcb28f08461bdb93e55a735d25469a0675274af  60  audit/axioms-onotch_mod2_period6.txt
+f5b851abf7bdb48323ba9618d9db2fccdb0023e782f7951e1b9c2f814666c7d9  5835  audit/build-c9-record.py
+9c262e5428e7cd43b1fafaf35753dfa809f971fa747ca6d88a2ba48d3b8ee1dc  9607  audit/c9-record.md
+2735ea7c87c268104fab936d34c760cff44aebc9dece48e96a3658d8f456baf5  8044  audit/claim-check.md
+76a1d8c8ed00a579b8dc30564c1abb1e8f2fb0e860491a921cc41fd76332e056  3471  audit/compile.txt
+607f1bd10c477cc7a4b5932953f6931e69edead2d54086d6924250a4adf6f34a  9395  audit/final-comb07-diagnotch.txt
+bf6e6db847f6aa364b58d3708af8e603e95da246d478e8aa7f44517e13205dbe  8931  audit/inspect-tex.py
+d0b99ff3f2cb57bb1fa5054212bbf217781beeba639ee7d11ed96565ec6bbecf  62  audit/lint.txt
+25cc1f650a8253c42d7526025ac3c43097f60df5c210ad98da27cb5cf5d01603  2095  audit/listing-verify.txt
+96b5441388c49a52b442e104abf75ae776724ba5ce4a0cfc5b7a293a4a8631da  32699  audit/sanitize-package.py
+0172796a248575cca278fddda3f3a055bb07a19c4dce14bf1c23be3d2a36e400  147088  claim/claim.pdf
+9b66aac2f44a0ab755358a19774c560384dab7db30e1c8f75470f02b283c6522  36732  claim/claim.tex
+46f81550e32639cac8634af66e948d856a8a49945bca3b319ba460a861792186  7569  claim/lstlean.tex
+71403d5efb4048508c8aa028f0dadce2021e31d050da9680e185cc4eb73b7535  10959  metadata/README.md
+c865143642dd850cd1a52501efaa8d25b4d69bb8aa12ef5cc909056cbc2948bb  5268  metadata/zenodo.json
+51721e9e315db12a35ca62218d8d458f32443e97f666e4a2ab452d0056f7cb43  22058  proofs/01-comb07-diagnotch-proved.lean
+16744fd37b7d8eb67965641f4e2b6dd8e7e3c2a994ea484766b6e3afb5861aca  6660  proofs/01-comb07-diagnotch-statements.lean
+8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632  25  proofs/lean-toolchain

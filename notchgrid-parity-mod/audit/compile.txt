@@ -1,0 +1,131 @@
+# compile -- claims/notchgrid-parity-mod/claim.tex (SOP 08b quality gate 2)
+# command: bash scripts/paper-compile.sh claims/notchgrid-parity-mod/claim.tex
+#          (run from the repository root; tectonic 0.17.0 portable from
+#           downloads/tectonic/, XeTeX engine, --keep-logs --print)
+# executor: dept-paper claim lane, 2026-09-28 ; raw per-round logs:
+#           audit/compile-run1.log ... audit/compile-run9.log (kept in this package)
+# counting note: tectonic runs the engine twice (cross-reference pass), so every
+#   warning is echoed once per pass. Rounds 3-9 report DISTINCT lines matching
+#   "warning: claim.tex:<n>: Overfull|Underfull". Rounds 1-2 were recorded at the time
+#   as (echoed lines)/2, which for those two rounds is a larger number than the distinct
+#   count (run1: Overfull 8 vs 3 distinct, Underfull 31 vs 20 distinct; run2: 9 vs 4,
+#   29 vs 21). Those two rows are left exactly as first written so the table matches the
+#   raw log shipped beside it; the discrepancy is recorded here rather than re-based
+#   silently, and it affects no verdict (all nine rounds exit 0, Missing character 0).
+# reading note on the raw logs: every compile-run*.log contains one line
+#   "Fontconfig error: Cannot load default config file: No such file: (null)". That is a
+#   notice from the font environment of the portable tectonic build shipped in
+#   downloads/tectonic/, not a LaTeX error: it is emitted by the engine before any page is
+#   read and it is the ONLY occurrence of the string "error" in each log, while every log
+#   ends with a "bytes written" line for the PDF it produced and the round table below
+#   records exit code 0 for all nine rounds. So the raw logs and the table are not in
+#   conflict.
+# reading note, second item (added after finding F-b of audit/claim-recheck2.md): the raw
+#   logs echo more than font notices -- a typesetter echoes the .tex it compiles, so rounds
+#   2 to 8 each replay, twice (once per cross-reference pass, inside an Underfull \hbox
+#   diagnostic), the Data availability wording that placed the upload checklist among the
+#   files shipped with the note. That is precisely the sentence round 9 adjudicated false as
+#   finding N1 and corrected; the checklist does not and did not ship. The logs are archive
+#   evidence and are deliberately kept as compiled, NOT written back over: a corrected log
+#   would no longer be evidence of anything. The honest locations for the correction are
+#   claim.tex (round 9) and this reading note, and gate 2 of audit/sanitize-package.py now
+#   declares these nine files outside its scan range with this reason printed, so the echo
+#   cannot be read as a live promise and the gate's coverage claim is arithmetically checked
+#   (scanned + declared-not-scanned = every file in the tree). Measured on 2026-09-28: run1
+#   carries 0 such echoes (the sentence did not exist yet), run2..run8 carry exactly 2 each,
+#   run9 carries 0 (post-correction).
+# budget cap: LaTeX compile rounds -- originally 6 (the claim card in the source repository, not shipped / SOP 08b), reached exactly
+#   at rounds 1-6; on 2026-09-28 the user raised the cap to 9 by explicit instruction for
+#   the gate-3 rework (预算节 of the claim card and the authorization line of budget.log, both in the source repository's deliverable directory, not shipped with this deposit). Consumed: 9 rounds; the cap is now 10.
+#   The user raised it from 9 to 10 on 2026-09-28 (budget-auth-3 of the ledger and the 预算节
+#   of the claim card, both in the source repository's deliverable directory, not shipped
+#   with this deposit); that tenth round is reserved for the DOI backfill alone and has
+#   not been used. Round 9 was spent, by the
+#   user's decision recorded in the claim card (source repository, not shipped), on correction N1 (a package-promise sentence in
+#   the Data availability section that pointed at UPLOAD.md as if it shipped inside the
+#   deposit); the DOI backfill therefore uses that reserved TENTH round and must not be run before
+#   the user starts it (constitution clause 5 -- recorded again in the claim card's 预算节 (source repository, not shipped),
+#   budget.log and UPLOAD.md step 1, both in the source repository's deliverable directory, not shipped). Until then the note keeps its "DOI to be reserved at
+#   upload" wording, which is the true state, not a placeholder.
+#   Not exceeded; no "compile outsource" downgrade was needed -- exit 0 was reached
+#   locally on every round, including the first.
+
+| round | what changed | exit | Missing character | Overfull | Underfull | unresolved refs in PDF | pages |
+|---|---|---|---|---|---|---|---|
+| 1 | first compile: template instantiated, 12 listings injected | 0 | 0 | 8 | 31 | 0 | 14 |
+| 2 | content trim for the 2-4 page target: listings cut 12 -> 8 (dropped the T1 branch/bridge/table/close blocks), channel table compressed to 11 rows, prose tightened | 0 | 0 | 9 | 29 | 0 | 11 |
+| 3 | array package + ragged-right L columns for the channel table; sha256 pair moved onto its own display lines; axiom block set in scriptsize | 0 | 0 | 2 | 3 | 0 (resolved on the rerun) | 12 |
+| 4 | residue tables moved into a compact 2x2 tabular | 0 | 0 | 0 | 3 | 0 | 12 |
+| 5 | listings 8 -> 7 (T1 inner-lemma block folded into prose with its artifact line numbers), merged two Limitations items | 0 | 0 | 0 | 3 | 0 | 12 |
+| 6 | final: Data availability and ledger-path typesetting compressed | 0 | 0 | 0 | 3 | 0 | 12 |
+| 7 | gate-3 rework (rounds 7-8 are the two after the cap was raised): F1 proof-skeleton paragraph re-cut to T1/T2/T4 + a T3 carve-out, and the residue-table sentence at the end of Section 2 likewise; F2 enumeration window corrected in Section 1 and in Limitations item 2; F3 the truncated-subtraction counterfactual deleted from Section 2; F4 the audit-evidence sentence in Verification evidence rewritten to describe what the package actually carries; E3 repository paths declared non-retrievable at deposit time (Introduction and Data availability); F5 the used-rounds number printed in the disclosure; prose tightened where facts were duplicated (Introduction paragraph 2, gate-2 parenthetical, Limitations items 4-6) so the page count held | 0 | 0 | 0 | 4 | 0 | 12 |
+| 8 | wording invariant restored + the number in F5 made true: round 7's new prose had put the literal word "first" into the PRINTED text four times ("the first eight entries", "the first packaging"), which breaks this package's own recorded invariant that the word `first` has zero hits in the printed text (the claim card 措辞红线 4 (source repository, not shipped); the gate-3 audit verified that invariant at its 判据 2). Reworded to "the leading ... entries" and "the original packaging" (meaning unchanged, claim strength not raised), and the disclosure sentence now reads 8 of 9 because this round is round 8 | 0 | 0 | 0 | 4 | 0 | 12 |
+| 9 | gate-3 re-check correction N1 + the disclosure number made true again: the Data availability sentence located its upload checklist inside the deposit (it told the reader to find that file among the files shipped with the note), while the checklist, the budget ledger and the claim card all live in the deliverable directory of the source repository and are not among the files of this deposit, and the same note already says at its Introduction that repository paths are not retrievable at deposit time -- an in-package promise that did not hold (SOP 08b 已知边界: the main failure mode of this channel; the verbatim old sentence is quoted in audit/claim-recheck.md, finding N1). Reworded to the "in the source repository" wording used by the two most recent precedent claim packages, and the disclosure sentence now reads 9 of 9 with a clause saying what round 9 was spent on and that the DOI backfill needs a further round under separate user authorization. No other sentence touched: no listing, no "% LEAN:" anchor, no \lean{} identifier, no evidence claim | 0 | 0 | 0 | 4 | 0 | 12 |
+
+verdict: gate 2 GREEN -- exit 0 on all nine rounds; the final
+round (9) has zero `Missing character`, zero Overfull \hbox and zero unresolved
+references, and holds 12 pages. Unresolved references were checked in the rendered PDF, not only in the
+log: the string "??" occurs 0 times in the extracted text of the 12 pages. Underfull
+\hbox went 3 -> 4 in the rework (one further loose line, in the disclosure
+paragraph, adjacent to the unbreakable artifact path
+\texttt{claims/notchgrid-parity-mod/budget.log}); cosmetic, left rather than
+traded against a further compile round. Page count held at 12 through rounds 7-9: the rework added no
+listing, no table row and no evidence, and the factual corrections were paid
+for by removing duplicated prose; round 9 added three printed lines to the
+disclosure paragraph and page 12, which held only the tail of the bibliography
+(368 extracted characters before the round, 600 after), absorbed them.
+
+unicode handling: no lccode mapping was added; the template's XeTeX rendering patch
+and its xeCJK/SimSun block are inherited unchanged (the 17 lccode lines and the two
+\ifdefined guards are byte-identical to harness/templates/claim/claim.tex, verified
+by diff at claim time; only the leading comment line of the block was reworded). The
+excerpted artifact lines contain no CJK and no U+2212/U+00D7 (the Chinese docstrings
+sit on lines that are deliberately not excerpted), and the symbols that do appear
+(N, Z, ->, <->, forall, exists, vee, equiv, le, angle brackets, middle dot, negation
+sign) render via the inherited patch. This was confirmed by the zero `Missing
+character` count above rather than assumed, and by extracting the rendered text: the
+congruence sign, the angle brackets and the universal quantifier are present as
+characters in the PDF.
+
+residual cosmetics: 4 Underfull \hbox after rounds 7, 8 and 9 (3 before them; badness values in
+the raw log; loose lines adjacent to unbreakable artifact path names). Not errors;
+left as is rather than trading them back against overfull lines running into the
+margin. Round 9 did not change the count.
+
+shipped PDF identity (so the auditor can pin the exact artefact): after compile round 9
+the shipped pair is
+  claim.tex / claim/claim.tex   sha256
+  1287ae80b7fd3d89c831e68e8c187a8d3c82c8712a6a02530863395257c7d7dc
+  claim.pdf / claim/claim.pdf   sha256
+  babece736bde4c9858cfe1d77acb1c31bf00877f508dc83a2e802cd2f6dcf7a8
+(the in-package copies are cmp-verified against the working files; claim.tex received
+no edit after round 9, so the PDF is the render of the tex shipped in this package.
+The rendered PDF is 128,188 bytes, the "128188 bytes written" line of
+compile-run9.log, and the paper-lint record of this same tex is run 10 of audit/lint.txt).
+Superseded pairs, recorded so the round table and the raw logs stay reconcilable:
+  round 8: claim.tex 25b64939a3061b001990041a9436e66cabcb0ec0402863a18043e4f73beb046e /
+           claim.pdf 5175c8c8ab5cc38517560aff5beae1d9262efa8feca2df89055a583ec292af9e
+           (the pair the gate-3 second-round re-check audited; superseded by round 9,
+           which changed only the two sentences described in the round-9 table row)
+  round 7: claim.tex ad21d0034f3f0489c5bbef61c704384ac6ab74db8a15c183a2109dec522b9db6 /
+           claim.pdf 24760d75f03ff4d8089b214876ed1aa300566c15ad43c08a0fb653eca35ca009
+  round 6 (pre-rework): claim.tex
+           8db9420497667a1c090895eeb3022dd2f1ca48716e112484fc95ee22a5dc86f9 /
+           claim.pdf 86251b5dd4c6a910a54198e3dc1246f28815bfc1bdb68764bc833401cb600652
+
+page-count note (deviation reported, not hidden): the SOP 08b target is a 2-4 page
+note. The shipped note is 12 pages, and the gate-3 audit judged the deviation
+editorial (claim-check.md 追加项 B), with the user ruling on 2026-09-28 that the
+page count stays at 12 rather than being bought by compressing the layout or the
+evidence. Rounds 1-2 cut 14 -> 11 pages by dropping five
+of the twelve listings and compressing prose, but pages 3-6 are the seven listings
+required by the process (2 definition snapshots + 4 declaration headers + 1 complete
+proof), page 8 is the per-channel C9 table, and pages 9-12 are the mandated
+Verification evidence (with the verbatim axiom printout), Novelty evidence, Scope and
+limitations, Data availability and the four-element AI disclosure. The four precedent
+claim packages under this SOP (claims/tatami-mod8-defect, claims/cyl3-mod23,
+claims/edgemid-monomer-dimer, claims/chorded-cycle-mod4) ship 9, 10, 10 and 10 pages
+(PyMuPDF page_count, re-measured on 2026-09-28), so this note is at parity with prior
+art; further reduction would mean dropping evidence, which this channel does
+not do. An explicit ruling on the page target is left to the auditor (gate 3) and the
+user.

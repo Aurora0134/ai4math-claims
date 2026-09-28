@@ -1,0 +1,2 @@
+WELLDEF OK
+AXIOMS atc_mod4_period10 [propext, Quot.sound]

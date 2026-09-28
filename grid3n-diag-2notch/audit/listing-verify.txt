@@ -1,0 +1,14 @@
+== claim.tex -- 2026-09-28 ==
+source sha256: 01-comb07-diagnotch-statements.lean=16744fd37b7d8eb67965641f4e2b6dd8e7e3c2a994ea484766b6e3afb5861aca  01-comb07-diagnotch-proved.lean=51721e9e315db12a35ca62218d8d458f32443e97f666e4a2ab452d0056f7cb43
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption. The axiom-printout block in Verification evidence is quoted from the audit record, not from a frozen .lean, and is not part of this byte comparison.
+PASS statement: adiag def (main sequence) [01-comb07-diagnotch-statements.lean lines 39-53] bytes=544 sha256(body)=5682b985fdbe3109
+PASS statement: onotch + enotch defs (subsequences) [01-comb07-diagnotch-statements.lean lines 55-87] bytes=1316 sha256(body)=b4902ae7fd449504
+PASS statement: T1 adiag_interleave header [01-comb07-diagnotch-statements.lean lines 89-94] bytes=439 sha256(body)=7f0aed7b04442661
+PASS statement: pat2 def + T2 header [01-comb07-diagnotch-statements.lean lines 97-116] bytes=585 sha256(body)=85c58604d0250cff
+PASS statement: pat6o + pat6e defs [01-comb07-diagnotch-statements.lean lines 119-131] bytes=428 sha256(body)=c130999fc2ca31a6
+PASS statement: T3o onotch_mod2_period6 header [01-comb07-diagnotch-statements.lean lines 133-136] bytes=282 sha256(body)=6a24c7dca7aae7bb
+PASS statement: T3e enotch_mod2_period6 header [01-comb07-diagnotch-statements.lean lines 139-142] bytes=282 sha256(body)=c03182fd9a10eef1
+PASS proof: T1 lifted inductive step close [01-comb07-diagnotch-proved.lean lines 147-172] bytes=2013 sha256(body)=7c4b372463399983
+PASS proof: T1 even half of main induction [01-comb07-diagnotch-proved.lean lines 179-190] bytes=627 sha256(body)=0107896370e53815
+PASS proof: T2 mod-2 collapse + first residue branch [01-comb07-diagnotch-proved.lean lines 215-229] bytes=738 sha256(body)=f16eb51bfe702385
+PASS proof: T3o core (T3e same shape at 383-397) [01-comb07-diagnotch-proved.lean lines 320-334] bytes=738 sha256(body)=324860fb1206d913

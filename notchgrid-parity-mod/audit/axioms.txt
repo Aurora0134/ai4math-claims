@@ -1,0 +1,30 @@
+# Axiom audit for the four theorems of this claim package.
+# Source (verbatim): tasks/20260927-mossad-notch/attempts/final-axioms.out (source task directory, not shipped with this deposit), the
+#   last four lines before the EXIT=0 marker. The independent auditor re-ran the printout
+#   and its output tasks/20260927-mossad-notch/audit/review-final-axioms.out (source task directory, not shipped with this deposit) is
+#   byte-identical to the source file -- re-verified with cmp at claim packaging time
+#   (2026-09-28), not inherited from the audit text.
+# Environment: Lean v4.34.0 + mathlib4 v4.34.0 (rev 5ed29652); pin reproduced
+#   verbatim in proofs/lean-toolchain (sha256
+#   8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632).
+
+'a3_odd_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a3_mod8_periodic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a4_odd_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a4_mod4_eq2_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+EXIT=0
+
+# Reading: each of the four theorems depends on exactly the three standard axioms
+# (the whitelist of constitution clause 3); sorryAx appears for none of them. The
+# order of the four lines is the order the file prints them and is preserved
+# verbatim (it differs from the T1/T2/T3/T4 presentation order of the note, which
+# follows the audit grade table -- deliberately not re-sorted here).
+#
+# Companion scans quoted from the gate-3 verdict
+# (tasks/20260927-mossad-notch/audit/final-01-notch.txt (source task directory, not shipped with this deposit)):
+#   - sorry/admit full-text scan, comments included: 0 hits;
+#   - escape-hatch scan (set_option, axiom, unsafe, implemented_by, extern,
+#     macro_rules, elab, native_decide, decide!): 0 hits;
+#   - strict re-compile: EXIT 0, 0 errors, 320 deprecation warnings
+#     (if_neg 236 + if_pos 84), recorded by the auditor as non-adjudicating.

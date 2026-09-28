@@ -1,0 +1,2 @@
+WELLDEF OK
+AXIOMS adiag_mod2_period12 [propext, Quot.sound]

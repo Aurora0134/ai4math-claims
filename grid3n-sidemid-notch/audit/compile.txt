@@ -1,0 +1,45 @@
+compile.txt -- claim.tex compilation record (SOP 08b 占位质检门②)
+
+Command:  bash scripts/paper-compile.sh claims/grid3n-sidemid-notch/claim.tex
+          (tectonic 0.17.0 portable, XeTeX path, downloads/tectonic/ pin)
+Rounds:   4 (all exit 0; no failed round)
+  run1 exit 0 -- 15 pages, Missing character 0, Overfull 4 (134.56 / 142.54 /
+          73.07 pt from the two unbreakable sha256 \texttt strings, 20.61 pt
+          from long \texttt audit filenames in the Verification itemize)
+  run2 exit 0 -- after sha256 \allowbreak chunking and audit-chain filename
+          breaks: Overfull 2 (134.56 / 115.61 pt, the two long Lean path
+          \texttt strings), Missing character 0
+  run3 exit 0 -- after \texttt{formalized}\allowbreak/\texttt{...} and
+          \texttt{final}\allowbreak/\texttt{...} path breaks: FINAL
+Final round metrics (claim.log):
+  exit code 0
+  pages 15
+  Missing character 0
+  Overfull \hbox 0
+  unresolved references / citations 0
+  remaining warnings: Fontconfig default-config notice; one "Font shape
+  `TU/SimSun(0)/m/it' undefined" (Chinese listing comments typeset in
+  commentstyle italics; SimSun has no slanted face -- cosmetic only, recorded)
+Products: claims/grid3n-sidemid-notch/claim.pdf (15 pages) + claim.log (kept).
+
+Page-count note: SOP 08b 职责节 "claim note, 2-4 页" 口径由用户 2026-09-28
+裁决追认超顶并转为显式豁免（出处 harness/departments/08b-claim.md《已知边界》
+页数豁免条款）；超出部分全部是逐字冻结 listing 快照（statement 四组 + 终稿
+四组，共 8 块）与 C9 裁决引文块，未删任何证据。实际页数 15。
+
+---------------------------------------------------------------------------
+Round 4 (2026-09-28, 占位精简主张审计 F-1/F-2/F-3 修复后复编；LaTeX 轮 4/6):
+  claim.tex prose-only edits (novelty section: A129113 qualifier removed;
+  OEIS sequence-search count wording; keyword-row generic-hit wording) +
+  zenodo/metadata/zenodo.json description same-sentence sync. No listing
+  body touched (re-verified 8/8 byte-exact, body sha256 unchanged).
+  exit code 0; pages 15; Missing character 0; Overfull \hbox 0;
+  unresolved references / citations 0.
+  paper-lint re-run: PASS exit 0.
+
+---------------------------------------------------------------------------
+Round 5 (2026-09-28, 镜像推送轮；LaTeX 轮 5/6):
+  claim.tex Data availability 的 GitHub 镜像句由条件式改为事实陈述（仓库 URL +
+  目录 grid3n-sidemid-notch/ + 指令日期 + card.md 指针；照先例句式）。No
+  listing body touched. exit code 0; pages 15; Missing character 0;
+  Overfull \hbox 0; unresolved references 0. paper-lint re-run: PASS exit 0.

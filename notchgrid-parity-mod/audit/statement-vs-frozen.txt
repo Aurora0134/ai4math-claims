@@ -1,0 +1,24 @@
+# statement-vs-frozen -- claims/notchgrid-parity-mod/claim.tex
+# target: tasks/20260927-mossad-notch/formalized/01-notch-mods.lean (source task directory, not shipped with this deposit) -- the deposit
+#   carries the frozen file itself as proofs/01-notch-mods.lean
+# frozen sha256: 9a787b6be05dc345343edf675d107801e674e3abae095356ace390fac8426fb8
+# method: after audit/listing-verify.txt proved each block equal to the recorded
+#   sed range of the FINAL artifact, each statement/definition block is searched for
+#   as a literal substring of the FROZEN file. This restates the auditor's
+#   symmetric-difference verdict mechanically at claim time instead of inheriting it.
+# note: the frozen file carries `sorry` proof bodies, which is why only declaration
+#   headers and definition blocks (which have no proof body) are quoted, and why the
+#   string `sorry` appears in no listing of this note.
+# executor: dept-paper claim lane, 2026-09-28, via logs/notchgrid-claim-listings.py frozen (repository-internal helper script under logs/, not shipped with this deposit)
+PASS lst:a3def (8 lines) verbatim in frozen file
+PASS lst:a4def (13 lines) verbatim in frozen file
+PASS lst:t1 (1 lines) verbatim in frozen file
+PASS lst:t2 (1 lines) verbatim in frozen file
+PASS lst:t3 (1 lines) verbatim in frozen file
+PASS lst:t4 (1 lines) verbatim in frozen file
+ALL STATEMENT/DEF LISTINGS BYTE-PRESENT IN FROZEN FILE
+# re-run 2026-09-28 after compile round 9 (N1 correction): `python
+# logs/notchgrid-claim-listings.py frozen` (repository-internal helper script under logs/, not shipped with this deposit) -> 6/6 verbatim in the frozen file.
+#   Unchanged,
+# for the same reason as audit/listing-verify.txt: the two definitions and the four
+# declaration headers were not touched by the round-9 wording fix.

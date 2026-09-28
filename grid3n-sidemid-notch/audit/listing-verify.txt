@@ -1,0 +1,11 @@
+== claim.tex -- 2026-09-28 ==
+source sha256: 01-comb08-sidemid-statements.lean=5fe889d5ed92711a86f23d9827800dd7d2c677a440664f0d81dbdb5e9eb39e67  01-comb08-sidemid-proved.lean=19b5c3908592a529491e0b5b40b6b26166019d92820447b41a70ada510a20821
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption.
+PASS statement: asid def (main sequence) [01-comb08-sidemid-statements.lean lines 28-39] bytes=454 sha256(body)=02986f778ef72bd6
+PASS statement: osid/esid defs + T1 statement [01-comb08-sidemid-statements.lean lines 41-74] bytes=1397 sha256(body)=f42f4362163d4ca2
+PASS statement: pat3 + T2 statement [01-comb08-sidemid-statements.lean lines 77-86] bytes=437 sha256(body)=77bc56b93dfb431b
+PASS statement: pat12 + T3 statement [01-comb08-sidemid-statements.lean lines 89-108] bytes=562 sha256(body)=b7d865fc918dc7d7
+PASS proof: auxiliary lemmas asid_shift/asid_evenlag12 complete [01-comb08-sidemid-proved.lean lines 80-115] bytes=1654 sha256(body)=cb622029cfc20863
+PASS proof: T1 asid_interleave complete [01-comb08-sidemid-proved.lean lines 117-142] bytes=1557 sha256(body)=0972e69ade283e56
+PASS proof: T2 asid_mod2_period3 complete [01-comb08-sidemid-proved.lean lines 144-159] bytes=735 sha256(body)=416183731bbc44fa
+PASS proof: T3 excerpt (statement + skeleton + first branch) [01-comb08-sidemid-proved.lean lines 163-182] bytes=891 sha256(body)=61d7fff719e44130

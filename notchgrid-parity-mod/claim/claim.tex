@@ -1,0 +1,554 @@
+% claim.tex -- notchgrid-parity-mod priority claim note (SOP 08b claim lane).
+% AI-generated 2026-09-28 by the AI4Math paper department (claim lane).
+% Instantiated from harness/templates/claim/claim.tex; lstlean.tex copied unchanged
+% from harness/templates/paper/lstlean.tex (single source of truth is the paper side).
+% Machine-readable anchors: every theorem carries a "% LEAN:" line (source task id +
+% Lean declaration name + grade); scripts/paper-lint.sh and the claim audit check
+% against it. Grades are quoted from the final audit of the source task, not decided
+% here: all four are 完全证明 (complete proof).
+% All Lean listings are byte-exact mechanical sed excerpts of the final artifact
+% tasks/20260927-mossad-notch/final/01-notch-proved.lean
+% (sha256 6f1a7440f5830633e9309ab5629e16308928bb6421f64f4d4b1988b8929db4aa).
+% The two definitions and the four theorem headers are character-identical to the
+% frozen statement file tasks/20260927-mossad-notch/formalized/01-notch-mods.lean
+% (sha256 9a787b6be05dc345343edf675d107801e674e3abae095356ace390fac8426fb8); verified
+% independently in audit/statement-vs-frozen.txt. The frozen file carries "sorry"
+% proof bodies, so no listing quotes anything beyond a declaration header.
+% Wording ceiling (constitution clause 4 + C9 adjudication): the four theorems are
+% about recurrence-defined integer sequences ONLY; the identification with matching
+% counts of notched grids is computational evidence and is not formalized. The
+% derived perfect-matching sub-problem for the 3-by-n notch is already OEIS A001353
+% and is fenced off from any novelty statement.
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{array}
+\usepackage{hyperref}
+% ragged-right table columns: the C9 channel table holds long unbreakable
+% \texttt{...} query strings, which otherwise produce stretched lines.
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\input{lstlean}
+\lstset{language=lean}
+% typography: let inter-word glue stretch rather than overflow lines holding
+% unbreakable artifact path names.
+\setlength{\emergencystretch}{2.5em}
+
+% --- XeTeX 渲染补丁（模板自带，血统 papers/cyl3-mod23；非经用户同意不得删）---
+% 作用：tectonic/XeTeX 下 listings literate 对多字节字符不生效（cyl3/edgemid 判例），
+% 把 Lean 源码里的 Unicode 符号映射为数学字形（lccode 活动字符法，ASCII 源、不加宏包）；
+% xeCJK+SimSun 渲染 listing 中文注释（本机实测 0 Missing character）。
+% 仅影响渲染，listing 源字节不变（逐字节核验不受影响）；\ifdefined 守卫使 pdflatex（arXiv）路径零变化。
+\ifdefined\XeTeXversion
+  {\lccode`\~="2022 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\bullet}}}}
+  {\lccode`\~="2115 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{N}}}}}
+  {\lccode`\~="2124 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{Z}}}}}
+  {\lccode`\~="2190 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftarrow}}}}
+  {\lccode`\~="2192 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rightarrow}}}}
+  {\lccode`\~="2194 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftrightarrow}}}}
+  {\lccode`\~="2200 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\forall}}}}
+  {\lccode`\~="2203 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\exists}}}}
+  {\lccode`\~="2227 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\wedge}}}}
+  {\lccode`\~="2228 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vee}}}}
+  {\lccode`\~="2261 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\equiv}}}}
+  {\lccode`\~="2264 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leq}}}}
+  {\lccode`\~="2265 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\geq}}}}
+  {\lccode`\~="22A2 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vdash}}}}
+  {\lccode`\~="27E8 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\langle}}}}
+  {\lccode`\~="27E9 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rangle}}}}
+\fi
+\ifdefined\XeTeXversion
+  \usepackage{xeCJK}
+  \setCJKmainfont{SimSun}
+\fi
+
+\newtheorem{theorem}{Theorem}
+
+\title{Parity and congruence periodicity of two integer recurrences obtained from
+matching counts in notched $3 \times n$ and $4 \times n$ grids:\\
+four theorems machine-checked in Lean 4 (claim of record)}
+\author{Author Name\thanks{Contact and ORCID placeholder --- to be filled in by
+the author before any upload.}}
+\date{September 28, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We record four theorems, machine-checked in Lean 4, about two recurrence-defined
+integer sequences \texttt{a3}, \texttt{a4} $\mathbb{N} \to \mathbb{Z}$, whose
+recurrences --- order $5$ and order $9$ --- were obtained by exact enumeration of
+the matchings of a $3 \times n$ and a $4 \times n$ grid graph with the top-right
+vertex deleted. Namely: $\texttt{a3}(n)$ is odd exactly when $n \bmod 6 \in
+\{2,3\}$; $\texttt{a4}(n)$ is odd exactly when $n \bmod 5 \in \{0,2\}$;
+$\texttt{a3}(n+12) \equiv \texttt{a3}(n) \pmod 8$; and $\texttt{a4}(n) \equiv 2
+\pmod 4$ exactly when $n \bmod 10 = 6$. All four proofs compile with no
+placeholder and depend only on \{propext, Quot.sound, Classical.choice\}; the
+statements are byte-identical to a hash-frozen file. A structured novelty search
+found no occupying record for either sequence (adjudicated value tier: new
+sequence / new recurrence); the perfect-matching sub-problem of the $3 \times n$
+notch is excluded from that because it is already OEIS A001353. The
+identification of the sequences with matching counts is \emph{not} formalized.
+This note is a priority claim of record, not a full paper.
+\end{abstract}
+
+\section{Introduction}
+
+Two graph families are considered: the grid graph $P_3 \square P_n$ and the grid
+graph $P_4 \square P_n$, each with its top-right vertex deleted (the ``notch'').
+Their matchings (edge sets with no two edges sharing an endpoint, the empty set
+included) are counted two ways: a column-frontier dynamic program, which produced
+the whole $24$-row count table, and a brute-force recursion over matchings (the
+least uncovered vertex left unmatched or paired with one of its neighbours), run
+over the leading eight and six entries respectively --- there the two methods agree
+term by term. Berlekamp--Massey arithmetic over $\mathbb{Q}$ on those terms yields
+two integer linear recurrences, of order $5$ for the $3 \times n$ family and
+order $9$ for the $4 \times n$ family. Taking those recurrences and their initial
+values as \emph{definitions}, this note records four theorems about the parities
+and residue classes of the two sequences, checked by the Lean 4 kernel.
+
+The work was produced by AI4Math, a budgeted LLM-plus-kernel pipeline in which
+compilation is the sole adjudicator at every gate. Each theorem below carries a
+machine-readable anchor comment tying it to its Lean declaration name and to the
+auditor's grade, \emph{complete proof} for all four --- quoted from the audit
+record, not a judgement made in this note.
+
+This text is a priority claim of record: a short deposit note accompanying a
+Zenodo package, so that the two sequences and their recurrences are publicly
+timestamped while the slower paper lane proceeds (a fuller narrative paper on the
+same result, at \texttt{papers/notchgrid-parity-mod/}, will cite this deposit).
+Repository paths quoted in this note are internal ones: they are not publicly
+retrievable at deposit time, and the public mirror of this record is exactly the
+contents of this package. A literature survey, a prose proof and a research-level
+narrative are not duties of this note and are not attempted here.
+
+\section{Statement}\label{sec:stmt}
+
+Both sequences are functions $\mathbb{N} \to \mathbb{Z}$, not $\mathbb{N} \to
+\mathbb{N}$: the recurrences have negative coefficients, so the integer codomain
+lets the defining equations be read as ordinary subtraction on $\mathbb{Z}$, and
+it lets the \texttt{Int.ModEq} congruences and the \texttt{Odd} bridge of
+Section~\ref{sec:proof} apply without further coercion. Both are $0$-indexed, so
+that $\texttt{a3}(0) = 2$ and $\texttt{a4}(0) = 3$ are the notch on one column.
+The two definitions, quoted verbatim from the artifact and character-identical to
+the frozen statement file, are:
+
+\begin{lstlisting}[caption={\texttt{a3}: five initial values, order-5 recurrence
+(verbatim excerpt, lines 24--31 of \texttt{final/01-notch-proved.lean}).},
+label={lst:a3def}]
+def a3 : ℕ → ℤ
+  | 0 => 2
+  | 1 => 10
+  | 2 => 67
+  | 3 => 407
+  | 4 => 2546
+  | n + 5 =>
+      5 * a3 (n + 4) + 9 * a3 (n + 3) - 9 * a3 (n + 2) - a3 (n + 1) + a3 n
+\end{lstlisting}
+
+\begin{lstlisting}[caption={\texttt{a4}: nine initial values, order-9 recurrence
+(verbatim excerpt, lines 151--163). The order 9 is reported as found: it exceeds
+the order 3--6 the external proposal anticipated.},label={lst:a4def}]
+def a4 : ℕ → ℤ
+  | 0 => 3
+  | 1 => 32
+  | 2 => 407
+  | 3 => 4840
+  | 4 => 58608
+  | 5 => 705949
+  | 6 => 8515850
+  | 7 => 102684287
+  | 8 => 1238310540
+  | n + 9 =>
+      9 * a4 (n + 8) + 41 * a4 (n + 7) - 41 * a4 (n + 6) - 111 * a4 (n + 5)
+        + 91 * a4 (n + 4) + 29 * a4 (n + 3) - 23 * a4 (n + 2) - a4 (n + 1) + a4 n
+\end{lstlisting}
+
+Both recurrences were fitted on 21 terms with 3 held out (residuals zero), refit
+on the minimal $2L$-term window giving the same recurrence, and re-substituted
+against the independent dynamic program for all $n \leq 60$: computed evidence
+throughout. The theorems take the recurrences as definitions and are universal
+over $\mathbb{N}$.
+
+% LEAN: tasks/20260927-mossad-notch :: a3_odd_iff grade=完全证明
+\begin{theorem}[parity of \texttt{a3}]\label{thm:t1}
+For every $n \in \mathbb{N}$, $\texttt{a3}(n)$ is odd if and only if $n \bmod 6 =
+2$ or $n \bmod 6 = 3$.
+\end{theorem}
+
+\begin{lstlisting}[caption={Formal statement of Theorem~\ref{thm:t1}: declaration
+header (verbatim excerpt, line 34).},label={lst:t1}]
+theorem a3_odd_iff (n : ℕ) : Odd (a3 n) ↔ n % 6 = 2 ∨ n % 6 = 3 := by
+\end{lstlisting}
+
+% LEAN: tasks/20260927-mossad-notch :: a4_odd_iff grade=完全证明
+\begin{theorem}[parity of \texttt{a4}]\label{thm:t2}
+For every $n \in \mathbb{N}$, $\texttt{a4}(n)$ is odd if and only if $n \bmod 5 =
+0$ or $n \bmod 5 = 2$.
+\end{theorem}
+
+\begin{lstlisting}[caption={Formal statement of Theorem~\ref{thm:t2}: declaration
+header (verbatim excerpt, line 166).},label={lst:t2}]
+theorem a4_odd_iff (n : ℕ) : Odd (a4 n) ↔ n % 5 = 0 ∨ n % 5 = 2 := by
+\end{lstlisting}
+
+% LEAN: tasks/20260927-mossad-notch :: a3_mod8_periodic grade=完全证明
+\begin{theorem}[\texttt{a3} modulo 8 repeats with period 12]\label{thm:t3}
+For every $n \in \mathbb{N}$, $\texttt{a3}(n+12) \equiv \texttt{a3}(n) \pmod 8$.
+\end{theorem}
+
+\begin{lstlisting}[caption={Formal statement of Theorem~\ref{thm:t3}: declaration
+header (verbatim excerpt, line 122).},label={lst:t3}]
+theorem a3_mod8_periodic (n : ℕ) : a3 (n + 12) ≡ a3 n [ZMOD 8] := by
+\end{lstlisting}
+
+% LEAN: tasks/20260927-mossad-notch :: a4_mod4_eq2_iff grade=完全证明
+\begin{theorem}[\texttt{a4} is 2 modulo 4 in exactly one residue class]\label{thm:t4}
+For every $n \in \mathbb{N}$, $\texttt{a4}(n) \equiv 2 \pmod 4$ if and only if
+$n \bmod 10 = 6$.
+\end{theorem}
+
+\begin{lstlisting}[caption={Formal statement of Theorem~\ref{thm:t4}: declaration
+header (verbatim excerpt, line 281).},label={lst:t4}]
+theorem a4_mod4_eq2_iff (n : ℕ) : a4 n ≡ 2 [ZMOD 4] ↔ n % 10 = 6 := by
+\end{lstlisting}
+
+The residue tables over one full period starting at $n = 0$, computed from the
+definitions by exact integer iteration ($n \leq 400$), are
+
+\begin{center}\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{ll@{\hspace{2.5em}}ll}
+$\texttt{a3} \bmod 2$ & $(0,0,1,1,0,0)$ &
+$\texttt{a3} \bmod 8$ & $(2,2,3,7,2,6,0,0,7,7,0,0)$ \\
+$\texttt{a4} \bmod 2$ & $(1,0,1,0,0)$ &
+$\texttt{a4} \bmod 4$ & $(3,0,3,0,0,1,2,3,0,0)$
+\end{tabular}
+\end{center}
+
+\noindent and they are also the pattern the Lean proofs work with: in
+Theorems~\ref{thm:t1}, \ref{thm:t2} and \ref{thm:t4} the table appears as an
+inner lemma, whereas Theorem~\ref{thm:t3} is proved as a shift identity and
+contains no such table. Minimality of the periods $6$, $5$, $12$, $10$ is a
+computed fact and is \emph{not} among the formalized statements;
+Theorem~\ref{thm:t3} asserts periodicity \emph{with} period 12.
+
+\section{Proof}\label{sec:proof}
+
+The complete development is \texttt{final/}\allowbreak\texttt{01-notch-proved.%
+lean} (621 lines), shipped in full in this package at
+\texttt{proofs/01-notch-proved.lean}; the listing below is an \emph{excerpt} of
+it. Three of the four proofs (Theorems~\ref{thm:t1}, \ref{thm:t2} and
+\ref{thm:t4}) share one residue-table skeleton: establish an inner statement (a
+\lean{have} step, never an extra top-level theorem) that pins the residue of
+every term through an explicit \texttt{if}-chain over $n \bmod P$; enumerate the
+base window below the recurrence order with \lean{interval_cases} and
+\lean{decide}; in the inductive step write $n = j + L$ and unfold the recurrence
+exactly once by \lean{simp only [a3]} or \lean{simp only [a4]}; split on
+\lean{mod_cases} $j \bmod P$, so that in each branch the table value of every
+predecessor is fixed and the weighted sum of the resulting congruences closes by
+one \lean{decide}; then, in the two parity theorems, bridge back to \lean{Odd}
+through \lean{Int.odd_iff}. Listing~\ref{lst:t3proof} gives the proof of
+Theorem~\ref{thm:t3} complete, the most economical of the four, and it is
+\emph{not} of that skeleton: no residue table, no \texttt{if}-chain, no
+\lean{mod_cases} split, no \lean{Int.odd_iff} bridge. It is a direct congruence
+calculation --- one \lean{simp only [a3]} step gives the recurrence equation,
+used at two offsets to expand both $\texttt{a3}(j+12+12)$ and
+$\texttt{a3}(j+12)$; the induction hypothesis applied to the five predecessors
+one by one; the five congruences combined through the compatibility of
+\texttt{Int.ModEq} with addition, subtraction and integer multiplication;
+closing by rewriting with the two expansions, the base window being $n<12$
+rather than the recurrence order. For Theorem~\ref{thm:t1} the artifact
+shows the residue-table skeleton at its most explicit (inner residue-table lemma
+with its induction
+setup at lines 35--45, one of the six residue branches at lines 51--60, bridge
+back to \texttt{Odd} at lines 106--119). Theorem~\ref{thm:t2} is
+Theorem~\ref{thm:t1} with nine predecessors and period 5 (its body is lines
+167--277); Theorem~\ref{thm:t4} is the case where the table is genuinely
+four-valued, written as a three-level \texttt{if}-chain (inner lemma from line
+282, ten forward branches to line 618, backward direction lines 619--621). Every
+numeric evaluation inside these proofs, the base-window values of
+Theorem~\ref{thm:t3} among them, is performed by the kernel's own \lean{decide}
+on closed integer expressions; there is no external oracle and no
+verification bound.
+
+\begin{lstlisting}[caption={Proof of Theorem~\ref{thm:t3} in full (verbatim
+excerpt, lines 123--144; the complete source of all four proofs is in
+\texttt{proofs/01-notch-proved.lean}).},label={lst:t3proof}]
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+    rcases lt_or_ge n 12 with hlt | hge
+    · interval_cases n <;> decide
+    · obtain ⟨j, rfl⟩ : ∃ j, n = j + 12 := ⟨n - 12, by omega⟩
+      have rec5 : ∀ m : ℕ, a3 (m + 5)
+          = 5 * a3 (m + 4) + 9 * a3 (m + 3) - 9 * a3 (m + 2) - a3 (m + 1) + a3 m := fun m => by
+        simp only [a3]
+      have e1 : a3 (j + 12 + 12)
+          = 5 * a3 (j + 23) + 9 * a3 (j + 22) - 9 * a3 (j + 21) - a3 (j + 20) + a3 (j + 19) :=
+        rec5 (j + 19)
+      have e2 : a3 (j + 12)
+          = 5 * a3 (j + 11) + 9 * a3 (j + 10) - 9 * a3 (j + 9) - a3 (j + 8) + a3 (j + 7) :=
+        rec5 (j + 7)
+      have h23 : a3 (j + 23) ≡ a3 (j + 11) [ZMOD 8] := ih (j + 11) (by omega)
+      have h22 : a3 (j + 22) ≡ a3 (j + 10) [ZMOD 8] := ih (j + 10) (by omega)
+      have h21 : a3 (j + 21) ≡ a3 (j + 9) [ZMOD 8] := ih (j + 9) (by omega)
+      have h20 : a3 (j + 20) ≡ a3 (j + 8) [ZMOD 8] := ih (j + 8) (by omega)
+      have h19 : a3 (j + 19) ≡ a3 (j + 7) [ZMOD 8] := ih (j + 7) (by omega)
+      have key := ((((h23.mul_left 5).add (h22.mul_left 9)).sub (h21.mul_left 9)).sub h20).add h19
+      rw [e1, e2]
+      exact key
+\end{lstlisting}
+
+\section{Verification evidence}
+
+\begin{itemize}
+\item Toolchain: Lean v4.34.0 (\texttt{leanprover/lean4:v4.34.0}) \cite{lean4},
+mathlib4 v4.34.0, revision \texttt{5ed29652} \cite{mathlib}; the pin is shipped
+verbatim as \texttt{proofs/lean-toolchain}.
+\item Statement integrity: the frozen statement file is
+\texttt{formalized/}\allowbreak\texttt{01-notch-mods.lean} (69 lines) and the
+delivered development is \texttt{final/}\allowbreak\texttt{01-notch-proved.lean}
+(621 lines); their sha256 values, which every listing in this note is checked
+against, are
+\begin{center}\footnotesize\ttfamily
+9a787b6be05dc345343edf675d107801e674e3abae095356ace390fac8426fb8 \\
+6f1a7440f5830633e9309ab5629e16308928bb6421f64f4d4b1988b8929db4aa
+\end{center}
+The symmetric difference after stripping proof bodies is empty: the 6 top-level
+declarations (2 definitions and 4 theorem headers, names and order) are
+character-identical, and the delivered file adds no top-level statement.
+\item Kernel check: strict compile exits 0 with zero errors (320 deprecation
+warnings about \texttt{if\_neg} and \texttt{if\_pos}, recorded by the auditor as
+non-adjudicating); a byte-level text scan including comments finds no
+\texttt{sorry} and no \texttt{admit}; an escape-hatch scan (\texttt{set\_option},
+\texttt{axiom}, \texttt{unsafe}, \texttt{implemented\_by}, \texttt{extern},
+\texttt{macro\_rules}, \texttt{elab}, \texttt{native\_decide}, \texttt{decide!})
+finds none. Axiom printout, copied verbatim and in the order the file prints it:
+
+{\scriptsize
+\begin{verbatim}
+'a3_odd_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a3_mod8_periodic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a4_odd_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a4_mod4_eq2_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+}
+\item Audit chain: gate 2 well-definedness (four gate-batch compiles accept the
+statements; $8 \times 4 = 32$ bare decision-procedure probes all fail, so no
+theorem is closable by one automation step; both sequences re-derived from the
+frozen definitions agree with the 24-row enumeration table in both columns and
+the four statements hold pointwise for $n = 0, \dots, 80$) and gate 3 final audit
+(symmetric difference, \texttt{sorry} and escape-hatch scans, re-run of the
+strict compile and of the axiom printout, both outputs byte-identical to the
+worker's own logs).
+What \texttt{audit/} of this package ships is the key-line extract of each gate,
+the verbatim axiom printout and the claim lane's own re-verification files; the
+gate 2 and gate 3 originals (\texttt{final-01-notch.txt},
+\texttt{welldef-verdict.md}, \texttt{gate-t1.txt}--\texttt{gate-t4.txt},
+\texttt{review-final-\{strict,axioms\}.out}) stay in the source task directory
+\texttt{tasks/20260927-mossad-notch/} and are not part of this deposit.
+\end{itemize}
+
+\section{Novelty evidence}\label{sec:novelty}
+
+The pipeline's C9 novelty review adjudicated the two main propositions as
+\emph{no occupying record found} (on its four-state scale: occupied / no
+occupying record found / known but not formalized / undecided), with value tier
+\emph{new sequence / new recurrence} (a translated pool-card tier label; the
+Chinese original is in \texttt{audit/c9-record.md} of this package). This is a
+statement about search evidence, not a claim to new mathematics, and not a
+priority claim beyond the deposit itself. Per-channel summary, one line per
+channel; the full log, including every zero-hit query, is copied verbatim into
+\texttt{audit/c9-record.md}:
+
+\begin{center}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{L{0.17\textwidth}L{0.52\textwidth}L{0.21\textwidth}}
+\hline
+channel & query & result \\
+\hline
+OEIS, sequence layer & \texttt{a3} head \texttt{2,10,67,407,2546,15782,98104,%
+609304} and \texttt{a4} head \texttt{3,32,407,4840,58608,705949}, each with four
+variants (drop 1, drop 2, $\times 2$, $+1$); divide-by-2 not applicable &
+all 10 queries zero-hit \\
+OEIS, keyword layer & \texttt{Hosoya index grid graph} (3 hits), \texttt{monomer
+dimer grid} (10 hits) & no notched-count entry \\
+OEIS, triangle check & A210662 rows and columns cut by hand: $T(3,\cdot) =
+3,22,131$; $T(n,3) = 131,823,5096,\dots$; $T(4,\cdot) = 5,71,823,10012$
+\cite{oeis-a210662} & our heads are not segments \\
+OEIS, derived layer & \texttt{a3} near-perfect counts $4,29,161,798$ (even
+widths); \texttt{a4} near-perfect $2,7,29,88,288$ and its drop-1 tail & zero-hit
+\\
+OEIS, derived layer (fence) & \texttt{a3} \emph{perfect}-matching counts, odd
+widths: $1,4,15,56,209,780,2911$ & \textbf{A001353 occupied} \\
+literature, zbMATH & 5 query families: \texttt{monomer dimer grid} (12),
+\texttt{matching polynomial grid graph} (90), \texttt{matchings grid graph
+corner} (1), \texttt{deficient graph matchings} (2), \texttt{monomer dimer
+lattice vacancy} (1) & no same proposition \\
+literature, other & Math StackExchange \texttt{number of matchings grid graph}
+(6 items); arXiv \texttt{monomer dimer grid graph} (0) & none matching \\
+literature, degraded & OpenAlex: HTTP 429 throughout (unverified, contributes no
+evidence either way); general web search: no search tool in that session, one
+engine DNS-poisoned, the other SEO noise & literature layer rests on zbMATH \\
+library layer & mathlib (no \texttt{GridGraph}; \texttt{SimpleGraph/Matching.%
+lean} has matching predicates but no counting theorem), compfiles, sequencelib &
+zero hits \\
+Lean ecosystem layer & GitHub repository search for Lean graph-matching
+formalizations & zero hits \\
+channel self-check & \texttt{0,1,1,2,3,5,8,13} gives A000045;
+\texttt{1,3,13,22,44,90,196,406} gives A180970 & retrieval confirmed working \\
+\hline
+\end{tabular}
+\end{center}
+
+Two fences belong to the adjudication and are stated here, not in a footnote.
+(i) The \emph{perfect}-matching sub-problem of the $3 \times n$ notch (odd
+widths) is OEIS \textbf{A001353}, $a(n) = 4a(n-1) - a(n-2)$ with $a(0) = 0$,
+$a(1) = 1$, whose record carries the independent attribution to Joshua Zucker and
+the Castilleja School Math Club (2003-10-28) for packing a $3 \times (2n-1)$
+rectangle with one extra square attached \cite{oeis-a001353}; nothing here claims
+that sub-problem and no novelty statement extends to it. Our object is the
+\emph{total} matching count. (ii) For the $4 \times n$ notch the vertex count
+$4n - 1$ is odd, so its perfect-matching count is identically zero: a degeneracy
+noted only to explain why that direction is empty, not a proposition.
+
+\section{Scope and limitations}
+
+\begin{enumerate}
+\item \textbf{Grading boundary (quoted, not decided here).} The audit record
+grades all four theorems \emph{complete proof}: no \texttt{sorry}, axioms inside
+the standard whitelist, statement byte-identical to the frozen text. That grade
+is the wording ceiling of this note.
+\item \textbf{The semantic gap.} What is machine-checked is a property of two
+recurrence-defined integer sequences. That they \emph{are} the matching counts of
+notched grids is computed evidence: the brute-force recursion agrees with the
+dynamic program term by term over the leading $8$ entries of the $3 \times n$
+column and the leading $6$ of the $4 \times n$ column, which is the whole window it
+was run, so the remaining rows of the $24$-row table are produced by the dynamic
+program alone; recurrence re-substitution was checked up to $n = 60$ and modular
+dynamic programming up to $n = 600$. The bridge is stated as a conjecture in the
+accompanying paper, not proved here. No sentence of this note should be read as a
+theorem of graph enumeration.
+\item \textbf{Novelty is search evidence only}, at the adjudicated tier and with
+the two fences of Section~\ref{sec:novelty}; OpenAlex returned HTTP 429 and the
+general web layer was degraded, so if either later returns a strong hit the
+novelty sentence must be re-examined.
+\item \textbf{The order-9 recurrence is reported as found.} It exceeds the order
+$3$--$6$ the external proposal anticipated; the refit on the minimal 18-term
+window gives the same recurrence and it holds on the whole independent window, so
+it is not an artifact of a short fitting window: nothing was trimmed to make it
+look smaller.
+\item \textbf{Computed versus checked.} Irreducibility of the two characteristic
+polynomials over $\mathbb{Q}$, minimality of the four periods, and every
+verification window are computed evidence (Python, exact integer or rational
+arithmetic), not Lean theorems.
+\item \textbf{Provenance.} Proof search consumed no LLM sampling: the four proofs
+follow a skeleton already taken through the kernel on a sibling task of the same
+selection pool, and the auditor ruled that this lineage does not downgrade the
+grade. The autoformalization roundtrip check ran on the same model node as the
+formalizer, so it is not an independent review; the mitigation is that the kernel
+is the final arbiter and that the audit re-ran both compile and axiom printout.
+\item This note contains no literature survey and no prose proof: it is a deposit
+record.
+\end{enumerate}
+
+\section*{Data availability}
+
+Artifact package: Zenodo deposit (DOI to be reserved at upload; see
+\texttt{UPLOAD.md} in the source repository) containing this note (source and
+PDF),
+\texttt{proofs/} (frozen statement file, delivered development, toolchain pin),
+\texttt{audit/} (gate and compile evidence key lines, axiom printout,
+symmetric-difference conclusion, listing byte-verification reports, the claim
+audit verdict \texttt{claim-check.md}, the full C9 query record
+\texttt{c9-record.md}) and \texttt{metadata/}. A sanitized public mirror of
+exactly this package may be pushed to GitHub by the author, with the URL recorded
+in \texttt{claims/notchgrid-parity-mod/card.md} upon push; no other part of the
+pipeline is mirrored. The numerical layer that produced the two sequences
+(enumeration, fitting and modular probing scripts, 24-row count table) lives under
+\texttt{phase0/} of the source task directory, is not part of this deposit, and is
+likewise not publicly retrievable. Note under CC BY 4.0, code under MIT.
+
+\section*{Use of generative AI}
+
+(a) \emph{Stages done by AI}: candidate-proposition generation, the counting and
+fitting scripts, autoformalization into Lean statements, proof search, audit
+re-runs, prose translation and the drafting of this note were performed by LLM
+stages of the AI4Math pipeline; topic adjudication, statement-semantics
+verification and gate sign-off were human. (b) \emph{Model, node and budget}:
+mathematical content was sampled on one resolved node, wire-id
+\texttt{anthropic/}\allowbreak\texttt{a6api-main/}\allowbreak\texttt{kimi-k3}
+(resolution level L3 static profile cross-checked against L2 relay state, taken
+2026-09-27), with no cross-node switching. Numbers copied verbatim from the
+source ledger \texttt{tasks/20260927-mossad-notch/}\allowbreak\texttt{budget.log}:
+llm-call $2/8$ (both calls are autoformalization roundtrip
+re-translation checks, tokens in/out $1628/4000$ truncated and $1628/1889$
+complete) and Lean compile $17/24$ (gate 2: 6, proof search: 9, final audit
+re-runs: 2); Phase 0, proof search, audit and reporting used no sampling at all.
+This claim-note stage used llm-call $0$ of its budget of $4$ and $9$ LaTeX
+compile rounds of its budget of $9$ (the original packaging used the then cap of
+$6$, which the user raised to $9$ on 2026-09-28 for the rework done after the
+audit; the ninth round was spent on a package-promise wording correction, and
+the DOI backfill, which needs one further round, is to be requested separately
+under explicit user authorization; no cap was exceeded), as recorded in
+\texttt{claims/notchgrid-parity-mod/budget.log}. The drafting session ran on a
+different endpoint whose model selection key is \texttt{auto} (routing not
+pinned); it contributes no sampled claim, and every assertion here that something
+was ``proved'' or ``passed'' rests on kernel compilation or on the static gates,
+not on any model's self-report. (c) \emph{Final arbiter}: all statements and
+proofs reported here were checked by the Lean 4 kernel: every proof compiles with
+no \texttt{sorry}, and \texttt{\#print axioms} reports only \{propext, Quot.sound,
+Classical.choice\}. (d) The human author reviewed and is responsible for all
+content; the AI system is not an author.
+
+\section*{Author contributions}
+
+CRediT-style: the human author is responsible for topic adjudication and
+selection, verification of statement semantics against the frozen files, gate
+sign-off, and the decision to deposit; the AI4Math pipeline (an LLM-based system)
+carried out the enumeration scripts, autoformalization, proof search, audit
+re-runs and drafting of this note. The AI system is not listed as an author.
+
+\begin{thebibliography}{9}
+% Every entry below was verified reachable online from this machine with title and
+% authors cross-checked against doi.org / the Crossref API / the OEIS page itself:
+% first at paper time (papers/notchgrid-parity-mod/audit/references-check.txt,
+% 2026-09-27) and re-run at claim time
+% (claims/notchgrid-parity-mod/audit/references-check.txt, 2026-09-28). Entries are
+% copied verbatim from that verified bibliography; no entry was written from
+% memory. The one paper entry not cited in this note (heilmann-lieb) was
+% deliberately not carried over.
+\bibitem{lean4}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean 4 theorem prover and programming language.
+\newblock In \emph{Automated Deduction --- CADE-28}, LNCS~12699, pp.~625--635,
+2021.
+\newblock \url{https://doi.org/10.1007/978-3-030-79876-5_37}
+
+\bibitem{mathlib}
+{The mathlib Community}.
+\newblock The Lean mathematical library.
+\newblock In \emph{Proceedings of the 9th ACM SIGPLAN International Conference
+on Certified Programs and Proofs (CPP '20)}, pp.~367--381, 2020.
+\newblock \url{https://doi.org/10.1145/3372885.3373824}
+
+\bibitem{oeis-a001353}
+{The OEIS Foundation}.
+\newblock Entry A001353: $a(n) = 4a(n-1) - a(n-2)$ with $a(0)=0$ and $a(1)=1$;
+the entry's comment of Joshua Zucker and the Castilleja School Math Club
+(2003-10-28) on packing a $3 \times (2n-1)$ rectangle with one extra square
+attached.
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\newblock \url{https://oeis.org/A001353}
+
+\bibitem{oeis-a210662}
+{The OEIS Foundation}.
+\newblock Entry A210662: triangle $T(n,k)$, number of monomer-dimer tilings of
+an $n \times k$ board.
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\newblock \url{https://oeis.org/A210662}
+\end{thebibliography}
+
+\end{document}

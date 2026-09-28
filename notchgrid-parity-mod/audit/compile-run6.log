@@ -1,0 +1,197 @@
+note: Running TeX ...
+(claim.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24> (article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(size11.cloFontconfig error: Cannot load default config file: No such file: (null)
+)) (fontenc.sty (t1lmr.fd)) (inputenc.sty
+
+Package inputenc Warning: inputenc package ignored with utf8 based engines.
+
+) (amsmath.sty
+For additional information on amsmath, use the `?' option.
+(amstext.sty (amsgen.sty)) (amsbsy.sty) (amsopn.sty)) (amssymb.sty
+(amsfonts.sty)) (amsthm.sty) (array.sty) (hyperref.sty (ltxcmds.sty) (iftex.sty
+) (pdftexcmds.sty (infwarerr.sty)) (keyval.sty) (kvsetkeys.sty)
+(kvdefinekeys.sty) (pdfescape.sty) (hycolor.sty) (letltxmacro.sty) (auxhook.sty
+) (kvoptions.sty) (pd1enc.def) (intcalc.sty) (etexcmds.sty) (puenc.def)
+(url.sty) (bitset.sty (bigintcalc.sty)) (atbegshi-ltx.sty)) (hxetex.def
+(stringenc.sty) (rerunfilecheck.sty (atveryend-ltx.sty) (uniquecounter.sty)))
+(lstlean (listings.sty (lstmisc.sty) (listings.cfg)) (xcolor.sty (color.cfg)
+(xetex.def))) (xeCJK.sty (expl3.sty (l3backend-xetex.def)) (ctexhook.sty)
+(l3keys2e.sty) (xtemplate.sty) (xparse.sty) (fontspec.sty (fontspec-xetex.sty
+(fontenc.sty) (fontspec.cfg))) (xeCJK-listings.sty) (xeCJK.cfg))warning: accessing absolute path `C:/WINDOWS/fonts\simsun.ttc`; build may not be reproducible in other environments
+
+No file claim.aux.
+(ts1cmr.fd) (nameref.sty (refcount.sty) (gettitlestring.sty))
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
+(umsa.fd) (umsb.fd)
+
+Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
+(xeCJK)                
+(xeCJK)                Try to use `\setCJKmonofont[...]{...}' to define it.
+
+[1] [2]
+
+LaTeX Warning: Reference `thm:t1' on page 3 undefined on input line 179.
+
+
+LaTeX Warning: Reference `thm:t1' on page 3 undefined on input line 179.
+
+
+LaTeX Warning: Reference `thm:t2' on page 3 undefined on input line 190.
+
+
+LaTeX Warning: Reference `thm:t2' on page 3 undefined on input line 190.
+
+[3]
+
+LaTeX Warning: Reference `thm:t3' on page 4 undefined on input line 200.
+
+
+LaTeX Warning: Reference `thm:t3' on page 4 undefined on input line 200.
+
+
+LaTeX Warning: Reference `thm:t4' on page 4 undefined on input line 211.
+
+
+LaTeX Warning: Reference `thm:t4' on page 4 undefined on input line 211.
+
+
+LaTeX Warning: Reference `thm:t3' on page 4 undefined on input line 230.
+
+
+LaTeX Warning: Reference `lst:t3proof' on page 4 undefined on input line 247.
+
+
+LaTeX Warning: Reference `thm:t3' on page 4 undefined on input line 247.
+
+
+LaTeX Warning: Reference `thm:t1' on page 4 undefined on input line 248.
+
+
+LaTeX Warning: Reference `thm:t2' on page 4 undefined on input line 251.
+
+
+LaTeX Warning: Reference `thm:t1' on page 4 undefined on input line 252.
+
+
+LaTeX Warning: Reference `thm:t4' on page 4 undefined on input line 253.
+
+[4]
+
+LaTeX Warning: Reference `thm:t3' on page 5 undefined on input line 262.
+
+
+LaTeX Warning: Reference `thm:t3' on page 5 undefined on input line 262.
+
+[5]
+
+LaTeX Warning: Citation `lean4' on page 6 undefined on input line 290.
+
+
+LaTeX Warning: Citation `mathlib' on page 6 undefined on input line 291.
+
+
+warning: claim.tex:298: Underfull \hbox (badness 1688) in paragraph at lines 293--298
+Underfull \hbox (badness 1688) in paragraph at lines 293--298
+[]\TU/lmr/m/n/10.95 Statement integrity: the frozen statement file is \TU/lmtt/
+m/n/10.95 formalized/
+
+warning: claim.tex:312: Underfull \hbox (badness 2142) in paragraph at lines 305--312
+Underfull \hbox (badness 2142) in paragraph at lines 305--312
+\TU/lmtt/m/n/10.95 axiom\TU/lmr/m/n/10.95 , \TU/lmtt/m/n/10.95 unsafe\TU/lmr/m/
+n/10.95 , \TU/lmtt/m/n/10.95 implemented_by\TU/lmr/m/n/10.95 , \TU/lmtt/m/n/10.
+95 extern\TU/lmr/m/n/10.95 , \TU/lmtt/m/n/10.95 macro_rules\TU/lmr/m/n/10.95 , 
+\TU/lmtt/m/n/10.95 elab\TU/lmr/m/n/10.95 ,
+[6]
+
+LaTeX Warning: Citation `oeis-a210662' on page 7 undefined on input line 362.
+
+[7]
+
+LaTeX Warning: Citation `oeis-a001353' on page 8 undefined on input line 393.
+
+[8]
+
+LaTeX Warning: Reference `sec:novelty' on page 9 undefined on input line 414.
+
+[9]
+warning: claim.tex:454: Underfull \hbox (badness 1102) in paragraph at lines 442--454
+Underfull \hbox (badness 1102) in paragraph at lines 442--454
+\TU/lmtt/m/n/10.95 UPLOAD.md \TU/lmr/m/n/10.95 in this package) containing this
+ note (source and PDF),
+[10] [11] [12] (claim.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `claim.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information)
+Output written on claim.xdv (12 pages, 228660 bytes).
+Transcript written on claim.log.
+note: Rerunning TeX because "claim.out" changed ...
+(claim.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24> (article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(size11.clo)) (fontenc.sty (t1lmr.fd)) (inputenc.sty
+
+Package inputenc Warning: inputenc package ignored with utf8 based engines.
+
+) (amsmath.sty
+For additional information on amsmath, use the `?' option.
+(amstext.sty (amsgen.sty)) (amsbsy.sty) (amsopn.sty)) (amssymb.sty
+(amsfonts.sty)) (amsthm.sty) (array.sty) (hyperref.sty (ltxcmds.sty) (iftex.sty
+) (pdftexcmds.sty (infwarerr.sty)) (keyval.sty) (kvsetkeys.sty)
+(kvdefinekeys.sty) (pdfescape.sty) (hycolor.sty) (letltxmacro.sty) (auxhook.sty
+) (kvoptions.sty) (pd1enc.def) (intcalc.sty) (etexcmds.sty) (puenc.def)
+(url.sty) (bitset.sty (bigintcalc.sty)) (atbegshi-ltx.sty)) (hxetex.def
+(stringenc.sty) (rerunfilecheck.sty (atveryend-ltx.sty) (uniquecounter.sty)))
+(lstlean (listings.sty (lstmisc.sty) (listings.cfg)) (xcolor.sty (color.cfg)
+(xetex.def))) (xeCJK.sty (expl3.sty (l3backend-xetex.def)) (ctexhook.sty)
+(l3keys2e.sty) (xtemplate.sty) (xparse.sty) (fontspec.sty (fontspec-xetex.sty
+(fontenc.sty) (fontspec.cfg))) (xeCJK-listings.sty) (xeCJK.cfg)) (claim.aux)
+(ts1cmr.fd) (nameref.sty (refcount.sty) (gettitlestring.sty)) (claim.out)
+(claim.out) (umsa.fd) (umsb.fd)
+
+Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
+(xeCJK)                
+(xeCJK)                Try to use `\setCJKmonofont[...]{...}' to define it.
+
+[1] [2] [3] [4] [5]
+warning: claim.tex:298: Underfull \hbox (badness 1688) in paragraph at lines 293--298
+Underfull \hbox (badness 1688) in paragraph at lines 293--298
+[]\TU/lmr/m/n/10.95 Statement integrity: the frozen statement file is \TU/lmtt/
+m/n/10.95 formalized/
+
+warning: claim.tex:312: Underfull \hbox (badness 2142) in paragraph at lines 305--312
+Underfull \hbox (badness 2142) in paragraph at lines 305--312
+\TU/lmtt/m/n/10.95 axiom\TU/lmr/m/n/10.95 , \TU/lmtt/m/n/10.95 unsafe\TU/lmr/m/
+n/10.95 , \TU/lmtt/m/n/10.95 implemented_by\TU/lmr/m/n/10.95 , \TU/lmtt/m/n/10.
+95 extern\TU/lmr/m/n/10.95 , \TU/lmtt/m/n/10.95 macro_rules\TU/lmr/m/n/10.95 , 
+\TU/lmtt/m/n/10.95 elab\TU/lmr/m/n/10.95 ,
+[6] [7] [8] [9]
+warning: claim.tex:454: Underfull \hbox (badness 1102) in paragraph at lines 442--454
+Underfull \hbox (badness 1102) in paragraph at lines 442--454
+\TU/lmtt/m/n/10.95 UPLOAD.md \TU/lmr/m/n/10.95 in this package) containing this
+ note (source and PDF),
+[10] [11] [12] (claim.aux) )
+(see the transcript file for additional information)
+Output written on claim.xdv (12 pages, 230972 bytes).
+Transcript written on claim.log.
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+[1][2][3][4][5][6][7][8][9][10][11][12]125608 bytes written
+note: Writing `claim.log` (20.9365234375 KiB)
+note: Writing `claim.pdf` (122.6640625 KiB)
+note: Skipped writing 2 intermediate files (use --keep-intermediates to keep them)

@@ -1,0 +1,1 @@
+PASS: paper-lint 全绿 (claims/grid3n-diag-2notch/claim.tex)

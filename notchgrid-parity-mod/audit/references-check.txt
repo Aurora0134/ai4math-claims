@@ -1,0 +1,66 @@
+# references-check -- claims/notchgrid-parity-mod/claim.tex
+# date: 2026-09-28 (claim time), executor: dept-paper claim lane worker
+# method: same discipline as SOP 08 -- every entry is checked online before use;
+#   doi.org resolution + Crossref API record (title / authors / container / pages /
+#   year) for the DOI-bearing entries, OEIS record fetch for the dataset entries.
+#   curl flags: -s --ssl-no-revoke --max-time 60 (Git Bash on Windows).
+# DNS-pollution fallback (nslookup 223.5.5.5 + curl --resolve) NOT needed: every
+#   host resolved and answered on the first attempt (302 from doi.org, 200 from OEIS).
+# Provenance of the entries themselves: copied VERBATIM from the already-verified
+#   bibliography of the sibling paper package
+#   papers/notchgrid-parity-mod/audit/references-check.txt (checked 2026-09-27);
+#   no new entry was composed at claim time and no entry was written from memory.
+#   The paper bibliography has 5 entries; this note cites 4 of them, and the one it
+#   does not cite (heilmann-lieb, monomer-dimer theory) was deliberately NOT carried
+#   over, per SOP 08b "only list items actually cited".
+
+## 1. bibitem lean4 -- de Moura & Ullrich, CADE-28, LNCS 12699, pp 625-635, 2021
+   DOI used in claim.tex: 10.1007/978-3-030-79876-5_37
+   doi.org resolution: 302 -> https://link.springer.com/10.1007/978-3-030-79876-5_37
+   crossref title    : The Lean 4 Theorem Prover and Programming Language
+   crossref authors  : ('Moura', 'Leonardo de'), ('Ullrich', 'Sebastian')
+   crossref container: Lecture Notes in Computer Science / Automated Deduction -- CADE 28
+   crossref pages    : 625-635
+   crossref year     : 2021
+   => matches the bibitem. Re-confirms the 2026-09-27 paper-time finding that the
+      chapter number present in harness/templates/paper/main.tex (repository template, not shipped) and
+      harness/templates/claim/claim.tex (_27) is WRONG for this book entry (it is the
+      Collatz paper of Yolcu/Aaronson/Heule); this package uses _37 and inherits the
+      template fix request upward rather than silently editing the template.
+
+## 2. bibitem mathlib -- The mathlib Community, CPP '20, pp 367-381, 2020
+   DOI used in claim.tex: 10.1145/3372885.3373824
+   doi.org resolution: 302 -> https://dl.acm.org/doi/10.1145/3372885.3373824
+   (the ACM landing page answers 403 to non-browser clients, exactly as at paper
+    time, so the record is taken from the Crossref API instead:)
+   crossref title    : The lean mathematical library
+   crossref authors  : The mathlib Community
+   crossref container: Proceedings of the 9th ACM SIGPLAN International Conference on
+                       Certified Programs and Proofs
+   crossref pages    : 367-381
+   crossref year     : 2020
+   => matches the bibitem.
+
+## 3. bibitem oeis-a001353 -- OEIS A001353 (the L3 novelty fence, boundary marker)
+   entry page  : 200 -> https://oeis.org/A001353   (73,377 bytes)
+   name line   : "a(n) = 4*a(n-1) - a(n-2) with a(0) = 0, a(1) = 1"  -> HIT
+   attribution : "Joshua Zucker and the Castilleja School Math Club"  -> HIT
+                 (full comment on the page reads "... packing a 3 X (2*n-1) rectangle
+                  ... sides of length 3 ... - Joshua Zucker and the Castilleja School
+                  Math Club, Oct 28 2003"; "3 X (2*n-1) rectangle" -> HIT)
+   channel nuance (recorded, not hidden): the same attribution is NOT present in the
+     `search?q=id:A001353&fmt=text` view of the entry (that view omits %C comments), so
+     the attribution check must run against the entry page, not the search view.
+   => the bibitem's characterization and the fence wording in Sections 5 and 6 of the
+      note are supported by the entry itself.
+
+## 4. bibitem oeis-a210662 -- OEIS A210662 (complete-board monomer-dimer triangle)
+   entry page: 200 -> https://oeis.org/A210662
+   name line : "Triangle read by rows: T(n,k)"  -> HIT
+               "number of monomer-dimer tilings of an n X k board" -> HIT
+   => matches the bibitem and the "OEIS, triangle check" row of the channel table.
+
+VERDICT: 4/4 entries cited by claim.tex are reachable and their titles, authors,
+page ranges and OEIS name lines verified online at claim time (2026-09-28); 0 entries
+composed from memory; 0 new entries introduced relative to the verified paper
+bibliography; 1 uncited paper entry intentionally dropped.

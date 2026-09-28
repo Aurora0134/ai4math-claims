@@ -1,0 +1,696 @@
+% claim.tex -- AI4Math claim of record (AI-generated, 2026-09-28; instantiated
+% from harness/templates/claim/claim.tex per SOP 08b).
+% Machine-readable theorem anchors are the "% LEAN:" lines; scripts/paper-lint.sh
+% and the claim audit check them. All Lean listings are verbatim, byte-identical
+% contiguous excerpts of frozen artifacts of tasks/20260928-comb07-diagnotch:
+%   statements  : formalized/01-comb07-diagnotch-statements.lean (143 lines, sha256
+%                 16744fd37b7d8eb67965641f4e2b6dd8e7e3c2a994ea484766b6e3afb5861aca)
+%   proof bodies: final/01-comb07-diagnotch-proved.lean (433 lines, sha256
+%                 51721e9e315db12a35ca62218d8d458f32443e97f666e4a2ab452d0056f7cb43)
+% Line ranges used: statement file 39-53, 55-87, 89-94, 97-116, 119-131, 133-136,
+% 139-142; final file 147-172, 179-190, 215-229, 320-334. The same blocks and line
+% ranges were verified byte-exact in the paper package papers/grid3n-diag-2notch
+% (audit/listing/) and are reused here unchanged; statement-file theorem listings
+% stop at the ":= by" line because the frozen snapshot carries sorry placeholders
+% there, and the paper-lint 0-sorry sentinel forbids the word inside a listing.
+% Verification: audit/listing-verify.txt (audit/inspect-tex.py --verify).
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\input{lstlean}
+\lstset{language=lean}
+
+% --- local rendering patch (2026-09-28) ---
+% tectonic/XeTeX does not apply the listings literate table to multi-byte
+% characters, so the Unicode set used by the listings of THIS note is mapped to
+% math glyphs as active characters via the standard \lccode/\lowercase idiom
+% (ASCII-only source, no extra packages). Restricted to symbols outside xeCJK's
+% own punctuation table: 00B7 also occurs in the frozen sources but is special
+% punctuation that xeCJK sets up at load time -- making it active first aborts
+% the run with "Control sequence ... already defined" (observed 2026-09-27); it
+% renders through xeCJK + SimSun instead, as do the CJK comment characters and
+% the fullwidth punctuation. Rendering only: listing source bytes are untouched,
+% so the byte-exactness checks are unaffected, and the \ifdefined guard leaves
+% the pdflatex path identical to the template.
+\ifdefined\XeTeXversion
+  {\lccode`\~="2022 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\bullet}}}}
+  {\lccode`\~="2115 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{N}}}}}
+  {\lccode`\~="2124 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{Z}}}}}
+  {\lccode`\~="2190 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftarrow}}}}
+  {\lccode`\~="2192 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rightarrow}}}}
+  {\lccode`\~="2194 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftrightarrow}}}}
+  {\lccode`\~="2200 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\forall}}}}
+  {\lccode`\~="2203 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\exists}}}}
+  {\lccode`\~="2227 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\wedge}}}}
+  {\lccode`\~="2228 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vee}}}}
+  {\lccode`\~="2261 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\equiv}}}}
+  {\lccode`\~="2264 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leq}}}}
+  {\lccode`\~="2265 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\geq}}}}
+  {\lccode`\~="22A2 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vdash}}}}
+  {\lccode`\~="27E8 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\langle}}}}
+  {\lccode`\~="27E9 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rangle}}}}
+  % code points present in the comb-07 sources, missing from the template patch:
+  % 21A6 (the subfamily/pattern-table arrows in the docstrings), 27FA (the "iff"
+  % glyph in the T3 docstrings) and 2212 (the minus sign).
+  {\lccode`\~="21A6 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mapsto}}}}
+  {\lccode`\~="27FA \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\Longleftrightarrow}}}}
+  {\lccode`\~="2212 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{-}}}}
+\fi
+\ifdefined\XeTeXversion
+  \usepackage{xeCJK}
+  \setCJKmainfont{SimSun}
+\fi
+
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{conjecture}{Conjecture}
+
+\title{Tiling-count sequence of the $3\times n$ rectangle with two opposite
+corner cells removed: a new recurrence, its interleave identity and parity laws
+(Lean 4 machine-checked claim of record)}
+\author{Aurora0134\thanks{Contact: via the GitHub account Aurora0134; ORCID to
+be added at Zenodo upload.}}
+\date{September 28, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $a(n)$ be the number of matchings (monomer--dimer coverings with
+$1\times 2$ dominoes, the empty one included) of the $3\times n$ rectangle
+with the top-right and the bottom-left cell removed:
+$1,5,33,204,1266,7873,48882,\dots$. We state and machine-check, in Lean~4
+(v4.34.0, mathlib v4.34.0), four theorems about the integer sequences defined
+by the initial values and the recurrences fitted to this count: the main
+order-$7$ recurrence and the interleaving of the two same-coefficient order-$7$
+subfamily recurrences characterise each other, and the parities follow explicit
+patterns (period $12$ modulo $2$ for the main sequence, period $6$ for the two
+subsequences). Every proof compiles with no \texttt{sorry} and
+\texttt{\#print axioms} reports only \{propext, Quot.sound,
+Classical.choice\}. Novelty adjudication: no occupying record found (three
+consistent rounds), value tier \emph{new sequence / new recurrence}, not new
+mathematics; the perfect-matching sub-sequence at even indices is already
+registered (OEIS A061278) and is not claimed. The combinatorial identification
+is not kernel-proved and is stated as a conjecture. This note is a priority
+claim of record, not a full paper.
+\end{abstract}
+
+\section{Introduction}
+
+Four theorems about three integer sequences defined by initial values and
+linear recurrences are reported here; the sequences come from counting
+matchings of the $3\times n$ rectangle with the top-right and bottom-left cells
+removed, and the recurrences were obtained by exact rational fitting of
+enumerated data. The proofs were produced by the AI4Math pipeline, in which LLM
+workers generate statements and proof scripts and the Lean 4 kernel is the sole
+adjudicator at every gate: statements are frozen by hash before proving, and a
+separate audit re-computes the symmetric difference, scans the whole file for
+\texttt{sorry}/\texttt{admit} including comments, and re-prints the axiom
+dependencies. Verification strength is stated below verbatim. This note is a
+priority claim of record deposited so that a dated, citable public record
+exists ahead of any narrative paper; the fuller paper for the same four
+theorems is prepared separately and will reference this deposit. No literature
+review is attempted here.
+
+\section{Statement}\label{sec:statement}
+
+Throughout, indexing is $0$-based in the Lean layer and $1$-based in the
+counting layer: $\mathrm{adiag}\,n=a(n+1)$,
+$\mathrm{onotch}\,k=a(2k+1)$ (odd positions) and
+$\mathrm{enotch}\,k=a(2k+2)$ (even positions). The three sequences are
+\emph{defined} by the displayed initial values and recurrences; the statement
+layer contains no graphs, no matchings and no bijections (the type is
+$\mathbb{N}\to\mathbb{Z}$ throughout).
+
+\begin{lstlisting}[caption={Sequence \lean{adiag} (main sequence), verbatim from
+the frozen statement file \texttt{formalized/01-comb07-diagnotch-statements.lean}
+(lines 39--53, sha256 \texttt{16744fd3}).},label={lst:adiag}]
+/-- **序列 adiag（主列，七阶递推）**。
+初值 a(0..6) = 1, 5, 33, 204, 1266, 7873, 48882（0-based；对应 1-based a(1..7)）；
+递推 a(n+7) = 4·a(n+6) + 15·a(n+5) − 5·a(n+4) − 19·a(n+3)
+            + 9·a(n+2) + 2·a(n+1) − a(n)（n ≥ 0）。 -/
+def adiag : ℕ → ℤ
+  | 0 => 1
+  | 1 => 5
+  | 2 => 33
+  | 3 => 204
+  | 4 => 1266
+  | 5 => 7873
+  | 6 => 48882
+  | n + 7 =>
+      4 * adiag (n + 6) + 15 * adiag (n + 5) - 5 * adiag (n + 4)
+        - 19 * adiag (n + 3) + 9 * adiag (n + 2) + 2 * adiag (n + 1) - adiag n
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Sequences \lean{onotch} and \lean{enotch} (the two
+subsequences, same coefficients), verbatim from the frozen statement file
+(lines 55--87, sha256 \texttt{16744fd3}).},label={lst:sub}]
+/-- **序列 onotch（1-based 奇位子列，与 enotch 同系数的七阶递推）**。
+初值 o(0..6) = 1, 33, 1266, 48882, 1886600, 72804880, 2809532937
+（= adiag 在下标 0,2,4,6,8,10,12 处之值）；
+递推 o(k+7) = 46·o(k+6) − 303·o(k+5) + 671·o(k+4) − 519·o(k+3)
+            + 167·o(k+2) − 22·o(k+1) + o(k)（k ≥ 0）。 -/
+def onotch : ℕ → ℤ
+  | 0 => 1
+  | 1 => 33
+  | 2 => 1266
+  | 3 => 48882
+  | 4 => 1886600
+  | 5 => 72804880
+  | 6 => 2809532937
+  | k + 7 =>
+      46 * onotch (k + 6) - 303 * onotch (k + 5) + 671 * onotch (k + 4)
+        - 519 * onotch (k + 3) + 167 * onotch (k + 2) - 22 * onotch (k + 1) + onotch k
+
+/-- **序列 enotch（1-based 偶位子列，与 onotch 同系数的七阶递推）**。
+初值 e(0..6) = 5, 204, 7873, 303723, 11720017, 452270456, 17453021829
+（= adiag 在下标 1,3,5,7,9,11,13 处之值）；
+递推 e(k+7) = 46·e(k+6) − 303·e(k+5) + 671·e(k+4) − 519·e(k+3)
+            + 167·e(k+2) − 22·e(k+1) + e(k)（k ≥ 0）。 -/
+def enotch : ℕ → ℤ
+  | 0 => 5
+  | 1 => 204
+  | 2 => 7873
+  | 3 => 303723
+  | 4 => 11720017
+  | 5 => 452270456
+  | 6 => 17453021829
+  | k + 7 =>
+      46 * enotch (k + 6) - 303 * enotch (k + 5) + 671 * enotch (k + 4)
+        - 519 * enotch (k + 3) + 167 * enotch (k + 2) - 22 * enotch (k + 1) + enotch k
+\end{lstlisting}
+
+% LEAN: tasks/20260928-comb07-diagnotch :: adiag_interleave grade=完全证明
+\begin{theorem}[interleaving identity]\label{thm:interleave}
+Let \lean{adiag}, \lean{onotch}, \lean{enotch} be defined by the initial values
+and the recurrences of Listings~\ref{lst:adiag} and~\ref{lst:sub}. Then for
+every $k\in\mathbb{N}$,
+\[
+  \mathrm{adiag}\,(2k)=\mathrm{onotch}\,k
+  \qquad\text{and}\qquad
+  \mathrm{adiag}\,(2k+1)=\mathrm{enotch}\,k .
+\]
+Equivalently: the full order-$7$ recurrence and the interleaving of the two
+same-coefficient order-$7$ subfamily recurrences characterise each other.
+\end{theorem}
+
+\begin{lstlisting}[caption={Theorem~\ref{thm:interleave}, verbatim from the
+frozen statement file (lines 89--94, sha256 \texttt{16744fd3}); the listing
+stops at the theorem's \texttt{:= by} line.},label={lst:t1stmt}]
+/-- **T1（主攻·交织恒等式）**：对一切 k，adiag (2k) = onotch k 且
+adiag (2k+1) = enotch k。即：主列的完整七阶递推 = 两条同系数
+（46,−303,671,−519,167,−22,1）七阶子列递推（onotch/enotch）的交织，
+两者互相刻画（0-based；对应 1-based 的 a(2k+1)=o(k)、a(2k+2)=e(k)）。 -/
+theorem adiag_interleave (k : ℕ) :
+    adiag (2 * k) = onotch k ∧ adiag (2 * k + 1) = enotch k := by
+\end{lstlisting}
+
+% LEAN: tasks/20260928-comb07-diagnotch :: adiag_mod2_period12 grade=完全证明
+\begin{theorem}[main sequence, period $12$ modulo $2$]\label{thm:pat2}
+For all $n,r\in\mathbb{N}$ with $n\bmod 12=r$,
+\[
+  \mathrm{adiag}\,n \bmod 2 = \mathrm{pat2}\,r,
+\]
+where \lean{pat2} is the twelve-entry pattern
+$(1,1,1,0,0,1,0,1,0,1,0,0)$ of Listing~\ref{lst:pat2}. Equivalently,
+$\mathrm{adiag}\,n$ is odd if and only if
+$n\equiv 0,1,2,5,7,9\pmod{12}$.
+\end{theorem}
+
+\begin{lstlisting}[caption={Pattern table \lean{pat2} and
+Theorem~\ref{thm:pat2}, verbatim from the frozen statement file (lines
+97--116, sha256 \texttt{16744fd3}); the listing stops at the theorem's
+\texttt{:= by} line.},label={lst:pat2}]
+/-- **余数样式 pat2**（12 留数类 ↦ mod 2 余数）：
+0↦1, 1↦1, 2↦1, 3↦0, 4↦0, 5↦1, 6↦0, 7↦1, 8↦0, 9↦1, 10↦0, 11↦0。 -/
+def pat2 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 1
+  | 2 => 1
+  | 3 => 0
+  | 4 => 0
+  | 5 => 1
+  | 6 => 0
+  | 7 => 1
+  | 8 => 0
+  | 9 => 1
+  | 10 => 0
+  | _ => 0
+
+/-- **T2（伴随·主列 mod 2 周期 12 显式样式）**：adiag n 的 mod 2 余数仅依赖
+n mod 12，样式为 pat2（即 adiag n 为奇 ⟺ n ≡ 0,1,2,5,7,9 (mod 12)）。 -/
+theorem adiag_mod2_period12 (n r : ℕ) (hr : n % 12 = r) :
+    adiag n % 2 = pat2 r := by
+\end{lstlisting}
+
+% LEAN: tasks/20260928-comb07-diagnotch :: onotch_mod2_period6 grade=完全证明
+\begin{theorem}[odd-position subsequence, period $6$ modulo $2$]\label{thm:pat6o}
+For all $k,r\in\mathbb{N}$ with $k\bmod 6=r$,
+\[
+  \mathrm{onotch}\,k \bmod 2 = \mathrm{pat6o}\,r,
+\]
+where \lean{pat6o} is the six-entry pattern $(1,1,0,0,0,0)$ of
+Listing~\ref{lst:pat6}. Equivalently, $\mathrm{onotch}\,k$ is odd if and only
+if $k\equiv 0$ or $1\pmod 6$.
+\end{theorem}
+
+% LEAN: tasks/20260928-comb07-diagnotch :: enotch_mod2_period6 grade=完全证明
+\begin{theorem}[even-position subsequence, period $6$ modulo $2$]\label{thm:pat6e}
+For all $k,r\in\mathbb{N}$ with $k\bmod 6=r$,
+\[
+  \mathrm{enotch}\,k \bmod 2 = \mathrm{pat6e}\,r,
+\]
+where \lean{pat6e} maps $1$ and $5$ to $0$ and every other residue to $1$
+(Listing~\ref{lst:pat6}). Equivalently, $\mathrm{enotch}\,k$ is even if and
+only if $k\equiv 1$ or $5\pmod 6$.
+\end{theorem}
+
+\begin{lstlisting}[caption={Pattern tables \lean{pat6o} and \lean{pat6e},
+verbatim from the frozen statement file (lines 119--131, sha256
+\texttt{16744fd3}).},label={lst:pat6}]
+/-- **余数样式 pat6o**（onotch 侧 6 留数类 ↦ mod 2 余数）：
+0↦1, 1↦1, 其余↦0（即 onotch k 为奇 ⟺ k ≡ 0 或 1 (mod 6)）。 -/
+def pat6o : ℕ → ℤ
+  | 0 => 1
+  | 1 => 1
+  | _ => 0
+
+/-- **余数样式 pat6e**（enotch 侧 6 留数类 ↦ mod 2 余数）：
+1↦0, 5↦0, 其余↦1（即 enotch k 为偶 ⟺ k ≡ 1 或 5 (mod 6)）。 -/
+def pat6e : ℕ → ℤ
+  | 1 => 0
+  | 5 => 0
+  | _ => 1
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Theorem~\ref{thm:pat6o}, verbatim from the frozen
+statement file (lines 133--136, sha256 \texttt{16744fd3}); the listing stops at
+the theorem's \texttt{:= by} line.},label={lst:t3ostmt}]
+/-- **T3 之 onotch（伴随·奇位子列 mod 2 周期 6 样式）**：onotch k 的 mod 2 余数
+仅依赖 k mod 6，样式为 pat6o（即 onotch k 为奇 ⟺ k ≡ 0 或 1 (mod 6)）。 -/
+theorem onotch_mod2_period6 (k r : ℕ) (hr : k % 6 = r) :
+    onotch k % 2 = pat6o r := by
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Theorem~\ref{thm:pat6e}, verbatim from the frozen
+statement file (lines 139--142, sha256 \texttt{16744fd3}); the listing stops at
+the theorem's \texttt{:= by} line.},label={lst:t3estmt}]
+/-- **T3 之 enotch（伴随·偶位子列 mod 2 周期 6 样式）**：enotch k 的 mod 2 余数
+仅依赖 k mod 6，样式为 pat6e（即 enotch k 为偶 ⟺ k ≡ 1 或 5 (mod 6)）。 -/
+theorem enotch_mod2_period6 (k r : ℕ) (hr : k % 6 = r) :
+    enotch k % 2 = pat6e r := by
+\end{lstlisting}
+
+\begin{conjecture}[combinatorial bridge, not proved here]\label{conj:bridge}
+For every $n\ge 1$, the matching count $a(n)$ of the $3\times n$ rectangle with
+the top-right and bottom-left cells removed equals
+$\mathrm{adiag}\,(n-1)$; equivalently, $\mathrm{onotch}\,k=a(2k+1)$ and
+$\mathrm{enotch}\,k=a(2k+2)$ for every $k$. This identification is not
+kernel-proved, is not used by any theorem of this note, and rests on exact
+enumeration by independently written programs with different coverage.
+\end{conjecture}
+
+\section{Proof}\label{sec:proof}
+
+All four proofs are strong inductions on the index, with the seed window
+discharged by computation (\texttt{decide}) and the step closed by congruence
+algebra. Theorem~\ref{thm:interleave} first proves an auxiliary $14$-step
+identity (\texttt{lifted}) by strong induction: for $n<7$ both sides are
+explicit integers; for $n=m+7$ the definitional recurrence is unfolded at the
+eight indices $m+7,\dots,m+21$, the seven induction hypotheses are rewritten
+into the same $14$-step form, and a single \texttt{linear\_combination} of
+these fifteen equations closes the step by cancellation. The main statement is
+then a strong induction on $k$: for $k<7$ the fourteen equalities are concrete
+integer identities; for $k=j+7$ the even half applies \texttt{lifted} at $2j$,
+normalises the indices by \texttt{ring}, replaces the seven predecessors by the
+induction hypotheses, and closes by the definitional unfolding of
+\lean{onotch} (the odd half is identical, ending in \lean{enotch}).
+Theorems~\ref{thm:pat2}--\ref{thm:pat6e} share one skeleton: strong induction,
+one definitional unfolding whose coefficients collapse modulo $2$ to
+$0,1,1,1,1,0,1$, and a finite check per residue class
+(\texttt{mod\_cases} with \texttt{omega}/\texttt{decide}).
+
+The complete proof file has $433$ lines and therefore exceeds one page; the
+four contiguous verbatim excerpts below carry the distinctive argument shapes,
+and the complete file ships in this deposit under \texttt{proofs/}.
+
+\begin{lstlisting}[caption={Inductive step of the auxiliary lemma
+\texttt{lifted}: the last unfolding \texttt{p14}, the seven induction
+hypotheses \texttt{h0}--\texttt{h6} and the closing
+\texttt{linear\_combination}, verbatim excerpt from
+\texttt{final/01-comb07-diagnotch-proved.lean} (lines 147--172, sha256
+\texttt{51721e9e}).},label={lst:t1close}]
+        have p14 : adiag (m + 21) = 4 * adiag (m + 20) + 15 * adiag (m + 19)
+            - 5 * adiag (m + 18) - 19 * adiag (m + 17) + 9 * adiag (m + 16)
+            + 2 * adiag (m + 15) - adiag (m + 14) := by simp only [adiag]
+        have h0 : adiag (m + 14) = 46 * adiag (m + 12) - 303 * adiag (m + 10)
+            + 671 * adiag (m + 8) - 519 * adiag (m + 6) + 167 * adiag (m + 4)
+            - 22 * adiag (m + 2) + adiag m := ihn m (by omega)
+        have h1 : adiag (m + 15) = 46 * adiag (m + 13) - 303 * adiag (m + 11)
+            + 671 * adiag (m + 9) - 519 * adiag (m + 7) + 167 * adiag (m + 5)
+            - 22 * adiag (m + 3) + adiag (m + 1) := ihn (m + 1) (by omega)
+        have h2 : adiag (m + 16) = 46 * adiag (m + 14) - 303 * adiag (m + 12)
+            + 671 * adiag (m + 10) - 519 * adiag (m + 8) + 167 * adiag (m + 6)
+            - 22 * adiag (m + 4) + adiag (m + 2) := ihn (m + 2) (by omega)
+        have h3 : adiag (m + 17) = 46 * adiag (m + 15) - 303 * adiag (m + 13)
+            + 671 * adiag (m + 11) - 519 * adiag (m + 9) + 167 * adiag (m + 7)
+            - 22 * adiag (m + 5) + adiag (m + 3) := ihn (m + 3) (by omega)
+        have h4 : adiag (m + 18) = 46 * adiag (m + 16) - 303 * adiag (m + 14)
+            + 671 * adiag (m + 12) - 519 * adiag (m + 10) + 167 * adiag (m + 8)
+            - 22 * adiag (m + 6) + adiag (m + 4) := ihn (m + 4) (by omega)
+        have h5 : adiag (m + 19) = 46 * adiag (m + 17) - 303 * adiag (m + 15)
+            + 671 * adiag (m + 13) - 519 * adiag (m + 11) + 167 * adiag (m + 9)
+            - 22 * adiag (m + 7) + adiag (m + 5) := ihn (m + 5) (by omega)
+        have h6 : adiag (m + 20) = 46 * adiag (m + 18) - 303 * adiag (m + 16)
+            + 671 * adiag (m + 14) - 519 * adiag (m + 12) + 167 * adiag (m + 10)
+            - 22 * adiag (m + 8) + adiag (m + 6) := ihn (m + 6) (by omega)
+        linear_combination 4 * h6 + 15 * h5 - 5 * h4 - 19 * h3 + 9 * h2 + 2 * h1 - h0
+          + p14 - 46 * p12 + 303 * p10 - 671 * p8 + 519 * p6 - 167 * p4 + 22 * p2 - p0
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Even half of the inductive step of
+Theorem~\ref{thm:interleave}, verbatim excerpt from
+\texttt{final/01-comb07-diagnotch-proved.lean} (lines 179--190, sha256
+\texttt{51721e9e}).},label={lst:t1main}]
+      · rw [show 2 * (j + 7) = 2 * j + 14 by ring, lifted (2 * j)]
+        rw [show 2 * j + 12 = 2 * (j + 6) by ring,
+            show 2 * j + 10 = 2 * (j + 5) by ring,
+            show 2 * j + 8 = 2 * (j + 4) by ring,
+            show 2 * j + 6 = 2 * (j + 3) by ring,
+            show 2 * j + 4 = 2 * (j + 2) by ring,
+            show 2 * j + 2 = 2 * (j + 1) by ring]
+        rw [(ih (j + 6) (by omega)).1, (ih (j + 5) (by omega)).1,
+            (ih (j + 4) (by omega)).1, (ih (j + 3) (by omega)).1,
+            (ih (j + 2) (by omega)).1, (ih (j + 1) (by omega)).1,
+            (ih j (by omega)).1]
+        simp only [onotch]
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Core of Theorem~\ref{thm:pat2}: the modulo-$2$
+collapse \texttt{h1} and the first residue branch, verbatim excerpt from
+\texttt{final/01-comb07-diagnotch-proved.lean} (lines 215--229, sha256
+\texttt{51721e9e}).},label={lst:t2core}]
+        have h1 : adiag (j + 7) % 2
+            = (adiag (j + 5) % 2 + adiag (j + 4) % 2 + adiag (j + 3) % 2
+                + adiag (j + 2) % 2 + adiag j % 2) % 2 := by
+          simp only [adiag]
+          omega
+        rw [h1, ih (j + 5) (by omega), ih (j + 4) (by omega),
+            ih (j + 3) (by omega), ih (j + 2) (by omega), ih j (by omega)]
+        mod_cases hj : j % 12
+        · have hj0 : j % 12 = 0 := by simpa [Nat.ModEq] using hj
+          have h5 : (j + 5) % 12 = 5 := by omega
+          have h4 : (j + 4) % 12 = 4 := by omega
+          have h3 : (j + 3) % 12 = 3 := by omega
+          have h2 : (j + 2) % 12 = 2 := by omega
+          have h7 : (j + 7) % 12 = 7 := by omega
+          rw [hj0, h5, h4, h3, h2, h7]; decide
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Core of Theorem~\ref{thm:pat6o}, verbatim excerpt
+from \texttt{final/01-comb07-diagnotch-proved.lean} (lines 320--334, sha256
+\texttt{51721e9e}); Theorem~\ref{thm:pat6e} has the same shape at lines
+383--397.},label={lst:t3core}]
+        have h1 : onotch (j + 7) % 2
+            = (onotch (j + 5) % 2 + onotch (j + 4) % 2 + onotch (j + 3) % 2
+                + onotch (j + 2) % 2 + onotch j % 2) % 2 := by
+          simp only [onotch]
+          omega
+        rw [h1, ih (j + 5) (by omega), ih (j + 4) (by omega),
+            ih (j + 3) (by omega), ih (j + 2) (by omega), ih j (by omega)]
+        mod_cases hj : j % 6
+        · have hj0 : j % 6 = 0 := by simpa [Nat.ModEq] using hj
+          have h5 : (j + 5) % 6 = 5 := by omega
+          have h4 : (j + 4) % 6 = 4 := by omega
+          have h3 : (j + 3) % 6 = 3 := by omega
+          have h2 : (j + 2) % 6 = 2 := by omega
+          have h7 : (j + 7) % 6 = 1 := by omega
+          rw [hj0, h5, h4, h3, h2, h7]; decide
+\end{lstlisting}
+
+\section{Verification evidence}
+
+\begin{itemize}
+\item Toolchain: Lean \texttt{v4.34.0} \cite{lean4}
+(\texttt{leanprover/lean4:v4.34.0}) and mathlib4 \texttt{v4.34.0}, revision
+\texttt{5ed29652} \cite{mathlib}, pinned. Reproduction: with that pin,
+\texttt{lake env lean} on
+\path{proofs/01-comb07-diagnotch-proved.lean} compiles the file with exit
+code $0$ (measured $37.0$\,s for the assembled final file in the strict pass).
+\item Statement integrity: the frozen statement file
+\path{formalized/01-comb07-diagnotch-statements.lean} ($143$ lines) has
+sha256 \texttt{16744fd3\allowbreak{}7b7d8eb6\allowbreak{}7965641f\allowbreak{}4e2b6dd8\allowbreak{}7e3c2a99\allowbreak{}4ea48476\allowbreak{}6b6e3afb\allowbreak{}5861aca};
+the final file \path{final/01-comb07-diagnotch-proved.lean} ($433$ lines) has
+sha256 \texttt{51721e9e\allowbreak{}315db12a\allowbreak{}35ca6221\allowbreak{}8d8d458f\allowbreak{}32443e97\allowbreak{}f666e4a2\allowbreak{}ab452d00\allowbreak{}56f7cb43}.
+The final file was compared with the frozen file by symmetric difference over
+all ten declarations (six \texttt{def} and four \texttt{theorem}): zero content
+difference, only a reordering (the six definitions were moved in front of the
+theorems); each theorem header matches byte-for-byte up to the
+\texttt{:= by} line.
+\item Kernel check: compiles with $0$ \texttt{sorry} (whole-file scan including
+comments, case-insensitive, also for \texttt{admit}/\texttt{sorryAx});
+\texttt{\#print axioms} output, verbatim (kept literal; the smaller monospace
+width is typesetting only):
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize,frame=none]
+'adiag_interleave' depends on axioms: [propext, Classical.choice, Quot.sound]
+'adiag_mod2_period12' depends on axioms: [propext, Quot.sound]
+'onotch_mod2_period6' depends on axioms: [propext, Quot.sound]
+'enotch_mod2_period6' depends on axioms: [propext, Quot.sound]
+\end{lstlisting}
+The strict re-compile emits no error and no warning. The four axiom lines are
+the audit department's independent probe output; the gate-batch sidecar files
+\path{axioms-adiag_interleave.txt} and its three siblings ship in this
+deposit under \texttt{audit/} with the same four lines each.
+\item Grading by the audit department: all four theorems \emph{complete
+proof}; lowest grade reached for the case = \emph{complete proof}; no
+scaffolding route was used.
+\item Audit chain (originals in this deposit under \texttt{audit/}): final
+adjudication \path{final-comb07-diagnotch.txt} (four independent checks,
+including the symmetric difference and the independent axiom probe), the four
+axiom printouts \path{axioms-adiag_interleave.txt},
+\path{axioms-adiag_mod2_period12.txt},
+\path{axioms-onotch_mod2_period6.txt},
+\path{axioms-enotch_mod2_period6.txt}, and the full C9 query log
+\path{c9-record.md}. The semantic-fidelity check (roundtrip re-translation)
+of the underlying task ran on the same model node as its formalisation; that
+independence weakness is mitigated, not removed, by kernel adjudication and
+manual review.
+\end{itemize}
+
+\section{Novelty evidence}\label{sec:novelty}
+
+Adjudication copied from the pipeline's exclusivity review (C9 gate), which ran
+three rounds before the problem was accepted, by workers who re-derived the
+data independently rather than trusting any external report: verdict
+\textbf{no occupying record found} (three consistent rounds), value tier
+\textbf{new sequence / new recurrence}. The tier is not a claim of new
+mathematics and not a first-discovery claim: the order-$7$ recurrence is
+machine-verified to be of a different spectrum than the order-$6$ recurrence of
+the undefected mother family A033506 (neither satisfies the other's recurrence;
+the two characteristic polynomials share one quintic factor), and the counting
+method itself (state-matrix recursion) is documented prior art that would
+produce this sequence as a special case. Summary by channel; the full query
+log, including every zero-hit query, is in this deposit at
+\texttt{audit/c9-record.md}.
+
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lll}
+\hline
+channel & queries & result \\
+\hline
+OEIS, sequence search \cite{oeis} & 50+ independent strings (rounds 1--3) &
+zero hits (full string, prefixes, tails, $\times2$, characteristic-polynomial
+and numerator bare strings, mod-$3$ subsequences); anchors self-verified \\
+OEIS, per-family records & 2 & full-column reads of A033506/A033507
+\cite{oeis-a033506,oeis-a033507}: references and links cover complete grids
+only, no defect variant \\
+OpenAlex & 7 & zero same-form (top hits: dimer physics / knowledge graphs /
+materials noise) \\
+zbMATH & 5 & zero same-form \\
+arXiv & 5 & zero same-form (\texttt{total=0} on two alias groups) \\
+Crossref & 3 & zero same-form \\
+Oh 2019, nearest neighbour & full text &
+\cite{oh2019}: Theorem~4 (fixed monomer set) is a method with a different
+statistic; no instance of this sequence; reference chain (Kong 2006,
+Tzeng--Wu 2003, Wu 2006) and $12$ citing works read, none enumerates
+defective-grid all-matchings \\
+Lean ecosystem & 2 + tree walk &
+zero hits; mathlib has no matching-count theorem; compfiles zero; sequencelib
+structurally absent; public Lean code search on nine large terms:
+\texttt{total=0} \\
+\hline
+\end{tabular}%
+}
+\end{center}
+
+Two boundaries are explicit. The perfect-matching sub-sequence at even indices
+($1,5,20,76,285,1065,\dots$) is already registered as OEIS A061278
+\cite{oeis-a061278} and is not claimed as new; the enumeration anchors A033507
+and A030186 \cite{oeis-a033507,oeis-a030186} are likewise registry entries, not
+claims. And the residual gaps, kept from the audit trail: the general web
+search layer was unavailable in the review environment, so the literature
+evidence rests on the four structured channels above; Lundow 1996/1998 and Read
+1982 (the mother-family founding literature) were not read in full text;
+Guichard 2008 is behind a paywall; and the Math Stack Exchange API was
+rate-limited. If any of these channels later returns a hit on the
+defective-grid matching counts, the tier above weakens accordingly, and this
+deposit will be amended by a later version rather than by editing this record.
+
+\section{Scope and limitations}
+
+Grade and boundary, stated as the audit states them. (a) The theorems cover
+the recurrence-defined sequences only; their equality with the matching counts
+of the notched rectangle is not kernel-proved and is
+Conjecture~\ref{conj:bridge}. Its empirical support is enumeration by exact
+programs: the main counting program covers $1\le n\le 50$, cross-checked
+against a delete-and-branch enumerator for $1\le n\le 14$ and against a
+brute-force backtracker for $1\le n\le 9$, with the undefected $3\times n$,
+$4\times n$ and $2\times n$ families reproduced as external anchors; the
+enumerators themselves are not verified, and the scripts and their outputs
+stay in the working repository under \texttt{tasks/20260928-comb07-diagnotch/}.
+(b) The recurrences are computational findings: Berlekamp--Massey fits over
+$\mathbb{Q}$ with minimal order exactly $7$, verified digit-for-digit against
+enumeration, not derived from a transfer-matrix argument. (c) The theorems are
+about parity only; the mod-$4$ pattern (period $12$), the mod-$3$ patterns
+(periods $968$ and $484$) and a general periodicity statement were examined
+during claim selection and deliberately left unproved in this batch, and
+appear in no theorem here. (d) The perfect-matching sub-sequence at even
+indices is already registered as OEIS A061278 and is excluded from the novelty
+claim; the value tier ``new sequence / new recurrence'' carries only the
+spectral-difference meaning recorded above. (e) The gate-four sign-off of the
+underlying task was exercised by the author's instruction to run this claim
+lane on 2026-09-28, while the task report file still carries its draft header
+(pending manual sign-off at gate four); both facts are recorded here as they
+stand, and the task products themselves were not edited. (f) This note carries
+no literature review and is a deposit record, not a survey; the narrative
+paper for the same result is separate.
+
+\section*{Data availability}
+
+The deposit package for this claim contains the claim note (LaTeX source and
+PDF), the Lean sources (\texttt{proofs/}: frozen statement file, final proof
+file, \texttt{lean-toolchain}), and the verification and novelty-search records
+(\texttt{audit/}). Zenodo: the DOI is reserved at upload by the author and is
+recorded in \texttt{metadata/README.md} of this package once created; at the
+time of writing it is an unfilled field, \texttt{RESERVED-DOI}, not a value
+(see the upload steps in \texttt{UPLOAD.md} in the source repository, which is
+not shipped with this deposit). Public mirror of this deposit: the claim lane's repository
+\url{https://github.com/Aurora0134/ai4math-claims}, directory
+\texttt{grid3n-diag-2notch/} (pushed under the author's instruction of
+2026-09-28; the commit and timestamp are recorded in the source repository's
+\texttt{claims/grid3n-diag-2notch/card.md}).
+Claim note under CC BY 4.0, code under MIT.
+
+\section*{Use of generative AI}
+
+(a) AI performed: candidate-problem screening and the three-round exclusivity
+review, the numerical recomputation and claim selection of phase 0,
+autoformalisation of the four statements and the roundtrip semantic check,
+proof search and proof-script writing, the prose translation of the proofs,
+and the assembly of this note including its verbatim listings. (b) Model, node
+and budget: all task-stage sampling ran on a single node, wire-id
+\texttt{anthropic/a6api-main/kimi-k3}, with no cross-node switching. One drift
+is disclosed: one audit dispatch on 2026-09-28 (the F1 closure re-review)
+carried a model-detection reading of
+\texttt{anthropic/stepfun/step-5-preview}; the ledger's accounting node stayed
+\texttt{anthropic/a6api-main/kimi-k3} and the drift is disclosed rather than
+reconciled by substitution. The task consumed $11$ agent-run dispatches of a
+permitted $20$ and $1$ \texttt{llm-call}
+of a permitted $6$ (the roundtrip semantic judge; two earlier network failures
+on the same node were retried and not counted), numbers copied verbatim from
+the task ledger \texttt{tasks/20260928-comb07-diagnotch/budget.log} (a
+source-repository file, not shipped with this package). This note consumed $0$
+pipeline \texttt{llm-call} invocations and $1$ agent-run dispatch (this
+assembly) against caps of $4$ and $4$ respectively, and its LaTeX compilation
+used the rounds recorded in \texttt{audit/compile.txt}; the assembly session's
+endpoint was \texttt{zcode}, whose model-detection reading of 2026-09-28
+resolved to \texttt{stepfun/step-5-preview}, which is disclosed rather than
+replaced by the task node's name. (c) Final adjudication: all statements and
+proofs reported here were checked by the Lean 4 kernel: every proof compiles
+with no \texttt{sorry}, and \texttt{\#print axioms} reports only \{propext,
+Quot.sound, Classical.choice\} --- exactly this set for \lean{adiag_interleave},
+and \{propext, Quot.sound\} for \lean{adiag_mod2_period12},
+\lean{onotch_mod2_period6} and \lean{enotch_mod2_period6}. (d) The AI
+system is not an author; the human author reviewed the evidence and is
+responsible for all content.
+
+\section*{Author contributions}
+
+CRediT-style: the human author adjudicated topic selection, statement
+semantics, the sign-off and the deposit decision; the AI4Math pipeline (an
+LLM) generated the candidate propositions, the proof searches and the text
+drafts. The AI system is not listed as an author.
+
+\begin{thebibliography}{8}
+% Reused from papers/grid3n-diag-2notch/paper.tex, where each entry was verified
+% on 2026-09-28 before being typed in: Crossref REST metadata for the two DOIs
+% (title and page range matched exactly), the arXiv export API for the preprint
+% (title matched), and the OEIS JSON API for the four sequence entries (name and
+% data matched; the A033506 signature link was read). Raw responses:
+% papers/grid3n-diag-2notch/audit/bib-verify/ (source repository, not shipped
+% with this deposit). No entry is quoted from memory; only entries actually
+% cited above are listed.
+\bibitem{lean4}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean 4 theorem prover and programming language.
+\newblock \emph{Automated Deduction -- CADE-28}, LNCS, pp.~625--635, 2021.
+\url{https://doi.org/10.1007/978-3-030-79876-5_37}
+
+\bibitem{mathlib}
+The mathlib Community.
+\newblock The Lean mathematical library.
+\newblock \emph{CPP 2020: Proceedings of the 9th ACM SIGPLAN International
+Conference on Certified Programs and Proofs}, pp.~367--381, 2020.
+\url{https://doi.org/10.1145/3372885.3373824}
+
+\bibitem{oh2019}
+S.~Oh.
+\newblock State matrix recursion method and monomer--dimer problem.
+\newblock \emph{arXiv:1901.07847 [math.CO]}, 2019.
+\url{https://arxiv.org/abs/1901.07847}
+
+\bibitem{oeis-a033506}
+The OEIS Foundation.
+\newblock Entry A033506: number of matchings in graph $P_3 \times P_n$
+(signature $(4,14,0,-10,0,1)$).
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\url{https://oeis.org/A033506}
+
+\bibitem{oeis-a033507}
+The OEIS Foundation.
+\newblock Entry A033507: number of matchings in graph $P_4 \times P_n$.
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\url{https://oeis.org/A033507}
+
+\bibitem{oeis-a030186}
+The OEIS Foundation.
+\newblock Entry A030186: number of matchings in graph $P_2 \times P_n$
+($a(n)=3a(n-1)+a(n-2)-a(n-3)$).
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\url{https://oeis.org/A030186}
+
+\bibitem{oeis-a061278}
+The OEIS Foundation.
+\newblock Entry A061278: $a(n)=5a(n-1)-5a(n-2)+a(n-3)$ --- the
+perfect-matching sub-sequence at even $n$ of this note's graph family,
+already registered and not claimed as new.
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\url{https://oeis.org/A061278}
+
+\bibitem{oeis}
+The OEIS Foundation.
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\newblock \url{https://oeis.org/} --- searched for the sequences, their
+residue-class subsequences, their characteristic polynomials and their
+generating-function numerators, with no entry found (see
+Section~\ref{sec:novelty}).
+\end{thebibliography}
+
+\end{document}

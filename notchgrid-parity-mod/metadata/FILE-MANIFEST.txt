@@ -1,0 +1,45 @@
+# FILE-MANIFEST -- sha256  bytes  path (relative to this package root)
+# Generated 2026-09-28 by audit/sanitize-package.py (AI-generated) after the
+# three reconciliation gates (manifest consistency / promise reconciliation /
+# no machine-local path) reported PASS. Regenerate this file whenever any
+# shipped file changes; a publication check re-hashes this list first.
+# The deposit tree holds 37 files and 553188 bytes, this manifest included; the
+# 36 rows below list every other file (a manifest cannot hash itself), so the
+# two views reconcile by adding this file's own size.
+# rows = 36 ; deposit = 37 files (manifest self included)
+20062d18d1c1811295883ef884ac486d6172e87711740b59eb6819188d987943  1958  audit/axioms.txt
+f04277447f6b07a2d170fa72b3e3c2909e61c31bbed059a264184156819b4f3f  15163  audit/c9-record.md
+1cdcb5fd8860467e04ca8fea1cfb451a7f78aa3c7f9a50aac6f8cd2e682d4f3b  1449  audit/c9-verify.txt
+2e35a6b43e22bd463260d7d408413f7cae5cfa75b744598110b6260091c22f35  20572  audit/claim-check.md
+456478c786d48ceccf29f0f0fcd463e8b370f4ac3de8e5bb74fde820f9cd5bc8  24607  audit/claim-recheck.md
+299807bf9b0b8b897af141552fcff74067e95b1d19c38fdc6cc82ab7eb6c0af7  21786  audit/claim-recheck2.md
+4c7258efa290c190af0480d958feb7820d71afa0dd93e23c6b762d3010be7dce  26872  audit/claim-recheck3.md
+755ce238d514599fee68508bbced9a295c3581edf38f4f1f1af16219004da053  6341  audit/compile-log.txt
+92d2c1e39ee67b7873fa621cf023be9bb44146a86656fba3564e63d89e0e518d  25454  audit/compile-run1.log
+a5b76495564e1b839f66167d3a3a25c57bbd1d0a6daba306d2778c1aad4a5ff8  25981  audit/compile-run2.log
+f2ab92d4dd9181bc3ce1ae79b22517ef7622774a2ae6c9eef7e89c98a75b7792  9022  audit/compile-run3.log
+0516cbdf75dd6c0fc6bd8d3a0c7cb141c084fd53f84b4c3bbbd486d80a880dc0  8023  audit/compile-run4.log
+caecda89e84899351fd0d0949c3f7547341878ac4960cf7e1e666497d3e36c8b  7869  audit/compile-run5.log
+b8075daec23801821e3813e7ba434644bdb917100acf021927944a6d7425647b  7866  audit/compile-run6.log
+63da521b57fa8e91e1d126d27d30eaea179cfa5c52dae5473e3436a569a775cb  10341  audit/compile-run7.log
+b1318ae7c32bef35146d0d273045079b62e313a5e9c802c4cf8564096f89b4df  10341  audit/compile-run8.log
+d0dbc9d09ea7a22056025bb4097820f32882b2d99758b19406de4b808f5f29c1  9760  audit/compile-run9.log
+843cf79f93bbcc9a0d77c5fbe30c8b288f277d86314ac967013dbef5fc6649d4  12769  audit/compile.txt
+e84d14e94143161e816a16306b331ddf3256dd1bf5ad39b42c4f1c0ad37eec30  4893  audit/diff-conclusion.txt
+5c896dbe113f64fb7f8efbbd23e4fb14a7c09b01af172a807ab3452e3cbb1697  1852  audit/lean-idents.txt
+742b2ff075f5ca3da9ebe223556c76205fa802efba9d9986feee5714891925c8  6934  audit/lint.txt
+1763df91101d79b9f6df20f0d775ae2a8631f9bcbe1546b50aa933766fa765c7  532  audit/listing-ranges.txt
+29ca4f1c1bde45c78adc6f2effc35191657f398f327c0f9dee557e84c2eec21f  1477  audit/listing-verify.txt
+ace3ded7581c5924c890c6ddad6b7a6fafde09f7b3e6908d222093aeb857a632  2418  audit/numeric-recheck.txt
+92340c2e8eda93be6e52e05cc81cbb7eeae277e9cd5e1e88a497974df665863b  4343  audit/references-check.txt
+7a40208b2164fba9d80014c688c6d36d5bbeb4ffc088d7f020221bb09541df97  21936  audit/rework-evidence.txt
+b8741b22a0bf7889af0c9be0fe084e5db62fc73e6262664b4d6a1a7c3325cdaa  30077  audit/sanitize-package.py
+a02cc44badbea026b9a32db091c0fd6750553b95a67733b0750852f032502055  1797  audit/statement-vs-frozen.txt
+babece736bde4c9858cfe1d77acb1c31bf00877f508dc83a2e802cd2f6dcf7a8  128188  claim/claim.pdf
+1287ae80b7fd3d89c831e68e8c187a8d3c82c8712a6a02530863395257c7d7dc  31177  claim/claim.tex
+46f81550e32639cac8634af66e948d856a8a49945bca3b319ba460a861792186  7569  claim/lstlean.tex
+63577869e4a6d8f0ad2fd9fc98340c724b04e94f0acf185ecec4bfb80b6bdf28  10900  metadata/README.md
+92946e2864494c03398555012e8c8438f5cfc9f0e4adcd4bf54eac2c1cc01c14  5664  metadata/zenodo.json
+9a787b6be05dc345343edf675d107801e674e3abae095356ace390fac8426fb8  3291  proofs/01-notch-mods.lean
+6f1a7440f5830633e9309ab5629e16308928bb6421f64f4d4b1988b8929db4aa  40084  proofs/01-notch-proved.lean
+8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632  25  proofs/lean-toolchain

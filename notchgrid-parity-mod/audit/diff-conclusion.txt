@@ -1,0 +1,69 @@
+# Statement freeze / symmetric-difference conclusion, and what this claim package ships.
+
+frozen statement : tasks/20260927-mossad-notch/formalized/01-notch-mods.lean
+  69 lines, UTF-8, LF; sha256 =
+  9a787b6be05dc345343edf675d107801e674e3abae095356ace390fac8426fb8
+  (freeze record: formalized/freeze.md; recomputed by the claim lane on 2026-09-28:
+  identical; copy in proofs/01-notch-mods.lean, cmp-identical to the source file)
+
+final development: tasks/20260927-mossad-notch/final/01-notch-proved.lean
+  621 lines, UTF-8, LF; sha256 =
+  6f1a7440f5830633e9309ab5629e16308928bb6421f64f4d4b1988b8929db4aa
+  (recomputed by the claim lane on 2026-09-28: identical; copy in
+  proofs/01-notch-proved.lean, cmp-identical to the source file)
+
+symmetric difference after stripping proof bodies: EMPTY.
+  The auditor's programmatic extraction found 6 top-level declarations in each file
+  (2 definitions + 4 theorem headers), same names in the same order, 6/6
+  character-for-character identical, and the delivered file introduces no additional
+  top-level theorem => constitution clause 2 (statement immutability) holds. This is
+  quoted from tasks/20260927-mossad-notch/audit/final-01-notch.txt item 1 (source task directory, not shipped with this deposit), the grading
+  verdict of the source task. That file lives in the source task directory of the source
+  repository and is not shipped with this deposit (see the "What this package does NOT
+  ship" section at the end of this file); it is named as the source of the quotation, not
+  as something a reader of the deposit can open.
+
+Claim side (this bundle), verified mechanically at claim time rather than inherited:
+  - the 7 Lean listings in claim/claim.tex were produced by `sed -n 'X,Yp'` on
+    final/01-notch-proved.lean and re-diffed byte-for-byte: 7/7 PASS,
+    "ALL BYTE-EXACT" (audit/listing-verify.txt; ranges in audit/listing-ranges.txt).
+  - the 6 statement/definition listings were additionally searched for as literal
+    substrings of the FROZEN file: 6/6 present verbatim
+    (audit/statement-vs-frozen.txt). This matters because the frozen file carries
+    `sorry` proof bodies and therefore cannot be excerpted into a listing without
+    tripping the 0-sorry gate; the declaration headers of the final file are
+    byte-prefixes of the frozen text, so quoting them quotes the frozen statement
+    itself. The string "sorry" appears in no listing of this note.
+  - every \lean{...} identifier used in the prose resolves inside
+    final/01-notch-proved.lean: 13 spans, 8 distinct, 0 unresolved after the gate-3
+    rework (audit/lean-idents.txt; the pre-rework run recorded 10 spans, 8 distinct,
+    0 unresolved -- the rework added mentions of existing tactics, no new name).
+  - the axiom printout quoted in the note is the verbatim last four lines of
+    attempts/final-axioms.out, in the printed order, with no re-sorting (axioms.txt).
+  - the C9 novelty record shipped at audit/c9-record.md is assembled by mechanical
+    line-range extraction from two source files in 7 blocks, each re-verified
+    byte-identical to its source range (audit/c9-verify.txt); no conclusion in it was
+    rewritten.
+  - the copies under proofs/ are byte-identical to the source-task files (`cmp` at
+    packaging time), and the toolchain pin proofs/lean-toolchain is a byte-identical
+    copy of verify-proj/lean-toolchain (leanprover/lean4:v4.34.0).
+
+What this package does NOT ship, and why:
+  - the gate 2 and gate 3 ORIGINAL records of the source task:
+    tasks/20260927-mossad-notch/audit/final-01-notch.txt (the grading verdict, in
+    Chinese), audit/welldef-verdict.md, audit/gate-t1.txt .. audit/gate-t4.txt and
+    audit/review-final-{strict,axioms}.out. What this directory carries instead is the
+    key-line extract of each of them (compile-log.txt, axioms.txt, this file), each
+    line quoted from the named source file, plus the claim lane's own mechanical
+    re-verifications. The note says the same thing in its Verification evidence
+    section; the originals are internal pipeline records and stay in the task
+    directory, which is not publicly retrievable and is not mirrored by this deposit.
+  - the phase0/ computation layer (enumeration, Berlekamp-Massey fitting, modular
+    probing scripts and the 24-row count table). It lives under the source task
+    directory in the AI4Math repository; the note labels every claim resting on it as
+    computed evidence, not machine-checked, so it is not needed to reproduce the
+    theorems. Its absence is stated in the note's Data availability section.
+  - any internal pipeline configuration, task cards or ledgers: the GitHub mirror step
+    of the upload checklist in the source repository
+    (claims/notchgrid-parity-mod/UPLOAD.md) pushes exactly the contents of this directory
+    tree and nothing else (constitution clause 6, plus research doc 03 section 3.4).

@@ -1,0 +1,89 @@
+# Compile / gate evidence, key lines -- notchgrid-parity-mod (claim package).
+# Every line is quoted OR TRANSLATED from a source-task gate file named in brackets. The
+# source records are written in Chinese, so a literal character-for-character quotation is
+# impossible for their Chinese prose: where a line below renders such a passage it is a
+# translation of the bracketed file's statement, not a transcription of its glyphs. Two
+# strings are kept verbatim in their original characters and are therefore not translations
+# -- the grade label 完全证明 (GATE 3 section) and the gate-2 marker WELLDEF OK (GATE 2
+# section). Nothing here was recomputed by the claim lane except the two cmp checks
+# recorded at the bottom.
+
+[GATE 2 -- well-definedness, tasks/20260927-mossad-notch/audit/welldef-verdict.md,
+ 2026-09-27]
+- verdict: WELL-DEFINED PASS (kernel hard adjudication); four gate-batch compiles
+  accept the statements (tasks/20260927-mossad-notch/audit/gate-t1.txt ..
+  tasks/20260927-mossad-notch/audit/gate-t4.txt), auditor re-run of the whole frozen file
+  also WELLDEF OK (tasks/20260927-mossad-notch/audit/recheck/welldef-full.txt). Those
+  paths are files of the source task directory in the source repository; none of them is
+  shipped with this deposit, and they are named here as the sources this extract was taken
+  from (see also diff-conclusion.txt, "What this package does NOT ship").
+- degeneracy: T1/T2/T3/T4 all NON-DEGENERATE -- 8 x 4 = 32 bare decision-procedure
+  probes all FAIL (decide included), plus an auditor-added ring re-run that FAILs;
+  for the composite moduli 8 and 4 the "restate over ZMod m and decide" route was
+  ruled circular (quantifying over the finite ring presupposes the periodicity).
+- false-proposition exclusion: both sequences re-derived from the frozen definitions
+  agree with phase0/counts.txt on all 24 rows and both columns; T1-T4 true for
+  n = 0..80; periods 6 / 5 / 12 / 10 verified minimal there (computed, not formalized).
+- pre-flight #check 10/10 OK (Int.odd_iff exists).
+
+[GATE 3 -- final audit, tasks/20260927-mossad-notch/audit/final-01-notch.txt,
+ 2026-09-27]
+- verdict: PASS. Grade table, all four rows: a3_odd_iff = 完全证明,
+  a4_odd_iff = 完全证明, a3_mod8_periodic = 完全证明, a4_mod4_eq2_iff = 完全证明.
+  "Scaffold pass" does not apply (the audit states this explicitly).
+- (1) statement symmetric difference: 6 top-level declarations extracted
+  programmatically (2 definitions + 4 theorem headers), names and order identical,
+  6/6 character-for-character identical; the delivered file adds no top-level
+  statement (every auxiliary lemma is a have step inside a proof body).
+- (2) sorry/admit full-text scan (comments included): 0 hits; escape-hatch scan
+  (set_option, axiom, unsafe, implemented_by, extern, macro_rules, elab,
+  native_decide, decide!): 0 hits.
+- (3) strict re-compile of final/01-notch-proved.lean: EXIT 0, 0 errors, 320
+  deprecation warnings (if_neg 236 + if_pos 84), recorded as non-adjudicating.
+- (4) axiom re-print: EXIT 0, four theorems each exactly
+  [propext, Classical.choice, Quot.sound], no sorryAx (see axioms.txt in this
+  directory).
+
+[PROOF SEARCH, tasks/20260927-mossad-notch/attempts/]
+- rounds: probe-unfold, r1-t1, r2-t2, r3-t3 (skeleton / full / re-run), r4-t4,
+  final-strict, final-axioms = 9 compiles, 0 failed rounds, no weakening and no
+  route change used.
+- LLM sampling for proof search: 0. The four proofs follow a skeleton already taken
+  through the kernel on a sibling task of the same selection pool, which the auditor
+  ruled NOT a downgrade (limitation L10 of the verdict).
+
+[BUDGET, tasks/20260927-mossad-notch/budget.log -- final water level, quoted]
+- llm-call 2 / 8   (both are autoformalization roundtrip re-translation calls on node
+  anthropic/a6api-main/kimi-k3; tokens in/out 1628/4000 truncated + 1628/1889 complete)
+- Lean compile 17 / 24   (gate 2: 6, proof search: 9, final audit re-runs: 2)
+- This claim-note stage: llm-call 0 of 4, LaTeX compile 9 of a cap of 10 (rounds 1-6
+  under the original cap of 6, which the user raised to 9 on 2026-09-28 for the rework
+  done after the gate-3 audit, and raised again to 10 the same day), Lean compile 0.
+  The tenth round is reserved for the DOI backfill alone and has not been used: it
+  stays reserved until the user starts it (constitution clause 5), so the note still
+  carries the "DOI to be reserved at upload" wording.
+
+[CLAIM-LANE VERIFICATION RE-RUNS, 2026-09-28, by this worker]
+- cmp tasks/20260927-mossad-notch/audit/review-final-strict.out
+    vs tasks/20260927-mossad-notch/attempts/final-strict.out      -> identical
+- cmp tasks/20260927-mossad-notch/audit/review-final-axioms.out
+    vs tasks/20260927-mossad-notch/attempts/final-axioms.out      -> identical
+- sha256sum of the frozen statement and of the delivered development, recomputed at
+  claim time: 9a787b6b...6fb8 and 6f1a7440...db4aa, matching the audit record and the
+  values quoted in the note (full strings in diff-conclusion.txt).
+- LaTeX gate evidence for the shipped PDF itself: compile.txt (round table) plus the
+  nine raw logs compile-run1.log .. compile-run9.log in this directory. Rounds 7, 8 and 9
+  are the rework rounds that rendered the corrected note; rounds 1-6 rendered the version
+  the gate-3 audit read. The four gate-3 verdicts ship here as verbatim, unaltered copies:
+  claim-check.md (first round: not passed, five judgement-red findings F1-F5),
+  claim-recheck.md (second round: those five accepted, findings N1-N4 and leftovers L1-L6
+  raised) and claim-recheck2.md (third round: six findings F-a to F-f, all of them in the
+  bookkeeping / transcription / instruction layer, none of them needing a change to
+  claim.tex) and claim-recheck3.md (fourth round: five findings G1-G5, again all in the
+  bookkeeping / transcription / instruction layer, none of them needing a change to
+  claim.tex). The ninth round is the last one used: the cap is 10 and the tenth remains
+  reserved, so
+  the third- and fourth-round reworks ran on zero compile rounds and the claim.tex and claim.pdf shipped
+  in this deposit are byte-for-byte the round-9 artefacts (tex sha256
+  1287ae80b7fd3d89c831e68e8c187a8d3c82c8712a6a02530863395257c7d7dc, pdf
+  babece736bde4c9858cfe1d77acb1c31bf00877f508dc83a2e802cd2f6dcf7a8; recorded in compile.txt).

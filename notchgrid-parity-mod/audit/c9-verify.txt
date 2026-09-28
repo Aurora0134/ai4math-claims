@@ -1,0 +1,17 @@
+# c9-verify -- claims/notchgrid-parity-mod zenodo/audit/c9-record.md
+# method: each block of the assembled file is compared with the byte range
+#   `sed -n 'S,Ep'` of the source file it claims to quote, both for presence and
+#   for position right after its own provenance marker (so nothing can be inserted
+#   inside a quoted block).
+# executor: dept-paper claim lane, 2026-09-28, via logs/notchgrid-claim-c9.py verify (repository-internal helper script under logs/, not shipped with this deposit);
+#   the chunk-G.md / mossad-50.md blocks it re-verifies live under tasks/ and harness/ in
+#   the source repository (likewise not shipped) -- this deposit carries the assembled
+#   record itself as audit/c9-record.md.
+PASS B1 (chunk-G.md lines 5-10, 473 bytes) : verbatim-in-source=True byte-position-match=True
+PASS B2 (chunk-G.md lines 35-59, 3130 bytes) : verbatim-in-source=True byte-position-match=True
+PASS B3 (chunk-G.md lines 61-84, 1861 bytes) : verbatim-in-source=True byte-position-match=True
+PASS B4 (chunk-G.md lines 116-117, 326 bytes) : verbatim-in-source=True byte-position-match=True
+PASS B5 (chunk-G.md lines 122-122, 257 bytes) : verbatim-in-source=True byte-position-match=True
+PASS B6 (mossad-50.md lines 26-33, 680 bytes) : verbatim-in-source=True byte-position-match=True
+PASS B7 (mossad-50.md lines 35-42, 546 bytes) : verbatim-in-source=True byte-position-match=True
+ALL 7 BLOCKS BYTE-IDENTICAL TO THEIR SOURCE LINE RANGES

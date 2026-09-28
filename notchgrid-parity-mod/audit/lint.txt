@@ -1,0 +1,107 @@
+# lint -- claims/notchgrid-parity-mod/claim.tex (SOP 08b quality gate 1)
+# command: bash scripts/paper-lint.sh claims/notchgrid-parity-mod/claim.tex
+#          (MUST be run from the repository root: judgement 7 checks that the task
+#           directory named in every "% LEAN:" anchor exists, and it resolves that
+#           path relative to the current working directory)
+# executor: dept-paper claim lane, 2026-09-28
+# adjudicator: scripts/paper-lint.sh (static gate set: environment balance | lstlisting
+#   balance and self-closing | sorry/admit inside listings | non-ASCII outside
+#   listings/inline/comments | leftover template placeholders (TODO/FIXME/XXX/<<) |
+#   required sections (Introduction / Data availability / generative AI / Limitations) |
+#   % LEAN anchors (task dir exists, grade = 完全证明) | \cite keys subset of \bibitem keys)
+# runs: 11. (This count was corrected in place from "7" during the gate-3 third-round
+#   bookkeeping pass, which changes no judgement and is disclosed in the run-11 block
+#   below rather than left silent; the run blocks themselves are append-only and none of
+#   them was rewritten.) Six runs during authoring (initial 12-listing draft; after the Theorem 4
+#   re-typesetting; after the content rewrite and re-injection; after the table/hash
+#   layout fixes; after the listing count 8 -> 7; final pre-packaging run) -- all PASS,
+#   no red light had to be chased. The 7th run is a deliberately recorded NEGATIVE
+#   CONTROL, kept here because it is the evidence that the "run from the repository
+#   root" instruction is not decoration. Runs 8-10 followed the gate-3 rework tex edits
+#   (compile rounds 7 and 8) and the N1 edit (compile round 9). Run 11, at the bottom, is
+#   the zero-compile-round re-run for the gate-3 third-round bookkeeping rework: it exists
+#   to demonstrate that that rework edited no tex at all, so its file hash must be and is
+#   identical to run 10's.
+
+## run 7a, from inside claims/notchgrid-parity-mod/ (wrong cwd) -- NEGATIVE CONTROL
+RED: 锚点任务目录不存在: tasks/20260927-mossad-notch
+RED: 锚点任务目录不存在: tasks/20260927-mossad-notch
+RED: 锚点任务目录不存在: tasks/20260927-mossad-notch
+RED: 锚点任务目录不存在: tasks/20260927-mossad-notch
+FAIL: paper-lint 有红灯 (claim.tex)
+exit=2
+# exactly the four anchor judgements fired; every other judgement still passed.
+
+## run 7b, from the repository root (the required invocation)
+PASS: paper-lint 全绿 (claims/notchgrid-parity-mod/claim.tex)
+exit=0
+
+# Anchor inventory as seen by judgement 7 (four body theorems, all grade 完全证明,
+# all pointing at the real source task directory tasks/20260927-mossad-notch/):
+%   a3_odd_iff        grade=完全证明
+%   a4_odd_iff        grade=完全证明
+%   a3_mod8_periodic  grade=完全证明
+%   a4_mod4_eq2_iff   grade=完全证明
+
+## run 8, after the gate-3 rework edits (F1/F2/F3/F4-wording/F5), from the repository root
+PASS: paper-lint 全绿 (claims/notchgrid-parity-mod/claim.tex)
+exit=0
+# Recorded against the round-7 rendering of the file (claim.tex sha256
+# ad21d0034f3f0489c5bbef61c704384ac6ab74db8a15c183a2109dec522b9db6). claim.tex was edited
+# once more after that compile -- the printed-text `first` fix described in
+# audit/compile.txt round 8 -- so run 9 below, not this one, is the lint record of the
+# shipped file.
+
+## run 9, from the repository root (the shipped file)
+PASS: paper-lint 全绿 (claims/notchgrid-parity-mod/claim.tex)
+exit=0
+# The rework edits touched prose only: no listing body, no "% LEAN:" anchor line, and no
+# \lean{} identifier added or removed (the ones the new prose mentions already resolve in
+# the artifact -- audit/lean-idents.txt). claim.tex received no edit after this run, so
+# this is the lint record of the shipped file: sha256
+#   25b64939a3061b001990041a9436e66cabcb0ec0402863a18043e4f73beb046e
+# identical to zenodo/claim/claim.tex after the package resync (cmp-verified), and the
+# file that zenodo/claim/claim.pdf was rendered from at compile round 8.
+
+## run 10, from the repository root (compile round 9 / N1 correction), the shipped file
+PASS: paper-lint 全绿 (claims/notchgrid-parity-mod/claim.tex)
+exit=0
+# Round 9 changed two sentences of the printed text only (the Data availability pointer to
+# UPLOAD.md, and the round number in the "Use of generative AI" disclosure), so the lint
+# record of the shipped file is this run: claim.tex sha256
+#   1287ae80b7fd3d89c831e68e8c187a8d3c82c8712a6a02530863395257c7d7dc
+# identical to zenodo/claim/claim.tex (cmp-verified) and the file claim.pdf
+#   babece736bde4c9858cfe1d77acb1c31bf00877f508dc83a2e802cd2f6dcf7a8
+# was rendered from in round 9. Runs 1-9 above are kept unaltered; run 9 recorded the
+# round-8 file that the second audit round read (sha256 25b64939...046e), now superseded.
+
+## run 11, from the repository root (gate-3 third-round bookkeeping rework; NO tex edit)
+PASS: paper-lint 全绿 (claims/notchgrid-parity-mod/claim.tex)
+exit=0
+# Purpose of this run: the third rework round consumes zero LaTeX compile rounds (the cap
+# of 9 is reached exactly and the user has not authorized a tenth), so the only way to show
+# that claim.tex was not touched is to re-run the static gate and compare hashes. Result:
+# claim.tex sha256
+#   1287ae80b7fd3d89c831e68e8c187a8d3c82c8712a6a02530863395257c7d7dc
+# -- byte-for-byte the file run 10 recorded, and still cmp-identical to
+# zenodo/claim/claim.tex. claim.pdf is likewise unchanged
+#   babece736bde4c9858cfe1d77acb1c31bf00877f508dc83a2e802cd2f6dcf7a8
+# (128,188 bytes, the render of round 9). The six findings closed in this round
+# (F-a to F-f of audit/claim-recheck2.md) all live in the bookkeeping / transcription /
+# instruction layer; none of them needed a tex change, and none was made.
+# Header note: the "# runs:" line above was corrected from 7 to 11 in place during this
+# same round. No run block was rewritten; runs 1-10 stand as first recorded.
+
+## run 12, from the repository root (gate-3 fourth-round bookkeeping rework; NO tex edit)
+PASS: paper-lint 全绿 (claims/notchgrid-parity-mod/claim.tex)
+exit=0
+# Purpose: the fourth rework round consumes zero LaTeX compile rounds -- the tenth round
+# remains reserved for the DOI backfill (user authorization budget-auth-3; the run-11
+# parenthetical saying "the cap of 9 is reached exactly and the user has not authorized a
+# tenth" was true when written and is superseded by this line, not rewritten in place).
+# Result: claim.tex sha256
+#   1287ae80b7fd3d89c831e68e8c187a8d3c82c8712a6a02530863395257c7d7dc
+# -- unchanged, and still cmp-identical to zenodo/claim/claim.tex; claim.pdf unchanged
+#   babece736bde4c9858cfe1d77acb1c31bf00877f508dc83a2e802cd2f6dcf7a8 (128,188 bytes, 12 pages).
+# The five findings closed in this round (G1 to G5 of audit/claim-recheck3.md) all live in the
+# bookkeeping / transcription layer; none needed a tex change, and none was made.

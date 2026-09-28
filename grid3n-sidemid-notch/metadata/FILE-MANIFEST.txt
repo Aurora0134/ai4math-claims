@@ -1,0 +1,27 @@
+# FILE-MANIFEST.txt -- sha256  bytes  path (relative to this package root)
+# Generated 2026-09-28 by audit/build-manifest.py (AI-generated). Every file
+# of the deposit is listed except this manifest itself; a publication check
+# re-hashes this list before any outbound act. rows = 21 ; deposit = 22 files
+# rows = 22 ; deposit = 23 files (manifest self included)
+801f05a1e976b5f815f2e9b93527be95f31b11db615d5818e83dbbe272e21675  56  audit/axioms-asid_interleave.txt
+4861d381328c3f2addec02b33d3b4fcfe64c6417b9223ad9a9b7273721f44841  58  audit/axioms-asid_mod2_period3.txt
+97a38d7e0f8bb97ee4d50f5ea8b07dc4db11f8ac2eeffa45f9ce7ac7208430e5  59  audit/axioms-asid_mod4_period12.txt
+bba53856fbb6aa9503428643d3030408a0a072e4ef0fb54b2fa1491ddfcde4d7  5554  audit/build-c9-record.py
+102fdc061dbef3f48b87a6fbeaf26c3029aa686994d1ca34a6a0bb3d56c06a34  2097  audit/build-manifest.py
+05b1261a088a69e22a2bf3bc944443fadd830bace56f48da52807912c13fd307  8004  audit/c9-record.md
+c5307977a2fb3933b060525d8f532a793de5106adb6fc4424659b626bd39a365  8215  audit/claim-check.md
+6bbdf9ef8a259b82c0277bdfb2c112a9e0a45e44012a9137b321d2862f0ecef9  2697  audit/compile.txt
+82df17000dd55eec7c7945f3c36541d3149e963a887243b5688ca03182074409  7702  audit/final-comb08-sidemid.txt
+270cb7f2d2c7a6761f03e8c0208f5b9e6ea24cdb9b85cca61cc319547fd0bd3f  7624  audit/inspect-tex.py
+ecf8439304df0e2ebbc361f343563639f184b464feb1bc699b81056d1a55265a  64  audit/lint.txt
+061939400ad678dcdc8379733002e7bb2981069b94a830c0c7f80feca7d799a4  1526  audit/listing-verify.txt
+8ee3b9ea7f950091a9e60119e7cb2256aa91d0d7379dcf05624b3001d90f609b  32461  audit/sanitize-package.py
+54e4488fb441dd83e3336709d4f5534ebb8ae516d53a6874e0f4eb588b8a3fb5  207  audit/sanitize-package.txt
+72af939b1b0551ba6d1ffaf02b607804484af446c6b205e6971a9023d04e15ad  179867  claim/claim.pdf
+f2f195c42d79ca7aec1e387412340d95281dfde22f2c74875d47237a70fb959c  40371  claim/claim.tex
+46f81550e32639cac8634af66e948d856a8a49945bca3b319ba460a861792186  7569  claim/lstlean.tex
+f793922f6b4af6fffee0c38b5656d239adc38e6d304468c2907125f8c608f239  8752  metadata/README.md
+fbd861a74894d6734a55edb7fc0b888f151409d6fdec2a277a4e5d2d7c42332c  5212  metadata/zenodo.json
+19b5c3908592a529491e0b5b40b6b26166019d92820447b41a70ada510a20821  10797  proofs/01-comb08-sidemid-proved.lean
+5fe889d5ed92711a86f23d9827800dd7d2c677a440664f0d81dbdb5e9eb39e67  4869  proofs/01-comb08-sidemid-statements.lean
+8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632  25  proofs/lean-toolchain

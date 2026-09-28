@@ -1,0 +1,106 @@
+================================================================
+AI4Math 监察院 · 终态审计裁决书（闸门三 / SOP 05）
+================================================================
+任务线：comb08-sidemid（pool-comb-08；3×n 网格删右列中点全匹配数，六阶稀疏递推）
+审计对象：
+  - 终稿：tasks/20260928-comb08-sidemid/final/01-comb08-sidemid-proved.lean
+  - 冻结快照：tasks/20260928-comb08-sidemid/formalized/01-comb08-sidemid-statements.statement.txt
+审计执行：监察院终审工人（comb-08-终审，本会话派发兜底，未调用任何 LLM）
+节点快照：anthropic/a6api-main/kimi-k3（会话节点，model-detect L2 取证 2026-09-28；同日漂移观测已在任务卡披露）
+审计日期：2026-09-28
+
+----------------------------------------------------------------
+一、statement 对称差比对（宪条 2）——PASS
+----------------------------------------------------------------
+方法：python 提取两文件的全部 def/theorem 声明头部（剥除块注释 /- -/ 与行注释 -- 后，
+以空白折叠做逐字节比对；声明头取到该声明第一个 := 为止）。
+
+快照 8 项声明头部比对结果（全部逐字一致）：
+  [header-identical] asid               def asid : ℕ → ℤ | 0 => 1 | 1 => 8 | 2 => 46 | 3 => 295 | 4 => 1814 | 5 => 11306 | n + 6 => 4 * asid (n + 5) + 14 * asid (n + 4) - 10 * asid (n + 2) + asid n
+  [header-identical] osid               def osid : ℕ → ℤ | 0 => 1 | 1 => 46 | 2 => 1814 | 3 => 70161 | 4 => 2708104 | 5 => 104507480 | k + 6 => 44 * osid (k + 5) - 216 * osid (k + 4) + 282 * osid (k + 3) - 128 * osid (k + 2) + 20 * osid (k + 1) - osid k
+  [header-identical] esid               def esid : ℕ → ℤ | 0 => 8 | 1 => 295 | 2 => 11306 | 3 => 435986 | 4 => 16823455 | 5 => 649209736 | k + 6 => 44 * esid (k + 5) - 216 * esid (k + 4) + 282 * esid (k + 3) - 128 * esid (k + 2) + 20 * esid (k + 1) - esid k
+  [header-identical] pat3               def pat3 : ℕ → ℤ | 0 => 1 | _ => 0
+  [header-identical] pat12              def pat12 : ℕ → ℤ | 0 => 1 | 1 => 0 | 2 => 2 | 3 => 3 | 4 => 2 | 5 => 2 | 6 => 1 | 7 => 2 | 8 => 0 | 9 => 3 | 10 => 0 | _ => 0
+  [header-identical] asid_interleave    theorem asid_interleave (k : ℕ) : asid (2 * k) = osid k ∧ asid (2 * k + 1) = esid k
+  [header-identical] asid_mod2_period3  theorem asid_mod2_period3 (n r : ℕ) (hr : n % 3 = r) : asid n % 2 = pat3 r
+  [header-identical] asid_mod4_period12 theorem asid_mod4_period12 (n r : ℕ) (hr : n % 12 = r) : asid n % 4 = pat12 r
+
+差异说明：三定理在快照中 proof body 为 sorry 占位，final 中为实际证明——差异仅在 body，
+声明头部逐字一致。final 另含两条快照没有的辅助引理（asid_shift、asid_evenlag12），
+属 proof body 新增脚手架，不改变任何冻结 statement 文本。
+
+结论：statement 未篡改。PASS。
+
+----------------------------------------------------------------
+二、严格编译复跑（宪条 1，kernel 唯一裁判）——PASS
+----------------------------------------------------------------
+命令：bash scripts/lean-verify tasks/20260928-comb08-sidemid/final/01-comb08-sidemid-proved.lean
+结果：EXIT=0，stderr 无任何诊断输出（无 compile error、无 warning 输出）。
+口径：lean-verify 严格模式 = 退出码 0 ∪ 无 "error:" ∪ 文件无 sorry/admit 文本。
+旁证：主链同命令复跑记录见 budget.log「Lean 编译 18/32」行；其诊断文件
+final/01-comb08-sidemid-proved.strict.log 为 0 字节（无诊断=干净编译，与 EXIT=0 一致）。
+
+----------------------------------------------------------------
+三、sorry/admit grep 双保险（宪条 3）——PASS
+----------------------------------------------------------------
+命令：grep -nE '\bsorry\b|\badmit\b' tasks/20260928-comb08-sidemid/final/01-comb08-sidemid-proved.lean
+结果：grep exit 1（零命中，含注释全文）。
+
+----------------------------------------------------------------
+四、公理审计（宪条 3，白名单 {propext, Quot.sound, Classical.choice} 子集）——PASS
+----------------------------------------------------------------
+主链产物复核（audit/axioms-*.txt，主链 gate-batch --axioms 记录）：
+  axioms-asid_interleave.txt    : AXIOMS asid_interleave [propext, Quot.sound]
+  axioms-asid_mod2_period3.txt  : AXIOMS asid_mod2_period3 [propext, Quot.sound]
+  axioms-asid_mod4_period12.txt : AXIOMS asid_mod4_period12 [propext, Quot.sound]
+
+本终审独立抽查（不采信主链自报）：按 SOP 05「编译与公理审计合并为一次编译」条款，
+生成 audit/final-axioms-probe.lean = final 终稿逐字副本 + 尾部三条 #print axioms，
+在 verify-proj 下以与 lean-verify 相同的 lake env lean 路径编译：
+  输出：
+    'asid_interleave' depends on axioms: [propext, Quot.sound]
+    'asid_mod2_period3' depends on axioms: [propext, Quot.sound]
+    'asid_mod4_period12' depends on axioms: [propext, Quot.sound]
+  EXIT=0。
+sorryAx：零出现（三条均无）。Classical.choice：未出现（仍属白名单子集内）。
+三条主定理公理均恰为白名单子集。PASS。
+
+----------------------------------------------------------------
+五、结论分级（取实际达到的最低级）
+----------------------------------------------------------------
+完全证明。
+依据：① statement 未动（8/8 头部逐字一致）；② 严格编译 EXIT=0；③ 0 sorry / 0 admit；
+④ 三条主定理公理恰 [propext, Quot.sound]（白名单子集，无 sorryAx）。
+三条定理全部证到，无未证名单，无降级、无附加假设。
+措辞边界（宪条 4）：本分级仅覆盖 Lean 层命题（纯序列交织/模余数恒等式）的证明闭环；
+命题的组合语义（3×n 网格删右列中点全匹配数）映射由 phase0 三法互证与报告层承担，
+不因本闸门通过而自动成立，报告措辞不得越级。
+
+----------------------------------------------------------------
+六、复现命令清单
+----------------------------------------------------------------
+1. statement 头部对称差比对：
+   python（剥 /- -/ 与 -- 注释 → 空白折叠 → 按 def/theorem 关键字切声明 → 头部逐字节比对）
+   输入：final/01-comb08-sidemid-proved.lean vs formalized/01-comb08-sidemid-statements.statement.txt
+2. 严格编译：
+   bash scripts/lean-verify tasks/20260928-comb08-sidemid/final/01-comb08-sidemid-proved.lean
+   （期望 EXIT=0、无诊断）
+3. sorry/admit 双保险：
+   grep -nE '\bsorry\b|\badmit\b' tasks/20260928-comb08-sidemid/final/01-comb08-sidemid-proved.lean
+   （期望零命中）
+4. 公理独立抽查：
+   lake env lean tasks/20260928-comb08-sidemid/audit/final-axioms-probe.lean
+   （在 verify-proj 下执行；期望三条 [propext, Quot.sound]、EXIT=0）
+
+----------------------------------------------------------------
+七、限定语
+----------------------------------------------------------------
+- 本审计只做 SOP 05 四项机械检查；未重跑 phase0 数值互证、未审 report.md 措辞分级。
+- 辅助引理 asid_shift / asid_evenlag12 的公理由主链探针核验（budget.log「Lean 编译 11/32」
+  行记录二者恰 [propext, Quot.sound]）；本终审抽查仅对三条主定理追加 #print axioms。
+- 本部门未调用任何 LLM；全部判定以上述可复现命令输出为准。
+- 主链严格编译与公理审计已独立跑过（budget.log 18/32 行、audit/axioms-*.txt），
+  本文件为完整复核，二者结论一致。
+
+裁决：闸门三通过。分级 = 完全证明。
+================================================================

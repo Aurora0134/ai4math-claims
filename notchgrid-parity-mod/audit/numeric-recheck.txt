@@ -1,0 +1,39 @@
+# numeric-recheck -- claims/notchgrid-parity-mod (claim lane, 2026-09-28)
+# executor: dept-paper claim lane worker (Qoder desktop session, 0 LLM calls)
+# purpose: the note prints four residue tables and quotes computed windows; they are
+#   re-derived here from the two recurrences TAKEN AS DEFINITIONS (coefficients and
+#   initial values read off the artifact listing of defs a3 / a4), independently of
+#   the source task's phase0 scripts and of the paper lane's own recheck.
+# note: this is computed evidence, not machine-checked content; none of these numbers
+#   upgrades the combinatorial reading into a theorem.
+
+def a3: 2, 10, 67, 407, 2546 ; a3(n) = 5 a3(n-1) + 9 a3(n-2) - 9 a3(n-3) - a3(n-4) + a3(n-5)
+def a4: 3, 32, 407, 4840, 58608, 705949, 8515850, 102684287, 1238310540 ;
+        a4(n) = 9 a4(n-1) + 41 a4(n-2) - 41 a4(n-3) - 111 a4(n-4) + 91 a4(n-5)
+                + 29 a4(n-6) - 23 a4(n-7) - a4(n-8) + a4(n-9)
+iteration range: n <= 401
+
+a3 mod 2 period 6 : [0, 0, 1, 1, 0, 0]                -> MATCHES the table in claim.tex
+a4 mod 2 period 5 : [1, 0, 1, 0, 0]                   -> MATCHES the table in claim.tex
+a3 mod 8 period 12: [2, 2, 3, 7, 2, 6, 0, 0, 7, 7, 0, 0] -> MATCHES
+a4 mod 4 period 10: [3, 0, 3, 0, 0, 1, 2, 3, 0, 0]    -> MATCHES
+
+T1  a3(n) odd  <=> n % 6 in {2,3}      pointwise true for all n <= 401
+T2  a4(n) odd  <=> n % 5 in {0,2}      pointwise true for all n <= 401
+T3  a3(n+12) = a3(n) mod 8             pointwise true for all n <= 389
+T4  a4(n) = 2 mod 4 <=> n % 10 = 6     pointwise true for all n <= 401
+
+minimal periods detected by scan (computed, NOT formalized):
+    a3 mod 2 -> 6 ; a4 mod 2 -> 5 ; a3 mod 8 -> 12 ; a4 mod 4 -> 10
+    (consistent with the gate-2 verdict "periods 6/5/12/10 verified minimal" and
+     with L7 of the audit; the note says explicitly that minimality is computed and
+     that T3 asserts periodicity WITH period 12, not minimality)
+
+sequence heads vs the query strings recorded in zenodo/audit/c9-record.md:
+    a3 first 8 = 2, 10, 67, 407, 2546, 15782, 98104, 609304
+                 == MAT-3NOTCH submitted head (chunk-G, 逐字抄录 段) -> MATCH
+    a4 first 6 = 3, 32, 407, 4840, 58608, 705949
+                 == MAT-4NOTCH submitted head                        -> MATCH
+
+VERDICT: every number printed in the claim note that is not lifted verbatim from the
+Lean artifact reproduces from the definitions by independent recomputation.

@@ -1,0 +1,12 @@
+# <label> <artifact sed range start-end> (01-notch-proved.lean)
+# written by logs/notchgrid-claim-listings.py inject (repository-internal helper script under logs/, not shipped with this deposit)
+# note: the lst:t1main block (35-45) injected at drafting time was dropped in the
+# layout pass (compile round 5, page-count trim); this file lists the 7 blocks that
+# the shipped claim.tex actually contains, and verify/frozen below re-run against it.
+a3def 24-31
+a4def 151-163
+t1 34-34
+t2 166-166
+t3 122-122
+t4 281-281
+t3proof 123-144

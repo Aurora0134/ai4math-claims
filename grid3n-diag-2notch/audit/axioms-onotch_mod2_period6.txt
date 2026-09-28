@@ -1,0 +1,2 @@
+WELLDEF OK
+AXIOMS onotch_mod2_period6 [propext, Quot.sound]

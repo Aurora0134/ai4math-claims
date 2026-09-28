@@ -1,0 +1,742 @@
+% claim.tex -- AI4Math claim of record (AI-generated, 2026-09-28; instantiated
+% from harness/templates/claim/claim.tex per SOP 08b).
+% Machine-readable theorem anchors are the "% LEAN:" lines; scripts/paper-lint.sh
+% and the claim audit check them. All Lean listings are verbatim, byte-identical
+% contiguous excerpts of frozen artifacts of tasks/20260928-comb08-sidemid:
+%   statements  : formalized/01-comb08-sidemid-statements.lean (109 lines, sha256 5fe889d5...)
+%   proof bodies: final/01-comb08-sidemid-proved.lean    (238 lines, sha256 19b5c390...)
+% Line ranges used: statement 28-39, 41-74, 77-86, 89-108; final 80-115, 117-142,
+% 144-159, 163-182 -- the same eight blocks the paper package verified byte-exact;
+% bodies were injected by script (audit/inspect-tex.py --splice), never hand-copied.
+% Verification: audit/listing-verify.txt (audit/inspect-tex.py --verify).
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\input{lstlean}
+\lstset{language=lean}
+
+% --- local rendering patch (2026-09-28) ---
+% tectonic/XeTeX does not apply the listings literate table to multi-byte
+% characters, so the Unicode set used by the listings of THIS note is mapped to
+% math glyphs as active characters via the standard \lccode/\lowercase idiom
+% (ASCII-only source, no extra packages). Same block as the paper package of
+% this result: the template block plus the four code points that occur in the
+% frozen comb08-sidemid sources but are absent from the template patch
+% (2212 21A6 2208 27FA). Restricted to symbols outside xeCJK's own punctuation
+% table: 00B7, 2014, 3002 and the fullwidth forms also occur in the frozen
+% sources but are special punctuation that xeCJK sets up at load time -- making
+% them active first aborts the run with "Control sequence ... already defined"
+% (observed 2026-09-27/28); those route through xeCJK + SimSun instead.
+% Rendering only: listing source bytes are untouched, so the byte-exactness
+% checks are unaffected, and the \ifdefined guard leaves the pdflatex path
+% identical to the template.
+\ifdefined\XeTeXversion
+  {\lccode`\~="2022 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\bullet}}}}
+  {\lccode`\~="2115 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{N}}}}}
+  {\lccode`\~="2124 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{Z}}}}}
+  {\lccode`\~="2190 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftarrow}}}}
+  {\lccode`\~="2192 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rightarrow}}}}
+  {\lccode`\~="2194 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftrightarrow}}}}
+  {\lccode`\~="2200 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\forall}}}}
+  {\lccode`\~="2203 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\exists}}}}
+  {\lccode`\~="2227 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\wedge}}}}
+  {\lccode`\~="2228 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vee}}}}
+  {\lccode`\~="2261 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\equiv}}}}
+  {\lccode`\~="2264 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leq}}}}
+  {\lccode`\~="2265 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\geq}}}}
+  {\lccode`\~="22A2 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vdash}}}}
+  {\lccode`\~="27E8 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\langle}}}}
+  {\lccode`\~="27E9 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rangle}}}}
+  {\lccode`\~="2212 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{-}}}}
+  {\lccode`\~="21A6 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mapsto}}}}
+  {\lccode`\~="2208 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\in}}}}
+  {\lccode`\~="27FA \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\Longleftrightarrow}}}}
+\fi
+\ifdefined\XeTeXversion
+  \usepackage{xeCJK}
+  \setCJKmainfont{SimSun}
+\fi
+
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{conjecture}{Conjecture}
+
+\title{Tiling-count sequence of the $3\times n$ rectangle with a side-middle
+cell removed: interleave identity and parity/mod-4 laws\\ (Lean 4
+machine-checked claim of record)}
+\author{Aurora0134\thanks{Contact: via the GitHub account Aurora0134; ORCID
+placeholder, to be filled in by the author at Zenodo upload. No personal
+information is carried in this note.}}
+\date{September 28, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $a(n)$ count the domino tilings of a $3\times n$ rectangle with the
+middle cell of its last column removed. The sequence
+$1,8,46,295,1814,11306,\dots$ is defined by six seeds and the order-six sparse
+recurrence $a(n+6)=4a(n+5)+14a(n+4)-10a(n+2)+a(n)$. We state and
+machine-check, in Lean 4 (v4.34.0, mathlib v4.34.0), three theorems: the main
+sequence is the interleaving of its odd- and even-indexed subsequences, which
+satisfy one and the same order-six recurrence; $a(n)$ is odd if and only if
+$n\equiv 1\pmod 3$; and $a(n)\bmod 4$ depends only on $n\bmod 12$ with
+pattern $(1,0,2,3,2,2,1,2,0,3,0,0)$. Every proof compiles with no
+\texttt{sorry} and \texttt{\#print axioms} reports only \{propext,
+Quot.sound\}. Novelty adjudication: no occupying record found in three review
+rounds; value tier \emph{new sequence} --- the recurrence's order and
+coefficients are shared with A033506 and no novelty is claimed for them. The
+combinatorial identification is not kernel-proved and is stated as a
+conjecture. This note is a priority claim of record, not a full paper.
+\end{abstract}
+
+\section{Introduction}
+
+The object of this note is the tiling-count sequence of the $3\times n$
+rectangle with a side-middle cell removed: tiled by $1\times 2$ dominoes, the
+number of tilings is $a(n)$, and the sequence begins
+$1,8,46,295,1814,11306,70161,\dots$ for $n\ge 1$ (the matching-polynomial
+setting \cite{godsil-gutman}). Three pure-sequence theorems about it --- an
+interleave identity and two modular laws --- were produced by the AI4Math
+pipeline, in which LLM workers generate statements and proof scripts while the
+Lean 4 kernel is the sole adjudicator at every gate: statements are frozen by
+hash before proving, and a separate audit re-computes the symmetric
+difference, scans the whole file for \texttt{sorry}/\texttt{admit} including
+comments, and re-prints the axiom dependencies \cite{lean4,mathlib}.
+Verification strength is stated below verbatim. This note is a priority claim
+of record deposited so that a dated, citable public record exists ahead of any
+narrative paper; the fuller paper for the same theorems is prepared separately
+and will reference this deposit. No literature review is attempted here.
+
+\section{Statement}\label{sec:statement}
+
+Indexing conventions, locked on the source task: $0$-based in the Lean layer,
+$1$-based in the counting reading, through $A(n)=a(n+1)$, $O(k)=a(2k+1)$ and
+$E(k)=a(2k+2)$; the Lean sequences \lean{asid}, \lean{osid} and \lean{esid}
+are $A$, $O$ and $E$. The statements below are about sequences defined by
+literal initial values and integer-coefficient recurrences only; no graph
+object appears in the frozen statements. The main sequence is defined by six
+initial values and the order-six sparse recurrence
+\[
+  a(n+6)=4a(n+5)+14a(n+4)-10a(n+2)+a(n),
+\]
+whose signature $(4,14,0,-10,0,1)$ is the one registered for the undefected
+$3\times n$ grid, A033506 \cite{oeis-a033506}; nothing below depends on, and
+nothing below claims anything about, that sharing.
+
+\begin{lstlisting}[caption={The main sequence \texttt{asid}, verbatim from the frozen statement file \texttt{formalized}\allowbreak/\texttt{01-comb08-sidemid-statements.lean} (lines 28--39, sha256 \texttt{5fe889d5}).},label={lst:asid}]
+/-- **序列 asid（主列，六阶稀疏递推）**。
+初值 a(0..5) = 1, 8, 46, 295, 1814, 11306；
+递推 a(n+6) = 4·a(n+5) + 14·a(n+4) − 10·a(n+2) + a(n)（n ≥ 0；
+递推签名 (4,14,0,−10,0,1)，系数为 0 的滞后项按主列 def 口径省略不写）。 -/
+def asid : ℕ → ℤ
+  | 0 => 1
+  | 1 => 8
+  | 2 => 46
+  | 3 => 295
+  | 4 => 1814
+  | 5 => 11306
+  | n + 6 => 4 * asid (n + 5) + 14 * asid (n + 4) - 10 * asid (n + 2) + asid n
+\end{lstlisting}
+
+% LEAN: tasks/20260928-comb08-sidemid :: asid_interleave grade=完全证明
+\begin{theorem}[interleaving]\label{thm:interleave}
+For every $k\in\mathbb{N}$,
+\[
+  A(2k)=O(k)\qquad\text{and}\qquad A(2k+1)=E(k).
+\]
+In the $1$-based reading this is $a(2k+1)=o(k)$ and $a(2k+2)=e(k)$: the main
+sequence is the interleaving of its odd-indexed and even-indexed
+subsequences, and those two subsequences satisfy one and the same order-six
+recurrence.
+\end{theorem}
+
+\begin{lstlisting}[caption={Sequences \texttt{osid}, \texttt{esid} and the statement of Theorem~\ref{thm:interleave}, verbatim from the frozen statement file (lines 41--74, sha256 \texttt{5fe889d5}). The \texttt{:= by} at the end of the theorem line opens the proof body, which is given in Listing~\ref{lst:proof-t1}; the \texttt{sorry} placeholder of the frozen file is not part of the excerpt.},label={lst:stmt-t1}]
+/-- **序列 osid（1-based 奇位子列，六阶递推）**。
+初值 o(0..5) = 1, 46, 1814, 70161, 2708104, 104507480
+（= asid 在下标 0,2,4,6,8,10 处之值，即 a(1),a(3),a(5),a(7),a(9),a(11)）；
+递推 o(k+6) = 44·o(k+5) − 216·o(k+4) + 282·o(k+3) − 128·o(k+2) + 20·o(k+1) − o(k)（k ≥ 0）。 -/
+def osid : ℕ → ℤ
+  | 0 => 1
+  | 1 => 46
+  | 2 => 1814
+  | 3 => 70161
+  | 4 => 2708104
+  | 5 => 104507480
+  | k + 6 =>
+      44 * osid (k + 5) - 216 * osid (k + 4) + 282 * osid (k + 3)
+        - 128 * osid (k + 2) + 20 * osid (k + 1) - osid k
+
+/-- **序列 esid（1-based 偶位子列，六阶递推）**。
+初值 e(0..5) = 8, 295, 11306, 435986, 16823455, 649209736
+（= asid 在下标 1,3,5,7,9,11 处之值，即 a(2),a(4),a(6),a(8),a(10),a(12)）；
+递推 e(k+6) = 44·e(k+5) − 216·e(k+4) + 282·e(k+3) − 128·e(k+2) + 20·e(k+1) − e(k)（k ≥ 0）。 -/
+def esid : ℕ → ℤ
+  | 0 => 8
+  | 1 => 295
+  | 2 => 11306
+  | 3 => 435986
+  | 4 => 16823455
+  | 5 => 649209736
+  | k + 6 =>
+      44 * esid (k + 5) - 216 * esid (k + 4) + 282 * esid (k + 3)
+        - 128 * esid (k + 2) + 20 * esid (k + 1) - esid k
+
+/-- **T1（主攻）**：主列六阶递推 = 两条同系数六阶子列的交织——
+对一切 k，asid (2k) = osid k 且 asid (2k+1) = esid k。 -/
+theorem asid_interleave (k : ℕ) :
+    asid (2 * k) = osid k ∧ asid (2 * k + 1) = esid k := by
+\end{lstlisting}
+
+% LEAN: tasks/20260928-comb08-sidemid :: asid_mod2_period3 grade=完全证明
+\begin{theorem}[modulo $2$ pattern]\label{thm:mod2}
+For every $n\in\mathbb{N}$ and every $r$ with $n\bmod 3=r$,
+\[
+  A(n)\bmod 2=P_3(r),\qquad P_3(0)=1,\quad P_3(r)=0\ \text{for }r\neq 0.
+\]
+In the $1$-based convention: $a(n)$ is odd if and only if $n\equiv
+1\pmod 3$.
+\end{theorem}
+
+\begin{lstlisting}[caption={Pattern \texttt{pat3} and the statement of Theorem~\ref{thm:mod2}, verbatim from the frozen statement file (lines 77--86, sha256 \texttt{5fe889d5}).},label={lst:stmt-t2}]
+/-- **余数样式 pat3**：0↦1，其余↦0
+（mod 2 余数 0-based 口径：asid n 为奇 ⟺ n ≡ 0 (mod 3)）。 -/
+def pat3 : ℕ → ℤ
+  | 0 => 1
+  | _ => 0
+
+/-- **T2（伴随）**：asid 的 mod 2 余数仅依赖 n mod 3，样式为 pat3
+（即 asid n 为奇 ⟺ n ≡ 0 (mod 3)；1-based 口径 = a(n) 为奇 ⟺ n ≡ 1 (mod 3)）。 -/
+theorem asid_mod2_period3 (n r : ℕ) (hr : n % 3 = r) :
+    asid n % 2 = pat3 r := by
+\end{lstlisting}
+
+% LEAN: tasks/20260928-comb08-sidemid :: asid_mod4_period12 grade=完全证明
+\begin{theorem}[modulo $4$ pattern]\label{thm:mod4}
+For every $n\in\mathbb{N}$ and every $r$ with $n\bmod 12=r$,
+\[
+  A(n)\bmod 4=P_{12}(r),
+\]
+where $P_{12}$ on the residues $0,\dots,11$ is
+$(1,0,2,3,2,2,1,2,0,3,0,0)$. In the $1$-based convention: $a(n)\bmod 4$
+depends only on $n\bmod 12$, with the same pattern along the residues
+$1,\dots,12$. The theorem implies Theorem~\ref{thm:mod2}: the odd values
+occur exactly at the residues $0,3,6,9$ modulo $12$, that is, at
+$n\equiv 0\pmod 3$ in the $0$-based reading.
+\end{theorem}
+
+\begin{lstlisting}[caption={Pattern \texttt{pat12} and the statement of Theorem~\ref{thm:mod4}, verbatim from the frozen statement file (lines 89--108, sha256 \texttt{5fe889d5}).},label={lst:stmt-t3}]
+/-- **余数样式 pat12**（12 留数类 ↦ mod 4 余数）：
+0↦1, 1↦0, 2↦2, 3↦3, 4↦2, 5↦2, 6↦1, 7↦2, 8↦0, 9↦3, 10↦0, 11↦0。 -/
+def pat12 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 0
+  | 2 => 2
+  | 3 => 3
+  | 4 => 2
+  | 5 => 2
+  | 6 => 1
+  | 7 => 2
+  | 8 => 0
+  | 9 => 3
+  | 10 => 0
+  | _ => 0
+
+/-- **T3（伴随）**：asid 的 mod 4 余数仅依赖 n mod 12，样式为 pat12
+（蕴含 T2：奇值恰在 n%12 ∈ {0,3,6,9} ⟺ n ≡ 0 (mod 3)）。 -/
+theorem asid_mod4_period12 (n r : ℕ) (hr : n % 12 = r) :
+    asid n % 4 = pat12 r := by
+\end{lstlisting}
+
+\begin{conjecture}[combinatorial bridge, not proved here]\label{conj:bridge}
+For every $n\ge 1$, $A(n-1)=a(n)$, where $a$ counts the matchings (including
+the empty one) of the graph obtained from the $3\times n$ grid by deleting
+the middle vertex of the last column.
+\end{conjecture}
+
+\section{Proof}\label{sec:proof}
+
+All proofs share one skeleton: strong induction on the index
+(\lean{Nat.strong_induction_on}), the seed window discharged as literal cases
+by \texttt{interval\_cases} plus \texttt{decide}, one definitional unfolding
+of the recurrence in the inductive step (\texttt{simp only [asid]} followed
+by \texttt{omega}), and residue-class case analysis by \texttt{mod\_cases}
+where the goal branches on a residue. The auxiliary twelve-step even-lag
+identity \lean{asid_evenlag12} (Listing~\ref{lst:proof-aux}) is what makes
+the term-by-term matching in the interleave proof possible; its complete
+proof, together with the one-step unfolding \lean{asid_shift} it builds on, is
+reproduced verbatim below. The complete proofs of
+Theorems~\ref{thm:interleave} and \ref{thm:mod2} follow verbatim; for
+Theorem~\ref{thm:mod4} the statement, the induction skeleton and the first of
+the twelve \texttt{mod\_cases} branches are excerpted --- the remaining eleven
+branches are identical in shape (lines 183--237 of the final file) and the
+complete $238$-line file ships in this deposit under \texttt{proofs/}.
+
+\begin{lstlisting}[caption={The auxiliary lemmas \texttt{asid\_shift} and \texttt{asid\_evenlag12} with complete proofs, verbatim from \texttt{final}\allowbreak/\texttt{01-comb08-sidemid-proved.lean} (lines 80--115, sha256 \texttt{19b5c390}). These two declarations are proof-body scaffolding added after the freeze and therefore do not occur in the frozen statement file.},label={lst:proof-aux}]
+/-- 辅助：asid 单步展开（t+6 形）。 -/
+theorem asid_shift (t : ℕ) :
+    asid (t + 6) = 4 * asid (t + 5) + 14 * asid (t + 4) - 10 * asid (t + 2) + asid t := by
+  simp only [asid]
+
+/-- 辅助：12 阶偶滞后恒等式 asid(m+12) = 44·asid(m+10) − 216·asid(m+8) + 282·asid(m+6)
+− 128·asid(m+4) + 20·asid(m+2) − asid(m)。全级联展开到基 asid(m..m+5) 后 ring 闭合。 -/
+theorem asid_evenlag12 (m : ℕ) :
+    asid (m + 12) = 44 * asid (m + 10) - 216 * asid (m + 8) + 282 * asid (m + 6)
+      - 128 * asid (m + 4) + 20 * asid (m + 2) - asid m := by
+  rw [show m + 12 = (m + 6) + 6 by ring, asid_shift (m + 6),
+      show m + 6 + 5 = m + 11 by ring,
+      show m + 6 + 4 = m + 10 by ring,
+      show m + 6 + 2 = m + 8 by ring]
+  rw [show m + 11 = (m + 5) + 6 by ring, asid_shift (m + 5),
+      show m + 5 + 5 = m + 10 by ring,
+      show m + 5 + 4 = m + 9 by ring,
+      show m + 5 + 2 = m + 7 by ring]
+  rw [show m + 10 = (m + 4) + 6 by ring, asid_shift (m + 4),
+      show m + 4 + 5 = m + 9 by ring,
+      show m + 4 + 4 = m + 8 by ring,
+      show m + 4 + 2 = m + 6 by ring]
+  rw [show m + 9 = (m + 3) + 6 by ring, asid_shift (m + 3),
+      show m + 3 + 5 = m + 8 by ring,
+      show m + 3 + 4 = m + 7 by ring,
+      show m + 3 + 2 = m + 5 by ring]
+  rw [show m + 8 = (m + 2) + 6 by ring, asid_shift (m + 2),
+      show m + 2 + 5 = m + 7 by ring,
+      show m + 2 + 4 = m + 6 by ring,
+      show m + 2 + 2 = m + 4 by ring]
+  rw [show m + 7 = (m + 1) + 6 by ring, asid_shift (m + 1),
+      show m + 1 + 5 = m + 6 by ring,
+      show m + 1 + 4 = m + 5 by ring,
+      show m + 1 + 2 = m + 3 by ring]
+  rw [asid_shift m]
+  ring
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Complete proof of Theorem~\ref{thm:interleave}, verbatim from \texttt{final}\allowbreak/\texttt{01-comb08-sidemid-proved.lean} (lines 117--142, sha256 \texttt{19b5c390}).},label={lst:proof-t1}]
+/-- **T1（主攻）**：主列六阶递推 = 两条同系数六阶子列的交织——
+对一切 k，asid (2k) = osid k 且 asid (2k+1) = esid k。 -/
+theorem asid_interleave (k : ℕ) :
+    asid (2 * k) = osid k ∧ asid (2 * k + 1) = esid k := by
+  induction k using Nat.strong_induction_on with
+  | h k ih =>
+    by_cases hk : k < 6
+    · interval_cases k <;> decide
+    · obtain ⟨j, rfl⟩ : ∃ j, k = j + 6 := ⟨k - 6, by omega⟩
+      constructor
+      · rw [show 2 * (j + 6) = (2 * j) + 12 by ring, asid_evenlag12 (2 * j)]
+        simp only [osid]
+        rw [show 2 * j + 10 = 2 * (j + 5) by ring, (ih (j + 5) (by omega)).1,
+            show 2 * j + 8 = 2 * (j + 4) by ring, (ih (j + 4) (by omega)).1,
+            show 2 * j + 6 = 2 * (j + 3) by ring, (ih (j + 3) (by omega)).1,
+            show 2 * j + 4 = 2 * (j + 2) by ring, (ih (j + 2) (by omega)).1,
+            show 2 * j + 2 = 2 * (j + 1) by ring, (ih (j + 1) (by omega)).1,
+            (ih j (by omega)).1]
+      · rw [show 2 * (j + 6) + 1 = (2 * j + 1) + 12 by ring, asid_evenlag12 (2 * j + 1)]
+        simp only [esid]
+        rw [show 2 * j + 1 + 10 = 2 * (j + 5) + 1 by ring, (ih (j + 5) (by omega)).2,
+            show 2 * j + 1 + 8 = 2 * (j + 4) + 1 by ring, (ih (j + 4) (by omega)).2,
+            show 2 * j + 1 + 6 = 2 * (j + 3) + 1 by ring, (ih (j + 3) (by omega)).2,
+            show 2 * j + 1 + 4 = 2 * (j + 2) + 1 by ring, (ih (j + 2) (by omega)).2,
+            show 2 * j + 1 + 2 = 2 * (j + 1) + 1 by ring, (ih (j + 1) (by omega)).2,
+            (ih j (by omega)).2]
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Complete proof of Theorem~\ref{thm:mod2}, verbatim from \texttt{final}\allowbreak/\texttt{01-comb08-sidemid-proved.lean} (lines 144--159, sha256 \texttt{19b5c390}).},label={lst:proof-t2}]
+/-- **T2（伴随）**：asid 的 mod 2 余数仅依赖 n mod 3，样式为 pat3
+（即 asid n 为奇 ⟺ n ≡ 0 (mod 3)；1-based 口径 = a(n) 为奇 ⟺ n ≡ 1 (mod 3)）。 -/
+theorem asid_mod2_period3 (n r : ℕ) (hr : n % 3 = r) :
+    asid n % 2 = pat3 r := by
+  have main : ∀ n : ℕ, asid n % 2 = pat3 (n % 3) := by
+    intro n
+    induction n using Nat.strong_induction_on with
+    | h n ih =>
+      by_cases hn : n < 6
+      · interval_cases n <;> decide
+      · obtain ⟨j, rfl⟩ : ∃ j, n = j + 6 := ⟨n - 6, by omega⟩
+        have h1 : asid (j + 6) % 2 = asid j % 2 := by
+          simp only [asid]
+          omega
+        rw [h1, ih j (by omega), show (j + 6) % 3 = j % 3 by omega]
+  rw [← hr]; exact main n
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Theorem~\ref{thm:mod4}: statement, induction skeleton and the first of the twelve \texttt{mod\_cases} branches, verbatim from \texttt{final}\allowbreak/\texttt{01-comb08-sidemid-proved.lean} (lines 163--182, sha256 \texttt{19b5c390}). The remaining eleven branches are identical in shape (lines 183--237) and ship in this deposit under \texttt{proofs/}.},label={lst:proof-t3}]
+theorem asid_mod4_period12 (n r : ℕ) (hr : n % 12 = r) :
+    asid n % 4 = pat12 r := by
+  have main : ∀ n : ℕ, asid n % 4 = pat12 (n % 12) := by
+    intro n
+    induction n using Nat.strong_induction_on with
+    | h n ih =>
+      by_cases hn : n < 6
+      · interval_cases n <;> decide
+      · obtain ⟨j, rfl⟩ : ∃ j, n = j + 6 := ⟨n - 6, by omega⟩
+        have h1 : asid (j + 6) % 4
+            = (2 * (asid (j + 4) % 4) + 2 * (asid (j + 2) % 4) + asid j % 4) % 4 := by
+          simp only [asid]
+          omega
+        rw [h1, ih (j + 4) (by omega), ih (j + 2) (by omega), ih j (by omega)]
+        mod_cases hj : j % 12
+        · have hj0 : j % 12 = 0 := by simpa [Nat.ModEq] using hj
+          have h2 : (j + 2) % 12 = 2 := by omega
+          have h4 : (j + 4) % 12 = 4 := by omega
+          have h6 : (j + 6) % 12 = 6 := by omega
+          rw [hj0, h2, h4, h6]; decide
+\end{lstlisting}
+
+\section{Verification evidence}
+
+\begin{itemize}
+\item Toolchain: Lean \texttt{v4.34.0}
+(\texttt{leanprover/lean4:v4.34.0}), mathlib4 \texttt{v4.34.0}, revision
+\texttt{5ed29652} \cite{lean4,mathlib,mathlib-v434}. Reproduction: with that
+pin, \texttt{lake env lean} on \texttt{proofs/01-comb08-sidemid-proved.lean}
+compiles the file with exit code $0$; the strict re-compile of the merged
+final file measured $29$\,s wall clock in the task ledger.
+\item Statement integrity: the frozen statement file
+\texttt{formalized}\allowbreak/\texttt{01-comb08-sidemid-statements.lean}
+($109$ lines) has sha256
+\texttt{5fe889d5}\allowbreak\texttt{ed92711a}\allowbreak\texttt{86f23d98}\allowbreak\texttt{27800dd7}\allowbreak\texttt{d2c677a4}\allowbreak\texttt{40664f0d}\allowbreak\texttt{81dbdb5e}\allowbreak\texttt{9eb39e67};
+the final file
+\texttt{final}\allowbreak/\texttt{01-comb08-sidemid-proved.lean}
+($238$ lines) has sha256
+\texttt{19b5c390}\allowbreak\texttt{8592a529}\allowbreak\texttt{491e0b5b}\allowbreak\texttt{40b6b261}\allowbreak\texttt{66019d92}\allowbreak\texttt{820447b4}\allowbreak\texttt{1a70ada5}\allowbreak\texttt{10a20821}.
+The final file was compared with the frozen file by symmetric difference over
+the declaration headers: all $8$ headers byte-identical, zero drift; the only
+differences are the three proof bodies replacing the \texttt{sorry}
+placeholders and the two auxiliary lemmas added inside the proof bodies.
+\item Kernel check: compiles with $0$ \texttt{sorry} (whole-file scan
+including comments, case-insensitive, also for \texttt{admit} and
+\texttt{sorryAx}); \texttt{\#print axioms} output, verbatim (kept literal;
+the smaller monospace width is typesetting only):
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize,frame=none]
+'asid_interleave' depends on axioms: [propext, Quot.sound]
+'asid_mod2_period3' depends on axioms: [propext, Quot.sound]
+'asid_mod4_period12' depends on axioms: [propext, Quot.sound]
+\end{lstlisting}
+The auxiliary lemmas, probe-verified in the same strict pass, depend on
+\texttt{[propext, Quot.sound]} (\lean{asid_evenlag12}) and \texttt{[propext]}
+(\lean{asid_shift}); \texttt{sorryAx} and \texttt{Classical.choice} never
+appear.
+\item Grading by the audit department: all three theorems \emph{complete
+proof}; lowest grade reached for the case = \emph{complete proof}; no
+scaffolding route was used.
+\item Budgets, copied from the source task ledger's final machine
+reconciliation: agent-run sampling $14$ of a permitted $20$;
+\texttt{llm-call} $1$ of a permitted $6$; kernel compiles $26$ of a permitted
+$32$; LaTeX rounds $9$ of a permitted $10$.
+\item Audit chain (originals in this deposit under \texttt{audit/}): final
+adjudication \texttt{final-comb08-sidemid.txt} (four independent checks), the
+three axiom probe outputs
+\texttt{axioms-asid\_}\allowbreak\texttt{interleave.txt},
+\texttt{axioms-asid\_}\allowbreak\texttt{mod2\_period3.txt} and
+\texttt{axioms-asid\_}\allowbreak\texttt{mod4\_period12.txt}, and this note's
+listing verification \texttt{listing-verify.txt}. The semantic-fidelity check
+(roundtrip re-translation) of the underlying task ran on the same model node
+as its formalisation; that independence weakness is mitigated, not removed,
+by kernel adjudication and manual review.
+\end{itemize}
+
+\section{Novelty evidence}\label{sec:novelty}
+
+Adjudication copied from the pipeline's exclusivity review (C9 gate), which
+ran in three rounds around this task and re-derived the data independently
+rather than trusting the candidate card. Verdict: \textbf{no occupying record
+found} (three rounds consistent); value tier, as corrected by the third
+round: \textbf{new sequence} --- the sequence is unoccupied, while its
+recurrence is \emph{not} new. The full query logs, zero-hit entries included,
+are in this deposit at \texttt{audit/c9-record.md} (verbatim copies of the
+review records; their raw responses stay in the working repository under
+\texttt{tasks/20260928-comb0709-deeprecheck/}, not shipped in this deposit).
+Summary by channel:
+
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lll}
+\hline
+channel & queries & result \\
+\hline
+OEIS, sequence search \cite{oeis} & $10$ fresh strings (third round);
+$50+$ independent strings for this sequence across rounds; $60+$ across the
+three-candidate batch per the shared record, not shipped in this deposit &
+zero hits for the main sequence: full string,
+prepend-$a(0)$, prepend-zero, drop-first, drop-two, $\times 2$, mid-window
+$6$-term and tail $7$-term windows, characteristic-polynomial coefficient
+string, numerator string, mod-$3$ subsequences \\
+OEIS, keyword & $5$ new strings (third round) & zero same-shape; four
+groups of short-string generic hits, read entry by entry and excluded \\
+OEIS, registry cross-read & $3$ records & A033506 signature
+$(4,14,0,-10,0,1)$ read in full (the same-spectrum finding)
+\cite{oeis-a033506}; A033507 \cite{oeis-a033507} and A030186
+\cite{oeis-a030186} as mother-family anchors \\
+zbMATH & $5$ & zero same-shape (two single hits read and excluded) \\
+arXiv & $5$ & zero same-shape (two exact-phrase queries return total $0$;
+one $49$-hit query all noise) \\
+OpenAlex / Crossref & $10$ & zero same-shape across the alias set \\
+Math Stack Exchange & $1$ & zero hits (engine-side query; native API
+throttled during the review) \\
+public Lean ecosystem & $4$ layers & zero: no matching-count theorem in
+mathlib; compfiles zero; sequencelib structurally absent (no A-number);
+GitHub code search on this sequence's large terms total $0$ \\
+\hline
+\end{tabular}%
+}
+\end{center}
+
+The highest-risk neighbourhood was closed at the full-text level. Oh's
+\emph{State matrix recursion method and monomer--dimer problem} \cite{oh2019}
+contains, as its Theorem~4, the general formula for coverings with a fixed
+monomer set --- the closest general method in the literature to this note's
+object. The statistic is different in shape: Oh's $g_{m\times n}(S)$ counts
+coverings whose monomers are \emph{exactly} the fixed set $S$, whereas $a(n)$
+counts \emph{all} matchings of the graph obtained by \emph{deleting} the
+side-middle cell (any number of monomers). The full text was read section by
+section (ar5iv rendering): it contains no instance table, no OEIS reference,
+and no recurrence for this sequence, and a literal search for twenty-three of
+the large terms returned a single trivial substring hit. The three nearest
+references in its bibliography were read in their arXiv versions --- Kong
+\cite{kong}, Tzeng and Wu \cite{tzeng-wu}, Wu \cite{wu2006} --- and all three
+concern the perfect-matching side with a single, unpositioned vacancy, a
+different statistic again; the twelve citing papers of \cite{oh2019} found in
+the review contain none on defect-grid full matching counts. The
+neighbourhood is therefore recorded as a method-level generality, not an
+occupying record for this sequence.
+
+One correction produced by the third round is part of the record and is
+load-bearing for this note's claims: the recurrence has the same
+characteristic polynomial as the already-registered A033506
+\cite{oeis-a033506}, signature $(4,14,0,-10,0,1)$ verbatim, so the earlier
+rounds' ``new sequence, new recurrence'' wording was tightened to ``new
+sequence'' --- the recurrence's order and coefficients are not new, only the
+initial values, that is, the sequence itself. This note's wording follows the
+corrected tier, and the correction is the reason no novelty claim is attached
+to the recurrence anywhere in this note. The two original-language records
+that fix this wording are quoted verbatim below.
+
+\begin{lstlisting}[caption={Verbatim quote, original record (Chinese, kept untranslated): the priority fence locked on the source candidate card and repeated in the frozen statement file header (\texttt{proofs/01-comb08-sidemid-statements.lean}, lines 18--20).}, basicstyle=\ttfamily\footnotesize,frame=none,label={lst:fence}]
+占位围栏：价值级仅「新序列」——六阶递推与 A033506（无缺陷 3×n 全匹配）同特征多项式（签名 (4,14,0,−10,0,1) 逐字相同），禁止对递推阶与系数作新颖性主张；PM≡0 为奇偶+洞色双重否决的真空命题，不构成占位亦不作价值主体。
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Verbatim quote, original record (Chinese, kept untranslated): the C9 third-round verdict, from \texttt{audit/c9-record.md} (source \texttt{deep-recheck-combm-02.md}, section 0 and section 6).}, basicstyle=\ttfamily\footnotesize,frame=none,label={lst:c9verdict}]
+**C9 四态：查无占位（三轮一致，本审支持前两审结论）。**
+**价值分级：新序列——「新递推」主张经本审机器判定不成立（递推与已挂名的 A033506 同特征多项式），这是对前两审分级措辞的修正（收紧，不影响四态裁决）。**
+- **C9 四态：查无占位**（证据链同共享记录 §8）。
+- **价值分级：新序列**（递推非新——与 A033506 同谱；「新序列·新递推」措辞按本审修正）。派生 PM≡0 为经典着色阻塞实例，不构成占位亦不作价值主体。
+\end{lstlisting}
+
+The perfect-matching side of the neighbourhood is already occupied for
+neighbouring defect configurations: the even-$n$ perfect-matching subsequence
+of one neighbouring defect is A061278 \cite{oeis-a061278}, and the
+perfect-matching subsequence of another neighbouring defect configuration is
+A129113 \cite{oeis-a129113}. For this note's configuration the
+perfect-matching count is identically zero, so there is no subsequence to
+occupy and nothing to claim; the two registry entries are reported as
+context, not as prior art for any statement of this note.
+
+Given that evidence this note claims what the review supports: the sequence
+was not found to be occupied. The novelty of Theorems~\ref{thm:interleave},
+\ref{thm:mod2} and \ref{thm:mod4} is consequently negative-search evidence,
+not a first-discovery assertion, and should be read as such. Disclosed holes:
+the general web-search layer was unreachable in the review environment, so
+the literature evidence rests on OpenAlex, zbMATH, arXiv, Crossref and
+engine-side queries; the mother-family monographs \cite{lundow1996} were
+identified through the registry records but their full texts were not read;
+one paywalled reference was not read; the Math Stack Exchange native API was
+throttled; and sequencelib is structurally absent for sequences without an
+A-number. If those channels later return a hit on this sequence, the
+positioning in this section weakens accordingly; the theorems themselves do
+not depend on it.
+
+\section{Scope and limitations}
+
+Grade and boundary, stated as the audit states them. (a) The theorems cover
+the recurrence-defined sequences only; their equality with the tiling counts
+of the side-defected grid is not kernel-proved and is
+Conjecture~\ref{conj:bridge}, whose empirical support is enumeration by exact
+programs (three structurally different methods; seeds $n\le 14$ reproduced
+digit-for-digit; deep window $n\le 50$; the enumerators themselves are not
+verified, and the scripts and their outputs stay in the working repository
+under \texttt{tasks/20260928-comb08-sidemid/}). (b) The recurrence's order and
+coefficients are not new: its characteristic polynomial is shared with the
+registered A033506 \cite{oeis-a033506}, signature $(4,14,0,-10,0,1)$ verbatim,
+and no novelty is claimed for them anywhere in this note; what is claimed is
+the sequence itself, at the value tier \emph{new sequence}. (c) The
+perfect-matching count of this configuration is identically zero --- a vacuum
+proposition forced by parity and by the classical colouring obstruction ---
+and is reported as neither an occupying record nor a value subject. (d) The
+gate-four sign-off of the underlying task was exercised by the author's
+instruction to deposit this claim on 2026-09-28, while the task report file
+still carries its draft header reading, in the original, ``awaiting manual
+sign-off at gate four''; both facts are recorded here as they stand, and the
+\texttt{tasks/} products were not modified. (e) This note carries no
+literature review and is a deposit record, not a survey; the narrative paper
+for the same result is separate.
+
+\section*{Data availability}
+
+The deposit package for this claim contains the claim note (LaTeX source and
+PDF), the Lean sources (\texttt{proofs/}: frozen statement file, final proof
+file, \texttt{lean-toolchain}), the verification and audit logs, and the full
+C9 query log with zero-hit entries (\texttt{audit/}). Zenodo: the DOI is
+reserved at upload by the author; that field is currently unfilled and is
+written \texttt{RESERVED-DOI} in this note, to be replaced by the reserved
+DOI in this note, in \texttt{metadata/README.md} of this package and in a
+recompiled PDF at upload time; the manual steps are listed in
+\texttt{UPLOAD.md} in the source repository (not shipped in this deposit).
+Public mirror of this deposit: the claim lane's repository
+\url{https://github.com/Aurora0134/ai4math-claims}, directory
+\texttt{grid3n-sidemid-notch/} (pushed under the author's instruction of
+2026-09-28; the commit and timestamp are recorded in the source repository's
+\texttt{claims/grid3n-sidemid-notch/card.md}). Claim note under CC BY 4.0,
+code under MIT.
+
+\section*{Use of generative AI}
+
+(a) AI performed: candidate generation and the exclusivity review,
+autoformalisation of the three statements, the roundtrip semantic check,
+proof search and proof-script writing, error classification and repair, and
+the assembly of this note including its verbatim listings. (b) Model, node
+and budget: all task-stage sampling ran on one node, wire-id
+\texttt{anthropic/a6api-main/kimi-k3} (the task card's snapshot; a same-day
+drift observation to \texttt{anthropic/stepfun/step-5-preview} is disclosed
+in the source task's ledger rather than replaced), with no cross-node
+switching, and consumed $14$ agent-run samplings of a permitted $20$, $1$
+\texttt{llm-call} of a permitted $6$, $26$ kernel compiles of a permitted
+$32$ and $9$ LaTeX rounds of a permitted $10$, copied verbatim from the task
+ledger's final reconciliation. This note's assembly consumed $0$ pipeline
+LLM calls against a cap of $4$ and was dispatched as one agent-run sampling
+on the current session node (\texttt{stepfun/step-5-preview}). (c) Final
+adjudication: all statements and proofs reported here were checked by the
+Lean 4 kernel: every proof compiles with no \texttt{sorry}, and
+\texttt{\#print axioms} reports only \{propext, Quot.sound\}, a subset of the
+standard whitelist \{propext, Quot.sound, Classical.choice\}. (d) The AI
+system is not an author; the human author reviewed the evidence and is
+responsible for all content.
+
+\section*{Author contributions}
+
+CRediT-style: the human author adjudicated topic selection, statement
+semantics and the deposit decision; the AI4Math pipeline (an LLM) generated
+the candidate propositions, the proof searches and the text drafts. The AI
+system is not listed as an author.
+
+\begin{thebibliography}{99}
+% Reused from papers/grid3n-sidemid-notch/paper.tex (source repository, not
+% shipped in this deposit), where every entry below was verified on 2026-09-28
+% before being typed in: Crossref REST metadata for the three DOIs (title
+% matched exactly), arXiv export API title matches for the four preprints, OEIS
+% fmt=json full-record reads plus landing-page HTTP 200 for the five sequence
+% entries, and a GitHub API tag read for the mathlib revision. Raw responses:
+% papers/grid3n-sidemid-notch/audit/bib-verify/ (source repository, not shipped
+% in this deposit). No entry is quoted from memory; an HTTP 200 is not
+% existence evidence, title metadata has to be matched (the template's _27 Lean
+% DOI, which resolves to a different paper, is not used here).
+\bibitem{lean4}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean 4 theorem prover and programming language.
+\newblock \emph{Automated Deduction -- CADE-28}, LNCS, pp.~625--635, 2021.
+\url{https://doi.org/10.1007/978-3-030-79876-5_37}
+
+\bibitem{mathlib}
+The mathlib Community.
+\newblock The Lean mathematical library.
+\newblock \emph{CPP 2020: Proceedings of the 9th ACM SIGPLAN International
+Conference on Certified Programs and Proofs}, pp.~367--381, 2020.
+\url{https://doi.org/10.1145/3372885.3373824}
+
+\bibitem{mathlib-v434}
+The mathlib Community.
+\newblock mathlib4, tag \texttt{v4.34.0} (revision
+\texttt{5ed29652}\allowbreak\texttt{56430c36}\allowbreak\texttt{49e86755}\allowbreak\texttt{f9576b54}\allowbreak\texttt{eca72435}).
+\newblock \url{https://github.com/leanprover-community/mathlib4}
+
+\bibitem{oh2019}
+S.~Oh.
+\newblock State matrix recursion method and monomer--dimer problem.
+\newblock \emph{arXiv:1901.07847 [math.CO]}, 2019.
+\url{https://arxiv.org/abs/1901.07847}
+
+\bibitem{kong}
+Y.~Kong.
+\newblock Packing dimers on $(2p+1)\times(2q+1)$ lattices.
+\newblock \emph{arXiv:1410.8059 [cond-mat.stat-mech]}, 2014.
+\url{https://arxiv.org/abs/1410.8059}
+
+\bibitem{tzeng-wu}
+W.-J.~Tzeng and F.~Y.~Wu.
+\newblock Dimers on a simple-quartic net with a vacancy.
+\newblock \emph{arXiv:cond-mat/0203149}, 2002.
+\url{https://arxiv.org/abs/cond-mat/0203149}
+
+\bibitem{wu2006}
+F.~Y.~Wu.
+\newblock The Pfaffian solution of a dimer-monomer problem: single monomer on
+the boundary.
+\newblock \emph{arXiv:cond-mat/0607647}, 2006.
+\url{https://arxiv.org/abs/cond-mat/0607647}
+
+\bibitem{godsil-gutman}
+C.~D. Godsil and I.~Gutman.
+\newblock On the theory of the matching polynomial.
+\newblock \emph{Journal of Graph Theory} 5 (1981), pp.~137--144.
+\url{https://doi.org/10.1002/jgt.3190050203}
+
+\bibitem{lundow1996}
+P.~H. Lundow.
+\newblock Computation of matching polynomials and the number of 1-factors in
+polygraphs.
+\newblock Research reports No.~12, Department of Mathematics, Ume{\aa}
+University, 1996; as referenced in OEIS A033506 \cite{oeis-a033506}.
+
+\bibitem{oeis}
+The OEIS Foundation.
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\newblock \url{https://oeis.org/} --- searched for the sequences and their
+variant strings, with no entry found for the main sequence (see
+Section~\ref{sec:novelty}).
+
+\bibitem{oeis-a033506}
+The OEIS Foundation.
+\newblock Entry A033506 (P.~H. Lundow): number of matchings in graph
+$P_3\times P_n$; index entry for linear recurrences with constant
+coefficients, signature $(4,14,0,-10,0,1)$.
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\url{https://oeis.org/A033506}
+
+\bibitem{oeis-a033507}
+The OEIS Foundation.
+\newblock Entry A033507: number of matchings in graph $P_4\times P_n$; index
+entry signature $(9,41,-41,-111,91,29,-23,-1,1)$.
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\url{https://oeis.org/A033507}
+
+\bibitem{oeis-a030186}
+The OEIS Foundation.
+\newblock Entry A030186: $a(n)=3a(n-1)+a(n-2)-a(n-3)$, the $2\times n$ grid
+mother-family anchor.
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\url{https://oeis.org/A030186}
+
+\bibitem{oeis-a061278}
+The OEIS Foundation.
+\newblock Entry A061278: $a(n)=5a(n-1)-5a(n-2)+a(n-3)$; the perfect-matching
+subsequence of a neighbouring defect configuration (context only, not prior
+art for any statement of this note).
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\url{https://oeis.org/A061278}
+
+\bibitem{oeis-a129113}
+The OEIS Foundation.
+\newblock Entry A129113: expansion of
+$x^3/(1-x-5x^2-x^3+x^4)$; the perfect-matching subsequence of another
+neighbouring defect configuration (context only, not prior art for any
+statement of this note).
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\url{https://oeis.org/A129113}
+\end{thebibliography}
+
+\end{document}

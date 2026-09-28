@@ -1,0 +1,12 @@
+== claim.tex -- 2026-09-28 ==
+source sha256: 01-comb09-4ntwocorner-statements.lean=4cb1083846bcc64e249717309e63d071d0ecf5bb03f23d85affeaab8152ce005  01-comb09-4ntwocorner-proved.lean=f1aa7099697fe5706bc5f4dd7124d06f4f92d6c2273b349b862c4b963806f53f
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF; the final artifact is CRLF at rest and is LF-normalised for the listing with no other byte changed). 'lines a-b' is the source line range carried in the listing caption. The nine blocks are the same blocks and line ranges already verified in papers/grid4n-col-2notch/audit/listing-verify.txt.
+PASS statement: atc def (main sequence) [01-comb09-4ntwocorner-statements.lean lines 30-47] bytes=717 sha256(body)=343021925a942847
+PASS statement: ot + et defs (position subsequences) [01-comb09-4ntwocorner-statements.lean lines 49-87] bytes=1698 sha256(body)=4b72d24b58f675f4
+PASS statement: atc_interleave (T1) [01-comb09-4ntwocorner-statements.lean lines 89-93] bytes=342 sha256(body)=dc081c04b88877e9
+PASS statement: pat2 + atc_mod2_period5 (T2) [01-comb09-4ntwocorner-statements.lean lines 96-107] bytes=460 sha256(body)=6ba01758bb0c46b0
+PASS statement: pat4 + atc_mod4_period10 (T3) [01-comb09-4ntwocorner-statements.lean lines 110-126] bytes=525 sha256(body)=e99bc3352b9a8946
+PASS proof layer: auxiliary lemma atc_sq (in full) [01-comb09-4ntwocorner-proved.lean lines 106-150] bytes=3151 sha256(body)=81b3aaffc4901cd9
+PASS proof: atc_interleave complete [01-comb09-4ntwocorner-proved.lean lines 155-194] bytes=1983 sha256(body)=3738f45fafc3a52b
+PASS proof: atc_mod2_period5 inductive step (excerpt) [01-comb09-4ntwocorner-proved.lean lines 200-228] bytes=1417 sha256(body)=342e0259662e2b8f
+PASS proof: atc_mod4_period10 inductive step (excerpt) [01-comb09-4ntwocorner-proved.lean lines 283-311] bytes=1429 sha256(body)=cb9a9347efe45746

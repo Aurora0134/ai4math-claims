@@ -1,0 +1,24 @@
+# lean-idents -- claims/notchgrid-parity-mod/claim.tex
+# every \lean{...} span must name something that really occurs in the delivered
+# Lean file tasks/20260927-mossad-notch/final/01-notch-proved.lean (source task directory, not shipped with this deposit) -- the deposit
+#   carries the byte-identical file as proofs/01-notch-proved.lean -- (declaration-name
+# hallucination check; SOP 08b inherits SOP 08 step 6 item 5).
+# spans found: 13 (8 distinct) ; unresolved: 0
+# executor: dept-paper claim lane, 2026-09-28 (repository-internal helper script under logs/, not shipped with this deposit); re-run after the gate-3 rework (the
+#   pre-rework run recorded 10 spans / 8 distinct / 0 unresolved; the rework added no
+#   new identifier and removed none)
+PASS \lean{Int.odd_iff} : literal substring of the final artifact (line-hits=5)
+PASS \lean{Odd} : literal substring of the final artifact (line-hits=3)
+PASS \lean{decide} : literal substring of the final artifact (line-hits=36)
+PASS \lean{have} : literal substring of the final artifact (line-hits=101)
+PASS \lean{interval_cases} : literal substring of the final artifact (line-hits=4)
+PASS \lean{mod_cases} : literal substring of the final artifact (line-hits=5)
+PASS \lean{simp only [a3]} : literal substring of the final artifact (line-hits=2)
+PASS \lean{simp only [a4]} : literal substring of the final artifact (line-hits=2)
+ALL DISTINCT IDENTIFIERS RESOLVE, 0 UNRESOLVED
+#
+# re-check line (round 9, this session): the 13 spans / 8 distinct / 0 unresolved count is
+# unchanged by round 9 -- the two edited sentences add no \lean{} identifier. Re-verified by
+# extracting every span from claim.tex and testing it as a literal substring of
+# tasks/20260927-mossad-notch/final/01-notch-proved.lean (source task directory, not shipped with this deposit) (spans 13, distinct 8,
+#   unresolved 0).

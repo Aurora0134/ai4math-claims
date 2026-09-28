@@ -1,0 +1,2 @@
+WELLDEF OK
+AXIOMS asid_interleave [propext, Quot.sound]
