@@ -11,7 +11,7 @@
 ba0e475402bd390daf70dc312bcb28f08461bdb93e55a735d25469a0675274af  60  audit/axioms-onotch_mod2_period6.txt
 f5b851abf7bdb48323ba9618d9db2fccdb0023e782f7951e1b9c2f814666c7d9  5835  audit/build-c9-record.py
 9c262e5428e7cd43b1fafaf35753dfa809f971fa747ca6d88a2ba48d3b8ee1dc  9607  audit/c9-record.md
-2735ea7c87c268104fab936d34c760cff44aebc9dece48e96a3658d8f456baf5  8044  audit/claim-check.md
+02c4d1afc2f5dea4a846299f4ee9929f85685a3b9383525348f8be264cb38fcb  8248  audit/claim-check.md
 76a1d8c8ed00a579b8dc30564c1abb1e8f2fb0e860491a921cc41fd76332e056  3471  audit/compile.txt
 607f1bd10c477cc7a4b5932953f6931e69edead2d54086d6924250a4adf6f34a  9395  audit/final-comb07-diagnotch.txt
 bf6e6db847f6aa364b58d3708af8e603e95da246d478e8aa7f44517e13205dbe  8931  audit/inspect-tex.py

@@ -37,6 +37,6 @@
 
 ## 四、门禁终态
 
-- **占位质检门**：① paper-lint exit 0 PASS；② paper-compile exit 0（LaTeX 4/6，14 页 / Missing 0 / Overfull 0 / 未解引用 0，四轮均 exit 0 无失败轮）；③ 精简主张审计零遗留。sanitize 机械门 ALL GATES GREEN；zenodo-package.zip 21 条目。
+- **占位质检门**：① paper-lint exit 0 PASS；② paper-compile exit 0（LaTeX 5/6，14 页 / Missing 0 / Overfull 0 / 未解引用 0，五轮均 exit 0 无失败轮——第 5 轮为镜像推送轮：Data availability 的 GitHub 镜像句由条件式改事实陈述，纯散文层、listing 源字节零改动、指标与此前逐项一致）；③ 精简主张审计零遗留。sanitize 机械门 ALL GATES GREEN（22 件 / 319,301 字节）；zenodo-package.zip 22 条目。
 - 观察项（不计发现）：「50+ independent strings」在包内自带证据中分解为 41+（源记录自身口径松散）；短笺照抄 C9 结论句符合「禁止改写 C9 记录」，建议记录属主补注，不由本包单方改数。
 - **外发前必跑（只读）**：`python scripts/sanitize-package.py claims/grid3n-diag-2notch` 任一红灯即不得外发。

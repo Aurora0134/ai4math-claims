@@ -11,7 +11,7 @@ c8c208cfad0b1529c8cc6f53678449a8a1f51d1c85190628efe5e95f1deee11f  57  audit/axio
 1c0a8b7fddf920c5ad6770866c18cf2c62d045f1f871d5d9e9b88f13d0dd3864  58  audit/axioms-atc_mod4_period10.txt
 2a0a4552f291ccfcd0cd7d094ebd65cd434a010965b43cc2fc29d522f97b54ca  73  audit/axioms-recheck.txt
 2a2cf3a384d597d79d9ee8b0c779fae98a0379e77db40f72f8e0b7c9bd1fa834  7816  audit/c9-record.md
-733c1f29c77ae07a61f01fbe50f719248d3980081567df6a63f2f88b7a8fac0e  7650  audit/claim-check.md
+ec447dea0f424b7cbdefb2745832cdb4b016878f8ccd22d9cf99099584eb6d58  7796  audit/claim-check.md
 6b82e7059e4f67eb7b56a659a976afee3023be2d0de85716f83e7ed9c5a5f7dd  25278  audit/compile.txt
 bb86df3bfbcff30b50a5c1de0a66a071c6b1efee7de13dc1572b7bba189812f6  6932  audit/final-comb09-4ntwocorner.txt
 a53e767a60c0989792de51686960c58368db8e5fddd0525d30bf06eaa091d4cf  61  audit/lint.txt

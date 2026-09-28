@@ -34,5 +34,5 @@
 
 ## 四、门禁终态
 
-- **占位质检门**：① paper-lint exit 0 PASS；② paper-compile exit 0（LaTeX 4/6，15 页 / Missing 0 / Overfull 0 / 未解引用 0，四轮均 exit 0）；③ 精简主张审计零遗留。sanitize 机械门 ALL GATES GREEN；zenodo-package.zip 22 条目。
+- **占位质检门**：① paper-lint exit 0 PASS；② paper-compile exit 0（LaTeX 5/6，15 页 / Missing 0 / Overfull 0 / 未解引用 0，五轮均 exit 0——第 5 轮为镜像推送轮：镜像句条件式改事实陈述，纯散文层、listing 源字节零改动、指标与此前逐项一致）；③ 精简主张审计零遗留。sanitize 机械门 ALL GATES GREEN（23 件 / 336,274 字节）；zenodo-package.zip 23 条目。
 - **外发前必跑（只读）**：`python scripts/sanitize-package.py claims/grid3n-sidemid-notch` 任一红灯即不得外发。

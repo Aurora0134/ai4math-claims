@@ -39,7 +39,7 @@ F1-a / F1-b / F2 / 观察 5 四项均已修复且全部回归项复算通过；�
 
 ## 四、门禁终态与非阻断备注
 
-- **占位质检门**：① paper-lint exit 0 PASS；② paper-compile exit 0（LaTeX 3/6，17 页 / Missing 0 / Overfull 5 处最大 38.34pt / 未解引用 0）；③ 精简主张审计零遗留。sanitize 机械门 ALL GATES GREEN（19 件 / 357,755 字节）；zenodo-package.zip 19 条目。
+- **占位质检门**：① paper-lint exit 0 PASS；② paper-compile exit 0（LaTeX 4/6，17 页 / Missing 0 / Overfull 5 处最大 38.34pt / 未解引用 0——第 4 轮为镜像推送轮：镜像句条件式改事实陈述，纯散文层、listing 源字节零改动、指标与第 3 轮逐项一致）；③ 精简主张审计零遗留。sanitize 机械门 ALL GATES GREEN（20 件 / 366,459 字节）；zenodo-package.zip 20 条目。
 - 非阻断备注 1：修版 zip 重建与 budget.log 一次重建记录间差一次重建，zip 已实测与修版存缴树逐字节一致，无内容风险（重建记账见本包 budget.log 末行）。
 - 非阻断备注 2：card.md 第二条围栏较源文多「（完美匹配）」gloss（第一条为逐字），含义未越；随包短笺 claim.tex:641 为源文逐字，不受影响。
 - **外发前必跑（只读）**：`python scripts/sanitize-package.py claims/grid4n-col-2notch` 任一红灯即不得外发（SOP 08b《已知边界》）。
