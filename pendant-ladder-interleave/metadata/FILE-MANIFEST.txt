@@ -1,0 +1,32 @@
+# FILE-MANIFEST -- sha256  bytes  path (relative to this package root)
+# Generated 2026-09-28 by audit/sanitize-package.py (AI-generated).
+# Every file of the deposit is listed except this manifest itself; a
+# publication check re-hashes this list before any outbound act.
+11003e6bf0f50f3d24e757dc7dcb23c57ff777847ba54a4861ee7a58efaadc69  537  audit/audit-axioms-sidecar.log
+f6e4907ecfbeb44022f6487cc12654f04e547ad73f3a54b7fe290b0f841daed0  413  audit/audit-strict-compile.log
+8f39dad378e04bbf8c553951629ad9485fc5a124978ef5034a397e847d956604  247  audit/axioms-recheck.out
+9dbcbdb7615b83a07d7d4c6dd75634cd1298029d2becd1bb04dfa3058d7e486b  5723  audit/build-c9-record.py
+2b2eeed88ac6bc07d79e4f5093a26031a3e5abede49dd17e96e05927f6f44ff5  16879  audit/c9-record.md
+e15c11df3b560d5a376ed997fa2763882dab709880037048b0f547782fcfd80d  7586  audit/claim-check.md
+164441917013d921b64ce92bcb58224ea7cc9af2e31978f303854fccfce47317  15013  audit/compile.txt
+61a74276a4307e8e4c4b1c7bf6e4cc077405e6c17aef65d6cc5ae1a9e75627a2  9930  audit/final-01-pend.txt
+b1a74590b6d4060d5b9d1529ec7595eeb3048d90bfabe2e031b1417596fc8aea  27  audit/gate-t1-ring.txt
+564d4c2d30545a96fd757d096017ab0f44df8d8a89fc8ea4c282938e74f4aea2  239  audit/gate-t1.txt
+5e2a3a7895ce9b6e4b457781a15834f7e4316b41b1b7e7f7a282c47484fc7006  303  audit/gate-t2.txt
+5e2a3a7895ce9b6e4b457781a15834f7e4316b41b1b7e7f7a282c47484fc7006  303  audit/gate-t3e.txt
+5e2a3a7895ce9b6e4b457781a15834f7e4316b41b1b7e7f7a282c47484fc7006  303  audit/gate-t3o.txt
+b92814ec986164054105e797f50a7840edc7d1c0f334c43fcd704e38404b44cc  7127  audit/inspect-tex.py
+d6cbe0842b60712f9088a16197503d0d0b163b25ce729efe37095d47e1d4df0e  69  audit/lint.txt
+2b634783f41017f0047c7b70381aeaf13a13d650d0d2348e421392bd8bade720  4970  audit/listing-verify.txt
+27457e7ee8a2a672f1486365cc0dabaec35497c029da64b0b3b69d9899194579  2141  audit/make-zip.py
+1e050e407ee343fc727c99ae3c24fb8f2acdf9c8996fbde3a516665c17a2ea5f  9429  audit/sanitize-package.py
+5d7d0845129bcd9a65c6cbcb8b8fa55a2bc98598ebfd8c88ef81ddd12fd330b5  243  audit/statement-diff.out
+3100af88ab6f33ecd40d24a67d44ec1d7787559e5b2aa85154cb3c3534226804  7209  audit/welldef-verdict.md
+c2684b5b90f8c599043f6e8e313ed2a223fb5ebb4f9c8bb8b79fffdec52854b0  193560  claim/claim.pdf
+c8fd2691c8f4673137522c4be15a2e93d076225db41ddba3e86eea49ecb97582  38781  claim/claim.tex
+46f81550e32639cac8634af66e948d856a8a49945bca3b319ba460a861792186  7569  claim/lstlean.tex
+e3b6977d4de9ea99938c579782ba21eb1cb70bd304caee0e15b315741e4e5d9d  8114  metadata/README.md
+7d38cb5162ecf1579e6b7cebb0aca211dfff511472f84c3b3616a1635649a256  5381  metadata/zenodo.json
+be3f31cb365aa7b805dce0d29e562b5dfdb12617007f888e67564dacfd22540b  11463  proofs/01-pend-proved.lean
+78bccc97afba79adea9658a2158d17b2ed247b584d9f28266e6fc7914ba9f922  4548  proofs/01-pend-statements.lean
+8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632  25  proofs/lean-toolchain

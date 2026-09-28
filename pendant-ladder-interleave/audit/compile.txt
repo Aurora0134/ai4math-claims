@@ -1,0 +1,347 @@
+note: Running TeX ...
+(claim.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24> (article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(size11.cloFontconfig error: Cannot load default config file: No such file: (null)
+)) (fontenc.sty (t1lmr.fd)) (inputenc.sty
+
+Package inputenc Warning: inputenc package ignored with utf8 based engines.
+
+) (amsmath.sty
+For additional information on amsmath, use the `?' option.
+(amstext.sty (amsgen.sty)) (amsbsy.sty) (amsopn.sty)) (amssymb.sty
+(amsfonts.sty)) (amsthm.sty) (graphicx.sty (keyval.sty) (graphics.sty (trig.sty
+) (graphics.cfg) (xetex.def))) (hyperref.sty (ltxcmds.sty) (iftex.sty)
+(pdftexcmds.sty (infwarerr.sty)) (kvsetkeys.sty) (kvdefinekeys.sty)
+(pdfescape.sty) (hycolor.sty) (letltxmacro.sty) (auxhook.sty) (kvoptions.sty)
+(pd1enc.def) (intcalc.sty) (etexcmds.sty) (puenc.def) (url.sty) (bitset.sty
+(bigintcalc.sty)) (atbegshi-ltx.sty)) (hxetex.def (stringenc.sty)
+(rerunfilecheck.sty (atveryend-ltx.sty) (uniquecounter.sty))) (xurl.sty)
+(lstlean (listings.sty (lstmisc.sty) (listings.cfg)) (xcolor.sty (color.cfg)))
+(xeCJK.sty (expl3.sty (l3backend-xetex.def)) (ctexhook.sty) (l3keys2e.sty)
+(xtemplate.sty) (xparse.sty) (fontspec.sty (fontspec-xetex.sty (fontenc.sty)
+(fontspec.cfg))) (xeCJK-listings.sty) (xeCJK.cfg))warning: accessing absolute path `C:/WINDOWS/fonts\simsun.ttc`; build may not be reproducible in other environments
+
+No file claim.aux.
+(ts1cmr.fd) (nameref.sty (refcount.sty) (gettitlestring.sty))
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
+(umsa.fd) (umsb.fd)
+
+Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
+(xeCJK)                
+(xeCJK)                Try to use `\setCJKmonofont[...]{...}' to define it.
+
+
+LaTeX Warning: Citation `godsil-gutman' on page 1 undefined on input line 104.
+
+
+LaTeX Warning: Citation `massey' on page 1 undefined on input line 106.
+
+
+LaTeX Warning: Citation `lean4' on page 1 undefined on input line 111.
+
+
+LaTeX Warning: Citation `mathlib' on page 1 undefined on input line 111.
+
+[1]
+
+LaTeX Warning: Citation `a386889' on page 2 undefined on input line 124.
+
+
+LaTeX Warning: Reference `lst:s1' on page 2 undefined on input line 132.
+
+
+LaTeX Warning: Reference `thm:t1' on page 2 undefined on input line 141.
+
+
+LaTeX Warning: Reference `thm:t1' on page 2 undefined on input line 141.
+
+
+warning: claim.tex:141: Underfull \hbox (badness 7362) in paragraph at lines 141--141
+Underfull \hbox (badness 7362) in paragraph at lines 141--141
+[]\TU/lmr/m/n/10.95 Listing 1: Frozen formal statements, verbatim lines 27–68 o
+f
+
+LaTeX Font Warning: Font shape `TU/SimSun(0)/m/it' undefined
+(Font)              using `TU/SimSun(0)/m/n' instead on input line 142.
+
+[2] [3]
+
+LaTeX Warning: Reference `thm:t2' on page 4 undefined on input line 195.
+
+
+LaTeX Warning: Reference `thm:t2' on page 4 undefined on input line 195.
+
+
+warning: claim.tex:195: Underfull \hbox (badness 10000) in paragraph at lines 195--195
+Underfull \hbox (badness 10000) in paragraph at lines 195--195
+[]\TU/lmr/m/n/10.95 Listing 2: Frozen formal statement, verbatim lines 71–89 of
+
+
+LaTeX Warning: Reference `thm:t3o' on page 4 undefined on input line 225.
+
+
+LaTeX Warning: Reference `thm:t3o' on page 4 undefined on input line 225.
+
+
+warning: claim.tex:225: Underfull \hbox (badness 5787) in paragraph at lines 225--225
+Underfull \hbox (badness 5787) in paragraph at lines 225--225
+[]\TU/lmr/m/n/10.95 Listing 3: Frozen formal statements, verbatim lines 92–106 
+of
+[4]
+
+LaTeX Warning: Reference `thm:t3e' on page 5 undefined on input line 251.
+
+
+LaTeX Warning: Reference `thm:t3e' on page 5 undefined on input line 251.
+
+
+warning: claim.tex:251: Underfull \hbox (badness 5475) in paragraph at lines 251--251
+Underfull \hbox (badness 5475) in paragraph at lines 251--251
+[]\TU/lmr/m/n/10.95 Listing 4: Frozen formal statement, verbatim lines 109–112 
+of
+
+LaTeX Warning: Reference `thm:t2' on page 5 undefined on input line 271.
+
+
+LaTeX Warning: Reference `thm:t3o' on page 5 undefined on input line 271.
+
+
+LaTeX Warning: Reference `thm:t3e' on page 5 undefined on input line 272.
+
+[5]
+
+LaTeX Warning: Reference `thm:t1' on page 6 undefined on input line 281.
+
+
+LaTeX Warning: Reference `thm:t3e' on page 6 undefined on input line 281.
+
+
+LaTeX Warning: Reference `thm:t1' on page 6 undefined on input line 281.
+
+
+LaTeX Warning: Reference `thm:t3e' on page 6 undefined on input line 281.
+
+[6] [7] [8] [9] [10] [11]
+warning: claim.tex:572: Underfull \hbox (badness 1728) in paragraph at lines 567--572
+Underfull \hbox (badness 1728) in paragraph at lines 567--572
+[]\TU/lmr/m/n/10.95 Kernel check: compiles with $\OT1/cmr/m/n/10.95 0$ \TU/lmtt
+/m/n/10.95 sorry \TU/lmr/m/n/10.95 (whole-file scan includ-
+
+warning: claim.tex:572: Underfull \hbox (badness 2726) in paragraph at lines 567--572
+Underfull \hbox (badness 2726) in paragraph at lines 567--572
+\TU/lmr/m/n/10.95 ing comments, case-insensitive, also covering \TU/lmtt/m/n/10
+.95 admit\TU/lmr/m/n/10.95 , \TU/lmtt/m/n/10.95 sorryAx\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:588: Underfull \hbox (badness 2221) in paragraph at lines 578--588
+Underfull \hbox (badness 2221) in paragraph at lines 578--588
+\TU/lmr/m/n/10.95 Each line is a subset of the whitelist {propext, Quot.sound,
+
+warning: claim.tex:588: Underfull \hbox (badness 3954) in paragraph at lines 578--588
+Underfull \hbox (badness 3954) in paragraph at lines 578--588
+\TU/lmr/m/n/10.95 Classical.choice} – in fact Classical.choice is not even used
+.
+
+warning: claim.tex:588: Underfull \hbox (badness 2600) in paragraph at lines 578--588
+Underfull \hbox (badness 2600) in paragraph at lines 578--588
+\TU/lmr/m/n/10.95 The strict re-compile emits no error and no warning at all
+
+warning: claim.tex:588: Underfull \hbox (badness 2103) in paragraph at lines 578--588
+Underfull \hbox (badness 2103) in paragraph at lines 578--588
+\TU/lmr/m/n/10.95 (stdout empty); the audit’s independent re-runs ($\OT1/cmr/m/
+n/10.95 70\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 0$\TU/lmr/m/n/10.95 s strict,
+
+
+warning: claim.tex:588: Underfull \hbox (badness 3138) in paragraph at lines 578--588
+Underfull \hbox (badness 3138) in paragraph at lines 578--588
+\OT1/cmr/m/n/10.95 41\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 3$\TU/lmr/m/n/10.9
+5 s axioms) are byte-identical to the self-reported outputs.
+
+warning: claim.tex:588: Underfull \hbox (badness 4048) in paragraph at lines 578--588
+Underfull \hbox (badness 4048) in paragraph at lines 578--588
+\TU/lmr/m/n/10.95 The evidence ships as \TU/lmtt/m/n/10.95 audit/audit-strict-c
+ompile.log \TU/lmr/m/n/10.95 and
+[12]
+warning: claim.tex:607: Underfull \hbox (badness 1406) in paragraph at lines 592--607
+Underfull \hbox (badness 1406) in paragraph at lines 592--607
+\TU/lmr/m/n/10.95 judication \TU/lmtt/m/n/10.95 final-01-pend.txt \TU/lmr/m/n/1
+0.95 (eight independent checks), well-
+
+warning: claim.tex:607: Underfull \hbox (badness 2772) in paragraph at lines 592--607
+Underfull \hbox (badness 2772) in paragraph at lines 592--607
+\TU/lmr/m/n/10.95 tary \TU/lmtt/m/n/10.95 ring \TU/lmr/m/n/10.95 probe \TU/lmtt
+/m/n/10.95 gate-t1-ring.txt \TU/lmr/m/n/10.95 (degeneracy probes $\OT1/cmr/m/n/
+10.95 33/33$
+
+warning: claim.tex:607: Underfull \hbox (badness 3701) in paragraph at lines 592--607
+Underfull \hbox (badness 3701) in paragraph at lines 592--607
+\TU/lmr/m/n/10.95 FAIL, i.e. no one-tactic shortcut), the statement symmetric-
+
+LaTeX Warning: Citation `oeis' on page 13 undefined on input line 652.
+
+
+LaTeX Warning: Citation `a386889' on page 13 undefined on input line 652.
+
+
+LaTeX Warning: Reference `sec:statement' on page 13 undefined on input line 665
+.
+
+[13]
+
+LaTeX Warning: Reference `conj:bridge' on page 14 undefined on input line 678.
+
+
+LaTeX Warning: Reference `thm:t3o' on page 14 undefined on input line 686.
+
+
+LaTeX Warning: Reference `thm:t3e' on page 14 undefined on input line 686.
+
+[14] [15] [16] (claim.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `claim.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information)
+Output written on claim.xdv (16 pages, 489784 bytes).
+Transcript written on claim.log.
+note: Rerunning TeX because "claim.out" changed ...
+(claim.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24> (article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(size11.clo)) (fontenc.sty (t1lmr.fd)) (inputenc.sty
+
+Package inputenc Warning: inputenc package ignored with utf8 based engines.
+
+) (amsmath.sty
+For additional information on amsmath, use the `?' option.
+(amstext.sty (amsgen.sty)) (amsbsy.sty) (amsopn.sty)) (amssymb.sty
+(amsfonts.sty)) (amsthm.sty) (graphicx.sty (keyval.sty) (graphics.sty (trig.sty
+) (graphics.cfg) (xetex.def))) (hyperref.sty (ltxcmds.sty) (iftex.sty)
+(pdftexcmds.sty (infwarerr.sty)) (kvsetkeys.sty) (kvdefinekeys.sty)
+(pdfescape.sty) (hycolor.sty) (letltxmacro.sty) (auxhook.sty) (kvoptions.sty)
+(pd1enc.def) (intcalc.sty) (etexcmds.sty) (puenc.def) (url.sty) (bitset.sty
+(bigintcalc.sty)) (atbegshi-ltx.sty)) (hxetex.def (stringenc.sty)
+(rerunfilecheck.sty (atveryend-ltx.sty) (uniquecounter.sty))) (xurl.sty)
+(lstlean (listings.sty (lstmisc.sty) (listings.cfg)) (xcolor.sty (color.cfg)))
+(xeCJK.sty (expl3.sty (l3backend-xetex.def)) (ctexhook.sty) (l3keys2e.sty)
+(xtemplate.sty) (xparse.sty) (fontspec.sty (fontspec-xetex.sty (fontenc.sty)
+(fontspec.cfg))) (xeCJK-listings.sty) (xeCJK.cfg)) (claim.aux) (ts1cmr.fd)
+(nameref.sty (refcount.sty) (gettitlestring.sty)) (claim.out) (claim.out)
+(umsa.fd) (umsb.fd)
+
+Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
+(xeCJK)                
+(xeCJK)                Try to use `\setCJKmonofont[...]{...}' to define it.
+
+[1]
+warning: claim.tex:141: Underfull \hbox (badness 7362) in paragraph at lines 141--141
+Underfull \hbox (badness 7362) in paragraph at lines 141--141
+[]\TU/lmr/m/n/10.95 Listing 1: Frozen formal statements, verbatim lines 27–68 o
+f
+
+LaTeX Font Warning: Font shape `TU/SimSun(0)/m/it' undefined
+(Font)              using `TU/SimSun(0)/m/n' instead on input line 142.
+
+[2] [3]
+warning: claim.tex:195: Underfull \hbox (badness 10000) in paragraph at lines 195--195
+Underfull \hbox (badness 10000) in paragraph at lines 195--195
+[]\TU/lmr/m/n/10.95 Listing 2: Frozen formal statement, verbatim lines 71–89 of
+
+
+warning: claim.tex:225: Underfull \hbox (badness 5787) in paragraph at lines 225--225
+Underfull \hbox (badness 5787) in paragraph at lines 225--225
+[]\TU/lmr/m/n/10.95 Listing 3: Frozen formal statements, verbatim lines 92–106 
+of
+[4]
+warning: claim.tex:251: Underfull \hbox (badness 5475) in paragraph at lines 251--251
+Underfull \hbox (badness 5475) in paragraph at lines 251--251
+[]\TU/lmr/m/n/10.95 Listing 4: Frozen formal statement, verbatim lines 109–112 
+of
+[5]
+warning: claim.tex:281: Underfull \hbox (badness 1205) in paragraph at lines 281--281
+Underfull \hbox (badness 1205) in paragraph at lines 281--281
+[]\TU/lmr/m/n/10.95 Listing 5: Complete proofs of Theorems []1[]–[]4[], verbati
+m lines 1–259
+[6] [7] [8] [9] [10] [11]
+warning: claim.tex:572: Underfull \hbox (badness 1728) in paragraph at lines 567--572
+Underfull \hbox (badness 1728) in paragraph at lines 567--572
+[]\TU/lmr/m/n/10.95 Kernel check: compiles with $\OT1/cmr/m/n/10.95 0$ \TU/lmtt
+/m/n/10.95 sorry \TU/lmr/m/n/10.95 (whole-file scan includ-
+
+warning: claim.tex:572: Underfull \hbox (badness 2726) in paragraph at lines 567--572
+Underfull \hbox (badness 2726) in paragraph at lines 567--572
+\TU/lmr/m/n/10.95 ing comments, case-insensitive, also covering \TU/lmtt/m/n/10
+.95 admit\TU/lmr/m/n/10.95 , \TU/lmtt/m/n/10.95 sorryAx\TU/lmr/m/n/10.95 ,
+
+warning: claim.tex:588: Underfull \hbox (badness 2221) in paragraph at lines 578--588
+Underfull \hbox (badness 2221) in paragraph at lines 578--588
+\TU/lmr/m/n/10.95 Each line is a subset of the whitelist {propext, Quot.sound,
+
+warning: claim.tex:588: Underfull \hbox (badness 3954) in paragraph at lines 578--588
+Underfull \hbox (badness 3954) in paragraph at lines 578--588
+\TU/lmr/m/n/10.95 Classical.choice} – in fact Classical.choice is not even used
+.
+
+warning: claim.tex:588: Underfull \hbox (badness 2600) in paragraph at lines 578--588
+Underfull \hbox (badness 2600) in paragraph at lines 578--588
+\TU/lmr/m/n/10.95 The strict re-compile emits no error and no warning at all
+
+warning: claim.tex:588: Underfull \hbox (badness 2103) in paragraph at lines 578--588
+Underfull \hbox (badness 2103) in paragraph at lines 578--588
+\TU/lmr/m/n/10.95 (stdout empty); the audit’s independent re-runs ($\OT1/cmr/m/
+n/10.95 70\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 0$\TU/lmr/m/n/10.95 s strict,
+
+
+warning: claim.tex:588: Underfull \hbox (badness 3138) in paragraph at lines 578--588
+Underfull \hbox (badness 3138) in paragraph at lines 578--588
+\OT1/cmr/m/n/10.95 41\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 3$\TU/lmr/m/n/10.9
+5 s axioms) are byte-identical to the self-reported outputs.
+
+warning: claim.tex:588: Underfull \hbox (badness 4048) in paragraph at lines 578--588
+Underfull \hbox (badness 4048) in paragraph at lines 578--588
+\TU/lmr/m/n/10.95 The evidence ships as \TU/lmtt/m/n/10.95 audit/audit-strict-c
+ompile.log \TU/lmr/m/n/10.95 and
+[12]
+warning: claim.tex:607: Underfull \hbox (badness 1406) in paragraph at lines 592--607
+Underfull \hbox (badness 1406) in paragraph at lines 592--607
+\TU/lmr/m/n/10.95 judication \TU/lmtt/m/n/10.95 final-01-pend.txt \TU/lmr/m/n/1
+0.95 (eight independent checks), well-
+
+warning: claim.tex:607: Underfull \hbox (badness 2772) in paragraph at lines 592--607
+Underfull \hbox (badness 2772) in paragraph at lines 592--607
+\TU/lmr/m/n/10.95 tary \TU/lmtt/m/n/10.95 ring \TU/lmr/m/n/10.95 probe \TU/lmtt
+/m/n/10.95 gate-t1-ring.txt \TU/lmr/m/n/10.95 (degeneracy probes $\OT1/cmr/m/n/
+10.95 33/33$
+
+warning: claim.tex:607: Underfull \hbox (badness 3701) in paragraph at lines 592--607
+Underfull \hbox (badness 3701) in paragraph at lines 592--607
+\TU/lmr/m/n/10.95 FAIL, i.e. no one-tactic shortcut), the statement symmetric-
+[13] [14] [15] [16] (claim.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ )
+(see the transcript file for additional information)
+Output written on claim.xdv (16 pages, 492500 bytes).
+Transcript written on claim.log.
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+[1][2][3][4][5][6][7][8][9][10][11][12][13][14][15][16]193560 bytes written
+note: Writing `claim.log` (23.5458984375 KiB)
+note: Writing `claim.pdf` (189.0234375 KiB)
+note: Skipped writing 2 intermediate files (use --keep-intermediates to keep them)

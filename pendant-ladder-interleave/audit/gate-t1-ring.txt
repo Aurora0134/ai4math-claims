@@ -1,0 +1,2 @@
+WELLDEF OK
+PROBE ring FAIL

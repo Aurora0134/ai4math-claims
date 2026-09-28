@@ -1,0 +1,15 @@
+WELLDEF OK
+PROBE nlinarith FAIL
+PROBE norm_num FAIL
+PROBE simp FAIL
+PROBE ring_nf FAIL
+PROBE positivity FAIL
+PROBE omega FAIL
+PROBE linarith FAIL
+PROBE decide FAIL
+CHECK Int.add_emod OK
+CHECK Int.mul_emod OK
+CHECK Int.sub_emod OK
+CHECK Int.neg_emod OK
+CHECK Int.emod_nonneg OK
+CHECK Nat.mod_eq_of_lt OK

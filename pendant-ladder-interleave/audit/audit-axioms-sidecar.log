@@ -1,0 +1,8 @@
+# axiom printout (#print axioms for the four declarations): the complete
+# content of the task's final/axioms.out -- four lines, no machine paths.
+# The audit's independent re-run (audit/recheck/axioms-recheck.out, also
+# shipped here) is byte-identical to it (final-01-pend.txt, check 5).
+'apend_interleave' depends on axioms: [propext, Quot.sound]
+'apend_mod2_period12' depends on axioms: [propext, Quot.sound]
+'opend_mod2_period6' depends on axioms: [propext, Quot.sound]
+'epend_mod2_period3' depends on axioms: [propext, Quot.sound]

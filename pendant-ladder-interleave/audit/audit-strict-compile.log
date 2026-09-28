@@ -1,0 +1,7 @@
+# strict re-compile of final/01-pend-proved.lean (Lean v4.34.0 +
+# mathlib4 v4.34.0). The run's stdout is EMPTY (0 error, 0 warning) by
+# design -- the task's final/strict.out is a zero-byte file. The EXIT=0
+# evidence is the audit department's two independent re-runs recorded in
+# final-01-pend.txt (checks 4-5: 70.0s strict / 41.3s axioms, byte-
+# identical outputs).
+# --- original stdout (empty) follows ---

@@ -1,0 +1,11 @@
+apend: IDENTICAL
+opend: IDENTICAL
+epend: IDENTICAL
+pat2: IDENTICAL
+pat6: IDENTICAL
+pat3: IDENTICAL
+apend_interleave: IDENTICAL
+apend_mod2_period12: IDENTICAL
+opend_mod2_period6: IDENTICAL
+epend_mod2_period3: IDENTICAL
+ALL_IDENTICAL

@@ -1,0 +1,40 @@
+== claim.tex -- 2026-09-28 ==
+source sha256: 01-pend-statements.lean=78bccc97afba79adea9658a2158d17b2ed247b584d9f28266e6fc7914ba9f922  01-pend-proved.lean=be3f31cb365aa7b805dce0d29e562b5dfdb12617007f888e67564dacfd22540b
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption.
+PASS statement: apend/opend/epend defs + T1 [01-pend-statements.lean lines 27-68] bytes=1543 sha256(body)=1d9ab21a1d27450d
+PASS statement: pat2 def + T2 [01-pend-statements.lean lines 71-89] bytes=485 sha256(body)=594747251f84f9b1
+PASS statement: pat6 + pat3 defs + T3o [01-pend-statements.lean lines 92-106] bytes=555 sha256(body)=2592f34fa0dd292c
+PASS statement: T3e [01-pend-statements.lean lines 109-112] bytes=233 sha256(body)=5b79f99a47ea8b60
+PASS proof: whole final file [01-pend-proved.lean lines 1-259] bytes=11462 sha256(body)=5aca23bd358b11b2
+== claim.tex -- 2026-09-28 ==
+source sha256: 01-pend-statements.lean=78bccc97afba79adea9658a2158d17b2ed247b584d9f28266e6fc7914ba9f922  01-pend-proved.lean=be3f31cb365aa7b805dce0d29e562b5dfdb12617007f888e67564dacfd22540b
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption.
+PASS statement: apend/opend/epend defs + T1 [01-pend-statements.lean lines 27-68] bytes=1543 sha256(body)=1d9ab21a1d27450d
+PASS statement: pat2 def + T2 [01-pend-statements.lean lines 71-89] bytes=485 sha256(body)=594747251f84f9b1
+PASS statement: pat6 + pat3 defs + T3o [01-pend-statements.lean lines 92-106] bytes=555 sha256(body)=2592f34fa0dd292c
+PASS statement: T3e [01-pend-statements.lean lines 109-112] bytes=233 sha256(body)=5b79f99a47ea8b60
+PASS proof: whole final file [01-pend-proved.lean lines 1-259] bytes=11462 sha256(body)=5aca23bd358b11b2
+== claim.tex -- 2026-09-28 ==
+source sha256: 01-pend-statements.lean=78bccc97afba79adea9658a2158d17b2ed247b584d9f28266e6fc7914ba9f922  01-pend-proved.lean=be3f31cb365aa7b805dce0d29e562b5dfdb12617007f888e67564dacfd22540b
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption.
+PASS statement: apend/opend/epend defs + T1 [01-pend-statements.lean lines 27-68] bytes=1543 sha256(body)=1d9ab21a1d27450d
+PASS statement: pat2 def + T2 [01-pend-statements.lean lines 71-89] bytes=485 sha256(body)=594747251f84f9b1
+PASS statement: pat6 + pat3 defs + T3o [01-pend-statements.lean lines 92-106] bytes=555 sha256(body)=2592f34fa0dd292c
+PASS statement: T3e [01-pend-statements.lean lines 109-112] bytes=233 sha256(body)=5b79f99a47ea8b60
+PASS proof: whole final file [01-pend-proved.lean lines 1-259] bytes=11462 sha256(body)=5aca23bd358b11b2
+== claim.tex -- 2026-09-28 ==
+source sha256: 01-pend-statements.lean=78bccc97afba79adea9658a2158d17b2ed247b584d9f28266e6fc7914ba9f922  01-pend-proved.lean=be3f31cb365aa7b805dce0d29e562b5dfdb12617007f888e67564dacfd22540b
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption.
+PASS statement: apend/opend/epend defs + T1 [01-pend-statements.lean lines 27-68] bytes=1543 sha256(body)=1d9ab21a1d27450d
+PASS statement: pat2 def + T2 [01-pend-statements.lean lines 71-89] bytes=485 sha256(body)=594747251f84f9b1
+PASS statement: pat6 + pat3 defs + T3o [01-pend-statements.lean lines 92-106] bytes=555 sha256(body)=2592f34fa0dd292c
+PASS statement: T3e [01-pend-statements.lean lines 109-112] bytes=233 sha256(body)=5b79f99a47ea8b60
+PASS proof: whole final file [01-pend-proved.lean lines 1-259] bytes=11462 sha256(body)=5aca23bd358b11b2
+== claim.tex -- 2026-09-28 ==
+source sha256: 01-pend-statements.lean=78bccc97afba79adea9658a2158d17b2ed247b584d9f28266e6fc7914ba9f922  01-pend-proved.lean=be3f31cb365aa7b805dce0d29e562b5dfdb12617007f888e67564dacfd22540b
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption.
+PASS statement: apend/opend/epend defs + T1 [01-pend-statements.lean lines 27-68] bytes=1543 sha256(body)=1d9ab21a1d27450d
+PASS statement: pat2 def + T2 [01-pend-statements.lean lines 71-89] bytes=485 sha256(body)=594747251f84f9b1
+PASS statement: pat6 + pat3 defs + T3o [01-pend-statements.lean lines 92-106] bytes=555 sha256(body)=2592f34fa0dd292c
+PASS statement: T3e [01-pend-statements.lean lines 109-112] bytes=233 sha256(body)=5b79f99a47ea8b60
+PASS proof: whole final file [01-pend-proved.lean lines 1-259] bytes=11462 sha256(body)=5aca23bd358b11b2

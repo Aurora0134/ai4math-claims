@@ -1,0 +1,1 @@
+PASS: paper-lint 全绿 (claims/pendant-ladder-interleave/claim.tex)

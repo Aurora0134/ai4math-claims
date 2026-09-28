@@ -1,0 +1,73 @@
+# 监察院终态审计裁决书 — pend 线（2026-09-28，agent-109 dept-audit）
+
+## 总裁决
+
+**【通过】，分级裁定：完全证明**（4/4 定理 0 sorry、白名单公理子集、statement 与冻结快照 10/10 逐字一致；全案实际达成最低级 = 完全证明，报告措辞上限即此级，禁止拔高为任何图匹配计数本体定理）。
+
+机器门禁：strict build EXIT=0 ∧ 输出零诊断 → 满足签发条件。
+
+## 逐项核查证据（1–8）
+
+**1. 验身 — PASS**
+`sha256sum tasks/20260927-mossad-pend/final/01-pend-proved.lean` = `be3f31cb365aa7b805dce0d29e562b5dfdb12617007f888e67564dacfd22540b`，与军政部自报逐字节一致；Read 实测 259 行。冻结快照 `formalized/01-pend-statements.statement.txt` sha256 = `78bccc97afba79adea9658a2158d17b2ed247b584d9f28266e6fc7914ba9f922`，与任务卡/宪兵裁决书记录一致，且与 `formalized/01-pend-statements.lean` 同 hash（快照=冻结件）。
+
+**2. statement 对称差（宪条 2）— PASS（独立复现 10/10 IDENTICAL）**
+- 程序化抽取（含 docstring）：自建 `audit/recheck/symdiff.py`，按「docstring + 声明本体（def 至体尾 / theorem 至 `:= by` 行）」抽取 10 块逐字节比对：`apend`(425B)、`opend`(460B)、`epend`(393B)、`pat2`(305B)、`pat6`(169B)、`pat3`(145B)、`apend_interleave`(262B)、`apend_mod2_period12`(179B)、`opend_mod2_period6`(239B)、`epend_mod2_period3`(233B) —— 全部 IDENTICAL，输出 ALL_IDENTICAL，与自报 `final/statement-diff.out` 相符。
+- 全文 diff 证据：`diff 快照 终稿` 仅 6 个 hunk——`2,3c2,3`（文件头日期/部门行）、`22c22,24`（L22 sorry 注释行改写 + 追加探针来源行）、`69c71,92` / `90c113,173` / `107c190,226` / `113c232,259`（4 处 `sorry` 占位行被 proof body 替换）。`<` 侧被删行全量 = 3 行文件头注释 + 4 行 `sorry`，无任何 statement 行被改动。
+- 申报差异核实：两处已申报差异（L22 sorry 注释行改写——宪兵裁决书移交提示第 2 条强制要求；追加部门/探针来源行——L2 终稿日期后缀、L3 部门行延展、L23–24 四条 r* 探针出处）属实且全部 confined 在文件头 `/- -/` 注释块（终稿 L1–25）内，statement 本体零差异。
+
+**3. sorry 与逃逸通道 — PASS**
+终稿全文（含注释）大小写不敏感 grep：`sorry / admit / native_decide / axiom / unsafe / implemented_by / extern / opaque / partial` 各 0 命中；词边界 grep 退出码 1（无匹配）。
+
+**4. strict 独立复跑 — PASS（监察院 compile 第 1 次）**
+命令：`source scripts/lake-env.sh && time bash scripts/lean-verify tasks/20260927-mossad-pend/final/01-pend-proved.lean`
+结果：EXIT=0，70.0s，stdout 完全为空 = 0 error 0 warning，与自报 `final/strict.out`（0 字节空文件）一致。对照 notch 线终稿残留 320 条 deprecation，本稿零诊断残留。
+
+**5. 公理独立复跑 — PASS（监察院 compile 第 2 次）**
+产物：临时副本 `audit/recheck/axioms-recheck.lean`（终稿逐字拷贝 + 尾部 4 行 `#print axioms`，sha256 `e7593e63…2066`）。
+命令：`source scripts/lake-env.sh && export PATH="$USERPROFILE/.elan/bin:$PATH" && cd verify-proj && time lake env lean ../tasks/20260927-mossad-pend/audit/recheck/axioms-recheck.lean`
+结果：EXIT=0，41.3s；输出与自报 `final/axioms.out` 逐字节一致（diff → AXIOMS_BYTE_IDENTICAL）：
+```
+'apend_interleave' depends on axioms: [propext, Quot.sound]
+'apend_mod2_period12' depends on axioms: [propext, Quot.sound]
+'opend_mod2_period6' depends on axioms: [propext, Quot.sound]
+'epend_mod2_period3' depends on axioms: [propext, Quot.sound]
+```
+四条均 ⊆ 白名单 {propext, Quot.sound, Classical.choice}（实际连 Classical.choice 都未用到）；`sorryAx` 0 命中。
+
+**6. 结论分级（宪条 4）— 完全证明**
+逐条：`apend_interleave`【完全证明】/ `apend_mod2_period12`【完全证明】/ `opend_mod2_period6`【完全证明】/ `epend_mod2_period3`【完全证明】。无带 sorry 引理、无额外假设、statement 未降级未篡改 → 总分级 = 完全证明。「脚手架通过」不适用（方法临摹同池 kernel 已验先例 ≠ 降级兜底，理由同 notch 线 L10 裁定，见限定语 L10）。
+
+**7. 口径审查 — PASS**
+- 组合对象词扫描（`图|梯子|匹配|悬挂|叶|graph|ladder|matching|pendant|leaf`，大小写覆盖，含注释）：0 命中——终稿 statement 层与注释层均无组合对象词。
+- 占位围栏：文件头 L17–20 全文在案（opend = A386889，Dresden & Demirkol 2025-09-04 挂名，已占位核到 k=15；新颖性限「完整 order-8 递推 + 偶数子列（epend 侧）」；禁「新序列」泛写）+ opend docstring L44–46 二次标注，与任务卡「主张口径（卡上锁定）」逐义相符；四条 theorem 陈述本身只谈序列交织/模余数，无任何新颖性表述（不存在夸大空间）。
+- T3 订正后形态坐实：终稿 L175–180 `pat6`（0↦1, 4↦1, 余↦0）、L181–184 `pat3`（0↦0, 余↦1），与 claims.md「主代理复核订正」节及宪兵裁决书 c 项一致，旧口径零残留。
+- AI 生成标注在文件头 L2（2026-09-27，终稿生成 2026-09-28）。
+
+**8. 限定语清单** — 见末节原文（L1–L10 + 本线补充 2 条），供外交部 report.md 原文级逐字采用。
+
+## 监察院消耗的 compile 次数
+
+2 次（按预算 ≤2）。本线 compile 记账 18/24 → 20/24；llm 调用 0。复验留档：`audit/recheck/{symdiff.py, axioms-recheck.lean, axioms-recheck.out}`。
+
+## 限定语清单原文（强制披露，报告与一切下游措辞不得越过）
+
+- **L1**：kernel 定理仅关于递推定义版纯序列 apend/opend/epend（0-idx，ℕ→ℤ；索引口径 apend n = a(n+1)、opend k = a(2k+1)、epend k = a(2k+2)）的交织恒等式与 mod 2 余数性质；「= 1-based 奇数列挂一片悬挂叶的梯子图（P_n □ K_2，统一挂侧约定）匹配数」为释义层主张，未进任何 theorem statement（组合语义降级声明，notch/cchord 同型先例）。
+- **L2**：初值出处 `phase0/counts.txt`（mask DP + 暴力递归双算法互证 PASS，种子 12 项与送检值逐位一致，扩至 ≥26 项）；语义桥不在 kernel 证明范围内。
+- **L3**（占位围栏全文）：opend 的数值 = OEIS A386889（Dresden & Demirkol，2025-09-04 挂名，已占位，数值核到 k=15）；本线新颖性主张严格限定「完整 order-8 递推 + 偶数子列（epend 侧，1-based 偶位）」；禁止任何「新序列」泛写；下游一切文本提及奇数子列必须带 A386889 挂名。
+- **L4**：递推系数（order-8 仅偶滞后 + 两子列同系数四阶，特征多项式 x⁴−16x³+25x²−10x+1）与 mod 2 样式表为本机数值发现（chunk-F 查新 + Phase 0 复核 + 宪兵假命题排除复算）；措辞不得越过 L3 围栏泛化到整列新颖性。
+- **L5**（最小周期口径）：「apend %2 最小周期 12、opend %2 最小周期 6、epend %2 最小周期 3」中「最小」二字由数据窗口（n≤30）+ 宪兵 python 独立复算（对 12 的候选因子 P∈{1,2,3,4,6} 全部证伪）+ GF(2) 因式分解（(x²+x+1)⁴ | x¹²−1）代数互证支持；kernel 四条定理为 ∀ℕ/∀k 全称命题、已证成立且不受窗口限制，但 kernel 未证「最小性」，报告须按此口径表述。
+- **L6**：全部 Lean 代码（statement + proof）AI 生成；环境钉版 Lean v4.34.0 + mathlib4 v4.34.0（rev 5ed29652）。
+- **L7**（T3 订正口径锁定）：T3 取订正后形态——pat6：opend k 为奇 ⟺ k ≡ 0 或 4 (mod 6)；pat3：epend k 为偶 ⟺ k ≡ 0 (mod 3)；订正前旧口径（k≡1,5 / k≡1）已废，下游严禁回退引用。
+- **L8**（proof 风格注记）：T1（apend_interleave）末段 rw 链以 rfl 自动收口、无显式 ring——r6a 编译时尾随 ring 报 "No goals to be solved" 属预期战术冗余，删除后通过；终稿 strict 复跑 0 error 0 warning，无任何 deprecation/style 诊断残留。
+- **L9**（预算消耗，以 `budget.log` 为唯一事实源）：llm-call 2/8（形式化部 roundtrip 裁判 call1 触顶截断按任务卡同节点重试 + call2 成功；军政部攻证 0 LLM——proof 按同池 kernel 已验先例临摹重建并逐轮 kernel 核验）；compile 20/24（闸门二 6 + 军政部攻证与终态自检 12 + 监察院独立复跑 2）；48h 时间盒内。
+- **L10**（方法学注记）：证明骨架沿用同池 notch/cchord kernel 已验证先例（Nat.strong_induction_on 强归纳 + interval_cases/decide 基例 + simp only 模式匹配展开 + mod_cases 逐留数表 + simpa [Nat.ModEq] 形态转换），经裁定不构成「脚手架通过」降级事由，报告方法节以一句注记披露；roundtrip 为同节点自裁（anthropic/a6api-main/kimi-k3），独立性风险由 kernel 终裁 + 监察院两次独立复跑对冲。
+
+补充限定语（本线附加）：
+
+- **释义层边界**：组合意图（挂叶梯子图匹配计数）只出现于 phase0/报告释义层；**交替挂法 ≠ 统一挂侧**（chunk-F「交替鲁棒」已被三方法证伪、pool 卡已订正），凡引用组合意图必须写明「1-based 奇数列统一挂侧」约定，且不得作任何超出本机精确计算窗口的组合断言。
+- **复验留档**：监察院独立复验产物 `audit/recheck/{symdiff.py, axioms-recheck.lean, axioms-recheck.out}`；statement 抽取规则（含 docstring，def 至体尾 / theorem 至 `:= by`）与全量 diff hunk 清单记录于本裁决书第 2 项，可随时重放。
+
+## 移交外交部提示
+
+闸门三已闭环，report.md 可启动；限定语 L1–L10 + 补充 2 条必须原文级入报告「限定语与诚实边界」节；分级措辞上限 = 完全证明，且任何地方不得出现「图匹配计数定理已证」「新序列」类越级表述。
