@@ -1,0 +1,25 @@
+# FILE-MANIFEST -- sha256  bytes  path (relative to this package root)
+# Generated 2026-09-29 by audit/sanitize-package.py (AI-generated).
+# Every file of the deposit is listed except this manifest itself; a
+# publication check re-hashes this list before any outbound act.
+979a26cbea408f9f67056bbb1350613db50cc506adf6f44929826c4c31a16232  441  audit/audit-axioms-sidecar.log
+a3e0666a4863f1239acf56a5bd448a0341c8312fde92927e4c27d702741e40c8  488  audit/audit-strict-compile.log
+513a05ab987a43900b1ffddbf934ed43e8a40f82b04b72b8d854c0f064e677c2  9000  audit/build-c9-record.py
+9d4cd115131fe19ca94d61cb84cd0dac68176c433c2ca076e81a93f484ac99e3  57016  audit/c9-record.md
+ab36975f9bd643b078bbfd3b2bb473afd7958d66dbd2f65f5a220415c286878d  7578  audit/claim-check.md
+22c98bc8e3bed04e9fb7895036d40aca44412fb58803fea64f0d27bde85a73f2  12527  audit/compile.txt
+92a0a29b15e4ac224738b59f84e74c747513f8b80939a8ac52362867adb31efa  9128  audit/final-01-hosoya-split.txt
+c6db58137c861d8e07bc281591eca4a0151b43dce29fc89349c10205fbbfbac4  7757  audit/inspect-tex.py
+7d9baf0c2be93e7b3d7370d183b755d4dd74dce06946a0f6afb4471d7bd6e4e6  438  audit/lint.txt
+8026324572eb5bd79dee90db80df817dad84a30f31d867463b5ae6545cb9b1b1  1334  audit/listing-verify.txt
+9c4617136ac007aa23c66417f6815e0137d11613208c7e0a7bee0cd7ef664707  2132  audit/make-zip.py
+7c1ee088179a7ec886cc5ac43da33526a38c831f77f7fdd38920ef47fadd3bcb  9601  audit/sanitize-package.py
+fb4c1cf151bbbcf0b26dcb46d350651114851229beafd6dd372bca006c8a8f65  788  audit/statement-diff.out
+708aafc2e181272a86a80915d3ae682a6e0ab6dd73bc8f66849cbb7e5a961494  211358  claim/claim.pdf
+d950bfa5823a684c3a0ee5334cb7c879d537b536f66381a6330ea45cd3edaada  48008  claim/claim.tex
+46f81550e32639cac8634af66e948d856a8a49945bca3b319ba460a861792186  7569  claim/lstlean.tex
+b5c3dc1d0dfd5771bc8fe8cb52dd76ace576a233bbc3157322fb66581f45c2d2  6879  metadata/README.md
+10e4df415ba0af9bb541bf2435b0f4ca4f634ecf8db2d0959b37860c2d4832e4  4959  metadata/zenodo.json
+d2efac514083c505b9fa14675e59a8009054e2063769c263e069d608f656b016  21072  proofs/01-hosoya-split-proved.lean
+d186ff1651a4383e7e213b42ba4ec8c0171d9e7004231db2764370cd967ca39e  6943  proofs/01-hosoya-split-statements.lean
+8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632  25  proofs/lean-toolchain

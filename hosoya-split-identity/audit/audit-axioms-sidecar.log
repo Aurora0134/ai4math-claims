@@ -1,0 +1,7 @@
+# axiom printout (#print axioms for the two proven declarations): the
+# complete content of the final audit's axioms.out -- two lines, no
+# machine paths.
+# Source: the audit department's kernel re-run recorded in
+# audit/final-01-hosoya-split.txt (checks 2 and 4).
+'hosoya_prism_split_spoke' depends on axioms: [propext, Classical.choice, Quot.sound]
+'hosoya_deleteEdge_split_pts' depends on axioms: [propext, Classical.choice, Quot.sound]

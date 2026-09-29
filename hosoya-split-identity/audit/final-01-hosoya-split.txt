@@ -1,0 +1,109 @@
+# shipped copy note (added by the claim packager, 2026-09-29): this file is
+# a byte-exact copy of tasks/20260929-l14c-graphside-pipeline/audit/
+# final-01-hosoya-split.txt (the SOP 05 final audit adjudication, returned
+# 2026-09-29), with machine-local absolute path prefixes replaced by
+# <repo>/ per the deposit desensitisation rule (1 replacement site(s)).
+# --- original adjudication follows ---
+# 监察院终态审计裁决书 · tasks/20260929-l14c-graphside-pipeline / Phase 0
+# （2026-09-29；SOP 05 四步机械审计；监察院工人 kernel 实跑取证，主代理转录落盘。
+#  审计对象：attempts/phase0/r2/split-identity.lean（终稿 429 行）；
+#  冻结快照：formalized/statement.lean（sha256 d186ff1651a4383e7e213b42ba4ec8c0171d9e7004231db2764370cd967ca39e）。
+#  审判范围：hosoya_deleteEdge_split_pts（一般装置引理，自加件）+ hosoya_prism_split_spoke（冻结 statement）。
+#  两桥定理不在范围。）
+
+## 第 0 步 · 哈希预检（先决条件）
+
+命令：sha256sum tasks/20260929-l14c-graphside-pipeline/formalized/statement.lean
+输出原文：
+d186ff1651a4383e7e213b42ba4ec8c0171d9e7004231db2764370cd967ca39e *<repo>/tasks/20260929-l14c-graphside-pipeline/formalized/statement.lean
+判定：与卡面给定哈希逐字符一致，快照未被预先动过，审计继续。
+
+## 第 1 步 · statement 对比
+
+### 1a. 受冻定理 hosoya_prism_split_spoke 声明头
+
+命令：两份文件各按 theorem hosoya_prism_split_spoke 起、:= by 止提取行块，空白归一后逐字节比对（awk 提取 + sed 归一 + diff，另以 Python 复核一次）。
+输出（final 实际声明头原文）：
+```
+theorem hosoya_prism_split_spoke : ∀ (n : ℕ) (hn : 3 ≤ n),
+    hosoya (prism n) =
+      hosoya (prismDelSpoke n hn) +
+        hosoya (SimpleGraph.induce
+          (Set.univ \ {((⟨0, by omega⟩, (0 : Fin 2))), ((⟨0, by omega⟩, (1 : Fin 2)))} : Set (Fin n × Fin 2))
+          (prism n)) := by
+```
+程序判定输出：THEOREM HEAD hosoya_prism_split_spoke: IDENTICAL (忽略空白后逐字节一致)；Python 复核：STEP1a theorem-head（忽略空白）逐字节一致: True。
+判定：**该 theorem 声明头与冻结快照一致（IDENTICAL）**。宪条 2 对受冻 statement 无 breach。
+
+### 1b. 基座逐块比对
+
+首跑两次失败（ugrep `grep -f <(…)` 在 Windows 读 /proc fd 报错；Python 段落切界误命中头注释「已验证块 A–D」字样），两者作废，改以「节标记按行首定位 + 去注释行表 difflib unified diff」重做。
+命令要点：按行首 `-- ===== 基座代码` 到 `-- ===== 已验证块 A`（final）/ `-- ===== 追加 statement`（快照）切节，剥注释与空行后 difflib.unified_diff。
+输出（决定性证据，frozen → final）：
+```
+--- frozen-base
++++ final-base
+@@ -18,18 +18 @@
+     {Sym2.mk ((⟨0, by omega⟩, (0 : Fin 2))) ((⟨0, by omega⟩, (1 : Fin 2)))}).Adj from inferInstance
+-def prismDelRim (n : ℕ) (hn : 3 ≤ n) : SimpleGraph (Fin n × Fin 2) :=
+-  (prism n).deleteEdges {Sym2.mk ((⟨0, by omega⟩, ⟨0, by omega⟩)) ((⟨1, by omega⟩, ⟨0, by omega⟩))}
+-instance (n : ℕ) (hn : 3 ≤ n) : DecidableRel (prismDelRim n hn).Adj :=
+-  show DecidableRel ((prism n).deleteEdges
+-    {Sym2.mk ((⟨0, by omega⟩, ⟨0, by omega⟩)) ((⟨1, by omega⟩, ⟨0, by omega⟩))}).Adj from inferInstance
+-def aspoke : ℕ → ℤ
+-  | 0 => 25
+-  | 1 => 86
+-  | 2 => 271
+-  | 3 => 876
+-  | n + 4 => 2 * aspoke (n + 3) + 4 * aspoke (n + 2) - aspoke n
+-def arim : ℕ → ℤ
+-  | 0 => 26
+-  | 1 => 86
+-  | 2 => 274
+-  | 3 => 883
+-  | n + 4 => 2 * arim (n + 3) + 4 * arim (n + 2) - arim n
+```
+关键事实：**diff 中零 `+` 行**——final 基座节的每一行都在快照基座节的同一行序中出现，无任何改写、无重排；全部差异都是快照单侧的 `-`（删行）。final 基座 8 个声明（instance(pathGraph Adj) / instance(□ Adj) / edgeSupp / hosoya / prism / instance(prism Adj) / prismDelSpoke / instance(prismDelSpoke Adj)）逐块与快照同名声明一致（首轮脚本「5/8 块一致、3 个匿名 instance 失配」系同名匿名 instance 互相错配的脚本伪差异，行级 diff 已否证）；快照多出的 3 个声明组 = prismDelRim（def + instance）、aspoke、arim——均为 rim 侧装置，系 Phase 1/2 范围、终稿按需缺省，非改动。
+判定：**final 基座 = 冻结快照对应子集（IDENTICAL，允许缺省，零改写）**。
+
+### 1c. 范围外声明缺席确认
+
+命令/输出：grep -n "hosoya_prism_del_spoke\|hosoya_prism_del_rim" final → 0 命中；程序化计数：hosoya_prism_del_spoke 0 处 / hosoya_prism_del_rim 0 处 / prismDelRim 0 处 / aspoke 0 处 / arim 0 处 / native_decide 0 处（快照中四个 native_decide 数据锚也未夹带）。
+判定：**终稿只含基座 + 已验证块 A–D + 一般装置引理 + 目标定理，两桥定理不存在，符合审判范围设定**。hosoya_deleteEdge_split_pts 定性：**新增声明、非篡改对象**（快照中无此声明可比）。
+
+## 第 2 步 · 编译（kernel 裁判）
+
+命令原文：bash scripts/lean-verify tasks/20260929-l14c-graphside-pipeline/attempts/phase0/r2/split-identity.lean
+输出原文：**（stdout/stderr 全空，零诊断）**；退出码行：LEAN-VERIFY-EXIT=0。
+判定：**strict exit 0，kernel 裁决通过**（严格模式内含文件级 sorry/admit 文本兜底亦零命中）。
+
+## 第 3 步 · sorry 审计
+
+命令原文：grep -in "sorry\|admit" <final>（全文件含注释）
+输出原文：**（无任何命中行）**，grep-exit=1（exit 1 = 零匹配）。判定：**零占位**（头注释亦无 sorry 字样）。
+
+## 第 4 步 · 公理审计
+
+方式：副本写到系统临时目录（cp 既有终稿 + 尾部追加两行 #print axioms，未改动任何仓库文件），在 verify-proj 下 lake env lean 编译；用后核销（rm -rf，ls 复核目录已不存在）。
+命令原文：( cd verify-proj && lake env lean <临时副本绝对路径> 2>&1 ); echo AXAUDIT-EXIT=$?（PATH 已入 ~/.elan/bin）
+输出原文：
+```
+'hosoya_deleteEdge_split_pts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'hosoya_prism_split_spoke' depends on axioms: [propext, Classical.choice, Quot.sound]
+AXAUDIT-EXIT=0
+```
+判定：两定理公理依赖均为 {propext, Classical.choice, Quot.sound} = 白名单全集子集，无 sorryAx，无其他公理，ofReduceBool 未出现。**通过**。
+
+## 结论分级（SOP 05 四级，取实际达到的最低级）
+
+- hosoya_prism_split_spoke（冻结 statement，phase0 证毕）：**完全证明** —— statement 声明头与冻结快照逐字节一致（1a）、strict 编译 exit 0（第 2 步）、0 sorry/admit（第 3 步）、公理 [propext, Classical.choice, Quot.sound] 全白名单（第 4 步）。四项全过，无降级事由。
+- hosoya_deleteEdge_split_pts（证明体自加件，一般装置引理）：**完全证明（就该声明自身）** —— strict 编译 exit 0、0 sorry、公理全白名单、无额外假设超出其自带声明（huv : G.Adj a b 系其声明自有前提，非证明暗带）。第 1 步对它只判「新增声明、非篡改对象」，不构成 statement 比对通过。
+- 来源分级事实（必须保留，不得改写为独立通过叙事）：终稿头注释自述——已验证块 A–D 逐字承军政部 headless 工人 r1b 的两个 scratch 探针（主代理 lake env lean 实测 exit 0 后转 theorem）；一般装置引理 hosoya_deleteEdge_split_pts 的数学骨架承工人 r2 在 r2-scratch.lean 中证明的 edgeSp 形态版（主代理实测编译通过），由主代理适配为两点集形态（缘由：Set.univ \ ↑(edgeSupp …) coercion 实例路径与两点集形态非 defeq，实测 8M 心跳 type mismatch）。本裁决只对「终稿文件整体」经 kernel 实跑背书，该承袭链是 provenance 记录，非独立审计对象。
+- 范围外明示：hosoya_prism_del_spoke / hosoya_prism_del_rim（两桥定理）与 prismDelRim/aspoke/arim 装置在终稿中不存在，快照中仍为 sorry 占位，属 Phase 1/2 未竟范围。**本院对其不作任何通过裁决**；本案「完全证明」仅覆盖两个受审 theorem，不得外推至删边匹配数主定理。
+
+## 三行式总裁决
+
+1. statement 对称差：hosoya_prism_split_spoke 声明头与冻结快照 IDENTICAL（忽略空白逐字节一致）；基座节零改写（仅缺省 prismDelRim/instance prismDelRim/aspoke/arim 四组声明，属范围缺省非篡改）；两桥定理与 native_decide 数据锚在终稿零出现——**无篡改，无夹带**。
+2. strict 编译：scripts/lean-verify（严格模式）**exit 0**，零诊断输出。
+3. 公理白名单：两受审定理 #print axioms 均为 [propext, Classical.choice, Quot.sound]，⊆ 白名单，无 sorryAx——**通过**。
+4. 分级：hosoya_prism_split_spoke = 完全证明；hosoya_deleteEdge_split_pts = 完全证明（自加件，statement 免比对、定性非篡改对象）；**全案最低级 = 完全证明（范围限于两受审 theorem）**。

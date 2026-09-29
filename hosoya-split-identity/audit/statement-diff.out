@@ -1,0 +1,10 @@
+statement symmetric-difference record (2026-09-29, packager re-run of final-01-hosoya-split.txt check 1a)
+comparison: theorem declaration head, whitespace-normalised, byte-level
+target: hosoya_prism_split_spoke
+result: IDENTICAL
+
+frozen head:
+theorem hosoya_prism_split_spoke : ∀ (n : ℕ) (hn : 3 ≤ n), hosoya (prism n) = hosoya (prismDelSpoke n hn) + hosoya (SimpleGraph.induce (Set.univ \ {((⟨0, by omega⟩, (0 : Fin 2))), ((⟨0, by omega⟩, (1 : Fin 2)))} : Set (Fin n × Fin 2)) (prism n))
+
+final head:
+theorem hosoya_prism_split_spoke : ∀ (n : ℕ) (hn : 3 ≤ n), hosoya (prism n) = hosoya (prismDelSpoke n hn) + hosoya (SimpleGraph.induce (Set.univ \ {((⟨0, by omega⟩, (0 : Fin 2))), ((⟨0, by omega⟩, (1 : Fin 2)))} : Set (Fin n × Fin 2)) (prism n))

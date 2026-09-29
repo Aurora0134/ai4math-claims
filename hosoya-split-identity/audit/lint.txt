@@ -1,0 +1,7 @@
+paper-lint (scripts/paper-lint.sh) — claims/hosoya-split-identity/claim.tex
+run 2026-09-29T19:2x (pre-splice): PASS exit 0
+run 2026-09-29T19:3x (post-splice): PASS exit 0
+run 2026-09-29T19:40 (post align* display fix, final source): PASS exit 0
+verdict: PASS (three runs, all green; listing-byte gate unaffected by the
+display-math edit, which is outside any lstlisting)
+PASS: paper-lint 全绿 (claims/hosoya-split-identity/claim.tex)

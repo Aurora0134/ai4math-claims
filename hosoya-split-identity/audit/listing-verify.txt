@@ -1,0 +1,6 @@
+== claim.tex -- 2026-09-29 ==
+source sha256: statement.lean=d186ff1651a4383e7e213b42ba4ec8c0171d9e7004231db2764370cd967ca39e  split-identity.lean=d2efac514083c505b9fa14675e59a8009054e2063769c263e069d608f656b016
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption. The frozen statement file's three literal 'sorry' occurrences (two bridge-theorem placeholders, plus one in the head comment block) all lie outside the excerpt ranges; the final-file excerpt @@L3@@ is the whole file (0 sorry anywhere).
+== claim.tex -- 2026-09-29 ==
+source sha256: statement.lean=d186ff1651a4383e7e213b42ba4ec8c0171d9e7004231db2764370cd967ca39e  split-identity.lean=d2efac514083c505b9fa14675e59a8009054e2063769c263e069d608f656b016
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption. The frozen statement file's three literal 'sorry' occurrences (two bridge-theorem placeholders, plus one in the head comment block) all lie outside the excerpt ranges; the final-file excerpt @@L3@@ is the whole file (0 sorry anywhere).

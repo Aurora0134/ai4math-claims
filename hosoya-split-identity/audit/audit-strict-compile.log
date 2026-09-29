@@ -1,0 +1,8 @@
+# strict re-compile of attempts/phase0/r2/split-identity.lean (Lean
+# v4.34.0 + mathlib4 v4.34.0, pinned). EXIT=0; the run's stdout is EMPTY
+# (0 error, 0 warning) by design -- strict.out is a zero-byte file. The
+# EXIT=0 evidence is the audit department's independent re-run recorded
+# in final-01-hosoya-split.txt; the packaging session's own re-run log is
+# in the working repository (tmp-probe/verify-hosoyaprismsplit-recheck.log,
+# exit 0).
+# --- original stdout (empty) follows ---
