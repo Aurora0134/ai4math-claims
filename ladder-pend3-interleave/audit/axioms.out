@@ -1,0 +1,4 @@
+'ap3_interleave' depends on axioms: [propext, Quot.sound]
+'ap3_mod2_period15' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ap3_mod4_period30' depends on axioms: [propext, Classical.choice, Quot.sound]
+EXIT=0

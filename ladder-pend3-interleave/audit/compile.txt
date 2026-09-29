@@ -1,0 +1,9 @@
+== paper-lint (gate 1), run from repo root, post-fix build ==
+PASS: paper-lint 全绿 (claims/ladder-pend3-interleave/claim.tex)
+== tectonic compile (gate 2) ==
+round 1 (initial): claim.xdv 22 pages 606776 bytes; claim.pdf 197519 bytes; exit 0
+round 2 (post-audit fix: title + theorem display names + novelty-table counts): claim.xdv 22 pages 609172 bytes; claim.pdf 197761 bytes; exit 0
+Missing character count: 0 (both rounds)
+Overfull count: 0
+undefined count: 1 (TU/SimSun(0)/m/it font-shape substitution, benign; no citation/reference undefined)
+listing integrity re-verified post-edit: inspect-tex --verify 4/4 PASS (edits outside listings)

@@ -1,0 +1,1029 @@
+% claim.tex -- AI4Math claim of record (AI-generated, 2026-09-29; instantiated
+% from harness/templates/claim/claim.tex per SOP 08b).
+% Machine-readable theorem anchors are the "% LEAN:" lines; scripts/paper-lint.sh
+% and the claim audit check them. All Lean listings are verbatim, byte-identical
+% contiguous excerpts of frozen artifacts of tasks/20260929-comb10-ladder-pend3:
+%   statements : formalized/comb10-ladder-pend3.statement.txt (160 lines, LF,
+%                sha256 47d54db7...; byte-identical to formalized/comb10-ladder-pend3.lean)
+%   proof file : final/comb10-ladder-pend3-proved.lean (440 lines, CRLF on the
+%                working disk; excerpts LF-normalised per the chorded-cycle
+%                precedent, byte-exact original shipped in proofs/)
+% Line ranges used: statement 37-89, 92-116, 119-159 (base defs and theorem
+% heads); final 1-440 (whole file). The frozen statement file's literal "sorry"
+% occurrences (the three theorem proof placeholders at lines 90/117/160, plus
+% one mention in the head comment block at line 33) all lie outside the
+% excerpt ranges, as required by the paper-lint listing gate. Verification:
+% audit/listing-verify.txt (audit/inspect-tex.py --verify).
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\input{lstlean}
+\lstset{language=lean}
+
+% --- local rendering patch (2026-09-29) ---
+% tectonic/XeTeX does not apply the listings literate table to multi-byte
+% characters, so the Unicode set used by the listings of THIS note is mapped
+% to math glyphs as active characters via the standard \lccode/\lowercase
+% idiom (ASCII-only source, no extra packages). Characters deliberately NOT
+% mapped: U+00B7 (middle dot) and U+2014 (em-dash), which xeCJK sets up at
+% load time (making them active first aborts the run with "Control sequence
+% ... already defined"; observed 2026-09-27 in the pendant note); they route
+% through xeCJK + SimSun, as do all CJK ideographs and CJK punctuation.
+% New relative to the template set (they occur in this note's sources):
+% 00A7 (section sign), 00AB/00BB (guillemets, case labels), 21A6 (mapsto),
+% 2208 (in), 2212 (minus sign), 27FA (long left-right arrow, iff).
+% Rendering only: listing source bytes are untouched, so the byte-exactness
+% checks are unaffected, and the \ifdefined guard leaves the pdflatex path
+% identical to the template.
+\ifdefined\XeTeXversion
+  {\lccode`\~="00A7 \lowercase{\global\catcode`~=\active \global\def~{\S}}}
+  {\lccode`\~="00AB \lowercase{\global\catcode`~=\active \global\def~{\guillemotleft}}}
+  {\lccode`\~="00BB \lowercase{\global\catcode`~=\active \global\def~{\guillemotright}}}
+  {\lccode`\~="2115 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{N}}}}}
+  {\lccode`\~="2124 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{Z}}}}}
+  {\lccode`\~="2192 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rightarrow}}}}
+  {\lccode`\~="21A6 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mapsto}}}}
+  {\lccode`\~="2200 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\forall}}}}
+  {\lccode`\~="2208 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\in}}}}
+  {\lccode`\~="2212 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{-}}}}
+  {\lccode`\~="2227 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\wedge}}}}
+  {\lccode`\~="2265 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\geq}}}}
+  {\lccode`\~="27E8 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\langle}}}}
+  {\lccode`\~="27E9 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rangle}}}}
+  {\lccode`\~="27FA \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\Longleftrightarrow}}}}
+\fi
+\ifdefined\XeTeXversion
+  \usepackage{xeCJK}
+  \setCJKmainfont{SimSun}
+\fi
+
+\newtheorem{theorem}{Theorem}
+
+\title{Matchings of the period-3 pendant ladder: a mod-3 interlacing
+recurrence and explicit modular residue tables\\ (Lean 4 machine-checked
+claim of record)}
+\author{Aurora0134\thanks{Contact: via the GitHub account Aurora0134; ORCID
+placeholder --- to be filled in by the author before any upload. No personal
+information is carried in this note.}}
+\date{September 29, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $a(n)$ be the number of matchings (the empty one included) of the
+period-3 pendant ladder: the ladder graph $P_n\square K_2$ with one pendant
+leaf attached to the upper-rail vertex of every column $3k+1$. The AI4Math
+pipeline formalised and machine-proved three exact laws of the
+recurrence-defined counterpart $\mathtt{ap3}$ of $a$ (with
+$\mathtt{ap3}\,n=a(n{+}1)$): (1)~a mod-3 interlacing identity that splits the
+order-12 sparse recurrence into three order-4 subsequences with the same
+coefficients $(45,63,11,-1)$; (2)~an explicit period-15 residue table for
+$\mathtt{ap3}\bmod 2$; (3)~an explicit period-30 residue table for
+$\mathtt{ap3}\bmod 4$. All three theorems compile with no \texttt{sorry},
+and \texttt{\#print axioms} reports only \{propext, Quot.sound,
+Classical.choice\}. Two independent novelty reviews found no occupying
+record for the sequence, its recurrence, or its three mod-3 subsequences;
+the plain ladder, the period-1 pendant (corona) and the period-2 pendant
+relatives are registered, period 3 is not. The claim is strictly
+\emph{new sequence / new recurrence}, never new mathematics. This note is a
+priority claim of record, not a full paper.
+\end{abstract}
+
+\section{Introduction}
+
+Three theorems about one integer sequence are reported here. The sequence
+counts all matchings of the period-3 pendant ladder; its first values are
+$a(0)=1$ (the empty graph with its empty matching) and, for $n\ge 1$,
+$3,10,32,150,457,1489,6948,21191,69032,322142,\ldots$, and the conjectured
+law recorded with the object was the sparse recurrence
+$a(n)=45a(n-3)+63a(n-6)+11a(n-9)-a(n-12)$, equivalently: the three
+$\bmod\,3$ subsequences all obey the same order-4 recurrence with
+coefficients $(45,63,11,-1)$. The proofs were produced by the AI4Math
+pipeline, in which LLM workers generate statements and proof scripts and the
+Lean 4 kernel is the sole adjudicator at every gate: statements are frozen
+by hash before proving, and a separate audit re-computes the symmetric
+difference, scans the whole file for \texttt{sorry}/\texttt{admit} including
+comments, and re-prints the axiom dependencies \cite{lean4}. The kernel
+layer proves the pure-sequence statements (definitions below are
+initial-values-plus-recurrence, $\mathbb{N}\to\mathbb{Z}$, no graph objects);
+the identification of the recurrence-defined sequence with the matching
+count of the pendant ladder is a conjecture layer carried by the pipeline's
+computational evidence (five methodologically distinct counting
+implementations in agreement over 241 terms, double-window modular scans)
+and is not kernel-proved; Section~\ref{sec:limits} states this boundary
+verbatim. This note is a priority claim of record deposited so that a dated,
+citable public record exists ahead of the narrative paper; no literature
+review is attempted here.
+
+\section{Statement}\label{sec:statement}
+
+Throughout, \texttt{ap3} is the main column: an
+$\mathbb{N}\to\mathbb{Z}$ sequence with twelve frozen initial values and the
+order-12 sparse recurrence
+$\mathtt{ap3}\,(n+12)=45\,\mathtt{ap3}\,(n+9)+63\,\mathtt{ap3}\,(n+6)
++11\,\mathtt{ap3}\,(n+3)-\mathtt{ap3}\,n$. The index convention is fixed by
+the pipeline's claims record: $\mathtt{ap3}\,n=a(n{+}1)$ (0-based Lean
+against 1-based counting), the twelve frozen initial values are the 0-based
+$a(0..11)$ (the base term $a(0)=1$ included), and \texttt{bp0}, \texttt{bp1},
+\texttt{bp2} are the three $\bmod\,3$ subsequences, $\mathtt{bp}_r\,k
+=a(3k{+}r{+}1)$ in 1-based terms, each with four initial values (the
+$\mathtt{ap3}$ values at indices $3k+r$) and the order-4 recurrence
+$\mathtt{bp}_r\,(k+4)=45\,\mathtt{bp}_r\,(k+3)+63\,\mathtt{bp}_r\,(k+2)
++11\,\mathtt{bp}_r\,(k+1)-\mathtt{bp}_r\,k$. \texttt{pat15} and
+\texttt{pat30} are the explicit residue tables: $\mathbb{N}\to\mathbb{Z}$
+functions equal to $0$ outside the listed classes.
+
+% LEAN: tasks/20260929-comb10-ladder-pend3 :: ap3_interleave grade=完全证明
+\begin{theorem}[mod-3 interlacing identity]\label{thm:interleave}
+For every $k:\mathbb{N}$,
+\[
+\mathtt{ap3}\,(3k)=\mathtt{bp0}\,k
+\;\wedge\;\mathtt{ap3}\,(3k+1)=\mathtt{bp1}\,k
+\;\wedge\;\mathtt{ap3}\,(3k+2)=\mathtt{bp2}\,k .
+\]
+That is: the order-12 sparse recurrence decouples along $n\bmod 3$ into
+three order-4 subsequences that share the coefficient vector
+$(45,63,11,-1)$.
+\end{theorem}
+
+% LEAN: tasks/20260929-comb10-ladder-pend3 :: ap3_mod2_period15 grade=完全证明
+\begin{theorem}[explicit period-15 residue table for mod 2]\label{thm:mod2}
+For all $n,r:\mathbb{N}$ with $n \bmod 15 = r$,
+$\mathtt{ap3}\,n \bmod 2 = \mathtt{pat15}\,r$, where \texttt{pat15} is the
+explicit table $(1,1,0,0,0,1,1,0,1,0,0,0,0,1,0)$ on the fifteen residue
+classes; equivalently $\mathtt{ap3}\,n$ is odd exactly when
+$n \bmod 15 \in \{0,1,5,6,8,13\}$.
+\end{theorem}
+
+% LEAN: tasks/20260929-comb10-ladder-pend3 :: ap3_mod4_period30 grade=完全证明
+\begin{theorem}[explicit period-30 residue table for mod 4]\label{thm:mod4}
+For all $n,r:\mathbb{N}$ with $n \bmod 30 = r$,
+$\mathtt{ap3}\,n \bmod 4 = \mathtt{pat30}\,r$, where \texttt{pat30} is the
+explicit thirty-entry table reproduced in the listing below.
+\end{theorem}
+
+\begin{lstlisting}[caption={Frozen base definitions and the head of
+Theorem~\ref{thm:interleave}, verbatim lines 37--89 of
+\texttt{formalized/comb10-ladder-pend3.statement.txt} (sha256
+\texttt{47d54db7}): the four sequence definitions and the interlacing
+statement.},label={lst:s1}]
+/-- **序列 ap3（主列，12 阶稀疏递推）**。
+初值（12 项，0-based a(0..11)）：1, 3, 10, 32, 150, 457, 1489, 6948, 21191, 69032, 322142, 982496；
+递推 ap3 (n+12) = 45·ap3 (n+9) + 63·ap3 (n+6) + 11·ap3 (n+3) − ap3 n（n ≥ 0）。 -/
+def ap3 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 3
+  | 2 => 10
+  | 3 => 32
+  | 4 => 150
+  | 5 => 457
+  | 6 => 1489
+  | 7 => 6948
+  | 8 => 21191
+  | 9 => 69032
+  | 10 => 322142
+  | 11 => 982496
+  | n + 12 => 45 * ap3 (n + 9) + 63 * ap3 (n + 6) + 11 * ap3 (n + 3) - ap3 n
+
+/-- **序列 bp0（mod-3 子列 r = 0，四阶递推）**。
+初值 = ap3 在下标 0, 3, 6, 9 处之值：1, 32, 1489, 69032；
+递推 bp0 (k+4) = 45·bp0 (k+3) + 63·bp0 (k+2) + 11·bp0 (k+1) − bp0 k（k ≥ 0）。 -/
+def bp0 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 32
+  | 2 => 1489
+  | 3 => 69032
+  | k + 4 => 45 * bp0 (k + 3) + 63 * bp0 (k + 2) + 11 * bp0 (k + 1) - bp0 k
+
+/-- **序列 bp1（mod-3 子列 r = 1，四阶递推）**。
+初值 = ap3 在下标 1, 4, 7, 10 处之值：3, 150, 6948, 322142；
+递推 bp1 (k+4) = 45·bp1 (k+3) + 63·bp1 (k+2) + 11·bp1 (k+1) − bp1 k（k ≥ 0）。 -/
+def bp1 : ℕ → ℤ
+  | 0 => 3
+  | 1 => 150
+  | 2 => 6948
+  | 3 => 322142
+  | k + 4 => 45 * bp1 (k + 3) + 63 * bp1 (k + 2) + 11 * bp1 (k + 1) - bp1 k
+
+/-- **序列 bp2（mod-3 子列 r = 2，四阶递推）**。
+初值 = ap3 在下标 2, 5, 8, 11 处之值：10, 457, 21191, 982496；
+递推 bp2 (k+4) = 45·bp2 (k+3) + 63·bp2 (k+2) + 11·bp2 (k+1) − bp2 k（k ≥ 0）。 -/
+def bp2 : ℕ → ℤ
+  | 0 => 10
+  | 1 => 457
+  | 2 => 21191
+  | 3 => 982496
+  | k + 4 => 45 * bp2 (k + 3) + 63 * bp2 (k + 2) + 11 * bp2 (k + 1) - bp2 k
+
+/-- **T1（主攻）**：主列 12 阶稀疏递推 = 三条同系数四阶子列按 n mod 3 交织——
+对一切 k，ap3 (3k) = bp0 k、ap3 (3k+1) = bp1 k、ap3 (3k+2) = bp2 k。
+（claims.md §T1：递推只含 3 的倍数滞后，三条 mod-3 副列天然解耦，无需辅助 12 阶恒等式引理。） -/
+theorem ap3_interleave (k : ℕ) :
+    ap3 (3 * k) = bp0 k ∧ ap3 (3 * k + 1) = bp1 k ∧ ap3 (3 * k + 2) = bp2 k := by
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Frozen definition of \texttt{pat15} and the head
+of Theorem~\ref{thm:mod2}, verbatim lines 92--116 of the frozen statement
+file.},label={lst:s2}]
+/-- **余数样式 pat15**（15 留数类 ↦ mod 2 余数）：
+0↦1, 1↦1, 2↦0, 3↦0, 4↦0, 5↦1, 6↦1, 7↦0, 8↦1, 9↦0,
+10↦0, 11↦0, 12↦0, 13↦1，其余 ↦ 0
+（即 ap3 n 为奇 ⟺ n mod 15 ∈ {0, 1, 5, 6, 8, 13}）。 -/
+def pat15 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 1
+  | 2 => 0
+  | 3 => 0
+  | 4 => 0
+  | 5 => 1
+  | 6 => 1
+  | 7 => 0
+  | 8 => 1
+  | 9 => 0
+  | 10 => 0
+  | 11 => 0
+  | 12 => 0
+  | 13 => 1
+  | _ => 0
+
+/-- **T2（伴随）**：ap3 的 mod 2 余数仅依赖 n mod 15，样式为 pat15
+（0-based 口径；claims.md §T2 样式 (1,1,0,0,0,1,1,0,1,0,0,0,0,1,0)）。 -/
+theorem ap3_mod2_period15 (n r : ℕ) (hr : n % 15 = r) :
+    ap3 n % 2 = pat15 r := by
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Frozen definition of \texttt{pat30} and the head
+of Theorem~\ref{thm:mod4}, verbatim lines 119--159 of the frozen statement
+file.},label={lst:s3}]
+/-- **余数样式 pat30**（30 留数类 ↦ mod 4 余数）：
+0↦1, 1↦3, 2↦2, 3↦0, 4↦2, 5↦1, 6↦1, 7↦0, 8↦3, 9↦0,
+10↦2, 11↦0, 12↦2, 13↦1, 14↦2, 15↦1, 16↦1, 17↦2, 18↦2, 19↦2,
+20↦1, 21↦3, 22↦2, 23↦1, 24↦2, 25↦2, 26↦0, 27↦0, 28↦1，其余 ↦ 0。 -/
+def pat30 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 3
+  | 2 => 2
+  | 3 => 0
+  | 4 => 2
+  | 5 => 1
+  | 6 => 1
+  | 7 => 0
+  | 8 => 3
+  | 9 => 0
+  | 10 => 2
+  | 11 => 0
+  | 12 => 2
+  | 13 => 1
+  | 14 => 2
+  | 15 => 1
+  | 16 => 1
+  | 17 => 2
+  | 18 => 2
+  | 19 => 2
+  | 20 => 1
+  | 21 => 3
+  | 22 => 2
+  | 23 => 1
+  | 24 => 2
+  | 25 => 2
+  | 26 => 0
+  | 27 => 0
+  | 28 => 1
+  | _ => 0
+
+/-- **T3（伴随）**：ap3 的 mod 4 余数仅依赖 n mod 30，样式为 pat30
+（蕴含 T2：奇值类 mod 30 = {0, 1, 5, 6, 8, 13, 15, 16, 20, 21, 23, 28}，每类 mod 2 与 pat15 一致；
+蕴含关系归证明侧，statement 层 T2/T3 并列独立）。 -/
+theorem ap3_mod4_period30 (n r : ℕ) (hr : n % 30 = r) :
+    ap3 n % 4 = pat30 r := by
+\end{lstlisting}
+
+The complete final file is reproduced verbatim in Section~\ref{sec:proof}
+(whole file, no excerpting); it also ships in this deposit under
+\texttt{proofs/}. The frozen statement file carries the three theorem
+bodies as \texttt{sorry} placeholders (that is its role: the formalisation
+department freezes statements, the proving department replaces bodies); the
+excerpts above stop at each theorem head, so no \texttt{sorry} line enters
+any listing, and the final proof file has none anywhere.
+
+\section{Proof}\label{sec:proof}
+
+All three proofs are strong inductions on the index, with the recursion
+depth 12 (the sparse recurrence's gap) between the induction hypothesis
+instances used and the conclusion. For Theorem~\ref{thm:interleave} the
+decoupling is structural: the sparse recurrence only lags by multiples of
+$3$, so each $\bmod\,3$ subsequence satisfies the order-4 recurrence on its
+own; the proof first establishes the three one-sided lemmas
+$\mathtt{ap3}\,(3k+r)=\mathtt{bp}_r\,k$ ($r=0,1,2$) by strong induction
+(twelve base cases discharged by case enumeration and arithmetic normalisation;
+induction step: unfold $\mathtt{bp}_r$, rewrite the four occurrences through
+the induction hypotheses, and match the $\mathtt{ap3}$ recurrence instance at
+index $3k+r$), then assembles the conjunction. Theorems~\ref{thm:mod2}
+and~\ref{thm:mod4} prove the full-column residue laws directly: a
+$\mathtt{period}$ lemma ($\forall m$, $\mathtt{ap3}\,m \bmod q =
+\mathtt{pat}\,(m \bmod P)$) is established by strong induction, where the
+induction step rewrites the recurrence modulo $q$ (for $q=2$: all four
+coefficients are $1$; for $q=4$: $1,3,3,3$), enumerates the $P$ residue
+classes of the induction target $m \bmod P$ ($P=15$, resp.\ $30$), shifts
+each of the four lagged terms into a decided residue class, and closes each
+case by table lookup and arithmetic; the outer theorem instantiates the
+$\mathtt{period}$ lemma at $m=n$. The third theorem's file carries a
+\texttt{set\_option maxHeartbeats 800000} decoration: an elaboration-resource
+knob for the thirty-case enumeration, with no effect on the statement or the
+kernel semantics. The complete final file follows verbatim ($440$ lines, no
+excerpting; the working copy is CRLF, listing LF-normalised per the
+chorded-cycle precedent, byte-exact original in \texttt{proofs/}).
+
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize,caption={Complete proof
+file of Theorems~\ref{thm:interleave}, \ref{thm:mod2} and \ref{thm:mod4},
+verbatim lines 1--440 (whole file) of
+\texttt{final/comb10-ladder-pend3-proved.lean} (sha256 \texttt{e56e496f}).},label={lst:proof}]
+/-
+  AI4Math 流水线 · AI 生成 · 2026-09-29
+  任务线：comb10-ladder-pend3（pool-comb-10）· 三定理合并终审稿
+  冻结快照：formalized/comb10-ladder-pend3.statement.txt
+    （sha256 47d54db7c3d5309720537295055d5869e990618399950aaacb311f8028a9bba9）
+  来源分件（kernel 已逐件过）：attempts/comb10-t1.lean / comb10-t2.lean / comb10-t3.lean
+  声明层对冻结件零改动；T3 前一条 set_option maxHeartbeats 800000 为编译资源旋钮
+  （comb-09 T2 同类判例，内核语义不受影响）。
+-/
+
+import Mathlib
+
+def ap3 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 3
+  | 2 => 10
+  | 3 => 32
+  | 4 => 150
+  | 5 => 457
+  | 6 => 1489
+  | 7 => 6948
+  | 8 => 21191
+  | 9 => 69032
+  | 10 => 322142
+  | 11 => 982496
+  | n + 12 => 45 * ap3 (n + 9) + 63 * ap3 (n + 6) + 11 * ap3 (n + 3) - ap3 n
+
+def bp0 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 32
+  | 2 => 1489
+  | 3 => 69032
+  | k + 4 => 45 * bp0 (k + 3) + 63 * bp0 (k + 2) + 11 * bp0 (k + 1) - bp0 k
+
+def bp1 : ℕ → ℤ
+  | 0 => 3
+  | 1 => 150
+  | 2 => 6948
+  | 3 => 322142
+  | k + 4 => 45 * bp1 (k + 3) + 63 * bp1 (k + 2) + 11 * bp1 (k + 1) - bp1 k
+
+def bp2 : ℕ → ℤ
+  | 0 => 10
+  | 1 => 457
+  | 2 => 21191
+  | 3 => 982496
+  | k + 4 => 45 * bp2 (k + 3) + 63 * bp2 (k + 2) + 11 * bp2 (k + 1) - bp2 k
+
+theorem ap3_sub_0 (k : ℕ) : ap3 (3 * k) = bp0 k := by
+  induction k using Nat.strong_induction_on with
+  | h k ih =>
+    by_cases hk : k < 4
+    · interval_cases k <;> norm_num [ap3, bp0]
+    · let t := k - 4
+      have ht : k = t + 4 := by dsimp [t]; omega
+      have h0 := ih t (by omega)
+      have h1 := ih (t + 1) (by omega)
+      have h2 := ih (t + 2) (by omega)
+      have h3 := ih (t + 3) (by omega)
+      rw [ht, bp0]
+      have hidx : 3 * (t + 4) = 3 * t + 12 := by omega
+      rw [hidx]
+      have hrec : ap3 (3 * t + 12) =
+          45 * ap3 (3 * t + 9) + 63 * ap3 (3 * t + 6) +
+            11 * ap3 (3 * t + 3) - ap3 (3 * t) := by
+        rw [ap3]
+      rw [hrec]
+      have e3 : 3 * t + 9 = 3 * (t + 3) := by omega
+      have e2 : 3 * t + 6 = 3 * (t + 2) := by omega
+      have e1 : 3 * t + 3 = 3 * (t + 1) := by omega
+      rw [e3, e2, e1, h3, h2, h1, h0]
+
+theorem ap3_sub_1 (k : ℕ) : ap3 (3 * k + 1) = bp1 k := by
+  induction k using Nat.strong_induction_on with
+  | h k ih =>
+    by_cases hk : k < 4
+    · interval_cases k <;> norm_num [ap3, bp1]
+    · let t := k - 4
+      have ht : k = t + 4 := by dsimp [t]; omega
+      have h0 := ih t (by omega)
+      have h1 := ih (t + 1) (by omega)
+      have h2 := ih (t + 2) (by omega)
+      have h3 := ih (t + 3) (by omega)
+      rw [ht, bp1]
+      have hidx : 3 * (t + 4) + 1 = (3 * t + 1) + 12 := by omega
+      rw [hidx]
+      have hrec : ap3 ((3 * t + 1) + 12) =
+          45 * ap3 ((3 * t + 1) + 9) + 63 * ap3 ((3 * t + 1) + 6) +
+            11 * ap3 ((3 * t + 1) + 3) - ap3 (3 * t + 1) := by
+        rw [ap3]
+      rw [hrec]
+      have e3 : (3 * t + 1) + 9 = 3 * (t + 3) + 1 := by omega
+      have e2 : (3 * t + 1) + 6 = 3 * (t + 2) + 1 := by omega
+      have e1 : (3 * t + 1) + 3 = 3 * (t + 1) + 1 := by omega
+      rw [e3, e2, e1, h3, h2, h1, h0]
+
+theorem ap3_sub_2 (k : ℕ) : ap3 (3 * k + 2) = bp2 k := by
+  induction k using Nat.strong_induction_on with
+  | h k ih =>
+    by_cases hk : k < 4
+    · interval_cases k <;> norm_num [ap3, bp2]
+    · let t := k - 4
+      have ht : k = t + 4 := by dsimp [t]; omega
+      have h0 := ih t (by omega)
+      have h1 := ih (t + 1) (by omega)
+      have h2 := ih (t + 2) (by omega)
+      have h3 := ih (t + 3) (by omega)
+      rw [ht, bp2]
+      have hidx : 3 * (t + 4) + 2 = (3 * t + 2) + 12 := by omega
+      rw [hidx]
+      have hrec : ap3 ((3 * t + 2) + 12) =
+          45 * ap3 ((3 * t + 2) + 9) + 63 * ap3 ((3 * t + 2) + 6) +
+            11 * ap3 ((3 * t + 2) + 3) - ap3 (3 * t + 2) := by
+        rw [ap3]
+      rw [hrec]
+      have e3 : (3 * t + 2) + 9 = 3 * (t + 3) + 2 := by omega
+      have e2 : (3 * t + 2) + 6 = 3 * (t + 2) + 2 := by omega
+      have e1 : (3 * t + 2) + 3 = 3 * (t + 1) + 2 := by omega
+      rw [e3, e2, e1, h3, h2, h1, h0]
+
+theorem ap3_interleave (k : ℕ) :
+    ap3 (3 * k) = bp0 k ∧ ap3 (3 * k + 1) = bp1 k ∧ ap3 (3 * k + 2) = bp2 k := by
+  exact ⟨ap3_sub_0 k, ap3_sub_1 k, ap3_sub_2 k⟩
+
+def pat15 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 1
+  | 2 => 0
+  | 3 => 0
+  | 4 => 0
+  | 5 => 1
+  | 6 => 1
+  | 7 => 0
+  | 8 => 1
+  | 9 => 0
+  | 10 => 0
+  | 11 => 0
+  | 12 => 0
+  | 13 => 1
+  | _ => 0
+
+theorem ap3_mod2_period15 (n r : ℕ) (hr : n % 15 = r) :
+    ap3 n % 2 = pat15 r := by
+  have hperiod : ∀ m : ℕ, ap3 m % 2 = pat15 (m % 15) := by
+    intro m
+    induction m using Nat.strong_induction_on with
+    | h m ih =>
+      by_cases hm : m < 12
+      · interval_cases m <;> decide
+      · let t := m - 12
+        have hmt : m = t + 12 := by
+          dsimp [t]
+          omega
+        rw [hmt, ap3]
+        have h0 := ih t (by omega)
+        have h3 := ih (t + 3) (by omega)
+        have h6 := ih (t + 6) (by omega)
+        have h9 := ih (t + 9) (by omega)
+        have hresBound : t % 15 < 15 := Nat.mod_lt _ (by omega)
+        interval_cases hres : t % 15
+        case «0» =>
+          rw [(show (t + 3) % 15 = 3 by omega), (show (t + 6) % 15 = 6 by omega),
+              (show (t + 9) % 15 = 9 by omega), (show (t + 12) % 15 = 12 by omega)] at *
+          norm_num [pat15] at *
+          omega
+        case «1» =>
+          rw [(show (t + 3) % 15 = 4 by omega), (show (t + 6) % 15 = 7 by omega),
+              (show (t + 9) % 15 = 10 by omega), (show (t + 12) % 15 = 13 by omega)] at *
+          norm_num [pat15] at *
+          omega
+        case «2» =>
+          rw [(show (t + 3) % 15 = 5 by omega), (show (t + 6) % 15 = 8 by omega),
+              (show (t + 9) % 15 = 11 by omega), (show (t + 12) % 15 = 14 by omega)] at *
+          norm_num [pat15] at *
+          omega
+        case «3» =>
+          rw [(show (t + 3) % 15 = 6 by omega), (show (t + 6) % 15 = 9 by omega),
+              (show (t + 9) % 15 = 12 by omega), (show (t + 12) % 15 = 0 by omega)] at *
+          norm_num [pat15] at *
+          omega
+        case «4» =>
+          rw [(show (t + 3) % 15 = 7 by omega), (show (t + 6) % 15 = 10 by omega),
+              (show (t + 9) % 15 = 13 by omega), (show (t + 12) % 15 = 1 by omega)] at *
+          norm_num [pat15] at *
+          omega
+        case «5» =>
+          rw [(show (t + 3) % 15 = 8 by omega), (show (t + 6) % 15 = 11 by omega),
+              (show (t + 9) % 15 = 14 by omega), (show (t + 12) % 15 = 2 by omega)] at *
+          norm_num [pat15] at *
+          omega
+        case «6» =>
+          rw [(show (t + 3) % 15 = 9 by omega), (show (t + 6) % 15 = 12 by omega),
+              (show (t + 9) % 15 = 0 by omega), (show (t + 12) % 15 = 3 by omega)] at *
+          norm_num [pat15] at *
+          omega
+        case «7» =>
+          rw [(show (t + 3) % 15 = 10 by omega), (show (t + 6) % 15 = 13 by omega),
+              (show (t + 9) % 15 = 1 by omega), (show (t + 12) % 15 = 4 by omega)] at *
+          norm_num [pat15] at *
+          omega
+        case «8» =>
+          rw [(show (t + 3) % 15 = 11 by omega), (show (t + 6) % 15 = 14 by omega),
+              (show (t + 9) % 15 = 2 by omega), (show (t + 12) % 15 = 5 by omega)] at *
+          norm_num [pat15] at *
+          omega
+        case «9» =>
+          rw [(show (t + 3) % 15 = 12 by omega), (show (t + 6) % 15 = 0 by omega),
+              (show (t + 9) % 15 = 3 by omega), (show (t + 12) % 15 = 6 by omega)] at *
+          norm_num [pat15] at *
+          omega
+        case «10» =>
+          rw [(show (t + 3) % 15 = 13 by omega), (show (t + 6) % 15 = 1 by omega),
+              (show (t + 9) % 15 = 4 by omega), (show (t + 12) % 15 = 7 by omega)] at *
+          norm_num [pat15] at *
+          omega
+        case «11» =>
+          rw [(show (t + 3) % 15 = 14 by omega), (show (t + 6) % 15 = 2 by omega),
+              (show (t + 9) % 15 = 5 by omega), (show (t + 12) % 15 = 8 by omega)] at *
+          norm_num [pat15] at *
+          omega
+        case «12» =>
+          rw [(show (t + 3) % 15 = 0 by omega), (show (t + 6) % 15 = 3 by omega),
+              (show (t + 9) % 15 = 6 by omega), (show (t + 12) % 15 = 9 by omega)] at *
+          norm_num [pat15] at *
+          omega
+        case «13» =>
+          rw [(show (t + 3) % 15 = 1 by omega), (show (t + 6) % 15 = 4 by omega),
+              (show (t + 9) % 15 = 7 by omega), (show (t + 12) % 15 = 10 by omega)] at *
+          norm_num [pat15] at *
+          omega
+        case «14» =>
+          rw [(show (t + 3) % 15 = 2 by omega), (show (t + 6) % 15 = 5 by omega),
+              (show (t + 9) % 15 = 8 by omega), (show (t + 12) % 15 = 11 by omega)] at *
+          norm_num [pat15] at *
+          omega
+  rw [hperiod n, hr]
+
+def pat30 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 3
+  | 2 => 2
+  | 3 => 0
+  | 4 => 2
+  | 5 => 1
+  | 6 => 1
+  | 7 => 0
+  | 8 => 3
+  | 9 => 0
+  | 10 => 2
+  | 11 => 0
+  | 12 => 2
+  | 13 => 1
+  | 14 => 2
+  | 15 => 1
+  | 16 => 1
+  | 17 => 2
+  | 18 => 2
+  | 19 => 2
+  | 20 => 1
+  | 21 => 3
+  | 22 => 2
+  | 23 => 1
+  | 24 => 2
+  | 25 => 2
+  | 26 => 0
+  | 27 => 0
+  | 28 => 1
+  | _ => 0
+
+set_option maxHeartbeats 800000 in
+theorem ap3_mod4_period30 (n r : ℕ) (hr : n % 30 = r) :
+    ap3 n % 4 = pat30 r := by
+  have hperiod : ∀ m : ℕ, ap3 m % 4 = pat30 (m % 30) := by
+    intro m
+    induction m using Nat.strong_induction_on with
+    | h m ih =>
+      by_cases hm : m < 12
+      · interval_cases m <;> decide
+      · let t := m - 12
+        have hmt : m = t + 12 := by
+          dsimp [t]
+          omega
+        rw [hmt, ap3]
+        have h0 := ih t (by omega)
+        have h3 := ih (t + 3) (by omega)
+        have h6 := ih (t + 6) (by omega)
+        have h9 := ih (t + 9) (by omega)
+        have hresBound : t % 30 < 30 := Nat.mod_lt _ (by omega)
+        interval_cases hres : t % 30
+        case «0» =>
+          rw [(show (t + 3) % 30 = 3 by omega), (show (t + 6) % 30 = 6 by omega),
+              (show (t + 9) % 30 = 9 by omega), (show (t + 12) % 30 = 12 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «1» =>
+          rw [(show (t + 3) % 30 = 4 by omega), (show (t + 6) % 30 = 7 by omega),
+              (show (t + 9) % 30 = 10 by omega), (show (t + 12) % 30 = 13 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «2» =>
+          rw [(show (t + 3) % 30 = 5 by omega), (show (t + 6) % 30 = 8 by omega),
+              (show (t + 9) % 30 = 11 by omega), (show (t + 12) % 30 = 14 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «3» =>
+          rw [(show (t + 3) % 30 = 6 by omega), (show (t + 6) % 30 = 9 by omega),
+              (show (t + 9) % 30 = 12 by omega), (show (t + 12) % 30 = 15 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «4» =>
+          rw [(show (t + 3) % 30 = 7 by omega), (show (t + 6) % 30 = 10 by omega),
+              (show (t + 9) % 30 = 13 by omega), (show (t + 12) % 30 = 16 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «5» =>
+          rw [(show (t + 3) % 30 = 8 by omega), (show (t + 6) % 30 = 11 by omega),
+              (show (t + 9) % 30 = 14 by omega), (show (t + 12) % 30 = 17 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «6» =>
+          rw [(show (t + 3) % 30 = 9 by omega), (show (t + 6) % 30 = 12 by omega),
+              (show (t + 9) % 30 = 15 by omega), (show (t + 12) % 30 = 18 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «7» =>
+          rw [(show (t + 3) % 30 = 10 by omega), (show (t + 6) % 30 = 13 by omega),
+              (show (t + 9) % 30 = 16 by omega), (show (t + 12) % 30 = 19 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «8» =>
+          rw [(show (t + 3) % 30 = 11 by omega), (show (t + 6) % 30 = 14 by omega),
+              (show (t + 9) % 30 = 17 by omega), (show (t + 12) % 30 = 20 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «9» =>
+          rw [(show (t + 3) % 30 = 12 by omega), (show (t + 6) % 30 = 15 by omega),
+              (show (t + 9) % 30 = 18 by omega), (show (t + 12) % 30 = 21 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «10» =>
+          rw [(show (t + 3) % 30 = 13 by omega), (show (t + 6) % 30 = 16 by omega),
+              (show (t + 9) % 30 = 19 by omega), (show (t + 12) % 30 = 22 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «11» =>
+          rw [(show (t + 3) % 30 = 14 by omega), (show (t + 6) % 30 = 17 by omega),
+              (show (t + 9) % 30 = 20 by omega), (show (t + 12) % 30 = 23 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «12» =>
+          rw [(show (t + 3) % 30 = 15 by omega), (show (t + 6) % 30 = 18 by omega),
+              (show (t + 9) % 30 = 21 by omega), (show (t + 12) % 30 = 24 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «13» =>
+          rw [(show (t + 3) % 30 = 16 by omega), (show (t + 6) % 30 = 19 by omega),
+              (show (t + 9) % 30 = 22 by omega), (show (t + 12) % 30 = 25 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «14» =>
+          rw [(show (t + 3) % 30 = 17 by omega), (show (t + 6) % 30 = 20 by omega),
+              (show (t + 9) % 30 = 23 by omega), (show (t + 12) % 30 = 26 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «15» =>
+          rw [(show (t + 3) % 30 = 18 by omega), (show (t + 6) % 30 = 21 by omega),
+              (show (t + 9) % 30 = 24 by omega), (show (t + 12) % 30 = 27 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «16» =>
+          rw [(show (t + 3) % 30 = 19 by omega), (show (t + 6) % 30 = 22 by omega),
+              (show (t + 9) % 30 = 25 by omega), (show (t + 12) % 30 = 28 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «17» =>
+          rw [(show (t + 3) % 30 = 20 by omega), (show (t + 6) % 30 = 23 by omega),
+              (show (t + 9) % 30 = 26 by omega), (show (t + 12) % 30 = 29 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «18» =>
+          rw [(show (t + 3) % 30 = 21 by omega), (show (t + 6) % 30 = 24 by omega),
+              (show (t + 9) % 30 = 27 by omega), (show (t + 12) % 30 = 0 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «19» =>
+          rw [(show (t + 3) % 30 = 22 by omega), (show (t + 6) % 30 = 25 by omega),
+              (show (t + 9) % 30 = 28 by omega), (show (t + 12) % 30 = 1 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «20» =>
+          rw [(show (t + 3) % 30 = 23 by omega), (show (t + 6) % 30 = 26 by omega),
+              (show (t + 9) % 30 = 29 by omega), (show (t + 12) % 30 = 2 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «21» =>
+          rw [(show (t + 3) % 30 = 24 by omega), (show (t + 6) % 30 = 27 by omega),
+              (show (t + 9) % 30 = 0 by omega), (show (t + 12) % 30 = 3 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «22» =>
+          rw [(show (t + 3) % 30 = 25 by omega), (show (t + 6) % 30 = 28 by omega),
+              (show (t + 9) % 30 = 1 by omega), (show (t + 12) % 30 = 4 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «23» =>
+          rw [(show (t + 3) % 30 = 26 by omega), (show (t + 6) % 30 = 29 by omega),
+              (show (t + 9) % 30 = 2 by omega), (show (t + 12) % 30 = 5 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «24» =>
+          rw [(show (t + 3) % 30 = 27 by omega), (show (t + 6) % 30 = 0 by omega),
+              (show (t + 9) % 30 = 3 by omega), (show (t + 12) % 30 = 6 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «25» =>
+          rw [(show (t + 3) % 30 = 28 by omega), (show (t + 6) % 30 = 1 by omega),
+              (show (t + 9) % 30 = 4 by omega), (show (t + 12) % 30 = 7 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «26» =>
+          rw [(show (t + 3) % 30 = 29 by omega), (show (t + 6) % 30 = 2 by omega),
+              (show (t + 9) % 30 = 5 by omega), (show (t + 12) % 30 = 8 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «27» =>
+          rw [(show (t + 3) % 30 = 0 by omega), (show (t + 6) % 30 = 3 by omega),
+              (show (t + 9) % 30 = 6 by omega), (show (t + 12) % 30 = 9 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «28» =>
+          rw [(show (t + 3) % 30 = 1 by omega), (show (t + 6) % 30 = 4 by omega),
+              (show (t + 9) % 30 = 7 by omega), (show (t + 12) % 30 = 10 by omega)] at *
+          norm_num [pat30] at *
+          omega
+        case «29» =>
+          rw [(show (t + 3) % 30 = 2 by omega), (show (t + 6) % 30 = 5 by omega),
+              (show (t + 9) % 30 = 8 by omega), (show (t + 12) % 30 = 11 by omega)] at *
+          norm_num [pat30] at *
+          omega
+  rw [hperiod n, hr]
+\end{lstlisting}
+
+\section{Verification evidence}
+
+\begin{itemize}
+\item Toolchain: Lean \texttt{v4.34.0} (\texttt{leanprover/lean4:v4.34.0}),
+mathlib4 \texttt{v4.34.0}, revision \texttt{5ed29652}. Reproduction: with
+that pin, \texttt{lake env lean} on
+\texttt{proofs/01-comb10-ladder-pend3-proved.lean} compiles with exit code
+$0$ and empty output.
+\item Statement integrity: the frozen statement file (160 lines) has sha256
+\begin{center}
+\texttt{47d54db7c3d5309720537295055d5869e990618}\allowbreak
+\texttt{399950aaacb311f8028a9bba9},
+\end{center}
+and the final proof file (440 lines) has sha256
+\begin{center}
+\texttt{e56e496f8ddc8310316a1d6f1f9befa17e76200}\allowbreak
+\texttt{f97b22515dcd0b2260e9fd7b1}.
+\end{center}
+A re-run of the audit department's symmetric-difference method (comments
+stripped, declarations split, definitions compared full-block, theorems up
+to \texttt{:=}) reports all nine frozen declarations header-identical, with
+exactly the three auxiliary lemmas \texttt{ap3\_sub\_0/1/2} added as
+proof-body scaffolding (\texttt{audit/statement-diff.out}).
+\item Kernel check: compiles with $0$ \texttt{sorry} (whole-file scan
+including comments, also covering \texttt{admit}: zero hits);
+\texttt{\#print axioms} output, verbatim (kernel re-run of 2026-09-29,
+exit code 0, kept in \texttt{audit/axioms.out}):
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize,frame=none]
+'ap3_interleave' depends on axioms: [propext, Quot.sound]
+'ap3_mod2_period15' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ap3_mod4_period30' depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{lstlisting}
+Each line is a subset of the whitelist \{propext, Quot.sound,
+Classical.choice\}.
+\item Grading by the audit department: all three proven declarations
+\emph{complete proof}; the lowest grade reached for the case = \emph{complete
+proof} (final adjudication \texttt{final-comb10-ladder-pend3.txt}: statement
+$9/9$ byte-identical, strict compile exit 0, zero \texttt{sorry}/%
+\texttt{admit}, axiom whitelist subset). No weakening, no added hypotheses,
+no unproven residue.
+\item Audit chain (originals in this deposit under \texttt{audit/} unless
+noted): the final adjudication, the statement-difference re-run, the axiom
+re-print, this note's claim check \texttt{claim-check.md} --- added to
+\texttt{audit/} after the audit department returns its adjudication, and a
+prerequisite for publication.
+\end{itemize}
+
+\section{Novelty evidence}\label{sec:novelty}
+
+Adjudication copied from the pipeline's exclusivity reviews (C9 gate), which
+ran before the problem was accepted: verdict \textbf{no occupying record
+found} for the period-3 pendant-ladder matching sequence, its order-12
+sparse recurrence, and its three mod-3 subsequences --- at both the object
+level (miner screen) and the proposition level (independent full review),
+confirmed by a second review that deliberately reused no query method of the
+first. Value tier \textbf{new sequence / new recurrence}. The registered
+family members are delimited explicitly and none of them is this object:
+the plain ladder A030186 \cite{a030186}, the period-1 pendant corona
+A102436 \cite{a102436}, the period-2 pendant A386889 \cite{a386889}; the
+nearest literature neighbour, Farrell's ``Matchings in ladders''
+\cite{farrell1978}, covers the plain ladder only. The claim is strictly
+\emph{new sequence / new recurrence}, never new mathematics. Summary by
+channel; the full query log, including every zero-hit query, is in this
+deposit at \texttt{audit/c9-record.md} (two records, byte-for-byte).
+
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lll}
+\hline
+channel & queries & result \\
+\hline
+OEIS, numeric \cite{oeis} & first review 16 (4 prefix windows, x2/+1/-1,
+three subsequences x 3 forms) + second review 8 (shifted-prefix a(0)=1/0,
+mid/deep/tail windows, subsequence late windows) & all zero hits;
+positive-control anchors hit (Fibonacci, A180970, family keyword sweep) \\
+OEIS, recurrence/form & first review 9 (recurrence, coefficients, generating
+denominators, characteristic polynomial in two typings) + second review 4
+(OEIS-native asterisk typings) & all zero hits \\
+OEIS, keyword/alias & first review 12 + second review 8 (faulty/defective
+ladder, dimer-monomer phrasing, independent edge sets) + 2 site-scoped web
+strings (Chinese layer, site:oeis) &
+noise hits only, none this object; reverse cross-reference hunting: A386889
+has no reverse references, the A030186 citing family has no period-3 member \\
+MSE in-site + MathOverflow & first review: MSE API rate-limited, 2
+site-scoped web-search rounds; second review: 5 in-site strings +
+MathOverflow (1 query + 2 relaxations) & controls hit (seating-couples
+ladder thread); this object absent \\
+zbMATH & first review 5 + second review 5 + full-record read & zero hits
+for the object; Farrell 1978
+(an:0414.05042) read in full: plain ladder, no pendant construction \\
+arXiv API & first review 6 + second review 4, with controls & controls hit;
+nearest neighbours are graceful
+labelling, spin-ladder physics, polymer chemistry --- none this object \\
+OpenAlex & 8 incl.\ title-filtered & no this-object title in any sweep \\
+library layer & mathlib rg, compfiles, sequencelib tree (26336 files) &
+zero graph-ladder or pendant content; mathlib has matching predicates but
+no counting API \\
+independent re-count & fourth implementation (column-transfer enumeration) &
+39/39 agreement with the deep-fit log; guards against single-implementation
+blind spots \\
+\hline
+\end{tabular}%
+}
+\end{center}
+
+The channels are named so a later reader can re-run them; if any channel
+later returns a same-form record, the tier above weakens accordingly, and
+this deposit will be amended by a later version rather than by editing this
+record.
+
+\section{Scope and limitations}\label{sec:limits}
+
+Grade and boundary, stated as the audit states them. (a) The kernel layer
+proves the pure-sequence theorems
+Theorems~\ref{thm:interleave}--\ref{thm:mod4} and nothing else. (b) The
+combinatorial identification of \texttt{ap3} with the matching count of the
+period-3 pendant ladder is \emph{not} kernel-proved: it rests on the
+pipeline's phase-0 computational evidence (five methodologically distinct
+counting implementations agreeing over 241 terms; double-window modular
+scans; rational-domain least-order fitting), is carried at the conjecture /
+report layer, and does not become a theorem by this deposit. (c) The
+minimality of the periods 15 and 30 is numerically observed (first-return
+state scan, unique minimum within 20000 terms) but not kernel-proved here;
+the theorems assert the residue laws for the tables as written. (d) Two
+further modular laws (period 39 mod 3, period 60 mod 8) and a pure-period
+existence statement for every modulus are numerically supported but not
+kernel-proved and are not claimed. (e) The perfect-matching (PM)
+subsequence has zero-interleaved, too-short non-zero segments for effective
+sequence search; it was not novelty-searched and is not claimed. (f) The
+gate-four sign-off of the underlying task was exercised by the author's
+instruction of 2026-09-29 to run both the paper lane and this claim lane
+with direct outbound authorisation, while the task report file header
+retains its pre-sign-off wording unchanged; both calibers are recorded.
+(g) This note carries no literature review and is a deposit record, not a
+survey; the narrative paper is prepared separately under the pipeline's
+paper lane and will reference this deposit.
+
+\section*{Data availability}
+
+The deposit package for this claim contains the claim note (LaTeX source and
+PDF), the Lean sources (\texttt{proofs/}: frozen statement file, final proof
+file, \texttt{lean-toolchain}), the verification and audit logs, and the
+full C9 query log with zero-hit entries (\texttt{audit/}). Public mirror:
+the claim lane's repository \url{https://github.com/Aurora0134/ai4math-claims},
+directory \texttt{ladder-pend3-interleave/} (pushed under the author's
+instruction of 2026-09-29; the commit and timestamp are recorded in the
+source repository's \texttt{claims/ladder-pend3-interleave/card.md}). Zenodo:
+the DOI is reserved at upload by the author and is recorded in
+\texttt{metadata/README.md} of this package once created; see
+\texttt{UPLOAD.md} in the source repository. Claim note under CC BY 4.0,
+code under MIT.
+
+\section*{Use of generative AI}
+
+(a) AI performed: candidate generation and the two-stage exclusivity review,
+autoformalisation of the definitions and statements, the roundtrip semantic
+check, proof search and proof-script writing (worker agents, with
+main-agent repair on one theorem after a tactic-level rejection), error
+classification and repair, and the assembly of this note including its
+verbatim listings. (b) Model, node and budget: the proving phase ran on the
+node designated by the author for that session (\texttt{a6api/gpt-6-sol};
+the endpoint/model detection scripts resolved unknown for that session and
+the designation is recorded in the task ledger's override log), with no
+cross-node switching, consuming $7$ agent-run samples of a permitted $20$,
+$0$ llm-calls of a permitted $8$, and $27$ strict kernel compiles of a
+permitted $48$ (plus compile-debug probes, separately ledgered), copied
+verbatim from the task ledger. This note consumed $0$ pipeline LLM calls
+against a cap of $4$; drafting was mechanical assembly. (c) Final
+adjudication: all statements and proofs reported here were checked by the
+Lean 4 kernel: the proof compiles with no \texttt{sorry}, and
+\texttt{\#print axioms} reports only \{propext, Quot.sound,
+Classical.choice\}. (d) The AI system is not an author; the human author
+reviewed the evidence and is responsible for all content.
+
+\section*{Author contributions}
+
+CRediT-style: the human author adjudicated topic selection, statement
+semantics and the deposit decision; the AI4Math pipeline (an LLM) generated
+the candidate propositions, the proof searches and the text drafts. The AI
+system is not listed as an author.
+
+\begin{thebibliography}{9}
+% Each entry verified on 2026-09-29 against Crossref title/page metadata
+% (lean4, mathlib), the zbMATH Open API record an:0414.05042 (Farrell), and
+% live fetches of oeis.org (A030186, A102436, A386889). Raw responses:
+% claims/ladder-pend3-interleave/audit/bib-verify/. No entry is quoted from
+% memory.
+\bibitem{lean4}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean 4 theorem prover and programming language.
+\newblock \emph{Automated Deduction -- CADE-28}, LNCS, pp.~625--635, 2021.
+\url{https://doi.org/10.1007/978-3-030-79876-5_37}
+
+\bibitem{mathlib}
+The mathlib Community.
+\newblock The Lean mathematical library.
+\newblock \emph{CPP 2020}, pp.~367--381, 2020.
+\url{https://doi.org/10.1145/3372885.3373824}
+
+\bibitem{oeis}
+The OEIS Foundation.
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}.
+\newblock \url{https://oeis.org/}
+
+\bibitem{a030186}
+OEIS Foundation.
+\newblock Matchings of the ladder graph $P_2\times P_n$ (\%N line gives the
+defining recurrence $a(n)=3a(n-1)+a(n-2)-a(n-3)$, $a(0)=1$, $a(1)=2$,
+$a(2)=7$).
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}, entry
+A030186.
+\url{https://oeis.org/A030186}
+
+\bibitem{a102436}
+OEIS Foundation.
+\newblock Number of matchings of the corona $L'(n)$ of the ladder graph
+$L(n)=P_2\times P_n$ and the complete graph $K(1)$ (the period-1 pendant
+relative).
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}, entry
+A102436.
+\url{https://oeis.org/A102436}
+
+\bibitem{a386889}
+OEIS Foundation.
+\newblock Number of ways to use $1\times 1$ squares and $1\times 2$ dominos
+(in any orientation) to tile a $3\times(2n-1)$ strip with every other cell
+in the top row removed (the period-2 pendant relative).
+\newblock \emph{The On-Line Encyclopedia of Integer Sequences}, entry
+A386889.
+\url{https://oeis.org/A386889}
+
+\bibitem{farrell1978}
+E.~J. Farrell.
+\newblock Matchings in ladders.
+\newblock \emph{Ars Combinatoria} 6 (1978), pp.~153--161.
+\newblock (zbMATH \texttt{an:0414.05042}.)
+
+\end{thebibliography}
+
+\end{document}

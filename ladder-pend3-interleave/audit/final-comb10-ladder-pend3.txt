@@ -1,0 +1,89 @@
+================================================================
+AI4Math 监察院 · 终态审计裁决书（闸门三 / SOP 05）
+================================================================
+任务线：comb10-ladder-pend3（pool-comb-10；梯子图 P_n □ K_2 每三列挂一片悬挂叶的全匹配数列，12 阶稀疏递推）
+审计对象：
+  - 终稿：tasks/20260929-comb10-ladder-pend3/final/comb10-ladder-pend3-proved.lean
+  - 冻结快照：tasks/20260929-comb10-ladder-pend3/formalized/comb10-ladder-pend3.statement.txt
+    （sha256 47d54db7c3d5309720537295055d5869e990618399950aaacb311f8028a9bba9）
+审计执行：主代理承做（本会话内未调用任何 LLM；本文件全部判定以可复现命令输出为准）
+节点快照：端点/模型检测 unknown；用户显式提供会话模型标识 a6api/gpt-6-sol（任务卡 O-3）
+审计日期：2026-09-29
+
+----------------------------------------------------------------
+一、statement 对称差比对（宪条 2）——PASS
+----------------------------------------------------------------
+方法：python 剥除块注释 /- -/（含 docstring）与行注释 -- 后，按顶层 def/theorem 切分声明；
+def 逐字比对全块（空白折叠），theorem 比对至 := 为止并忽略 set_option 资源装饰行。
+
+冻结快照 9 项声明比对结果（全部一致）：
+  [header-identical] ap3、bp0、bp1、bp2（def，含全部初值与递推分枝逐字一致）
+  [header-identical] pat15、pat30（def，全部分枝逐字一致）
+  [header-identical] ap3_interleave、ap3_mod2_period15、ap3_mod4_period30（theorem 头部逐字一致）
+
+终稿额外声明（仅三条辅助引理 ap3_sub_0 / ap3_sub_1 / ap3_sub_2）属证明体脚手架，
+不改变任何冻结 statement 文本（comb-09 atc_sq 同型判例）。
+T3 前的 set_option maxHeartbeats 800000 in 为 elaboration 资源旋钮，不在 statement 面，
+亦不改定理语义（comb-09 T2 同类判例）。
+结论：statement 未篡改。SYMMETRIC-DIFF: PASS（9/9）。
+
+----------------------------------------------------------------
+二、严格编译复跑（宪条 1，kernel 唯一裁判）——PASS
+----------------------------------------------------------------
+命令：bash scripts/lean-verify tasks/20260929-comb10-ladder-pend3/final/comb10-ladder-pend3-proved.lean
+结果：EXIT=0，无任何诊断输出（无 compile error）。
+口径：严格模式 = 退出码 0 ∪ 无 "error:" ∪ 文件无 sorry/admit 文本。
+
+----------------------------------------------------------------
+三、sorry/admit grep 双保险（宪条 3，零占位）——PASS
+----------------------------------------------------------------
+命令：python 全文检索 \bsorry\b|\badmit\b（含注释）
+结果：零命中（False）。
+
+----------------------------------------------------------------
+四、公理审计（宪条 3，白名单 {propext, Quot.sound, Classical.choice} 子集）——PASS
+----------------------------------------------------------------
+主链独立复跑（终稿 + 尾部三条 #print axioms 合并一次编译）：
+  'ap3_interleave' depends on axioms: [propext, Quot.sound]
+  'ap3_mod2_period15' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'ap3_mod4_period30' depends on axioms: [propext, Classical.choice, Quot.sound]
+三条主定理均为白名单子集，sorryAx 零出现。三份分件攻证期还各自独立复跑过
+（T1：ap3_interleave + ap3_sub_0/1/2 四条均 [propext, Quot.sound]）。PASS。
+
+----------------------------------------------------------------
+五、结论分级（取实际达到的最低级）
+----------------------------------------------------------------
+完全证明。
+依据：① statement 未动（9/9 逐字一致）；② 严格编译 EXIT=0；③ 0 sorry / 0 admit；
+④ 三条主定理公理均为白名单子集（无 sorryAx）。三条定理全部证到，无未证名单，
+无降级、无附加假设。
+
+措辞边界（宪条 4）：本分级仅覆盖 Lean 层命题（纯序列交织/模余数恒等式）的证明闭环；
+命题的组合语义（= 挂叶梯子图全匹配计数）映射由 phase0 多法互证与报告层承担，
+不因本闸门通过而自动成立，报告措辞不得越级。
+占位围栏（照 claims.md §0 锁定）：价值级 = 新序列·新递推（C9 两审查无占位）；
+周期 1/2 母体 A102436/A386889 已挂名、周期 3 无条目——新颖性主张仅限
+「周期 3 悬挂参数的本序列与其 12 阶稀疏递推 + 三条 mod-3 子列四阶同系数结构」，
+禁把「悬挂梯子匹配计数」泛化主张。
+
+----------------------------------------------------------------
+六、复现命令清单
+----------------------------------------------------------------
+1. statement 对称差比对：python（剥注释 → 按 def/theorem 切分 → head 逐字比对）
+   输入：final/comb10-ladder-pend3-proved.lean vs formalized/comb10-ladder-pend3.statement.txt
+2. 严格编译：bash scripts/lean-verify tasks/20260929-comb10-ladder-pend3/final/comb10-ladder-pend3-proved.lean
+3. sorry/admit 双保险：对终稿全文 grep \bsorry\b|\badmit\b（零命中）
+4. 公理审计：verify-proj 下 lake env lean --stdin（终稿 + 三条 #print axioms 合并编译）
+
+----------------------------------------------------------------
+七、限定语
+----------------------------------------------------------------
+- 本审计只做 SOP 05 四项机械检查；未重跑 phase0 数值互证、未审 report.md 措辞分级。
+- 辅助引理 ap3_sub_0/1/2 的公理在 T1 分件攻证时已独立审计（恰 [propext, Quot.sound]）。
+- 调试用临时文件 tmp-probe/comb10-t3-axcheck.lean 为 T3 工人公理自查副本，可在收尾时删除。
+- 沿程三次工具级失败（T2 首稿 tactic 错误、解法重派模型侧失败等）与预算明细见 budget.log；
+  它们不影响本裁决的证据链（最终产物由本文件四条命令独立复核）。
+- 冻结快照哈希 47d54db7…9bba9 与本批全程一致，未再发生任何 statement 修改。
+
+裁决：闸门三通过。结论分级 = 完全证明（T1 交织恒等式、T2 mod 2 周期 15、T3 mod 4 周期 30 三条全部证出）。
+================================================================

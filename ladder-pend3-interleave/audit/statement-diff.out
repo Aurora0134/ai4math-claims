@@ -1,0 +1,16 @@
+statement symmetric-difference re-run (claim packager, 2026-09-29)
+method: strip comments -> split top-level def/theorem -> defs full-block whitespace-collapsed compare; theorems compare up to ':=' ignoring set_option lines (audit-dept method, final-comb10-ladder-pend3.txt section 1)
+frozen sha256: 47d54db7c3d5309720537295055d5869e990618399950aaacb311f8028a9bba9
+final  sha256: e56e496f8ddc8310316a1d6f1f9befa17e76200f97b22515dcd0b2260e9fd7b1
+[header-identical] ap3 (def)
+[header-identical] bp0 (def)
+[header-identical] bp1 (def)
+[header-identical] bp2 (def)
+[header-identical] pat15 (def)
+[header-identical] pat30 (def)
+[header-identical] ap3_interleave (theorem)
+[header-identical] ap3_mod2_period15 (theorem)
+[header-identical] ap3_mod4_period30 (theorem)
+final-only declarations (proof-body scaffolding, expected): ap3_sub_0, ap3_sub_1, ap3_sub_2
+frozen-only declarations: none
+RESULT: SYMMETRIC-DIFF PASS (9/9 frozen declarations compared)
