@@ -82,7 +82,7 @@ period-3 pendant ladder: the ladder graph $P_n\square K_2$ with one pendant
 leaf attached to the upper-rail vertex of every column $3k+1$. The AI4Math
 pipeline formalised and machine-proved three exact laws of the
 recurrence-defined counterpart $\mathtt{ap3}$ of $a$ (with
-$\mathtt{ap3}\,n=a(n{+}1)$): (1)~a mod-3 interlacing identity that splits the
+$\mathtt{ap3}\,n=a(n)$ under the $0$-based convention, the base term $a(0)=1$ included): (1)~a mod-3 interlacing identity that splits the
 order-12 sparse recurrence into three order-4 subsequences with the same
 coefficients $(45,63,11,-1)$; (2)~an explicit period-15 residue table for
 $\mathtt{ap3}\bmod 2$; (3)~an explicit period-30 residue table for
@@ -129,11 +129,11 @@ $\mathbb{N}\to\mathbb{Z}$ sequence with twelve frozen initial values and the
 order-12 sparse recurrence
 $\mathtt{ap3}\,(n+12)=45\,\mathtt{ap3}\,(n+9)+63\,\mathtt{ap3}\,(n+6)
 +11\,\mathtt{ap3}\,(n+3)-\mathtt{ap3}\,n$. The index convention is fixed by
-the pipeline's claims record: $\mathtt{ap3}\,n=a(n{+}1)$ (0-based Lean
-against 1-based counting), the twelve frozen initial values are the 0-based
-$a(0..11)$ (the base term $a(0)=1$ included), and \texttt{bp0}, \texttt{bp1},
+the pipeline's claims record: $\mathtt{ap3}\,n=a(n)$ for all
+$n\ge 0$ ($0$-based; the base term $a(0)=1$, the empty graph, included), the twelve
+frozen initial values are the 0-based $a(0..11)$, and \texttt{bp0}, \texttt{bp1},
 \texttt{bp2} are the three $\bmod\,3$ subsequences, $\mathtt{bp}_r\,k
-=a(3k{+}r{+}1)$ in 1-based terms, each with four initial values (the
+=a(3k{+}r)$ ($0$-based), each with four initial values (the
 $\mathtt{ap3}$ values at indices $3k+r$) and the order-4 recurrence
 $\mathtt{bp}_r\,(k+4)=45\,\mathtt{bp}_r\,(k+3)+63\,\mathtt{bp}_r\,(k+2)
 +11\,\mathtt{bp}_r\,(k+1)-\mathtt{bp}_r\,k$. \texttt{pat15} and

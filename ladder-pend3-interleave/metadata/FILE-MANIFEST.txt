@@ -15,8 +15,8 @@
      35376  audit/sanitize-package.py
        947  audit/statement-diff.out
       4710  audit/statement-diff.py
-    197761  claim/claim.pdf
-     45936  claim/claim.tex
+    197894  claim/claim.pdf
+     45989  claim/claim.tex
       7569  claim/lstlean.tex
       3252  metadata/README.md
       5315  metadata/zenodo.json
