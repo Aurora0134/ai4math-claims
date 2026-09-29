@@ -11,7 +11,7 @@
 | P1 `edgemid_master`（docstring+head，至 `:= by`） | `formalized/edgemid-p1-statement.lean:12-17` | `final/03-proof-complete.lean:15-20` | `diff <(sed -n '12,17p' …p1-statement.lean) <(sed -n '15,20p' …03-proof-complete.lean)` | **diff 空（逐字节一致）** |
 | P2 `edgemid_matrix_family`（docstring+head，至 `:= by`） | `formalized/edgemid-p2-statement.lean:14-22` | `final/03-proof-complete.lean:44-52` | `diff <(sed -n '14,22p' …p2-statement.lean) <(sed -n '44,52p' …03-proof-complete.lean)` | **diff 空（逐字节一致）** |
 
-- 三文件均经 `file` 确认 UTF-8、无 CRLF（CR 计数见 ②），比对在相同行尾基线上进行，无行尾噪声。
+- 三文件均经 `file` 确认 UTF-8、无 CR（回车符零个，CR 计数见 ②），比对在相同行尾基线上进行，无行尾噪声。
 - 冻结件尾部的 `  sorry`（p1:18、p2:23）属 proof body 脚手架，不在定理头行段内；final 以真实证明体替换之，系宪条 2 许可的唯一改动面。
 - 证明侧只改 proof body：final 全文件恰两条 `theorem`（:18、:46），无 `axiom/def/lemma/namespace/macro/notation/instance` 附加声明（grep 实测零命中），imports = 两冻结件 import 并集（`Mathlib.Data.Int.ModEq` + `Mathlib.Data.Matrix.Mul`），与 final 头注自述一致。
 - **对称差 = 0，无 statement 篡改。**
@@ -28,7 +28,7 @@
 1. **0 sorry**：`grep -n -E 'sorry|admit' final/03-proof-complete.lean` → **无匹配（exit 1）**；与 kernel strict exit=0（严格准则内含无 sorry/admit）双证一致（SOP 05 动作 3 双保险）。
 2. **公理白名单**：`audit/final-axioms-p1.txt` = `WELLDEF OK` + `AXIOMS edgemid_master [propext, Quot.sound]`；`audit/final-axioms-p2.txt` = `WELLDEF OK` + `AXIOMS edgemid_matrix_family [propext, Classical.choice, Quot.sound]`。两清单均 ⊆ {propext, Quot.sound, Classical.choice}，**无 sorryAx**。文件内容与 ask 转述的 kernel 复验逐字一致。
 3. **结构完整性（附加走查）**：无 `sorryAx/native_decide/axiom` 字样（grep exit 1）；无 namespace（card.md:31 硬约束）。
-4. **口径注记**：ask 转述 kernel 复验行含 `PROBE FAIL 0/0; CHECK OK 0/0`——final 闸门批次仅含 WELLDEF+AXIOMS 两段（`audit/.gate-batch.map` 仅两行，探针/check 段不属终态闸门；探针非退化 7/7 FAIL 已由闸门二裁决卡 `audit/welldef-verdict.md` §0 记录在案）。该形态与 22:10 report.md:88 记录的 CWD 空输出失败签名（`WELLDEF FAIL; …; AXIOMS []`）可区分：本次 `WELLDEF OK` 且 AXIOMS 带实定理名与公理清单。
+4. **口径注记**：ask 转述 kernel 复验行含 `PROBE FAIL 0/0; CHECK OK 0/0`——final 闸门批次仅含 WELLDEF+AXIOMS 两段（`audit/.gate-batch.map` 仅两行，探针/check 段不属终态闸门；探针非退化 7/7 FAIL 已由源仓闸门二裁决卡 `welldef-verdict.md`（源仓文件，不随包）§0 记录在案）。该形态与源仓 22:10 `report.md`（源仓文件，不随包）:88 记录的 CWD 空输出失败签名（`WELLDEF FAIL; …; AXIOMS []`）可区分：本次 `WELLDEF OK` 且 AXIOMS 带实定理名与公理清单。
 
 ### 结论分级（宪条 4，按实际最低级）
 
@@ -46,7 +46,7 @@
 
 ## 具名问题（交脚本调度，非闸门三阻断项）
 
-1. **`report.md` 为过期阶段签发稿（22:10），与终态事实不符，需外交部按终态重签（闸门四人工签发前必须完成）**。被后续落盘推翻的表述：`report.md:4`「终态 0-sorry 编译验证未达成（final/ 产物不存在）」（今 final 在档且 strict exit 0）；`report.md:22` 分级=失败（今按宪条 4 实际最低级=完全证明）；`report.md:47-51` final/attempts/证据包/axioms 文件「不存在」（今分别在 23:20/23/27/22:48 落盘）；`report.md:78`「证据包本轮未产出…本声明为唯一在档记录」（今 evidence-pack.md §④ 在档，声明依据更完备）。该稿系闸门二受阻期的诚实阶段快照（低报不越级，不构成宪条 4 违规），但其后流水线已续走（budget.log 22:24 根因修复→23:16 闸门二通过→23:26 final 组装→kernel 复验），report 未随之更新。本岗权限限于 audit/ 目录，不代改。
+1. **源仓 `report.md`（不随包）为过期阶段签发稿（22:10），与终态事实不符，需外交部按终态重签（闸门四人工签发前必须完成）**。被后续落盘推翻的表述：`report.md:4`「终态 0-sorry 编译验证未达成（final/ 产物不存在）」（今 final 在档且 strict exit 0）；`report.md:22` 分级=失败（今按宪条 4 实际最低级=完全证明）；`report.md:47-51` final/attempts/证据包/axioms 文件「不存在」（今分别在 23:20/23/27/22:48 落盘）；`report.md:78`「证据包本轮未产出…本声明为唯一在档记录」（今 evidence-pack.md §④ 在档，声明依据更完备）。该稿系闸门二受阻期的诚实阶段快照（低报不越级，不构成宪条 4 违规），但其后流水线已续走（budget.log 22:24 根因修复→23:16 闸门二通过→23:26 final 组装→kernel 复验），report 未随之更新。本岗权限限于 audit/ 目录，不代改。
 2. 无其他问题。军政部 23:26 行自报的 r3 逐字节 proof body 溯源属 kernel 职权（宪条 1），本岗未复验也不需复验——strict exit=0 与公理审计已覆盖证明有效性。
 
 ## 复现命令清单

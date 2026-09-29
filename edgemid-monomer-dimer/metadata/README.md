@@ -20,7 +20,8 @@ Note under CC BY 4.0, code under MIT.
   `evidence-pack.md`, `roundtrip.md` (faithfulness record); this package's
   `lint.txt` / `compile.txt` / `listing-verify.txt`; and `c9-record.md`
   (novelty-review full query log, copied verbatim from the source record).
-- `metadata/` — `zenodo.json` (deposit metadata), this README.
+- `metadata/` — `zenodo.json` (deposit metadata), `FILE-MANIFEST.txt`
+  (per-file sha256 + byte inventory, recompute before upload), this README.
 
 ## Version pins
 
@@ -43,6 +44,7 @@ The note PDF rebuild: `tectonic claim.tex` (or `latexmk -xelatex`) inside
 
 ## DOI
 
-To be reserved at Zenodo upload (see `../../UPLOAD.md` step 1); the note's
+To be reserved at Zenodo upload (see `../../UPLOAD.md` in the source repository,
+step 1; not shipped with this deposit); the note's
 Data availability section reads "DOI to be reserved at upload". Public mirror:
 <https://github.com/Aurora0134/ai4math-claims>.

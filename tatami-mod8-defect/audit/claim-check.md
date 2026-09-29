@@ -32,3 +32,12 @@
 
 ## 补记（主代理，2026-09-27 审计后卫生处理）
 审计归档后统一行尾体检：本包 claim.tex 经字节级核查本就无 CRLF（0 处），归一操作零改动；listing 复核仍 OVERALL PASS。纯卫生项，不影响任何裁决。
+
+## 勘误追记（2026-09-29，用户指令「授权确认，继续项1,3」＝回补已公开件；仓库级五门存量红修复）
+
+- **触发**：2026-09-29 `scripts/sanitize-package.py`（仓库级五门）对 batch1/2 四包首跑，本包 5 条存量红：claim.tex「see UPLOAD.md in this package」（承诺随包但树内没有）×1；`audit/final-01-audit.md` 两处把 CRLF 字面与 budget.log 写在同一 60 字符窗口，被门 6 读成「budget.log 含 CRLF/混合行尾」（实测包外 CR=0）×2；`audit/c9-recheck/control-a180970.json` TAB 120 处 ×1；`metadata/FILE-MANIFEST.txt` 缺失 ×1。
+- **修法**（零证明层触碰：proofs/ 冻结件、listing 字节、公理打印、C9 记录、分级措辞全部未动）：①claim.tex 改 "in the source repository"（notchgrid/pendant 绿包同款句式）；②final-01-audit.md「CRLF 归一」改「行尾归一」、缺陷①标签改「行尾归一化」、盘上 CRLF 改「盘上的 CR 字节」（事实不变：\r 计数 0、归一操作与哈希口径原样在档）；③JSON 按 2 空格缩进重排，数据逐字节等价（`json.loads` 相等性已验；包内外无该件哈希记录）；④FILE-MANIFEST 由 `--write-manifest` 生成（README 包结构行同步补件）。
+- **重编 2 轮**（措辞渲染验证 + 披露数字嵌入终编）：均 exit 0、9 页不变、Missing character 0、paper-lint PASS；PDF 文本 diff（vs 提交 `4cf73841` 的旧 PDF）仅 Data availability 句与披露节 LaTeX 轮次 6→8 两处。
+- **披露节订正**：LaTeX 轮次 6→8（本批 2 次编译 + 补记 2026-09-27 审计后 E2 重建轮 1 次未入账，账本 ledger-reconciliation 行在案）；账本 budget-auth 行 + 卡面《预算顶》双写。
+- **门复跑**：`python scripts/sanitize-package.py claims/tatami-mod8-defect --scanned logs/gate-lists/… --skipped logs/gate-lists/…` → exit 0，五门全绿（scanned 21 + declared 10 = 31 = 存缴树实测）。
+- **外发**：随 batch1/2 errata 提交推送镜像仓（提交号/ls-remote 见 `claims/.mirror-errata-20260929.log`）；原 `c5865c0` 时间戳与版本链不动（SOP 08b「不撤包」）。

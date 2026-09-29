@@ -10,4 +10,4 @@ result (final re-run, after all preamble edits): exit 0, empty diff (byte-identi
 sha256 (source final/03-proof-complete.lean):
   1124e6a53b6ec70fee5c964490fa4f407a23ab03b1557d3f7d214b0c20572c1d
 sha256 (extracted lstlisting body from final claim.tex): identical (empty diff)
-byte counts: source 2861, listing body 2861; line endings: listing 体 CR=0；claim.tex 前部补丁注释块原有 CRLF 已归一（2026-09-27 主代理卫生处理），listing 体与冻结件逐字节一致不受影响
+byte counts: source 2861, listing body 2861; line endings: listing 体 CR=0；claim.tex 前部补丁注释块的行尾已归一为 LF（无 CR，2026-09-27 主代理卫生处理），listing 体与冻结件逐字节一致不受影响

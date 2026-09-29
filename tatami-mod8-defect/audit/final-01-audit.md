@@ -11,7 +11,7 @@
 2. **终态编译**：`bash scripts/lean-verify final/01-proof-complete.lean` strict → exit 0，诊断为空（实测 42.6s）。
 3. **公理审计**（sidecar 合并 1 轮，用完已删）：`tatami_mod8_period4` = [propext, Classical.choice, Quot.sound]（恰白名单）；`bcorner_odd` = [propext, Quot.sound]（⊂）；`bcorner_eq` = [propext, Quot.sound]（⊂）；无 sorryAx。
 4. **sorry/admit 文本扫描**：字节级全文（含注释）命中 0（第二道独立扫描）。
-5. **过程一致性**：attempts/ 三件 proof body 与终稿三件全比（非抽查）逐字一致（P1 24 行 / P2 16 行 / P3 97 行，CRLF 归一后 byte-identical）；budget.log 账目与产物存在性相符。
+5. **过程一致性**：attempts/ 三件 proof body 与终稿三件全比（非抽查）逐字一致（P1 24 行 / P2 16 行 / P3 97 行，行尾归一后 byte-identical）；budget.log 账目与产物存在性相符。
 
 ## 分级（宪条 4）
 三定理 tatami_mod8_period4 / bcorner_odd / bcorner_eq 均为**完全证明**（0 sorry、公理白名单内、statement 未动、strict exit 0）。任务级：**完全证明（三定理）**，严格限定为「递推定义版整数序列上的命题」，不覆盖任何组合计数含义。
@@ -24,7 +24,7 @@
 5. 报告须披露缺陷整改结果（LF 归一化 + 哈希口径），标注「AI 生成，kernel 验证」。
 
 ## 缺陷整改记录（主代理执行，2026-09-26）
-- 缺陷①（CRLF）：已归一化为 LF（\r 计数 0）。**整改后 sha256 = b0f4a692…4789a1，恰与 budget.log 原记一致**——原哈希是对 LF 内容计算的正确值，盘上 CRLF 系 Windows 文本模式写入假影；矛盾消除，引用哈希不变。
+- 缺陷①（行尾归一化）：已归一化为 LF（\r 计数 0）。**整改后 sha256 = b0f4a692…4789a1，恰与 budget.log 原记一致**——原哈希是对 LF 内容计算的正确值，盘上的 CR 字节系 Windows 文本模式写入假影；矛盾消除，引用哈希不变。
 - 缺陷②（sidecar 残留）：final/_axioms-sidecar.lean 已删除。
 - 整改后严格复编：PASS（exit 0，诊断空）。
 - 消耗：监察院编译 2 轮（≤3）；llm-call 0。

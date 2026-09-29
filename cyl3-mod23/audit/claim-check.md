@@ -34,3 +34,13 @@
 - 本包 `claim/claim.tex` 的 \texttt{lean4} 条目原引 DOI 尾号 \texttt{_27}，经 Crossref **题名**实测为同卷另一篇「An Automated Approach to the Collatz Conjecture」pp. 468--484；正确尾号 \texttt{_37}（「The Lean 4 Theorem Prover and Programming Language」pp. 625--635，与条目已写的 LNCS 页码互证）。该错引来自 \texttt{harness/templates/claim/claim.tex} 预置书目（模板同源缺陷同日已修）。
 - 修法＝只改 URL 尾号，**不改任何证明层内容**：三/两条定理的逐字 listing、公理打印、C9 记录、分级措辞全部不动；复编后页数 **10 页不变**（与本轮审计已核的页数口径一致，故先前逐页核验仍然有效），\texttt{paper-lint} PASS exit 0、缺字 0、无未解引用。
 - 落点：`claims/cyl3-mod23/claim.tex` 与包内 `zenodo/claim/claim.tex` + `claim.pdf` 同批更新（同哈希），并以镜像仓追加提交回补公开件；原 `c5865c0` 时间戳与版本链不动（SOP 08b「不撤包、版本机制保留原时间戳」）。
+- 〔源仓对齐注记（2026-09-29 主代理补录）〕本节为镜像仓公开件（提交 `8a01a5c`）既有勘误记录的逐字回填——源仓 deliverable 副本当日漏同步，本批补齐，两处文本现一致。
+
+## 勘误追记二（2026-09-29，用户指令「授权确认，继续项1,3」＝回补已公开件；仓库级五门存量红修复）
+
+- **触发**：2026-09-29 `scripts/sanitize-package.py` 对 batch1/2 四包首跑，本包 5 条存量红：claim.tex「see UPLOAD.md in this package」×1；`metadata/README.md` 裸指称源仓件未写明「源仓/不随包」×3（`claims/cyl3-mod23/UPLOAD.md`、`tasks/20260926-cyl3-pipeline/report.md`、`claims/cyl3-mod23/card.md`）；`metadata/FILE-MANIFEST.txt` 缺失 ×1。
+- **修法**（零证明层触碰）：①claim.tex 改 "in the source repository"；②README 三处按 pendant 绿包同款补「源仓 deliverable 目录的…（不随包）」明示；③FILE-MANIFEST 生成 + README 内容表补对应行。
+- **重编 2 轮**（措辞渲染验证 + 披露数字嵌入终编）：均 exit 0、10 页不变、Missing character 0、paper-lint PASS；PDF 文本 diff 仅 Data availability 句与披露节 LaTeX 轮次 5→8 两处。
+- **披露节订正**：LaTeX 轮次 5→8（2026-09-28 DOI 勘误轮 +1 当时未同步披露节，本批一并订正；本批 2 次编译）；账本 budget-auth 行 + 卡面《预算顶》双写。
+- **门复跑**：五门全绿 exit 0（scanned 11 + declared 8 = 19 = 存缴树实测）。
+- **外发**：随 batch1/2 errata 提交推送镜像仓（提交号/ls-remote 见 `claims/.mirror-errata-20260929.log`）；原 `c5865c0` 版本链不动。

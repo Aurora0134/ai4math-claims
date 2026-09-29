@@ -1,6 +1,6 @@
 # Zenodo 存缴包 README — chorded-cycle-mod4（AI4Math claim-of-record artifact）
 
-> AI 生成（2026-09-28）。本包为 SOP 08b 占位通道产物；上传/发布（外发）一律用户本人手动执行，见 `claims/chorded-cycle-mod4/UPLOAD.md`。本通道不依赖 arXiv 账号与背书。
+> AI 生成（2026-09-28）。本包为 SOP 08b 占位通道产物；上传/发布（外发）一律用户本人手动执行，见源仓 deliverable 目录的 `claims/chorded-cycle-mod4/UPLOAD.md`（不随包）。本通道不依赖 arXiv 账号与背书。
 
 ## 发布前必跑（只读）
 
@@ -73,5 +73,5 @@ import «01-cchord-proved»   -- 与本包 proofs/01-cchord-proved.lean 同名�
 - `claim.pdf` 终轮 5 处 overfull hbox，实测 16.33 / 27.09 / 54.08 / 55.45 / **69.62 pt**，源于 listing 内长行（冻结件中文 docstring 不参与 listings 断行）；listing 源字节未动。（口径修正：先前版本写「7 处均 <20pt」，为生成方自报、审计实测证伪，已改为实测值并顺手做真修。）
 - 唯一字形告警为 `TU/SimSun(0)/m/it`（中文注释被 listings 的 commentstyle 斜体化时缺 slanted 变体），纯观感。
 - 短笺措辞上限：价值级只到 **new sequence / new recurrence**；组合语义桥只作 conjecture；负结果（统一 3 项递推不成立）只到计算层，不写成定理。
-- `tasks/20260927-mossad-cchord/report.md` 文件头仍为「待闸门四人工签发」；本包由用户 2026-09-27 显式指令启动出包并当场行使签发权（占位通道启动权即用户指令），此口径已原文级写入短笺 Scope and limitations 第 (e) 条与本目录 `card.md`。
+- 源任务目录的 `tasks/20260927-mossad-cchord/report.md`（源仓文件，不随包）文件头仍为「待闸门四人工签发」；本包由用户 2026-09-27 显式指令启动出包并当场行使签发权（占位通道启动权即用户指令），此口径已原文级写入短笺 Scope and limitations 第 (e) 条与源仓 deliverable 目录的 `card.md`（不随包）。
 - OEIS 提交（路由表的社区层）属用户手动，且本仓提交侧通道未实测、账号实名与「署名用账号名」策略冲突未解 → 见 UPLOAD.md 第 3 步与 SOP 08b《已知边界》。

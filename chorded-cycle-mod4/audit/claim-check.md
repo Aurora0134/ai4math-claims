@@ -74,3 +74,11 @@
 - 分级上限：完全证明 ×3；价值级 new sequence / new recurrence；语义桥 conjecture；负结果 computation（136/139，12≤n≤150）；novelty = 负检索证据（OpenAlex 429 未验证、通用网页层无读数、未检中文库）。
 - **公开件回补**：镜像仓 `ai4math-claims` 追加提交见 `card.md`「GitHub 快照」节（首个提交 `cf666c1` 已把 R-1/R-2 的失实件公开；本轮以同仓追加提交更正，原时间戳与版本链不动，符合 SOP 08b「不撤包、版本机制保留原时间戳」）。
 - Zenodo：DOI 仍未预留（用户动作）；OEIS 提交挂起（提交侧未实测 + 实名与账号名署名策略冲突）。
+
+## 勘误追记（2026-09-29，用户指令「授权确认，继续项1,3」＝回补已公开件；仓库级五门存量红修复）
+
+- **触发**：2026-09-29 `scripts/sanitize-package.py`（仓库级五门，替代本包自带的包内门口径）对 batch1/2 四包首跑，本包 2 条存量红：`metadata/README.md` 头部引用行裸指称 `claims/chorded-cycle-mod4/UPLOAD.md` ×1；「已知观感项」节裸指称 `tasks/20260927-mossad-cchord/report.md` 与「与本目录 `card.md`」×1（同行两个 token，均未写明「源仓/不随包」）。
+- **修法**（零证明层触碰：proofs/ 冻结件、listing 字节、公理打印、C9 四段记录、分级措辞全部未动；本包无 claim.tex 改动、零编译轮）：README 两处按 pendant/notchgrid 绿包同款补「源仓 deliverable 目录的…（不随包）」明示；`metadata/FILE-MANIFEST.txt` 重生成（README 字节数变化）；`zenodo-package.zip` 重建（25 条目＝清单同集合）。
+- **门复跑**：`python scripts/sanitize-package.py claims/chorded-cycle-mod4 --scanned logs/gate-lists/chorded-cycle-mod4-scanned.txt --skipped logs/gate-lists/chorded-cycle-mod4-skipped.txt` → exit 0，五门全绿（scanned 17 + declared 8 = 25 = 存缴树实测）。
+- **件数口径**：仍为 25 件（清单 24 + 清单自身），与本文件「五、终态」及 `UPLOAD.md`、`card.md` 既有口径一致，无需改数。
+- **外发**：随 batch1/2 errata 提交推送镜像仓（提交号/ls-remote 见 `claims/.mirror-errata-20260929.log`）；原 `cf666c1` / `25edf6e` 版本链不动。

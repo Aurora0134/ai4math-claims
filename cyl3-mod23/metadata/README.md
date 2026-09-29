@@ -1,6 +1,6 @@
 # Zenodo 存缴包 README — cyl3-mod23（AI4Math pipeline claim-of-record artifact）
 
-> AI 生成（2026-09-27）。本包为 SOP 08b 占位通道产物；上传（外发）一律用户本人手动执行，见 `claims/cyl3-mod23/UPLOAD.md`。本通道不依赖 arXiv 账号与背书。
+> AI 生成（2026-09-27）。本包为 SOP 08b 占位通道产物；上传（外发）一律用户本人手动执行，见源仓 deliverable 目录的 `claims/cyl3-mod23/UPLOAD.md`（不随包）。本通道不依赖 arXiv 账号与背书。
 
 ## DOI
 
@@ -25,6 +25,7 @@
 | `audit/compile.txt` | 本包 paper-compile（终轮）控制台输出（exit 0） |
 | `audit/listing-verify.txt` | claim.tex 三处 lstlisting 与冻结产物逐字节核验记录（3/3 PASS） |
 | `metadata/zenodo.json` | Zenodo 元数据（creators=Aurora0134，无 ORCID 键——上传时用户在 UI 补；related_identifiers.isIdenticalTo = GitHub 镜像仓） |
+| `metadata/FILE-MANIFEST.txt` | 包内逐件 sha256 + 字节数清单（发布前复算即用此件） |
 | `metadata/README.md` | 本文件 |
 
 ## 版本钉
@@ -52,4 +53,4 @@ lake env lean 04-proof-complete.lean
 ## 已知观感项（如实记档，不影响质检门）
 
 - `claim.pdf` 有 15 处 overfull hbox：全部来自 listing 内长行（冻结文件的中文 docstring 长行在 xeCJK 路由下不参与 listings 断行）与长 sha256 串；listing 源字节未动，属纯排版观感项。
-- `tasks/20260926-cyl3-pipeline/report.md` 文件头仍为「待闸门四人工签发」；本包由用户 2026-09-27 显式指令启动出包（占位通道启动权即用户指令），此口径已如实记入短笺 Scope and limitations 节与 `claims/cyl3-mod23/card.md`。
+- 源任务目录的 `tasks/20260926-cyl3-pipeline/report.md`（源仓文件，不随包）文件头仍为「待闸门四人工签发」；本包由用户 2026-09-27 显式指令启动出包（占位通道启动权即用户指令），此口径已如实记入短笺 Scope and limitations 节与源仓 deliverable 目录的 `claims/cyl3-mod23/card.md`（不随包）。
