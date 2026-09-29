@@ -9,10 +9,12 @@
 #   listings/inline/comments | leftover template placeholders (TODO/FIXME/XXX/<<) |
 #   required sections (Introduction / Data availability / generative AI / Limitations) |
 #   % LEAN anchors (task dir exists, grade = 完全证明) | \cite keys subset of \bibitem keys)
-# runs: 11. (This count was corrected in place from "7" during the gate-3 third-round
+# runs: 13. (This count was corrected in place from "7" during the gate-3 third-round
 #   bookkeeping pass, which changes no judgement and is disclosed in the run-11 block
 #   below rather than left silent; the run blocks themselves are append-only and none of
-#   them was rewritten.) Six runs during authoring (initial 12-listing draft; after the Theorem 4
+#   them was rewritten. Corrected again in place from "11" to "13" on 2026-09-29: the
+#   run-12 block of 2026-09-28 did not bump the counter -- a bookkeeping drift, disclosed
+#   here and in the run-13 block rather than left silent.) Six runs during authoring (initial 12-listing draft; after the Theorem 4
 #   re-typesetting; after the content rewrite and re-injection; after the table/hash
 #   layout fixes; after the listing count 8 -> 7; final pre-packaging run) -- all PASS,
 #   no red light had to be chased. The 7th run is a deliberately recorded NEGATIVE
@@ -105,3 +107,26 @@ exit=0
 #   babece736bde4c9858cfe1d77acb1c31bf00877f508dc83a2e802cd2f6dcf7a8 (128,188 bytes, 12 pages).
 # The five findings closed in this round (G1 to G5 of audit/claim-recheck3.md) all live in the
 # bookkeeping / transcription layer; none needed a tex change, and none was made.
+
+# ---- run 13 (2026-09-29, main agent): author-field errata round ----
+# context: the \author line of claim.tex carried the template placeholder ("Author
+#   Name") while zenodo.json creators said Aurora0134 since the 2026-09-28 mirror-push
+#   errata; per the user's instruction of 2026-09-29 (naming-policy errata, both
+#   packages pendant-ladder-interleave and notchgrid-parity-mod) the author line was
+#   filled in the three-line house form and the compile-round disclosure sentence was
+#   updated (compile round 10, budget-auth-4). This lint run adjudicates the edited tex.
+# output: PASS (exit 0), full adjudicator output:
+PASS: paper-lint 全绿 (claims/notchgrid-parity-mod/claim.tex)
+# Result: claim.tex sha256
+#   ee6a7b59e5d4c8afe00d8fd4c9c01ce2ea8939fc1f695741d010c62afb20e663
+# -- cmp-identical to zenodo/claim/claim.tex; claim.pdf re-rendered in compile round 10
+#   9531f4f201ec84bd7bbdb67174f5d5806470f01312ef0eda2d5e1097ba11699f (128,545 bytes, 12 pages).
+# The errata touched the \author line and the disclosure sentence only; no listing, no
+# anchor, no evidence sentence.
+# Supersede note (2026-09-29): the run-12 block's statement that "the tenth round
+#   remains reserved for the DOI backfill" was true when written and is superseded by
+#   budget-auth-4 (user instruction of 2026-09-29): the reserved tenth round was spent
+#   on the author-field errata (compile round 10), and an eleventh round is
+#   pre-authorized for the DOI backfill, which has not run. Historical run blocks stay
+#   append-only, not rewritten. The "runs:" header counter drift (run 12 not bumping
+#   "11") is corrected in place at the header with a disclosure there.

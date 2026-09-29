@@ -216,7 +216,7 @@ Package rerunfilecheck Warning: File `claim.out' has changed.
 
  )
 (see the transcript file for additional information)
-Output written on claim.xdv (16 pages, 489784 bytes).
+Output written on claim.xdv (16 pages, 489984 bytes).
 Transcript written on claim.log.
 note: Rerunning TeX because "claim.out" changed ...
 (claim.tex
@@ -337,11 +337,11 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  )
 (see the transcript file for additional information)
-Output written on claim.xdv (16 pages, 492500 bytes).
+Output written on claim.xdv (16 pages, 492684 bytes).
 Transcript written on claim.log.
 warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
 note: Running xdvipdfmx ...
-[1][2][3][4][5][6][7][8][9][10][11][12][13][14][15][16]193560 bytes written
+[1][2][3][4][5][6][7][8][9][10][11][12][13][14][15][16]193886 bytes written
 note: Writing `claim.log` (23.5458984375 KiB)
-note: Writing `claim.pdf` (189.0234375 KiB)
+note: Writing `claim.pdf` (189.341796875 KiB)
 note: Skipped writing 2 intermediate files (use --keep-intermediates to keep them)

@@ -80,3 +80,14 @@ SOP 08b 的 2–4 页写在「职责」行（`08b-claim.md:5`），既不在工�
 llm-call **0**；Lean kernel 编译 **0**；LaTeX 编译 **0**（未跑 tectonic，未改 tex）；未写任何文件（本意见由主代理落盘）、未碰 `tasks/`、`papers/`、`verify-proj/` 构建三件套、`harness/config.json`。只读命令清单：`endpoint-detect.sh`、`ls/find/cat/head/tail/sed -n/wc/cut/paste`、`sha256sum`、`cmp`、`diff`、`grep`、`python -`（stdin 内联复算：listing 反抽、c9 区块 diff、余数表与周期性、monus 对照、PDF 文本抽取）、`bash scripts/paper-lint.sh`（静态，exit 0）、`curl --ssl-no-revoke`（6 次只读 GET：Crossref×2、OEIS×4，无任何上传/发帖）。
 
 **主代理收尾指令（审计原述）**：本文件同步一份到 `zenodo/audit/claim-check.md`；`card.md`《成包状态》门③行与 `run-state.md` 的「成包待审计」状态改为「门③ 有发现 5 条（判据红），未通过，包不出仓；等待用户授权追加 LaTeX 轮次」；`F4` 若选 (a) 拷原件入包，须同步 `zenodo/metadata/README.md` 清单与 `UPLOAD.md` 的文件数/字节数。**不得把 F1–F5 中任何一条按 editorial 记账。**
+
+---
+
+## errata（2026-09-29，非门③裁决——署名 errata 记录，主代理落盘）
+
+本节为 2026-09-29 署名 errata 的记录，不属于上述任何一轮门③裁决，裁决书本体（上文全部内容）一字未改。
+
+- 触发：本包 PDF 标题页作者栏与 `metadata/zenodo.json` creators 均为占位符，而同期其余七包已按用户 2026-09-27 署名策略（＝账号名 `Aurora0134`）填实；本包随 batch 4（提交 `2fc1948`）公开，占位署名进入公开时间戳。根因：该策略未写入 SOP/模板/门判据（门③判据「无 PII」与「署账号名」方向相反，占位作者恒过门），批次间漂移。
+- 授权：用户 2026-09-29 指令「确认，两部分一并做」批准 errata 方案全文（含第 10 轮改作 errata 轮、顶 10→11、第 11 轮预授权 DOI 回填；`budget-auth-4` 双写在案）。
+- 处置摘要：作者栏按七包同款三行填 `Aurora0134`；披露句轮次实况同批改口；`zenodo.json` creators 填实 + orcid 占位键删除 + notes 改口；listing 七段复验 7/7 ALL BYTE-EXACT；lint 第 13 跑 PASS；编译第 10 轮 exit 0（12 页 / Missing 0 / Overfull 0 / `??` 0 / 128,545 字节）；manifest 重生成、zip 重打、两道 sanitize 门复跑全绿。逐项实况见 `card.md`《署名 errata》节、`audit/compile.txt` 轮次表第 10 行、`audit/lint.txt` run 13 块。
+- 门③各轮裁决（含本文件正文与 `claim-recheck*.md` 三份）对当轮实况的记载一律按 append-only 历史留痕，不因本 errata 回改。

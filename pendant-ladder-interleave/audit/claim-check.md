@@ -49,3 +49,10 @@
 - 门③：F1（必修）真修并复核；O1/O3 采纳；O2 流程执行。**零未闭环发现。**
 - 分级上限：完全证明×4；价值级 new sequence / new recurrence（附占位警示）；组合桥 conjecture；交替挂法旧说已证伪；T3 订正后形态；最小周期 L5 口径；novelty = 负检索证据 + A386889 占位围栏（OpenAlex 429 未验证、通用网页层无读数、未检中文库）。
 - 外发状态：**仅出包**——GitHub 推送未授权未做（无 isIdenticalTo、无镜像承诺）、Zenodo 未上传（DOI 未预留）、OEIS 未提交（提交侧未实测 + A386889 侧禁重复登记围栏见 UPLOAD.md 第 3 步）。本包暂不持有公开时间戳。
+
+## 六、errata（2026-09-29，用户指令「确认，两部分一并做」）
+
+- 发现：本包 PDF 标题页作者栏为占位符（[author name placeholder] 形态），而包内 metadata/zenodo.json creators 已于 2026-09-28 推送前 errata 填为 Aurora0134——包内两处署名口径不一致，且 PDF 已随 batch 3 公开推送（提交 eb9b15e），占位署名进入公开时间戳。根因：署名策略（用户 2026-09-27 指令＝账号名 Aurora0134）未写入 SOP/模板/门判据，装配批次间漂移；机制层收敛另行落盘。
+- 处置：claim.tex 作者栏按 batch 1/2/4 同款三行格式填 Aurora0134（其余字节不动，五处 listing 复验 5/5 PASS）；重编译第 6 轮 exit 0（16 页、Missing 0、Overfull 0，LaTeX 轮 6/6 顶内）；audit/compile.txt、lint.txt、listing-verify.txt 刷新并同步包内副本；FILE-MANIFEST 重生成（28 件）、zip 重打（29 条目）、sanitize --check-only 三格全绿。镜像仓追加 errata commit（提交号见 card.md「GitHub 快照」节补记）。
+- 附注一：本文件「五、终态·外发状态」行写于推送前，已被 2026-09-28 batch 3 实际推送超越（实况见 card.md），历史留痕不回改。
+- 附注二：audit/inspect-tex.py 的记录头日期为脚本内写死值；本次复验实际执行于 2026-09-29，listing-verify.txt 第 41 行记录头已人工订正为 2026-09-29（工具本体未改）。

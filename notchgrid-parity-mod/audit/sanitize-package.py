@@ -174,7 +174,7 @@ SKIP_SCAN = {
     "proofs/01-notch-proved.lean": "final Lean development, verbatim source artefact",
     "proofs/lean-toolchain": "toolchain pin",
 }
-# the nine raw tectonic logs: a typesetter echoes the .tex it compiles, so each log replays
+# the ten raw tectonic logs: a typesetter echoes the .tex it compiles, so each log replays
 # the Data availability sentence of its own round -- and for rounds 2-8 that replay IS the
 # wording finding N1 adjudicated false. Measured 2026-09-28: every one of run2..run8 carries
 # the echo twice (one per cross-reference pass, inside Underfull \hbox diagnostics), while
@@ -188,8 +188,9 @@ _COMPILE_LOG_WHY = ("raw tectonic log of compile round %d: verbatim typesetter e
 _ECHO_YES = ("it replays the Data availability wording that finding N1 judged false, twice "
              "(one echo per cross-reference pass, inside an Underfull \\hbox diagnostic)")
 _ECHO_NO = ("it carries 0 replays of that wording -- round 1 predates the sentence, round 9 "
-            "postdates the correction (both measured 2026-09-28)")
-for _r in range(1, 10):
+            "postdates the correction (both measured 2026-09-28), round 10 (2026-09-29) "
+            "re-measured 0 as well (the corrected wording persisted)")
+for _r in range(1, 11):
     SKIP_SCAN["audit/compile-run%d.log" % _r] = _COMPILE_LOG_WHY % (_r,
                                                                    _ECHO_YES if 2 <= _r <= 8
                                                                    else _ECHO_NO)

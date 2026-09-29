@@ -56,12 +56,16 @@
 - llm-call 2 / 8   (both are autoformalization roundtrip re-translation calls on node
   anthropic/a6api-main/kimi-k3; tokens in/out 1628/4000 truncated + 1628/1889 complete)
 - Lean compile 17 / 24   (gate 2: 6, proof search: 9, final audit re-runs: 2)
-- This claim-note stage: llm-call 0 of 4, LaTeX compile 9 of a cap of 10 (rounds 1-6
-  under the original cap of 6, which the user raised to 9 on 2026-09-28 for the rework
-  done after the gate-3 audit, and raised again to 10 the same day), Lean compile 0.
-  The tenth round is reserved for the DOI backfill alone and has not been used: it
-  stays reserved until the user starts it (constitution clause 5), so the note still
-  carries the "DOI to be reserved at upload" wording.
+- This claim-note stage: llm-call 0 of 4, LaTeX compile 9 of a cap of 10 at the time
+  this log was taken (rounds 1-6 under the original cap of 6, which the user raised to
+  9 on 2026-09-28 for the rework done after the gate-3 audit, and raised again to 10
+  the same day, the tenth round being reserved for the DOI backfill), Lean compile 0.
+  [Updated 2026-09-29] The reserved tenth round was spent on the author-field errata
+  (compile round 10, main agent, user instruction of 2026-09-29; budget-auth-4 raised
+  the cap to 11 and pre-authorized an eleventh round for the DOI backfill, which has
+  not run), so the counts above are the post-round-9 state this log was written in and
+  the shipped note is now the round-10 artefact. The note still carries the
+  "DOI to be reserved at upload" wording.
 
 [CLAIM-LANE VERIFICATION RE-RUNS, 2026-09-28, by this worker]
 - cmp tasks/20260927-mossad-notch/audit/review-final-strict.out
@@ -81,9 +85,18 @@
   bookkeeping / transcription / instruction layer, none of them needing a change to
   claim.tex) and claim-recheck3.md (fourth round: five findings G1-G5, again all in the
   bookkeeping / transcription / instruction layer, none of them needing a change to
-  claim.tex). The ninth round is the last one used: the cap is 10 and the tenth remains
+  claim.tex). The ninth round was the last one used when this log was written: the cap
+  was 10 and the tenth remained
   reserved, so
   the third- and fourth-round reworks ran on zero compile rounds and the claim.tex and claim.pdf shipped
-  in this deposit are byte-for-byte the round-9 artefacts (tex sha256
+  in this deposit were byte-for-byte the round-9 artefacts (tex sha256
   1287ae80b7fd3d89c831e68e8c187a8d3c82c8712a6a02530863395257c7d7dc, pdf
   babece736bde4c9858cfe1d77acb1c31bf00877f508dc83a2e802cd2f6dcf7a8; recorded in compile.txt).
+  [Updated 2026-09-29] On 2026-09-29 the user directed that the reserved tenth round be
+  spent on the author-field errata (round 10; budget-auth-4 raised the cap to 11 and
+  pre-authorized an eleventh round for the DOI backfill), so the shipped pair is now the
+  round-10 artefact (tex sha256
+  ee6a7b59e5d4c8afe00d8fd4c9c01ce2ea8939fc1f695741d010c62afb20e663, pdf
+  9531f4f201ec84bd7bbdb67174f5d5806470f01312ef0eda2d5e1097ba11699f; the round-9 pair
+  above is superseded and is the version batch 4 pushed to the public mirror; recorded
+  in compile.txt).

@@ -1,6 +1,6 @@
 # Zenodo 存缴包 README — pendant-ladder-interleave（AI4Math claim-of-record artifact）
 
-> AI 生成（2026-09-28）。本包为 SOP 08b 占位通道产物；上传/发布/推送（外发）一律用户本人手动执行，见 `claims/pendant-ladder-interleave/UPLOAD.md`。本通道不依赖 arXiv 账号与背书。**外发实况（2026-09-28 errata）**：GitHub 公开镜像推送已按用户指令完成（追加到既有镜像仓，提交号见 `claims/pendant-ladder-interleave/card.md` 的「GitHub 快照」节）；Zenodo 上传与 DOI 预留仍待用户手动。
+> AI 生成（2026-09-28）。本包为 SOP 08b 占位通道产物；上传/发布/推送（外发）一律用户本人手动执行，见源仓 deliverable 目录的 `claims/pendant-ladder-interleave/UPLOAD.md`（不随包）。本通道不依赖 arXiv 账号与背书。**外发实况（2026-09-28 errata）**：GitHub 公开镜像推送已按用户指令完成（追加到既有镜像仓，提交号见源仓 `claims/pendant-ladder-interleave/card.md` 的「GitHub 快照」节，不随包）；Zenodo 上传与 DOI 预留仍待用户手动。
 
 ## 发布前必跑（只读）
 
@@ -75,5 +75,5 @@ import «01-pend-proved»   -- 与本包 proofs/01-pend-proved.lean 同名的模
 - **篇幅口径（显式豁免）**：SOP 08b 职责节写「claim note，2–4 页」，本短笺编译为 **16 页**；超出部分全部是逐字 listing（冻结 statement 四段共 80 行 + 终稿全文 259 行）与 C9 查新表，删它们会牺牲「冻结产物逐字快照」这条硬要求。豁免依据 = SOP 08b《已知边界》页数条款（2026-09-28 用户裁决「追认超顶，转显式豁免」）；本行与 `claims/pendant-ladder-interleave/card.md` 的同款行互为出处。
 - 唯一字形告警为 `TU/SimSun(0)/m/it`（中文注释被 listings 的 commentstyle 斜体化时缺 slanted 变体），纯观感；`Missing character` 0、Overfull 0。
 - 短笺措辞上限：价值级只到 **new sequence / new recurrence（含占位警示）**；组合语义桥只作 conjecture；奇数子列提及必带 A386889 挂名围栏；交替挂法旧说已证伪并锁定统一挂侧约定。
-- `tasks/20260927-mossad-pend/report.md` 文件头仍为「待闸门四人工签发」；本包由用户 2026-09-28 显式指令启动出包并当场行使签发权（占位通道启动权即用户指令），此口径已原文级写入短笺 Scope and limitations 第 (f) 条与本目录 `card.md`。
+- 源任务目录的 `tasks/20260927-mossad-pend/report.md`（源仓文件，不随包）文件头仍为「待闸门四人工签发」；本包由用户 2026-09-28 显式指令启动出包并当场行使签发权（占位通道启动权即用户指令），此口径已原文级写入短笺 Scope and limitations 第 (f) 条与源仓 deliverable 目录的 `card.md`（不随包）。
 - OEIS 提交（路由表的社区层）属用户手动，且本仓提交侧通道未实测 → 见 UPLOAD.md 第 3 步与 SOP 08b《已知边界》。

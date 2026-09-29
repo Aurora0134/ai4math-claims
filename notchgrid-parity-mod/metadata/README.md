@@ -5,20 +5,22 @@
   DOI 转正。
 - **DOI**：上传时按源仓 deliverable 目录的 `claims/notchgrid-parity-mod/UPLOAD.md` 第 1 步
   预留，然后回填 `claim/claim.tex` 的 Data availability 段并重编（包内当前措辞为
-  「DOI to be reserved at upload」，正文无裸占位符）。注意：本包已用 9 个 LaTeX 编译轮；用户 2026-09-28 授权行
-  `budget-auth-3` 把顶由 9 提到 **10**、专供该回填，第 10 轮**已预留、尚未动用**
+  「DOI to be reserved at upload」，正文无裸占位符）。注意：本包已用 10 个 LaTeX 编译轮（第 10 轮 = 2026-09-29 署名 errata，见下）；用户 2026-09-28 授权行
+  `budget-auth-3` 曾把顶由 9 提到 **10**、专供该回填，2026-09-29 用户指令改将该轮用于署名 errata 并把顶提到 **11**（`budget-auth-4`），
+  **第 11 轮专供 DOI 回填、尚未动用**
   （宪条 5 的卡面 + 账本双写在位）。未回填前保持预留措辞。
 - **镜像**：脱敏 GitHub 快照仓已推送（用户 2026-09-28 指令「gh推送授权，全做」授权并执行；仅推本目录树）至 `https://github.com/Aurora0134/ai4math-claims` 的 `notchgrid-parity-mod/` 目录；commit 与时间戳见源仓 `claims/notchgrid-parity-mod/card.md`（不随包），本包 `metadata/zenodo.json` 的 related_identifiers[0] 已填该 URL。
 
 ## 包结构
 
-- `claim/`：占位短笺 `claim.tex` + 编译产物 `claim.pdf`（tectonic/XeTeX，已用 9 轮、顶 10
-  （第 10 轮预留专供 DOI 回填、未动用），
+- `claim/`：占位短笺 `claim.tex` + 编译产物 `claim.pdf`（tectonic/XeTeX，已用 10 轮、顶 11
+  （第 10 轮 = 2026-09-29 署名 errata：作者栏填 `Aurora0134`；第 11 轮预留专供 DOI 回填、未动用），
   终轮 0 `Missing character` / 0 Overfull / 0 未解析引用，12 页；上限原为 6 轮，
   2026-09-28 用户指令追加至 9 轮用于门③返工，第 9 轮已用于包内承诺失实项 N1（见
   `audit/claim-recheck.md`），门③第 3 轮（`audit/claim-recheck2.md`）的 6 条发现全落在记账 /
-  转写 / 指令文本层、以**零编译轮**完成，故本目录件的 tex 未被改动，
-  DOI 回填用已预留的第 10 轮）+ `lstlean.tex`
+  转写 / 指令文本层、以**零编译轮**完成；2026-09-29 用户指令把 budget-auth-3 预留的
+  第 10 轮改用于署名 errata（作者栏占位符 → `Aurora0134`，订正随 batch 4 公开版本的
+  内部口径不一致）并把顶提到 11，DOI 回填用第 11 轮）+ `lstlean.tex`
   （listing 着色与 literate 表，从 `harness/templates/paper/lstlean.tex` 逐字节拷入）。
   12 页超出 SOP 08b 的 2–4 页目标，超出部分是逐字 listing 与 C9 查新表，属该 SOP
   《已知边界》的显式页数豁免（用户 2026-09-28 裁可维持 12 页，不压版式、不删证据）。
@@ -40,7 +42,7 @@
   `lean-idents.txt`、`lint.txt`、`compile.txt`、`references-check.txt`、
   `numeric-recheck.txt`（四张余数表与周期的独立复算）、
   `rework-evidence.txt`（门③返工三条事实性更正 F1/F2/F3 与第 9 轮更正 N1 的机械复算依据）、
-  `compile-run{1..9}.log`（九轮原始编译日志；各件里唯一的 "error" 串是便携版 tectonic 的
+  `compile-run{1..10}.log`（十轮原始编译日志，第 10 件 = 2026-09-29 署名 errata 轮；各件里唯一的 "error" 串是便携版 tectonic 的
   `Fontconfig error: Cannot load default config file` 字体环境提示，非 LaTeX error，
   每轮 exit 0 与各件尾部的 "bytes written" 为证，见 `compile.txt` 轮次表。另须读清：轮 2 至
   轮 8 的日志会逐字回显第 9 轮之前那句 Data availability 表述——即被门③第 2 轮判为失实、
@@ -72,12 +74,12 @@
 
 ## 包体量（与盘上实测互洽；由 `audit/sanitize-package.py` 三门核对）
 
-- 本目录树 **37 文件 / 553,188 字节**；`metadata/FILE-MANIFEST.txt` 逐件列出除自身以外的
-  36 件（sha256 + 字节数），分目录：`audit/` 28 件 322,433 字节、`claim/` 3 件 166,934 字节、`metadata/` 3 件 20,421 字节、`proofs/` 3 件 43,400 字节。
-- 门③第 4 轮（2026-09-28，**零编译轮**）把第 4 份裁决书的逐字副本 `audit/claim-recheck3.md` 入包，并把 G4（`audit/listing-ranges.txt` 由 CRLF 规范为 LF）、G5（六件转写件共八处「来源标注句式」指称补「留在源仓、不随包」明示）、G1（本 README、`metadata/zenodo.json`、`audit/compile.txt`、`audit/compile-log.txt` 四处预算顶现状改口为「顶 10、已用 9、第 10 轮预留未动用」）与件数口径（三份 → 四份）同批落地；该轮同样没有改动短笺本身。上一轮（门③第 3 轮，**零编译轮**）把第 3 份裁决书的逐字副本 `audit/claim-recheck2.md` 入包，件数因此由 35 增至 36；该轮没有改动短笺本身——`claim/claim.tex` 仍为
-  sha256 `1287ae80b7fd3d89c831e68e8c187a8d3c82c8712a6a02530863395257c7d7dc`、
-  `claim/claim.pdf` 仍为 `babece736bde4c9858cfe1d77acb1c31bf00877f508dc83a2e802cd2f6dcf7a8`
-  （128,188 字节 / 12 页），即编译第 9 轮交付的那一对文件，paper-lint 第 11 跑（门③第 3 轮）与第 12 跑（门③第 4 轮）对此各复跑一次，均 exit 0 且哈希未变（`audit/lint.txt`；两跑的历史块按 append-only 不回改，run 11 括注里「顶 9、未授权第 10 轮」是其书写当时实况，被 run 12 块公开声明为已由 `budget-auth-3` 取代）。
+- 本目录树 **38 文件 / 571,428 字节**；`metadata/FILE-MANIFEST.txt` 逐件列出除自身以外的
+  37 件（sha256 + 字节数），分目录：`audit/` 29 件 338,878 字节、`claim/` 3 件 167,536 字节、`metadata/` 3 件 21,569 字节、`proofs/` 3 件 43,400 字节。
+- 门③第 4 轮（2026-09-28，**零编译轮**）把第 4 份裁决书的逐字副本 `audit/claim-recheck3.md` 入包，并把 G4（`audit/listing-ranges.txt` 由 CRLF 规范为 LF）、G5（六件转写件共八处「来源标注句式」指称补「留在源仓、不随包」明示）、G1（本 README、`metadata/zenodo.json`、`audit/compile.txt`、`audit/compile-log.txt` 四处预算顶现状改口为「顶 10、已用 9、第 10 轮预留未动用」）与件数口径（三份 → 四份）同批落地；该轮同样没有改动短笺本身。上一轮（门③第 3 轮，**零编译轮**）把第 3 份裁决书的逐字副本 `audit/claim-recheck2.md` 入包，件数因此由 35 增至 36。**署名 errata（2026-09-29，编译第 10 轮，用户指令）**：作者栏占位符 → `Aurora0134`（订正随 batch 4 公开版本的包内口径不一致；batch 4 推送时的那对文件 = 第 9 轮 artefact，tex `1287ae80…c7d7dc` / pdf `babece73…dcf7a8` / 128,188 字节，已被取代并按 append-only 留档于 `audit/compile.txt` 的 Superseded pairs），同时把披露句轮次实况与 `metadata/zenodo.json` notes 同批改口（顶 11、已用 10、第 11 轮预留专供 DOI 回填）；listing 七段字节复验 7/7 全同。现随包 pair = 编译第 10 轮交付：`claim/claim.tex`
+  sha256 `ee6a7b59e5d4c8afe00d8fd4c9c01ce2ea8939fc1f695741d010c62afb20e663`、
+  `claim/claim.pdf` `9531f4f201ec84bd7bbdb67174f5d5806470f01312ef0eda2d5e1097ba11699f`
+  （128,545 字节 / 12 页），paper-lint 第 13 跑对此复跑 PASS exit 0（`audit/lint.txt`；run 11、12 的历史块按 append-only 不回改，run 11 括注里「顶 9、未授权第 10 轮」是其书写当时实况，已被 `budget-auth-3` 与 `budget-auth-4` 先后取代并在 run 12、13 块公开声明）。
 - 上述数字是本 README 定稿时的实测；发布前请重跑
   `python claims/notchgrid-parity-mod/audit/sanitize-package.py --check-only`
   （源仓路径，不在本目录树内），它会重算并逐件比对，任一项不绿即不得外发。改过**任何**一个

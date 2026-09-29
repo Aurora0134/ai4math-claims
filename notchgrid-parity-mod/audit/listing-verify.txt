@@ -1,9 +1,9 @@
 # listing-verify -- claims/notchgrid-parity-mod/claim.tex (SOP 08b gate, byte track)
 # method: every lstlisting body re-extracted with `sed -n 'X,Yp'` from the artifact
-#   tasks/20260927-mossad-notch/final/01-notch-proved.lean (source task directory, not shipped with this deposit) -- the deposit carries it
-#   as proofs/01-notch-proved.lean (sha256 6f1a7440f5830633e9309ab5629e16308928bb6421f64f4d4b1988b8929db4aa)
+#   tasks/20260927-mossad-notch/final/01-notch-proved.lean
+#   (sha256 6f1a7440f5830633e9309ab5629e16308928bb6421f64f4d4b1988b8929db4aa)
 #   and compared byte-for-byte; ranges in audit/listing-ranges.txt.
-# executor: dept-paper claim lane, 2026-09-28, via logs/notchgrid-claim-listings.py verify (repository-internal helper script under logs/, not shipped with this deposit)
+# executor: dept-paper claim lane, 2026-09-28, via logs/notchgrid-claim-listings.py verify
 PASS lst:a3def (sed -n '24,31p', 8 lines byte-exact)
 PASS lst:a4def (sed -n '151,163p', 13 lines byte-exact)
 PASS lst:t1 (sed -n '34,34p', 1 lines byte-exact)
@@ -12,8 +12,16 @@ PASS lst:t3 (sed -n '122,122p', 1 lines byte-exact)
 PASS lst:t4 (sed -n '281,281p', 1 lines byte-exact)
 PASS lst:t3proof (sed -n '123,144p', 22 lines byte-exact)
 ALL BYTE-EXACT
-# re-run 2026-09-28 after compile round 9 (N1 correction): `python
-# logs/notchgrid-claim-listings.py verify` (repository-internal helper script under logs/, not shipped with this deposit) from the repository root -> the same 7 PASS
-# lines and ALL BYTE-EXACT (7/7). Round 9 edited two printed sentences of the note only;
-# no lstlisting body line and no caption range changed, so the block above still describes
-# the shipped file.
+# re-verification record (appended 2026-09-29 by the main agent): re-run of
+#   logs/notchgrid-claim-listings.py verify against the edited claim.tex (author-field
+#   errata, compile round 10); the seven listing bodies are byte-identical to their
+#   round-9 state -- the errata touched only the \author line and the disclosure
+#   sentence, no listing bytes.
+PASS lst:a3def (sed -n '24,31p', 8 lines byte-exact)
+PASS lst:a4def (sed -n '151,163p', 13 lines byte-exact)
+PASS lst:t1 (sed -n '34,34p', 1 lines byte-exact)
+PASS lst:t2 (sed -n '166,166p', 1 lines byte-exact)
+PASS lst:t3 (sed -n '122,122p', 1 lines byte-exact)
+PASS lst:t4 (sed -n '281,281p', 1 lines byte-exact)
+PASS lst:t3proof (sed -n '123,144p', 22 lines byte-exact)
+ALL BYTE-EXACT
