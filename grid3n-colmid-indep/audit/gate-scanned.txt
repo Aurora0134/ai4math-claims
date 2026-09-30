@@ -1,0 +1,5 @@
+# scanned list for claims/grid3n-colmid-indep (gate 4, F-b family: explicit and checkable)
+# prose-bearing artifacts; frozen/verbatim and generated files are declared not-scanned below
+claim/claim.tex
+metadata/README.md
+metadata/zenodo.json

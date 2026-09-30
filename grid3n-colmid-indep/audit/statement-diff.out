@@ -1,0 +1,12 @@
+statement-diff re-run 2026-09-30 (byte mode, no CR normalisation)
+statement.lean sha256 = b726f0d8e01672b39a93ce0c256f5036014bc80f7f0b6a5fcb484272d805c884
+interface.lean sha256 = 66c96c3e4051ce2be5bd2c09383913f71678e3133b0e67cff4fdc73dbed3d6e9
+final-c_z_rec.lean sha256 = 9a8378352c7afe91ba83a519053e130c53bd6fd7d08282c48669289682f751ac
+
+check 1: final[:8042] == interface.lean (byte-for-byte): True
+  (embeds the frozen statement segment: the interface file opens with it)
+check 2: final line 1087 == statement line 48 (theorem head): True
+  content: theorem c_z_rec : ∀ n : ℕ, 6 ≤ n → z n + 15 * z (n - 4) = 12 * z (n - 2) + 2 * z (n - 6) := by
+check 3: 'c_z_rec' occurrences in final = 2 (expect 2: statement + #print axioms): True
+
+OVERALL: PASS

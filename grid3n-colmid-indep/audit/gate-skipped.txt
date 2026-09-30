@@ -1,0 +1,22 @@
+# not-scanned list for claims/grid3n-colmid-indep (gate 4, F-b family: every line carries a reason)
+# frozen verbatim Lean sources (constitution 2: never edited to satisfy a prose gate)
+proofs/00-grid3n-colmid-indep-statement.lean  frozen statement, verbatim by constitution 2
+proofs/01-grid3n-colmid-indep-interface.lean  frozen interface, verbatim by constitution 2
+proofs/02-grid3n-colmid-indep-proved.lean     final proof, verbatim by constitution 2
+proofs/lean-toolchain                          one-line toolchain pin, no prose
+# verbatim search record (SOP 08b: conclusions may not be rewritten)
+audit/c9-record.md                            verbatim C9 dossier copy
+# audit verdict / archival echoes
+audit/final-audit.md                          adjudication copy, quotes repository paths
+audit/claim-check.md                          audit verdict copy, verbatim by user ruling; quotes repository paths
+audit/statement-diff.out                      kernel/byte-check output echo, no prose
+audit/axioms.out                              kernel output echo, no prose
+audit/compile.txt                             gate log, factual lines only
+audit/listing-verify.txt                      machine-generated verification record
+audit/inspect-tex.py                          tool source (its own docstring names task paths by design)
+# binary
+claim/claim.pdf                               binary rendering
+audit/gate-scanned.txt                       this gate's own declaration list (tool input)
+audit/gate-skipped.txt                       this gate's own declaration list (tool input)
+claim/lstlean.tex                            verbatim template include (single source: paper template), no prose promises
+metadata/FILE-MANIFEST.txt                   generated inventory (rows, not prose)

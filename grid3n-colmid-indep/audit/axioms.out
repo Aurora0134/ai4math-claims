@@ -1,0 +1,4 @@
+# axioms.out — kernel re-run of #print axioms c_z_rec, 2026-09-30
+# command: bash scripts/lean-verify tasks/20260930-comb12-grid-indep/attempts/final-c_z_rec.lean
+# full run: exit 0, no errors, no sorry; whitelist = {propext, Quot.sound, Classical.choice}
+'c_z_rec' depends on axioms: [propext, Classical.choice, Quot.sound]

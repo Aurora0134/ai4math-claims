@@ -1,0 +1,15 @@
+# gate 1 (paper-lint): PASS 2026-09-30 (claims/grid3n-colmid-indep/claim.tex)
+# gate 2 (paper-compile/tectonic 0.17): PASS 2026-09-30 final round; 40 pages, 377,572 bytes claim.pdf
+#   0 Overfull, 0 Missing character in final round
+#   round history: r1 fail (xeCJK special-punct clash: own U+2013 en-dash mapping, removed;
+#   00B7/2014 left to xeCJK per pendant/holestrip precedent) | r2 pass 368,922 B (audit F-5 later showed a
+#   post-log edit round: 377,776 B unlogged) | r3 pass 377,572 B (post-F1..F6-fix final; this log rerecorded)
+# audit (dept-audit via Agent subagent): first review OVERALL FAIL (6 findings F-1..F-6, all package
+#   self-description layer, zero proof-layer findings) -> same-day repair round; the adjudication
+#   lives in the source repository's claim lane (audit/claim-check.md there, not shipped in this
+#   deposit); second review: F-1..F-6 all fixed, N-1 = zip/manifest rebuild step had not run
+#   -> rebuilt (this file and FILE-MANIFEST.txt refreshed, zip re-created at 2026-09-30)
+# latex ledger (claims/grid3n-colmid-indep/budget.log): rounds r1 fail + r2 pass + r3 pass = 3/10
+#   (the unlogged 377,776 B round is folded into r3's record as the F-5 finding; no cap breach)
+# re-verification after repair: paper-lint PASS / paper-compile PASS / inspect-tex --verify per-block
+#   PASS (L1 28 lines incl. theorem head, L2 146, L3 1188) / statement-diff.out PASS
