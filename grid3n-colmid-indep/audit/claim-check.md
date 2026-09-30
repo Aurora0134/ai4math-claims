@@ -80,4 +80,4 @@
 
 **勘误轮复验（主代理执行，机械级）**：paper-lint PASS；paper-compile r4 pass（40 页、377,789 B、0 Overfull / 0 Missing character）；`inspect-tex.py --verify` 逐块 PASS（listing 未被勘误触碰，L1 28 行 / L2 146 / L3 1188）；statement-diff 判据不受影响（listing 与冻结件未动）；`trinks2021`/`J.~Jonsson` 全包 grep 零残留。账本：latex r4 = 4/10（未触顶）；会话子代理 2/2 未增（终审子代理属论文轨预算，本轨勘误由主代理执行）。
 
-**镜像与包**：GitHub 镜像勘误 commit（sha 与公开时间戳见本包 `card.md`《GitHub 快照》勘误行与 `audit/github-commit-<sha>.json`）；zenodo 树与 `zenodo-package.zip` 随勘误重建（FILE-MANIFEST 刷新，sanitize 五门复跑全绿后出 zip）。**Zenodo 上传仍未发生**（用户手动，UPLOAD.md）；上传将以勘误后包为准。
+**镜像与包**：GitHub 镜像勘误 commit（sha 与公开时间戳见本包 `card.md`《GitHub 快照》勘误行与 `audit/github-commit-e6f32d9.json`）；zenodo 树与 `zenodo-package.zip` 随勘误重建（FILE-MANIFEST 刷新，sanitize 五门复跑全绿后出 zip）。**Zenodo 上传仍未发生**（用户手动，UPLOAD.md）；上传将以勘误后包为准。
