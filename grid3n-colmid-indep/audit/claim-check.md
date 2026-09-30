@@ -64,3 +64,20 @@
 ## 写入披露（首审只读审计的唯一副作用）
 
 第 4 步按审计指令运行的 `inspect-tex.py --verify` 按其设计向 `audit/listing-verify.txt` 追加了一条 PASS 记录（根副本现 3 条，包内副本为打包时快照 2 条——该差异本身即 F-2 空转问题的旁证）。除此之外未写改任何文件；未跑 `scripts/lean-verify`。
+
+---
+
+## 勘误节（2026-09-30 当日，引用层；由论文轨门③终审 N-4 牵引）
+
+**触发**：论文轨 `papers/grid3n-colmid-indep/` 的门③终审（第三个只读子代理）在跨轨一致性扫描中发现：论文轨首审 F-5 修掉的两处书目错误（Trinks 年份、jonsson2007 署名）只修了论文轨，**本轨 claim.tex 的同款错误未随修**——本包已于 2026-09-30 推送 GitHub 镜像（commit 4e08002），故按当日授权（用户 2026-09-30 指令「授权外发github，无需再问」；ladder c548ae9 勘误推送先例）走勘误轮，不改包不撤时间戳，Zenodo 版本机制保留原记录。
+
+**两处错误与修复**（均为引用层，不动命题、证明、listing、锚点、哈希）：
+
+1. `\bibitem{trinks2021}`：年份 "2021 (v2)" → **2010**（arXiv API 实测 1006.4253v2 = 2010-09-24，published 2010-06-22；回执在论文轨 `papers/grid3n-colmid-indep/audit/bib-verify/arxiv-trinks.xml`）；cite key 随改 trinks2010，正文引用点同步。
+2. `\bibitem{jonsson2007}`：作者 "J.~Jonsson" → **M.~Bousquet-M\'elou, S.~Linusson, and E.~Nevo**（随包回执 `arxiv-jonsson.xml` 的 authorship + journal_ref: J. Algebraic Combinatorics 27 (2008) 423–450；"Jonsson" 仅见于该文摘要的环面情形句）；补入期刊信息。
+
+另：书目注释改精确（七件回执的去向：论文轨存缴包 audit/bib-verify/，本包不带路径承诺——首审 F-4 口径不变），并在注释内落勘误说明句。
+
+**勘误轮复验（主代理执行，机械级）**：paper-lint PASS；paper-compile r4 pass（40 页、377,789 B、0 Overfull / 0 Missing character）；`inspect-tex.py --verify` 逐块 PASS（listing 未被勘误触碰，L1 28 行 / L2 146 / L3 1188）；statement-diff 判据不受影响（listing 与冻结件未动）；`trinks2021`/`J.~Jonsson` 全包 grep 零残留。账本：latex r4 = 4/10（未触顶）；会话子代理 2/2 未增（终审子代理属论文轨预算，本轨勘误由主代理执行）。
+
+**镜像与包**：GitHub 镜像勘误 commit（sha 与公开时间戳见本包 `card.md`《GitHub 快照》勘误行与 `audit/github-commit-<sha>.json`）；zenodo 树与 `zenodo-package.zip` 随勘误重建（FILE-MANIFEST 刷新，sanitize 五门复跑全绿后出 zip）。**Zenodo 上传仍未发生**（用户手动，UPLOAD.md）；上传将以勘误后包为准。

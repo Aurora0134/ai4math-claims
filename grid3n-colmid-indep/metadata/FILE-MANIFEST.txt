@@ -4,16 +4,16 @@
 
        327  audit/axioms.out
      25618  audit/c9-record.md
-      9935  audit/claim-check.md
-      1400  audit/compile.txt
+     12346  audit/claim-check.md
+      2040  audit/compile.txt
       9630  audit/final-audit.md
        241  audit/gate-scanned.txt
       1796  audit/gate-skipped.txt
       8667  audit/inspect-tex.py
-      6844  audit/listing-verify.txt
+      8526  audit/listing-verify.txt
        758  audit/statement-diff.out
-    377572  claim/claim.pdf
-     89223  claim/claim.tex
+    377789  claim/claim.pdf
+     89844  claim/claim.tex
       7569  claim/lstlean.tex
       3459  metadata/README.md
       4744  metadata/zenodo.json

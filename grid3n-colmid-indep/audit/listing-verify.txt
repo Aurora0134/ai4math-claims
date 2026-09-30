@@ -53,3 +53,13 @@ block 1 L1 PASS (tasks/20260930-comb12-grid-indep/formalized/statement.lean 21-4
 block 2 L2 PASS (tasks/20260930-comb12-grid-indep/formalized/interface.lean 18-163, 146 lines): interface: frozen statement segment + attack-interface defs + matrix certificates (roster/attack-notes docstrings excluded: they mention banned words in warning text)
 block 3 L3 PASS (tasks/20260930-comb12-grid-indep/attempts/final-c_z_rec.lean 1-1188, 1188 lines): proof: whole final file (1188 numbered lines; the file ends with a newline, so split() yields 1189 chunks with a trailing empty one)
 block 4 (unmarked, not verified): 1 lines
+listing-verify claim.tex PASS
+block 1 L1 PASS (tasks/20260930-comb12-grid-indep/formalized/statement.lean 21-48, 28 lines): statement: base instances + defs holes/z + theorem head (the frozen file's proof body line 49 is a sorry placeholder, excluded; native_decide data-check lines 53-61 excluded)
+block 2 L2 PASS (tasks/20260930-comb12-grid-indep/formalized/interface.lean 18-163, 146 lines): interface: frozen statement segment + attack-interface defs + matrix certificates (roster/attack-notes docstrings excluded: they mention banned words in warning text)
+block 3 L3 PASS (tasks/20260930-comb12-grid-indep/attempts/final-c_z_rec.lean 1-1188, 1188 lines): proof: whole final file (1188 numbered lines; the file ends with a newline, so split() yields 1189 chunks with a trailing empty one)
+block 4 (unmarked, not verified): 1 lines
+listing-verify claim.tex PASS
+block 1 L1 PASS (tasks/20260930-comb12-grid-indep/formalized/statement.lean 21-48, 28 lines): statement: base instances + defs holes/z + theorem head (the frozen file's proof body line 49 is a sorry placeholder, excluded; native_decide data-check lines 53-61 excluded)
+block 2 L2 PASS (tasks/20260930-comb12-grid-indep/formalized/interface.lean 18-163, 146 lines): interface: frozen statement segment + attack-interface defs + matrix certificates (roster/attack-notes docstrings excluded: they mention banned words in warning text)
+block 3 L3 PASS (tasks/20260930-comb12-grid-indep/attempts/final-c_z_rec.lean 1-1188, 1188 lines): proof: whole final file (1188 numbered lines; the file ends with a newline, so split() yields 1189 chunks with a trailing empty one)
+block 4 (unmarked, not verified): 1 lines
