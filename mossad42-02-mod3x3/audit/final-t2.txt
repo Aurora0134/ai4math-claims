@@ -1,0 +1,6 @@
+$ bash scripts/lean-verify tasks/20260930-mossad42-quad/audit/final-t2.lean
+exit=0
+
+'b2_mod8' depends on axioms: [propext, Quot.sound]
+'a2_interleave' depends on axioms: [propext, Quot.sound]
+'a2_odd_eq_zero' depends on axioms: [propext, Quot.sound]

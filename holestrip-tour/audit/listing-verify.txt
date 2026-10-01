@@ -1,0 +1,45 @@
+== claim.tex -- 2026-09-30 ==
+source sha256: holestrip-tour.statement.txt=96875db4a784ff7a3862e3fe255c9e25c09f98a68d9d98d30700d90b4fd6929e  stage4b-full.lean=9cf0b5b0af8cedb2edfd9d63779a2e8d4a6c973237b616c1482a05bbf1e0a70b
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption. The frozen statement file's literal 'sorry' occurrences (two theorem proof placeholders at lines 77/84, one mention in the head comment block at line 18) all lie outside the excerpt ranges; the final-file excerpts carry no sorry/admit/native_decide (whole file: zero).
+PASS: claim.tex (holestrip-tour.statement.txt lines 43-76, 1730 bytes) -- statement: board encoding + knight graph + theorem-O head
+PASS: claim.tex (holestrip-tour.statement.txt lines 79-83, 280 bytes) -- statement: theorem-C head
+PASS: claim.tex (stage4b-full.lean lines 1589-1644, 2517 bytes) -- proof: closed-tour induction assembly
+PASS: claim.tex (stage4b-full.lean lines 2001-2036, 1600 bytes) -- proof: open-tour induction assembly (odd n)
+PASS: claim.tex (stage4b-full.lean lines 2447-2575, 6162 bytes) -- proof: cut barrier + n=6/7 certificates
+PASS: claim.tex (stage4b-full.lean lines 2577-2633, 2302 bytes) -- proof: both iff theorems + closing #print axioms
+PASS: claim.tex (axioms block, 19 lines, 1445 bytes)
+
+== claim.tex -- 2026-09-30 ==
+source sha256: holestrip-tour.statement.txt=96875db4a784ff7a3862e3fe255c9e25c09f98a68d9d98d30700d90b4fd6929e  stage4b-full.lean=9cf0b5b0af8cedb2edfd9d63779a2e8d4a6c973237b616c1482a05bbf1e0a70b
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption. The frozen statement file's literal 'sorry' occurrences (two theorem proof placeholders at lines 77/84, one mention in the head comment block at line 18) all lie outside the excerpt ranges; the final-file excerpts carry no sorry/admit/native_decide (whole file: zero).
+PASS: claim.tex (holestrip-tour.statement.txt lines 43-76, 1730 bytes) -- statement: board encoding + knight graph + theorem-O head
+PASS: claim.tex (holestrip-tour.statement.txt lines 79-83, 280 bytes) -- statement: theorem-C head
+FAIL: claim.tex (stage4b-full.lean lines 749-877) NOT present verbatim -- proof: loading layer (walkOfChain/pathOfChain/cycleOfChain)
+PASS: claim.tex (stage4b-full.lean lines 1589-1644, 2517 bytes) -- proof: closed-tour induction assembly
+PASS: claim.tex (stage4b-full.lean lines 2001-2036, 1600 bytes) -- proof: open-tour induction assembly (odd n)
+PASS: claim.tex (stage4b-full.lean lines 2447-2575, 6162 bytes) -- proof: cut barrier + n=6/7 certificates
+PASS: claim.tex (stage4b-full.lean lines 2577-2633, 2302 bytes) -- proof: both iff theorems + closing #print axioms
+PASS: claim.tex (axioms block, 19 lines, 1445 bytes)
+
+== claim.tex -- 2026-09-30 ==
+source sha256: holestrip-tour.statement.txt=96875db4a784ff7a3862e3fe255c9e25c09f98a68d9d98d30700d90b4fd6929e  stage4b-full.lean=9cf0b5b0af8cedb2edfd9d63779a2e8d4a6c973237b616c1482a05bbf1e0a70b
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption. The frozen statement file's literal 'sorry' occurrences (two theorem proof placeholders at lines 77/84, one mention in the head comment block at line 18) all lie outside the excerpt ranges; the final-file excerpts carry no sorry/admit/native_decide (whole file: zero).
+PASS: claim.tex (holestrip-tour.statement.txt lines 43-76, 1730 bytes) -- statement: board encoding + knight graph + theorem-O head
+PASS: claim.tex (holestrip-tour.statement.txt lines 79-83, 280 bytes) -- statement: theorem-C head
+PASS: claim.tex (stage4b-full.lean lines 1589-1644, 2517 bytes) -- proof: closed-tour induction assembly
+PASS: claim.tex (stage4b-full.lean lines 2001-2036, 1600 bytes) -- proof: open-tour induction assembly (odd n)
+PASS: claim.tex (stage4b-full.lean lines 2447-2575, 6162 bytes) -- proof: cut barrier + n=6/7 certificates
+PASS: claim.tex (stage4b-full.lean lines 2577-2633, 2302 bytes) -- proof: both iff theorems + closing #print axioms
+PASS: claim.tex (axioms block, 19 lines, 1445 bytes)
+
+== claim.tex -- 2026-09-30 ==
+source sha256: holestrip-tour.statement.txt=96875db4a784ff7a3862e3fe255c9e25c09f98a68d9d98d30700d90b4fd6929e  stage4b-full.lean=9cf0b5b0af8cedb2edfd9d63779a2e8d4a6c973237b616c1482a05bbf1e0a70b
+note: each PASS line compares the lstlisting body currently in the .tex with the verbatim contiguous range of the frozen artifact (byte-for-byte, LF); 'lines a-b' is the source line range carried in the listing caption. The frozen statement file's literal 'sorry' occurrences (two theorem proof placeholders at lines 77/84, one mention in the head comment block at line 18) all lie outside the excerpt ranges; the final-file excerpts carry no sorry/admit/native_decide (whole file: zero).
+PASS: claim.tex (holestrip-tour.statement.txt lines 43-76, 1730 bytes) -- statement: board encoding + knight graph + theorem-O head
+PASS: claim.tex (holestrip-tour.statement.txt lines 79-83, 280 bytes) -- statement: theorem-C head
+PASS: claim.tex (stage4b-full.lean lines 1589-1644, 2517 bytes) -- proof: closed-tour induction assembly
+PASS: claim.tex (stage4b-full.lean lines 2001-2036, 1600 bytes) -- proof: open-tour induction assembly (odd n)
+PASS: claim.tex (stage4b-full.lean lines 2447-2575, 6162 bytes) -- proof: cut barrier + n=6/7 certificates
+PASS: claim.tex (stage4b-full.lean lines 2577-2633, 2302 bytes) -- proof: both iff theorems + closing #print axioms
+PASS: claim.tex (axioms block, 19 lines, 1445 bytes)
+

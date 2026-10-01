@@ -1,0 +1,139 @@
+/-
+  AI4Math 流水线 · AI 生成 · 2026-09-30
+  部门：02 形式化部（dept-formalize）
+  任务线：mossad42-quad T2（pool-mossad42-02，3×n 铺砖「水平砖数 ≡ 0 (mod 3)」）
+  来源卡：tasks/20260930-mossad42-quad/card.md（闸门一 2026-09-30）
+  主张定稿：tasks/20260930-mossad42-quad/phase0/claims.md（§三、§四、§六 7）
+  数值出处：phase0/audit-def-forms.txt ①、audit-congruence.txt ①②、claims-data.txt ②
+
+  【闸门二返工记录 · 2026-09-30】
+  首版冻结件把 b2 定义为 `a2 (2 * k)`，而 a2 本身是「仅偶滞后」递推
+  ⇒ `b2_recurrence`（b2 的 order-6 递推）成为**定义展开**：闸门二裸探针
+  `rfl` / `trivial` / `aesop` 三条 PASS（`audit/gate/02-b2_recurrence.txt`），
+  属**退化命题**（无数学内容）。返工修法（本版）：
+  1. `b2` 改为**独立定义**（自带 6 个初值 + order-6 递推），不再由 a2 派生；
+  2. 原 `b2_recurrence` **撤下**（它现在就是 b2 的定义，不再是定理）；
+  3. 补**交织桥** `a2 (2 * k) = b2 k` 作主桥——两个**独立定义**之间的等式，
+     需真正归纳（`audit/probe-t2fix.lean` 实测 `simp [a2, b2]` **不能**一行闭合）。
+  本版已复核：`a2` 与 `b2` 在 k≤9 上数值一致（`#eval` 实测）。
+
+  口径（按任务卡锁定）：
+  - 本层只使用「初值 + 整数系数递推定义的纯序列」语言（ℕ → ℤ），
+    命题只谈序列的递推、交织与模余数性质；组合对象语义一律不进本层。
+  - 【命题须写明按水平多米洛计数取模】本线的模 3 对象是**水平砖数 h 的同余类**下的
+    铺法数之和（Σ_{h≡0 (3)} c(n,h)），**不是**「铺法数 mod 3」（那是总数的同余，另一对象）。
+    本层以「递推定义的序列 a2」承载，组合语义按下方围栏降级。
+  - 【组合语义围栏】kernel 层不证「a2 n = 3×n 铺砖中水平砖数 ≡ 0 (mod 3) 的铺法数」；
+    该等同是组合语义桥，按 OEIS/文献背书 + 本机数值探针的**猜想层降级声明**处理。
+
+  本线主定理（证明成本最低，Phase 0 §六 7 发现）：
+    b2 k 满足 **b2 k ≡ 1 (mod 8)**（k≤1200 零例外，且由 order-6 递推独立复现）。
+
+  【占位围栏】本串 identity / even-idx / first-diff / partial-sums 及压缩子列全零命中
+  （通道经正对照验证可用）；下游措辞不得写「新发现」。
+-/
+
+import Mathlib
+
+/-- **T2 主序列 a2（order-12 仅偶滞后递推）**。
+初值 a2(0..11) = 1, 0, 1, 0, 1, 0, 9, 0, 57, 0, 225, 0；
+递推 a2(n) = 6·a2(n−2) − 15·a2(n−4) + 28·a2(n−6) − 15·a2(n−8) + 6·a2(n−10) − a2(n−12)。 -/
+def a2 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 0
+  | 2 => 1
+  | 3 => 0
+  | 4 => 1
+  | 5 => 0
+  | 6 => 9
+  | 7 => 0
+  | 8 => 57
+  | 9 => 0
+  | 10 => 225
+  | 11 => 0
+  | n + 12 =>
+      6 * a2 (n + 10) - 15 * a2 (n + 8) + 28 * a2 (n + 6)
+        - 15 * a2 (n + 4) + 6 * a2 (n + 2) - a2 n
+
+/-- **T2 压缩子列 b2（独立定义：6 个初值 + order-6 递推）**。
+初值 b2(0..5) = 1, 1, 1, 9, 57, 225；
+递推 b2(k) = 6·b2(k−1) − 15·b2(k−2) + 28·b2(k−3) − 15·b2(k−4) + 6·b2(k−5) − b2(k−6)。
+（**独立定义**，非 `a2 (2k)` 的派生——后者会使递推退化为定义展开，见文件头返工记录。） -/
+def b2 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 1
+  | 2 => 1
+  | 3 => 9
+  | 4 => 57
+  | 5 => 225
+  | k + 6 =>
+      6 * b2 (k + 5) - 15 * b2 (k + 4) + 28 * b2 (k + 3)
+        - 15 * b2 (k + 2) + 6 * b2 (k + 1) - b2 k
+
+/-- **T2-A（主定理：强同余）**：压缩子列模 8 恒为 1。 -/
+theorem b2_mod8 (k : ℕ) : b2 k % 8 = 1 := by
+  refine Nat.strong_induction_on k (fun k ih => ?_)
+  by_cases hlt : k < 6
+  · interval_cases k <;> norm_num [b2]
+  · obtain ⟨j, rfl⟩ : ∃ j, k = j + 6 := ⟨k - 6, by omega⟩
+    have h5 : b2 (j + 5) % 8 = 1 := ih (j + 5) (by omega)
+    have h4 : b2 (j + 4) % 8 = 1 := ih (j + 4) (by omega)
+    have h3 : b2 (j + 3) % 8 = 1 := ih (j + 3) (by omega)
+    have h2 : b2 (j + 2) % 8 = 1 := ih (j + 2) (by omega)
+    have h1 : b2 (j + 1) % 8 = 1 := ih (j + 1) (by omega)
+    have h0 : b2 j % 8 = 1 := ih j (by omega)
+    rw [show b2 (j + 6) = 6 * b2 (j + 5) - 15 * b2 (j + 4) + 28 * b2 (j + 3)
+          - 15 * b2 (j + 2) + 6 * b2 (j + 1) - b2 j from by simp only [b2]]
+    omega
+
+/-- **T2-B（交织桥）**：两个独立定义的序列在偶位处相合——`a2 (2k) = b2 k`。
+这是本轨的**主桥**（两个独立递推定义之间的等式，需真正归纳，非定义展开）。 -/
+theorem a2_interleave (k : ℕ) : a2 (2 * k) = b2 k := by
+  refine Nat.strong_induction_on k (fun k ih => ?_)
+  by_cases hlt : k < 6
+  · interval_cases k <;> decide
+  · obtain ⟨j, rfl⟩ : ∃ j, k = j + 6 := ⟨k - 6, by omega⟩
+    have e5 : a2 (2 * j + 10) = b2 (j + 5) := by
+      rw [show 2 * j + 10 = 2 * (j + 5) by ring]
+      exact ih (j + 5) (by omega)
+    have e4 : a2 (2 * j + 8) = b2 (j + 4) := by
+      rw [show 2 * j + 8 = 2 * (j + 4) by ring]
+      exact ih (j + 4) (by omega)
+    have e3 : a2 (2 * j + 6) = b2 (j + 3) := by
+      rw [show 2 * j + 6 = 2 * (j + 3) by ring]
+      exact ih (j + 3) (by omega)
+    have e2 : a2 (2 * j + 4) = b2 (j + 2) := by
+      rw [show 2 * j + 4 = 2 * (j + 2) by ring]
+      exact ih (j + 2) (by omega)
+    have e1 : a2 (2 * j + 2) = b2 (j + 1) := by
+      rw [show 2 * j + 2 = 2 * (j + 1) by ring]
+      exact ih (j + 1) (by omega)
+    have e0 : a2 (2 * j) = b2 j := ih j (by omega)
+    rw [show 2 * (j + 6) = 2 * j + 12 by ring]
+    rw [show a2 (2 * j + 12) = 6 * a2 (2 * j + 10) - 15 * a2 (2 * j + 8) + 28 * a2 (2 * j + 6)
+          - 15 * a2 (2 * j + 4) + 6 * a2 (2 * j + 2) - a2 (2 * j) from by simp only [a2]]
+    rw [e5, e4, e3, e2, e1, e0]
+    simp only [b2]
+
+/-- **T2-C（零方向）**：主序列的奇数位恒为 0。 -/
+theorem a2_odd_eq_zero (n : ℕ) (hn : n % 2 = 1) : a2 n = 0 := by
+  revert hn
+  refine Nat.strong_induction_on n (fun n ih hn => ?_)
+  by_cases hlt : n < 12
+  · interval_cases n <;> simp_all [a2]
+  · obtain ⟨m, rfl⟩ : ∃ m, n = m + 12 := ⟨n - 12, by omega⟩
+    have h1 : (m + 10) % 2 = 1 := by omega
+    have h2 : (m + 8) % 2 = 1 := by omega
+    have h3 : (m + 6) % 2 = 1 := by omega
+    have h4 : (m + 4) % 2 = 1 := by omega
+    have h5 : (m + 2) % 2 = 1 := by omega
+    have h6 : m % 2 = 1 := by omega
+    have e1 : a2 (m + 10) = 0 := ih (m + 10) (by omega) h1
+    have e2 : a2 (m + 8) = 0 := ih (m + 8) (by omega) h2
+    have e3 : a2 (m + 6) = 0 := ih (m + 6) (by omega) h3
+    have e4 : a2 (m + 4) = 0 := ih (m + 4) (by omega) h4
+    have e5 : a2 (m + 2) = 0 := ih (m + 2) (by omega) h5
+    have e6 : a2 m = 0 := ih m (by omega) h6
+    simp only [a2]
+    rw [e1, e2, e3, e4, e5, e6]
+    ring

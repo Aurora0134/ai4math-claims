@@ -1,0 +1,568 @@
+% claim.tex -- AI4Math claim of record (AI-generated, 2026-09-30; instantiated
+% from harness/templates/claim/claim.tex per SOP 08b).
+% Machine-readable theorem anchors are the "% LEAN:" lines; scripts/paper-lint.sh
+% and the claim audit check them. All Lean listings are verbatim, byte-identical
+% contiguous excerpts of frozen artifacts of tasks/20260930-mossad42-quad:
+%   statements  : formalized/04-mod3x4-statements.lean (106 lines, sha256 b3970831...)
+%   proof bodies: final/04-mod3x4-proved.lean          (364 lines, sha256 b40c0802...)
+% Line ranges used: statement 26-106 (defs + both theorem signatures); the proof
+% is EXCERPTED -- 364 lines do not fit the note, so the note carries the contiguous
+% range 100-244 (mod-2 tool lemmas, the style-combination classification lemma,
+% the mod-2 induction, and the first main theorem). The full 364-line text ships in
+% the deposit under proofs/.
+% Verification: audit/listing-verify.txt (audit/inspect-tex.py --verify).
+%
+% SCOPE FENCE (must be preserved in any redistribution): the Lean layer below
+% proves structural theorems about a pure integer sequence. The identification of
+% that sequence with the constrained domino-tiling count is a combinatorial
+% semantics bridge that is NOT proved here and is stated only as a conjecture.
+% The mod-3 object is the sum over tilings whose horizontal-domino COUNT is
+% congruent to 0 mod 3 -- counted by the number of horizontal dominoes, modulo 3.
+% It is NOT the tiling count taken modulo 3.
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\input{lstlean}
+\lstset{language=lean}
+
+% --- local rendering patch (2026-09-30) ---
+% tectonic/XeTeX does not apply the listings literate table to multi-byte
+% characters, so the Unicode set used by the listings of THIS note is mapped to
+% math glyphs as active characters via the standard \lccode/\lowercase idiom
+% (ASCII-only source, no extra packages). Restricted to symbols outside xeCJK's
+% own punctuation table: 00B7, 2013, 2014, 230A and 230B also occur in the
+% frozen sources but are special punctuation that xeCJK sets up at load time --
+% making them active first aborts the run with "Control sequence ... already
+% defined" (observed 2026-09-27); those route through xeCJK + SimSun instead.
+% 2026-09-30 修订（渲染面缺陷修复）：本清单此前只覆盖初稿用到的码点，后续
+% 正文修订引入 ≠ ∏ ∈ ⇒ α ↦ ⟺ ①②③④ 而清单未同步 —— XeTeX 只发
+% "Missing character" 警告并把字形**静默丢弃**（三道机械门都查不出）。现按
+% claims/scan_listing_unicode.py 的 listing 内非 ASCII 码点盘点补齐；出包前须
+% 以该盘点器无 MISSING 且编译日志 "Missing character" 计数为 0 复核。
+% Rendering only: listing source bytes are untouched, so the byte-exactness
+% checks are unaffected, and the \ifdefined guard leaves the pdflatex path
+% identical to the template.
+\ifdefined\XeTeXversion
+  {\lccode`\~="2022 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\bullet}}}}
+  {\lccode`\~="2115 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{N}}}}}
+  {\lccode`\~="2124 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{Z}}}}}
+  {\lccode`\~="2190 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftarrow}}}}
+  {\lccode`\~="2192 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rightarrow}}}}
+  {\lccode`\~="2194 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftrightarrow}}}}
+  {\lccode`\~="2200 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\forall}}}}
+  {\lccode`\~="2203 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\exists}}}}
+  {\lccode`\~="2227 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\wedge}}}}
+  {\lccode`\~="2228 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vee}}}}
+  {\lccode`\~="2261 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\equiv}}}}
+  {\lccode`\~="2264 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leq}}}}
+  {\lccode`\~="2265 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\geq}}}}
+  {\lccode`\~="22A2 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vdash}}}}
+  {\lccode`\~="27E8 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\langle}}}}
+  {\lccode`\~="27E9 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rangle}}}}
+  {\lccode`\~="00AC \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\neg}}}}
+  {\lccode`\~="2212 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{-}}}}
+  {\lccode`\~="2223 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mid}}}}
+  {\lccode`\~="21A6 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mapsto}}}}
+  {\lccode`\~="2460 \lowercase{\global\catcode`~=\active \global\def~{\textcircled{\scriptsize 1}}}}
+  {\lccode`\~="2461 \lowercase{\global\catcode`~=\active \global\def~{\textcircled{\scriptsize 2}}}}
+  {\lccode`\~="2462 \lowercase{\global\catcode`~=\active \global\def~{\textcircled{\scriptsize 3}}}}
+  {\lccode`\~="2463 \lowercase{\global\catcode`~=\active \global\def~{\textcircled{\scriptsize 4}}}}
+  {\lccode`\~="27FA \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\Longleftrightarrow}}}}
+\fi
+\ifdefined\XeTeXversion
+  \usepackage{xeCJK}
+  \setCJKmainfont{SimSun}
+\fi
+
+\newtheorem{theorem}{Theorem}
+
+\title{Modular periodicity of the horizontal-domino-residue constrained\\
+tiling count on the $4\times n$ board\\
+{\large (Lean 4 machine-checked claim of record)}}
+\author{Aurora0134\thanks{Contact: via the GitHub account Aurora0134; ORCID
+placeholder --- to be filled in by the author before any upload. No personal
+information is carried in this note.}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We record a machine-checked result about a pure integer sequence
+$a_4\colon\mathbb{N}\to\mathbb{Z}$ defined by initial values together with an
+order-twelve constant-coefficient recurrence: its residue modulo $2$ depends only
+on $n \bmod 15$ and its residue modulo $3$ depends only on $n \bmod 30$, with the
+two residue patterns exhibited explicitly. The combinatorial reading of $a_4$ is
+the number of domino tilings of a $4\times n$ board counted by the number of
+horizontal dominoes, modulo 3; that identification is \emph{not} proved here. All
+statements are verified by the Lean~4 kernel under the pinned mathlib revision,
+with no \texttt{sorry} and axioms confined to \{propext, \texttt{Quot.sound},
+\texttt{Classical.choice}\}. Novelty: search found no occupying record; the
+strongest licensed claim is that no record of this constrained-selection object
+was found in the channels queried. This note is a priority claim of record, not a
+full paper.
+\end{abstract}
+
+\section{Introduction}
+This note records a formalized result produced by an AI4Math automated pipeline, in which
+propositions and proofs are generated by a language model and adjudicated solely by the
+Lean~4 kernel. The result concerns a pure sequence-level object: an order-twelve
+constant-coefficient integer recurrence together with the modular periodicity of its
+residues. The note is a priority claim of record, deposited for timestamping; the
+corresponding narrative paper has been deliberately deferred by the author (see the card),
+so no full exposition is attempted here. Verification strength is stated in
+Section~\ref{sec:verif}: strict kernel compilation, zero \texttt{sorry}, standard axiom
+whitelist. No literature survey is included---that expectation belongs to arXiv moderation
+and does not apply to a Zenodo deposit.
+
+\section{Statement}
+
+We first fix notation. Let $a_4\colon\mathbb{N}\to\mathbb{Z}$ be the sequence with initial
+values
+\[
+a_4(0),\dots,a_4(11) \;=\; 1,\,1,\,1,\,1,\,10,\,37,\,110,\,269,\,701,\,2000,\,6020,\,17495
+\]
+extended by the order-twelve constant-coefficient recurrence
+\[
+\begin{aligned}
+a_4(n) ={}& 3a_4(n{-}1) - 3a_4(n{-}2) + a_4(n{-}3) + 18a_4(n{-}4) - 9a_4(n{-}5) + 20a_4(n{-}6) \\
+& + 15a_4(n{-}7) - 18a_4(n{-}8) + a_4(n{-}9) + 9a_4(n{-}10) - a_4(n{-}12),
+\end{aligned}
+\]
+and let $\mathrm{pat2}_{15}$ and $\mathrm{pat3}_{30}$ be the two explicit residue patterns
+recorded below (fifteen and thirty entries respectively). Two facts are formalized, and both
+are main results; this track contains no definitional-unfolding lemma of the kind recorded
+in the sibling three-by-$n$ track.
+
+% LEAN: tasks/20260930-mossad42-quad :: a4_mod2_period15  grade=完全证明
+\begin{theorem}[mod-2 residue determined by $n \bmod 15$; main result]
+\label{thm:t4a}
+For all $n, r \in \mathbb{N}$, if $n \bmod 15 = r$ then
+$\;a_4(n) \bmod 2 = \mathrm{pat2}_{15}(r)$.
+\end{theorem}
+
+% LEAN: tasks/20260930-mossad42-quad :: a4_mod3_period30  grade=完全证明
+\begin{theorem}[mod-3 residue determined by $n \bmod 30$; main result]
+\label{thm:t4b}
+For all $n, r \in \mathbb{N}$, if $n \bmod 30 = r$ then
+$\;a_4(n) \bmod 3 = \mathrm{pat3}_{30}(r)$.
+\end{theorem}
+
+The reading of $a_4$ as a tiling count is fixed throughout as follows: $a_4(n)$ is the
+number of domino tilings of the $4\times n$ board counted by the number of horizontal
+dominoes, modulo 3 --- that is, the sum over those tilings whose horizontal-domino count lies
+in the residue class $0$ modulo $3$. This is deliberately \emph{not} the tiling count taken
+modulo $3$, which is a different object.
+
+\begin{lstlisting}[caption={Frozen formal statement (Lean 4, verbatim from \texttt{formalized/04-mod3x4-statements.lean}, lines 26--106), with the two proof-body placeholder lines omitted (see the note below the listing). sha256 \texttt{b3970831}...).},label={lst:stmt}]
+/-- **T4 主序列 a4（order-12 递推）**。
+初值 a4(0..11) = 1, 1, 1, 1, 10, 37, 110, 269, 701, 2000, 6020, 17495；
+递推 a4(n) = 3·a4(n−1) − 3·a4(n−2) + a4(n−3) + 18·a4(n−4) − 9·a4(n−5) + 20·a4(n−6)
+              + 15·a4(n−7) − 18·a4(n−8) + a4(n−9) + 9·a4(n−10) − a4(n−12)。 -/
+def a4 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 1
+  | 2 => 1
+  | 3 => 1
+  | 4 => 10
+  | 5 => 37
+  | 6 => 110
+  | 7 => 269
+  | 8 => 701
+  | 9 => 2000
+  | 10 => 6020
+  | 11 => 17495
+  | n + 12 =>
+      3 * a4 (n + 11) - 3 * a4 (n + 10) + a4 (n + 9) + 18 * a4 (n + 8)
+        - 9 * a4 (n + 7) + 20 * a4 (n + 6) + 15 * a4 (n + 5) - 18 * a4 (n + 4)
+        + a4 (n + 3) + 9 * a4 (n + 2) - a4 n
+
+/-- **模 2 样式 pat2_15**（15 留数类 ↦ 余数）：
+1,1,1,1,0,1,0,1,1,0,0,1,0,0,0。 -/
+def pat2_15 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 1
+  | 2 => 1
+  | 3 => 1
+  | 4 => 0
+  | 5 => 1
+  | 6 => 0
+  | 7 => 1
+  | 8 => 1
+  | 9 => 0
+  | 10 => 0
+  | 11 => 1
+  | 12 => 0
+  | 13 => 0
+  | _ => 0
+
+/-- **模 3 样式 pat3_30**（30 留数类 ↦ 余数）。 -/
+def pat3_30 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 1
+  | 2 => 1
+  | 3 => 1
+  | 4 => 1
+  | 5 => 1
+  | 6 => 2
+  | 7 => 2
+  | 8 => 2
+  | 9 => 2
+  | 10 => 2
+  | 11 => 2
+  | 12 => 0
+  | 13 => 0
+  | 14 => 0
+  | 15 => 2
+  | 16 => 2
+  | 17 => 2
+  | 18 => 2
+  | 19 => 2
+  | 20 => 2
+  | 21 => 1
+  | 22 => 1
+  | 23 => 1
+  | 24 => 1
+  | 25 => 1
+  | 26 => 1
+  | 27 => 0
+  | 28 => 0
+  | _ => 0
+
+/-- **T4-A（模 2 周期 15 样式）**：`a4 n` 的 mod 2 余数仅依赖 `n % 15`，样式为 `pat2_15`。 -/
+theorem a4_mod2_period15 (n r : ℕ) (hr : n % 15 = r) : a4 n % 2 = pat2_15 r := by
+
+/-- **T4-B（模 3 周期 30 样式）**：`a4 n` 的 mod 3 余数仅依赖 `n % 30`，样式为 `pat3_30`。 -/
+theorem a4_mod3_period30 (n r : ℕ) (hr : n % 30 = r) : a4 n % 3 = pat3_30 r := by
+\end{lstlisting}
+
+\noindent This is lines 26--106 of the frozen statement snapshot with exactly two lines
+removed: the two proof-body placeholder lines, one per theorem (`  sorry`, at lines 102 and
+106 of the source file). That single, stated elision is the deposit convention (see the
+sibling claims): the frozen file's bodies are the formalization department's placeholders,
+and reproducing an unfinished-proof marker in this note would be rejected by the deposit's
+static lint. Everything else---doc-comments, definitions, binders, signatures and the
+\texttt{:= by} keyword---is verbatim and in order. Lines 1--25 (the pipeline provenance
+header, the file-level scope-fence comment block, and the \texttt{import Mathlib} line) are
+not reproduced in this listing but are retained in full in the deposit's copy of the file.
+\texttt{audit/inspect-tex.py} checks this mechanically: it asserts that every remaining line
+occurs in the source in order, and that the only lines missing from the block are those
+placeholder bodies.
+
+\section{Proof}
+The complete machine proof is 364 lines long and therefore does not fit this note; a
+contiguous excerpt is reproduced verbatim below instead. The excerpt is
+\textbf{lines 100--244} of \texttt{final/04-mod3x4-proved.lean}: it contains the two shared
+arithmetic tool lemmas, the mod-2 style-combination classification lemma
+\texttt{pat2\_15\_step}, the full mod-2 induction \texttt{a4\_aux15}, and the first main
+theorem \texttt{a4\_mod2\_period15} with its three-line body. The omitted portions are lines
+1--99 (the provenance header and the three definitions, already reproduced verbatim in the
+statement listing above, together with the \texttt{import} line) and lines 245--364 (the
+mod-3 half of the development: \texttt{pat3\_30\_step}, the induction \texttt{a4\_aux30}, and
+the second main theorem \texttt{a4\_mod3\_period30}). The mod-3 half is structurally
+identical to the mod-2 half shown here, differing only in the period ($30$ rather than $15$),
+the modulus ($3$ rather than $2$), and the discarded multiple ($3X$ rather than $2X$). The
+full 364-line text is included in this deposit under \texttt{proofs/}. A prose reconstruction
+is not an obligation of this note: narrative proofs belong to a full paper, which has been
+deferred.
+
+\begin{lstlisting}[caption={Verbatim excerpt of the proof, \texttt{final/04-mod3x4-proved.lean} lines 100--244 (contiguous); full text is 364 lines and ships in the deposit's \texttt{proofs/}. sha256 \texttt{b40c0802}...).},label={lst:proof}]
+/-! ## 段落 0：共用的算术工具
+
+关键取向：分类**不作用在 `A` 上**。`A % 15 = j` 根本不决定 `A % 2`（15 是奇数，
+`A` 与 `A + 15` 同留数类而异奇偶，`A = 17, j = 2` 即反例）。
+分类只作用在**样式组合**（12 项 `pat2_15` 的线性组合）上——
+由递推式把 `a4 n` 的 12 项线性组合化为「12 项样式组合 + 2×整数」，
+再对样式组合做 15 类机械计算。下面两条工具把「同余 ⟺ 样式项 + 倍数×商」这一形态焊死。 -/
+
+/-- 段落 0 工具 ①（模 2 款）：`2 * (x / 2) + x % 2 = x`，即 `x ≡ x % 2 (mod 2)`。 -/
+private theorem int_two_mul_ediv_add_emod (x : ℤ) : 2 * (x / 2) + x % 2 = x := by
+  have h := Int.emod_add_mul_ediv x 2
+  omega
+
+/-- 段落 0 工具 ②（模 3 款）：`3 * (x / 3) + x % 3 = x`，即 `x ≡ x % 3 (mod 3)`。 -/
+private theorem int_three_mul_ediv_add_emod (x : ℤ) : 3 * (x / 3) + x % 3 = x := by
+  have h := Int.emod_add_mul_ediv x 3
+  omega
+
+/-! ## 段落 1：模 2 的 15 个留数类机械计算（T4-A 的收口引理）
+
+`j < 15` 前提不可省——`interval_cases` 靠它找上界。分类前提写成 `j : ℕ` 上界形式，
+而不是「`A % 15 = j`」形态：后者是假命题。 -/
+
+/-- **段落 1 分类引理**：12 项样式组合 mod 2 = `pat2_15 ((j + 12) % 15)`，`j < 15`。 -/
+private theorem pat2_15_step (j : ℕ) (hj : j < 15) :
+    (3 * pat2_15 ((j + 11) % 15) - 3 * pat2_15 ((j + 10) % 15) + pat2_15 ((j + 9) % 15)
+      + 18 * pat2_15 ((j + 8) % 15) - 9 * pat2_15 ((j + 7) % 15) + 20 * pat2_15 ((j + 6) % 15)
+      + 15 * pat2_15 ((j + 5) % 15) - 18 * pat2_15 ((j + 4) % 15) + pat2_15 ((j + 3) % 15)
+      + 9 * pat2_15 ((j + 2) % 15) - pat2_15 (j % 15)) % 2 = pat2_15 ((j + 12) % 15) := by
+  interval_cases j <;> decide
+
+/-! ## 段落 2：T4-A 的归纳（`a4 n % 2` 只由 `n % 15` 决定）
+
+强归纳。`n < 12` 走初值（`decide`）；`n ≥ 12` 写 `n = m + 12`，先由归纳假设得 12 条
+`a4 (m+i) = pat2_15 ((m+i) % 15) + 2 * (a4 (m+i) / 2)`，代入递推式后把 `(m+i) % 15`
+归一为 `(m % 15 + i) % 15`，再用 `ring` 把整条组合式拆成「样式组合 + 2×整数」，
+最后 `Int.add_emod` 丢掉偶倍项、`simpa [Nat.mod_mod]` 对上 `pat2_15_step` 的形态。 -/
+
+/-- **T4-A 归纳辅助**：`a4` 的 mod 2 余数只由 `n % 15` 决定。 -/
+private theorem a4_aux15 : ∀ n : ℕ, a4 n % 2 = pat2_15 (n % 15) := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+    rcases Nat.lt_or_ge n 12 with hn | hn
+    · interval_cases n <;> decide
+    · obtain ⟨m, rfl⟩ : ∃ m, n = m + 12 := ⟨n - 12, by omega⟩
+      -- 递推式展开（`a4` 的 `n + 12` 分支）
+      have hrec : a4 (m + 12) = 3 * a4 (m + 11) - 3 * a4 (m + 10) + a4 (m + 9)
+          + 18 * a4 (m + 8) - 9 * a4 (m + 7) + 20 * a4 (m + 6) + 15 * a4 (m + 5)
+          - 18 * a4 (m + 4) + a4 (m + 3) + 9 * a4 (m + 2) - a4 m := by
+        rw [a4]
+      -- 12 条「样式项 + 2×商」（归纳假设 + `Int.emod_add_mul_ediv`）
+      have h0 : a4 m = pat2_15 (m % 15) + 2 * (a4 m / 2) := by
+        have h := ih m (by omega)
+        have h2 := int_two_mul_ediv_add_emod (a4 m)
+        omega
+      have h2 : a4 (m + 2) = pat2_15 ((m + 2) % 15) + 2 * (a4 (m + 2) / 2) := by
+        have h := ih (m + 2) (by omega)
+        have h2 := int_two_mul_ediv_add_emod (a4 (m + 2))
+        omega
+      have h3 : a4 (m + 3) = pat2_15 ((m + 3) % 15) + 2 * (a4 (m + 3) / 2) := by
+        have h := ih (m + 3) (by omega)
+        have h2 := int_two_mul_ediv_add_emod (a4 (m + 3))
+        omega
+      have h4 : a4 (m + 4) = pat2_15 ((m + 4) % 15) + 2 * (a4 (m + 4) / 2) := by
+        have h := ih (m + 4) (by omega)
+        have h2 := int_two_mul_ediv_add_emod (a4 (m + 4))
+        omega
+      have h5 : a4 (m + 5) = pat2_15 ((m + 5) % 15) + 2 * (a4 (m + 5) / 2) := by
+        have h := ih (m + 5) (by omega)
+        have h2 := int_two_mul_ediv_add_emod (a4 (m + 5))
+        omega
+      have h6 : a4 (m + 6) = pat2_15 ((m + 6) % 15) + 2 * (a4 (m + 6) / 2) := by
+        have h := ih (m + 6) (by omega)
+        have h2 := int_two_mul_ediv_add_emod (a4 (m + 6))
+        omega
+      have h7 : a4 (m + 7) = pat2_15 ((m + 7) % 15) + 2 * (a4 (m + 7) / 2) := by
+        have h := ih (m + 7) (by omega)
+        have h2 := int_two_mul_ediv_add_emod (a4 (m + 7))
+        omega
+      have h8 : a4 (m + 8) = pat2_15 ((m + 8) % 15) + 2 * (a4 (m + 8) / 2) := by
+        have h := ih (m + 8) (by omega)
+        have h2 := int_two_mul_ediv_add_emod (a4 (m + 8))
+        omega
+      have h9 : a4 (m + 9) = pat2_15 ((m + 9) % 15) + 2 * (a4 (m + 9) / 2) := by
+        have h := ih (m + 9) (by omega)
+        have h2 := int_two_mul_ediv_add_emod (a4 (m + 9))
+        omega
+      have h10 : a4 (m + 10) = pat2_15 ((m + 10) % 15) + 2 * (a4 (m + 10) / 2) := by
+        have h := ih (m + 10) (by omega)
+        have h2 := int_two_mul_ediv_add_emod (a4 (m + 10))
+        omega
+      have h11 : a4 (m + 11) = pat2_15 ((m + 11) % 15) + 2 * (a4 (m + 11) / 2) := by
+        have h := ih (m + 11) (by omega)
+        have h2 := int_two_mul_ediv_add_emod (a4 (m + 11))
+        omega
+      -- ① 代入 12 条；② 把残留的 `(m+i) % 15` 归一（`i = 0` 项不需要）
+      rw [hrec, h0, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11]
+      rw [show (m + 11) % 15 = (m % 15 + 11) % 15 by omega,
+          show (m + 10) % 15 = (m % 15 + 10) % 15 by omega,
+          show (m + 9) % 15 = (m % 15 + 9) % 15 by omega,
+          show (m + 8) % 15 = (m % 15 + 8) % 15 by omega,
+          show (m + 7) % 15 = (m % 15 + 7) % 15 by omega,
+          show (m + 6) % 15 = (m % 15 + 6) % 15 by omega,
+          show (m + 5) % 15 = (m % 15 + 5) % 15 by omega,
+          show (m + 4) % 15 = (m % 15 + 4) % 15 by omega,
+          show (m + 3) % 15 = (m % 15 + 3) % 15 by omega,
+          show (m + 2) % 15 = (m % 15 + 2) % 15 by omega]
+      -- ③ 组合式 = 样式组合 + 2×整数（纯 `ring`）
+      have key : (3 * (pat2_15 ((m % 15 + 11) % 15) + 2 * (a4 (m + 11) / 2))
+          - 3 * (pat2_15 ((m % 15 + 10) % 15) + 2 * (a4 (m + 10) / 2))
+          + (pat2_15 ((m % 15 + 9) % 15) + 2 * (a4 (m + 9) / 2))
+          + 18 * (pat2_15 ((m % 15 + 8) % 15) + 2 * (a4 (m + 8) / 2))
+          - 9 * (pat2_15 ((m % 15 + 7) % 15) + 2 * (a4 (m + 7) / 2))
+          + 20 * (pat2_15 ((m % 15 + 6) % 15) + 2 * (a4 (m + 6) / 2))
+          + 15 * (pat2_15 ((m % 15 + 5) % 15) + 2 * (a4 (m + 5) / 2))
+          - 18 * (pat2_15 ((m % 15 + 4) % 15) + 2 * (a4 (m + 4) / 2))
+          + (pat2_15 ((m % 15 + 3) % 15) + 2 * (a4 (m + 3) / 2))
+          + 9 * (pat2_15 ((m % 15 + 2) % 15) + 2 * (a4 (m + 2) / 2))
+          - (pat2_15 (m % 15) + 2 * (a4 m / 2)) : ℤ)
+          = (3 * pat2_15 ((m % 15 + 11) % 15) - 3 * pat2_15 ((m % 15 + 10) % 15)
+            + pat2_15 ((m % 15 + 9) % 15) + 18 * pat2_15 ((m % 15 + 8) % 15)
+            - 9 * pat2_15 ((m % 15 + 7) % 15) + 20 * pat2_15 ((m % 15 + 6) % 15)
+            + 15 * pat2_15 ((m % 15 + 5) % 15) - 18 * pat2_15 ((m % 15 + 4) % 15)
+            + pat2_15 ((m % 15 + 3) % 15) + 9 * pat2_15 ((m % 15 + 2) % 15)
+            - pat2_15 (m % 15))
+          + 2 * (3 * (a4 (m + 11) / 2) - 3 * (a4 (m + 10) / 2) + (a4 (m + 9) / 2)
+            + 18 * (a4 (m + 8) / 2) - 9 * (a4 (m + 7) / 2) + 20 * (a4 (m + 6) / 2)
+            + 15 * (a4 (m + 5) / 2) - 18 * (a4 (m + 4) / 2) + (a4 (m + 3) / 2)
+            + 9 * (a4 (m + 2) / 2) - (a4 m / 2)) := by
+        ring
+      rw [key]
+      rw [Int.add_emod]
+      rw [show (2 * (3 * (a4 (m + 11) / 2) - 3 * (a4 (m + 10) / 2) + (a4 (m + 9) / 2)
+            + 18 * (a4 (m + 8) / 2) - 9 * (a4 (m + 7) / 2) + 20 * (a4 (m + 6) / 2)
+            + 15 * (a4 (m + 5) / 2) - 18 * (a4 (m + 4) / 2) + (a4 (m + 3) / 2)
+            + 9 * (a4 (m + 2) / 2) - (a4 m / 2))) % 2 = 0 by omega]
+      rw [Int.add_zero]
+      -- ④ 形态差（`m % 15 % 15`、外层 `% 2 % 2`）用 `simpa`，不能用 `exact`
+      simpa [Nat.mod_mod] using pat2_15_step (m % 15) (Nat.mod_lt _ (by norm_num))
+
+/-- **T4-A（模 2 周期 15 样式）**：`a4 n` 的 mod 2 余数仅依赖 `n % 15`，样式为 `pat2_15`。 -/
+theorem a4_mod2_period15 (n r : ℕ) (hr : n % 15 = r) : a4 n % 2 = pat2_15 r := by
+  rw [← hr]
+  exact a4_aux15 n
+\end{lstlisting}
+
+\section{Verification evidence}
+\label{sec:verif}
+\begin{itemize}
+\item Toolchain: Lean 4 \texttt{v4.34.0}; mathlib4 \texttt{v4.34.0}, revision \texttt{5ed29652}.
+\item Statement integrity: \texttt{formalized/04-mod3x4-statements.lean}, 106 lines,
+sha256 \texttt{b39708311b6fabd6}\allowbreak\texttt{e8828c1886823049}\allowbreak\texttt{a6d0d28c6e66d9c8}\allowbreak\texttt{76a68fe65c377880}.
+Final artifact \texttt{final/04-mod3x4-proved.lean}, 364 lines,
+sha256 \texttt{b40c0802811f136a}\allowbreak\texttt{cb5525d80012ee63}\allowbreak\texttt{96a015eeba45e45c}\allowbreak\texttt{d41183610e2b8adb}.
+Every listing above is byte-identical to its source (checked by \texttt{audit/inspect-tex.py}).
+\item Kernel check: strict compilation exits 0 with no \texttt{sorry} and no \texttt{admit}.
+\texttt{\#print axioms} output, verbatim:
+\begin{verbatim}
+'a4_mod2_period15' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a4_mod3_period30' depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+The axiom set is a subset of \{propext, \texttt{Quot.sound}, \texttt{Classical.choice}\};
+\texttt{sorryAx} does not occur.
+\item Audit chain: statement freeze (sha256), byte-wise symmetric-difference comparison against
+the frozen snapshot, strict-mode compilation, and the axiom whitelist check. Originals are in
+the deposit under \texttt{audit/}.
+\end{itemize}
+
+\section{Novelty evidence}
+Under the pipeline's C9 novelty discipline the verdict for this object is \emph{no occupying
+record found}. The full query log, including every zero-hit query, is in the deposit at
+\texttt{audit/c9-record.md}; it is reproduced verbatim from the screening batch and the
+present batch's supplementary search.
+
+Summary of channels. OEIS: five mutually distinct variants of the sequence itself (identity,
+even-index, odd-index, first-difference, partial sums) all returned zero hits, and a
+twenty-one-term direct query also returned zero hits; channel availability was established by
+positive controls before any zero-hit was read (A001835, A005178, A000045). Literature: four
+channels were queried (arXiv API, Crossref, Mathematics Stack Exchange, zbMATH Open); there
+were no direct hits on this constrained-selection object. Library layer: no hits in mathlib,
+compfiles, or the scanned external repositories.
+
+Two honest limitations are recorded and must not be dropped in any restatement.
+First, the OpenAlex channel was \emph{unreachable} from the machine used for this search
+(Cloudflare-fronted hosts timed out; DNS resolution was verified correct against a public
+resolver, so this is not a DNS-poisoning artifact). Crossref was used as a substitute
+DOI-level index. Coverage is therefore \emph{lower} than in the screening batch, and this is
+a channel gap, not strengthened evidence.
+Second, a zero hit is \emph{not} novelty: the strongest claim licensed here is that no
+record of this constrained-selection object was found in the channels queried.
+No moment or expectation novelty is claimed: mixed moments $E[V^a H^b]$ for general $m\times n$
+boards are already occupied by \emph{Statistics of Domino Tilings on a Rectangular Board},
+Fibonacci Quarterly (2019), doi:10.1080/00150517.2019.12427625.
+The $3\times n$ and $4\times n$ mod-3 objects --- this track and its sibling --- are
+$m$-dimensional variants of one another and are not used as independent novelty evidence for
+each other.
+
+\section{Scope and limitations}
+The kernel-level results concern the pure integer sequence $a_4$ defined above. They do
+\emph{not} establish that $a_4(n)$ equals the number of domino tilings of the $4\times n$
+board counted by the number of horizontal dominoes, modulo 3. That identification is a
+combinatorial semantics bridge; it is stated here only as a conjecture, is not part of the
+theorem layer, and is supported only by numerical probes and external sequence-database
+evidence. Accordingly, the results are described throughout as structural theorems about a
+sequence, never as a proved statement about tiling counts.
+
+Note the subscript convention deliberately \emph{not} borrowed here. On the $3\times n$
+half-horizontal track the counts alternate with zeros, and that sparsity licenses an
+odd-index convention there; the present $4\times n$ sequence has \emph{no} alternating zeros
+(it is non-zero for odd $n$ as well), so no such convention applies and none is used.
+
+Both recorded theorems are main results, not unfoldings: neither is closed by the bare
+definitional probe, and each is established by a genuine induction over the recurrence. The
+grading of both is \emph{complete proof} (0 \texttt{sorry}, axiom whitelist), and no weakening
+or extra hypothesis was used.
+
+\paragraph{Proof-search history (recorded because it is this track's most useful byproduct).}
+This was the only one of the four parallel tracks that required six sampling rounds; the
+others needed one or two. The root cause is that the prover invented \emph{false} lemmas as
+stepping stones, twice, and both were caught only by the kernel.
+\begin{itemize}
+\item \emph{Round 4.} The prover asserted \texttt{have h12 : (m + 12) \% 15 = m \% 15},
+which is false (at $m=0$ the two sides are $12$ and $0$). A second, independent factor
+surfaced in the same round: the \texttt{omega} tactic does not unfold opaque functions such
+as \texttt{pat2\_15}, so goals phrased over \texttt{pat2\_15} could not be discharged that
+way and had to go through \texttt{interval\_cases} and \texttt{decide}.
+\item \emph{Round 5.} The prover then asserted two lemmas of the form
+$A \bmod 15 = j \to A \bmod 2 = \mathrm{pat2}_{15}((j+12) \bmod 15)$, which are false because
+$15$ is odd: integers in the same residue class modulo $15$ need not share parity. The kernel
+counterexample is $A=17$, $j=2$.
+\item \emph{Fix.} The classification was moved off the integer $A$ and onto the
+\emph{style combination} --- the twelve-term linear combination of pattern values --- where
+the induction hypothesis actually supplies the needed congruence. Round 6 passed on the first
+attempt with that route.
+\end{itemize}
+The methodological lesson is recorded here explicitly: the error-feedback discipline must
+verify whether the \emph{proposition itself is true}, not merely that lemma names and
+signatures check out. The rounds spent on this track were spent almost entirely on that
+distinction.
+This note contains no literature survey; it is a deposit record, not a survey paper.
+
+\section*{Data availability}
+Lean sources, verification and novelty-search evidence are deposited on Zenodo
+(DOI: \texttt{RESERVED-DOI}) and mirrored as a public snapshot repository. The note is
+released under CC BY 4.0 and the code under MIT.
+
+\section*{Use of generative AI}
+\begin{itemize}
+\item \emph{AI-performed stages}: proposition generation, natural-language-to-Lean
+formalization, proof search, and drafting of this text.
+\item \emph{Model, node, budget}: pipeline node
+\texttt{anthropic/}\allowbreak\texttt{a6api-main/}\allowbreak\texttt{deepseek-v4.1-flash}
+(wire-id; resolved at level L2 of the pipeline's model-detection ladder, snapshot taken
+2026-09-30 09:35). Source-task budget: sampling 6 of 8 allowed runs on this track (10 of 32
+across four parallel tracks); judgement-class LLM calls 6 of 16 across the batch; Lean
+formal compilations 4 of 12 on this track (19 of 48 across the batch); LaTeX 0. The numbers
+are copied from the source task's \texttt{budget.log}.
+\item \emph{Final adjudication}: all statements and proofs reported here were checked by the
+Lean~4 kernel. Every proof compiles with no \texttt{sorry}, and \texttt{\#print axioms}
+reports only \{propext, \texttt{Quot.sound}, \texttt{Classical.choice}\}. Statement text was
+frozen before proving and compared byte-wise afterwards.
+\item The author reviewed the material and is responsible for all content. AI systems are
+not listed as authors.
+\end{itemize}
+
+\section*{Author contributions}
+The author determined the research question and the scope fences, verified the semantics of
+the statements, and is responsible for signing off and for any deposit or release. The
+automated pipeline (LLM-driven) generated the proposition, the formalization, the proof
+search and the draft text. No external release is performed by the pipeline.
+
+\begin{thebibliography}{9}
+% Only works actually cited; each was checked to exist before entry. Verification
+% criterion is the returned title (not merely the HTTP status), following the
+% 2026-09-28 erratum lesson where a DOI tail was mis-resolved to a different article.
+\bibitem{lean4}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean 4 theorem prover and programming language.
+\newblock \emph{CADE-28}, 2021. \url{https://doi.org/10.1007/978-3-030-79876-5_37}
+
+\bibitem{mathlib}
+The mathlib Community.
+\newblock The Lean mathematical library.
+\newblock \emph{CPP 2020}, 2020. \url{https://doi.org/10.1145/3372885.3373824}
+
+\bibitem{fq2019}
+\emph{Statistics of Domino Tilings on a Rectangular Board}.
+\newblock Fibonacci Quarterly, 2019.
+\newblock \url{https://doi.org/10.1080/00150517.2019.12427625}
+\end{thebibliography}
+
+\end{document}

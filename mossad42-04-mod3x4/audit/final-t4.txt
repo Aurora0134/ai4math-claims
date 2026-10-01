@@ -1,0 +1,5 @@
+$ bash scripts/lean-verify tasks/20260930-mossad42-quad/audit/final-t4.lean
+exit=0
+
+'a4_mod2_period15' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a4_mod3_period30' depends on axioms: [propext, Classical.choice, Quot.sound]

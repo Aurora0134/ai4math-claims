@@ -1,0 +1,9 @@
+tex blocks found: 3
+[ OK ] statement 块：60 行为冻结件 L36..L98 的按序子序列；显式省略恰 3 行（L85/L92/L98；规则见脚本 docstring）
+   elided L85: '-- ===== 追加 statement（语义冻结，sorry 占位合规） ====='
+   elided L92: '  sorry'
+   elided L98: '  sorry'
+[ OK ] proof 块：1857 行 = 冻结 bridge.lean 全文逐行相等（LF 归一口径）
+[ OK ] axioms 块：11 行 = audit out 中 depends-on-axioms 行逐字一致
+[ OK ] 全部 listing 内 0 sorry / 0 admit
+RESULT: PASS

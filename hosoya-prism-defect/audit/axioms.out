@@ -1,0 +1,44 @@
+../tasks/20260929-l14c-graphside-pipeline/audit/compile-debug/audit-p2r3-axioms.lean:1066:19: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+../tasks/20260929-l14c-graphside-pipeline/audit/compile-debug/audit-p2r3-axioms.lean:1070:19: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+../tasks/20260929-l14c-graphside-pipeline/audit/compile-debug/audit-p2r3-axioms.lean:1080:19: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+../tasks/20260929-l14c-graphside-pipeline/audit/compile-debug/audit-p2r3-axioms.lean:1579:4: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+../tasks/20260929-l14c-graphside-pipeline/audit/compile-debug/audit-p2r3-axioms.lean:1580:4: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+../tasks/20260929-l14c-graphside-pipeline/audit/compile-debug/audit-p2r3-axioms.lean:1581:4: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+../tasks/20260929-l14c-graphside-pipeline/audit/compile-debug/audit-p2r3-axioms.lean:1579:4: warning: Unused tactic linter: `(try decide)` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+../tasks/20260929-l14c-graphside-pipeline/audit/compile-debug/audit-p2r3-axioms.lean:1580:4: warning: Unused tactic linter: `(try decide)` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+../tasks/20260929-l14c-graphside-pipeline/audit/compile-debug/audit-p2r3-axioms.lean:1581:4: warning: Unused tactic linter: `(try decide)` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+../tasks/20260929-l14c-graphside-pipeline/audit/compile-debug/audit-p2r3-axioms.lean:1737:2: warning: Unused tactic linter: `push_cast` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+../tasks/20260929-l14c-graphside-pipeline/audit/compile-debug/audit-p2r3-axioms.lean:1744:2: warning: Unused tactic linter: `push_cast` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+../tasks/20260929-l14c-graphside-pipeline/audit/compile-debug/audit-p2r3-axioms.lean:1811:2: warning: Unused tactic linter: `push_cast` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+../tasks/20260929-l14c-graphside-pipeline/audit/compile-debug/audit-p2r3-axioms.lean:1819:2: warning: Unused tactic linter: `push_cast` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+'hosoya_prism_del_spoke' depends on axioms: [propext, Classical.choice, Quot.sound]
+'hosoya_prism_del_rim' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PrismR3.delspoke_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PrismR3.delrim_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PrismR3.cell_C4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PrismR3.c5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PrismR3.c6' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PrismR3.dspoke_val' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PrismR3.drim_val' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PrismR3.aspoke_strong' depends on axioms: [propext, Quot.sound]
+'PrismR3.arim_strong' depends on axioms: [propext, Quot.sound]

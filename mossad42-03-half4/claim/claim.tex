@@ -1,0 +1,497 @@
+% claim.tex -- AI4Math claim of record (AI-generated, 2026-09-30; instantiated
+% from harness/templates/claim/claim.tex per SOP 08b).
+% Machine-readable theorem anchors are the "% LEAN:" lines; scripts/paper-lint.sh
+% and the claim audit check them. All Lean listings are verbatim, byte-identical
+% contiguous excerpts of frozen artifacts of tasks/20260930-mossad42-quad:
+%   statements  : formalized/03-half4-statements.lean (104 lines, sha256 b142670a...)
+%   proof bodies: final/03-half4-proved.lean         (183 lines, sha256 548f3ef5...)
+% Line ranges used: statement 30-103 (defs 34-50, 53-70, 77-81, 84 and signatures
+% 87-88, 91-92, 95-96, 99-100, 103-104); the proof is a CONTIGUOUS EXCERPT.
+% Verification: audit/listing-verify.txt (audit/inspect-tex.py --verify).
+%
+% SCOPE FENCE (must be preserved in any redistribution): the Lean layer below
+% proves structural theorems about a pure finite-state integer recursion. The
+% identification of that recursion with the constrained domino-tiling count is a
+% combinatorial semantics bridge that is NOT proved here and is stated only as a
+% conjecture. The definitions never mention tilings, dominoes or counting.
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\input{lstlean}
+\lstset{language=lean}
+
+% --- local rendering patch (2026-09-30) ---
+% tectonic/XeTeX does not apply the listings literate table to multi-byte
+% characters, so the Unicode set used by the listings of THIS note is mapped to
+% math glyphs as active characters via the standard \lccode/\lowercase idiom
+% (ASCII-only source, no extra packages). Restricted to symbols outside xeCJK's
+% own punctuation table: 00B7, 2013, 2014, 230A and 230B also occur in the
+% frozen sources but are special punctuation that xeCJK sets up at load time --
+% making them active first aborts the run with "Control sequence ... already
+% defined" (observed 2026-09-27); those route through xeCJK + SimSun instead.
+% 2026-09-30 修订（渲染面缺陷修复）：本清单此前只覆盖初稿用到的码点，后续
+% 正文修订引入 ≠ ∏ ∈ ⇒ α ↦ ⟺ ①②③④ 而清单未同步 —— XeTeX 只发
+% "Missing character" 警告并把字形**静默丢弃**（三道机械门都查不出）。现按
+% claims/scan_listing_unicode.py 的 listing 内非 ASCII 码点盘点补齐；出包前须
+% 以该盘点器无 MISSING 且编译日志 "Missing character" 计数为 0 复核。
+% Rendering only: listing source bytes are untouched, so the byte-exactness
+% checks are unaffected, and the \ifdefined guard leaves the pdflatex path
+% identical to the template.
+\ifdefined\XeTeXversion
+  {\lccode`\~="2022 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\bullet}}}}
+  {\lccode`\~="2115 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{N}}}}}
+  {\lccode`\~="2124 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{Z}}}}}
+  {\lccode`\~="2190 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftarrow}}}}
+  {\lccode`\~="2192 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rightarrow}}}}
+  {\lccode`\~="2194 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftrightarrow}}}}
+  {\lccode`\~="2200 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\forall}}}}
+  {\lccode`\~="2203 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\exists}}}}
+  {\lccode`\~="2227 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\wedge}}}}
+  {\lccode`\~="2228 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vee}}}}
+  {\lccode`\~="2261 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\equiv}}}}
+  {\lccode`\~="2264 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leq}}}}
+  {\lccode`\~="2265 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\geq}}}}
+  {\lccode`\~="22A2 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vdash}}}}
+  {\lccode`\~="27E8 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\langle}}}}
+  {\lccode`\~="27E9 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rangle}}}}
+  {\lccode`\~="00AC \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\neg}}}}
+  {\lccode`\~="2212 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{-}}}}
+  {\lccode`\~="2223 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mid}}}}
+  {\lccode`\~="03B1 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\alpha}}}}
+  {\lccode`\~="21D2 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\Rightarrow}}}}
+  {\lccode`\~="2208 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\in}}}}
+  {\lccode`\~="2260 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\neq}}}}
+\fi
+\ifdefined\XeTeXversion
+  \usepackage{xeCJK}
+  \setCJKmainfont{SimSun}
+\fi
+
+\newtheorem{theorem}{Theorem}
+
+\title{Non-vanishing support for the half-horizontal-domino constrained tiling\\
+count sequence on the $4\times n$ board\\
+{\large (Lean 4 machine-checked claim of record)}}
+\author{Aurora0134\thanks{Contact: via the GitHub account Aurora0134; ORCID
+placeholder --- to be filled in by the author before any upload. No personal
+information is carried in this note.}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We record a machine-checked result about a pure finite-state integer recursion: the
+sequence $a_3(n) = D_4(n,0,n)$ built from a column-mask transfer table has non-vanishing
+support exactly at the even indices, that is $a_3(n) \neq 0 \iff n \bmod 2 = 0$, together
+with two state-level parity lemmas that every reachable state has an even mask popcount and
+an even accumulated horizontal-tile count. All statements are verified by the Lean~4 kernel
+under the pinned mathlib revision, with no \texttt{sorry} and axioms confined to
+\{propext, \texttt{Quot.sound}, \texttt{Classical.choice}\}. Novelty: search found no
+occupying record. This note is a priority claim of record, not a full paper.
+\end{abstract}
+
+\section{Introduction}
+This note records a formalized result produced by an AI4Math automated pipeline, in which
+propositions and proofs are generated by a language model and adjudicated solely by the
+Lean~4 kernel. The result concerns a finite-state integer recursion: a transfer table on
+column masks generates a two-parameter state count, from which the one-parameter sequence
+$a_3$ is read off; the theorems are a parity invariant for reachable states and the exact
+non-vanishing support of $a_3$. The note is a priority claim of record, deposited for
+timestamping; the corresponding narrative paper has been deliberately deferred by the author
+(see the card), so no full exposition is attempted here. Verification strength is stated in
+Section~\ref{sec:verif}: strict kernel compilation, zero \texttt{sorry}, standard axiom
+whitelist. The definitions never mention tilings, dominoes or counting, so the kernel layer
+is a pure integer recursion. No literature survey is included---that expectation belongs to
+arXiv moderation and does not apply to a Zenodo deposit.
+
+\section{Statement}
+
+We first fix notation. The recursion is built from a finite transfer table
+\texttt{steps4} of 29 triples $(occ,next,j)$, where $occ$ is the incoming column mask,
+$next$ the outgoing column mask and $j$ the number of horizontal tiles protruding from that
+column; the table is generated by exhaustive enumeration of the four-row column-filling
+recursion rather than transcribed by hand. Writing $\mathrm{pc}$ for the popcount of a mask
+in the range $0..15$, and $\mathbf{0}$ for the empty mask, define the state count
+\[
+D_4(0,mask,h) = \begin{cases} 1, & mask = 0 \wedge h = 0,\\ 0, & \text{otherwise},\end{cases}
+\qquad
+D_4(n+1,mask,h) = \!\!\sum_{\substack{(occ,next,j) \in \texttt{steps4}\\ next = mask,\; j \le h}}\!\! D_4(n,occ,h-j),
+\]
+and the one-parameter sequence
+\[
+a_3(n) = D_4(n,\mathbf{0},n).
+\]
+The guard $j \le h$ is not removable: subtraction on $\mathbb{N}$ truncates, which would
+pollute the count. The following five facts are formalized. The first two are state-level
+parity lemmas, and the last is the main result.
+
+% LEAN: tasks/20260930-mossad42-quad :: D4_pc_even  grade=完全证明
+\begin{theorem}[reachable masks have even popcount; support lemma]
+\label{thm:t3a}
+For all $n, mask, h \in \mathbb{N}$, if $D_4(n,mask,h) \neq 0$ then $2 \mid \mathrm{pc}(mask)$.
+\end{theorem}
+
+% LEAN: tasks/20260930-mossad42-quad :: D4_h_even  grade=完全证明
+\begin{theorem}[reachable states have even accumulated count; support lemma]
+\label{thm:t3b}
+For all $n, mask, h \in \mathbb{N}$, if $D_4(n,mask,h) \neq 0$ then $2 \mid h$.
+\end{theorem}
+
+% LEAN: tasks/20260930-mossad42-quad :: a3_odd_eq_zero  grade=完全证明
+\begin{theorem}[vanishing at odd indices]
+\label{thm:t3c}
+For every $n \in \mathbb{N}$, if $n \bmod 2 = 1$ then $a_3(n) = 0$.
+\end{theorem}
+
+% LEAN: tasks/20260930-mossad42-quad :: a3_even_ne_zero  grade=完全证明
+\begin{theorem}[non-vanishing at even indices]
+\label{thm:t3d}
+For every $k \in \mathbb{N}$, $\;a_3(2k) \neq 0$.
+\end{theorem}
+
+% LEAN: tasks/20260930-mossad42-quad :: a3_ne_zero_iff  grade=完全证明
+\begin{theorem}[support characterization; main result]
+\label{thm:t3e}
+For every $n \in \mathbb{N}$, $\;a_3(n) \neq 0 \iff n \bmod 2 = 0$.
+\end{theorem}
+
+\begin{lstlisting}[caption={Frozen formal statement (Lean 4, verbatim from \texttt{formalized/03-half4-statements.lean}, lines 30--103), with the five proof-body placeholder lines omitted (see the note below the listing). sha256 \texttt{b142670a}...).},label={lst:stmt}]
+import Mathlib
+
+/-- **m=4 的列填充转移表**：`(occ, next, j)` 表示「入掩码 → 出掩码，该列伸出的水平砖数」。
+穷举自 4 行的列填充递归（`phase0/audit-lean-steps.py` 生成，非手抄）。 -/
+def steps4 : List (ℕ × ℕ × ℕ) :=
+  [(0, 0, 0), (0, 12, 2), (0, 9, 2), (0, 3, 2), (0, 15, 4),
+   (1, 8, 1), (1, 2, 1), (1, 14, 3),
+   (2, 1, 1), (2, 13, 3),
+   (3, 0, 0), (3, 12, 2),
+   (4, 8, 1), (4, 11, 3),
+   (5, 10, 2),
+   (6, 9, 2),
+   (7, 8, 1),
+   (8, 4, 1), (8, 1, 1), (8, 7, 3),
+   (9, 0, 0), (9, 6, 2),
+   (10, 5, 2),
+   (11, 4, 1),
+   (12, 0, 0), (12, 3, 2),
+   (13, 2, 1),
+   (14, 1, 1),
+   (15, 0, 0)]
+
+/-- **掩码位数 `pc`（0..15 上的 popcount）**：显式列举（避免依赖额外位运算 API）。 -/
+def pc : ℕ → ℕ
+  | 0 => 0
+  | 1 => 1
+  | 2 => 1
+  | 3 => 2
+  | 4 => 1
+  | 5 => 2
+  | 6 => 2
+  | 7 => 3
+  | 8 => 1
+  | 9 => 2
+  | 10 => 2
+  | 11 => 3
+  | 12 => 2
+  | 13 => 3
+  | 14 => 3
+  | 15 => 4
+  | _ => 0
+
+/-- **T3 的有限状态整数递推 `D4`**：
+`D4 n mask h` = 填满前 n 列、出掩码 = mask、累计水平砖数 = h 的走法数。
+
+注意 `j ≤ h` 保护不可省：ℕ 减法截断会污染计数（Phase 0 实测偏离，见
+`phase0/audit-invariant-form.txt` 结论节）。 -/
+def D4 : ℕ → ℕ → ℕ → ℕ
+  | 0, mask, h => if mask = 0 ∧ h = 0 then 1 else 0
+  | n + 1, mask, h =>
+      (steps4.filter (fun t => t.2.1 = mask ∧ t.2.2 ≤ h)).map
+        (fun t => D4 n t.1 (h - t.2.2)) |>.sum
+
+/-- **T3 主序列 a3**：4×n 的「恰半」（累计水平砖 = n）走法数 = `D4 n 0 n`。 -/
+def a3 (n : ℕ) : ℕ := D4 n 0 n
+
+/-- **T3-支撑引理（I2）**：可达状态的掩码位数为偶（`pc mask ≡ 4·n ≡ 0 (mod 2)`）。 -/
+theorem D4_pc_even (n mask h : ℕ) (hh : D4 n mask h ≠ 0) : 2 ∣ pc mask := by
+
+/-- **T3-支撑引理（I1）**：可达状态的累计水平砖数恒为偶。 -/
+theorem D4_h_even (n mask h : ℕ) (hh : D4 n mask h ≠ 0) : 2 ∣ h := by
+
+/-- **T3-Z（零方向）**：`n` 为奇数时主序列取值为 0。 -/
+theorem a3_odd_eq_zero (n : ℕ) (hn : n % 2 = 1) : a3 n = 0 := by
+
+/-- **T3-N（非零方向）**：`n` 为偶数时主序列取值非零（4×2 块拼接构造）。 -/
+theorem a3_even_ne_zero (k : ℕ) : a3 (2 * k) ≠ 0 := by
+
+/-- **T3-I（支撑刻画，主定理）**：`a3 n` 非零当且仅当 `n` 为偶数。 -/
+theorem a3_ne_zero_iff (n : ℕ) : a3 n ≠ 0 ↔ n % 2 = 0 := by
+\end{lstlisting}
+
+\noindent This is lines 30--103 of the frozen statement snapshot with exactly five lines
+removed: the five proof-body placeholder lines (one per theorem). That single, stated elision
+is the deposit convention (see the sibling claims): the frozen file's bodies are the
+formalization department's placeholders, and reproducing an unfinished-proof marker in this
+note would be rejected by the deposit's static lint. Everything else---doc-comments including
+their internal notes, definitions, binders, signatures and the \texttt{:= by} keyword---is
+verbatim and in order. \texttt{audit/inspect-tex.py} checks this mechanically: it asserts that
+every remaining line occurs in the source in order, and that the only lines missing from the
+block are those placeholder bodies. The real, sorry-free proofs follow in excerpt.
+
+\section{Proof}
+The complete machine proof is 183 lines long and therefore exceeds a comfortable page; the
+listing below is a \emph{contiguous excerpt}, lines 86--183 of
+\texttt{final/03-half4-proved.lean}, which is the entire proof development: it opens with the
+proof-auxiliary section, contains the five private helper lemmas
+(\texttt{map\_sum\_ne\_zero\_of\_mem}, \texttt{exists\_of\_sum\_ne\_zero},
+\texttt{steps4\_guard}, \texttt{D4\_inv}, \texttt{D4\_step2}) that are additions on the proof
+side and not part of the frozen statement, and then carries all five theorems with their
+complete proof bodies. The material left out is lines 1--85 of the file: the header comment
+(1--28), the \texttt{import} line, and the re-listing of the frozen definitions (30--84),
+which are reproduced verbatim in the statement listing above. The full text is in the deposit
+under \texttt{proofs/03-half4-proved.lean}. A prose reconstruction is not an obligation of
+this note: narrative proofs belong to a full paper, which has been deferred.
+
+\begin{lstlisting}[caption={Verbatim excerpt, lines 86--183 of \texttt{final/03-half4-proved.lean} (183 lines, sha256 \texttt{548f3ef5}...); the full text is in the deposit's \texttt{proofs/}.},label={lst:proof}]
+/-! ## 证明辅助（军政部 T3 添加，不改动上方冻结 statement） -/
+
+/-- 列表 `map f` 之和非零 ⇒ 某个被映射元素的值非零。 -/
+private lemma map_sum_ne_zero_of_mem {α : Type*} (f : α → ℕ) (l : List α) {a : α}
+    (ha : a ∈ l) (hfa : f a ≠ 0) : (l.map f).sum ≠ 0 := by
+  intro h0
+  exact hfa (List.sum_eq_zero_iff.mp h0 (f a) (List.mem_map.mpr ⟨a, ha, rfl⟩))
+
+/-- `map f` 之和非零 ⇒ 存在一项其值非零。 -/
+private lemma exists_of_sum_ne_zero {α : Type*} (f : α → ℕ) (l : List α)
+    (h : (l.map f).sum ≠ 0) : ∃ a ∈ l, f a ≠ 0 := by
+  by_contra hc
+  simp only [not_exists, not_and, not_not] at hc
+  exact h (List.sum_eq_zero_iff.mpr fun x hx => by
+    obtain ⟨a, ha, rfl⟩ := List.mem_map.mp hx
+    exact hc a ha)
+
+/-- `steps4` 的转移恒等式（`decide` 穷举 29 条全验）：列格数偶 + 出掩码位数 = 伸出砖数。 -/
+private lemma steps4_guard {occ mask j : ℕ} (ht : (occ, mask, j) ∈ steps4) :
+    2 ∣ (pc occ + j) ∧ pc mask = j := by
+  have hall : steps4.all
+      (fun t => decide (2 ∣ (pc t.1 + t.2.2) ∧ pc t.2.1 = t.2.2)) = true := by decide
+  exact of_decide_eq_true (List.all_eq_true.mp hall (occ, mask, j) ht)
+
+/-- **I1 ∧ I2（互归纳的合并不变量）**：可达状态的累计水平砖数与掩码位数均为偶。 -/
+private lemma D4_inv (n : ℕ) :
+    ∀ mask h : ℕ, D4 n mask h ≠ 0 → 2 ∣ h ∧ 2 ∣ pc mask := by
+  induction n with
+  | zero =>
+    intro mask h hh
+    by_cases hc : mask = 0 ∧ h = 0
+    · obtain ⟨rfl, rfl⟩ := hc; decide
+    · exact absurd (by simp [D4, hc]) hh
+  | succ n ih =>
+    intro mask h hh
+    have hh' : ((steps4.filter (fun t => t.2.1 = mask ∧ t.2.2 ≤ h)).map
+        (fun t => D4 n t.1 (h - t.2.2))).sum ≠ 0 := hh
+    obtain ⟨t, htmem, htne⟩ := exists_of_sum_ne_zero (fun t => D4 n t.1 (h - t.2.2))
+      (steps4.filter (fun t => t.2.1 = mask ∧ t.2.2 ≤ h)) hh'
+    obtain ⟨htsteps, htp⟩ := List.mem_filter.mp htmem
+    obtain ⟨hocc, hjle⟩ := of_decide_eq_true htp
+    obtain ⟨ihh, ihpc⟩ := ih t.1 (h - t.2.2) htne
+    obtain ⟨hg1, hg2⟩ := steps4_guard htsteps
+    have hdj : 2 ∣ t.2.2 := by
+      have h := Nat.dvd_sub hg1 ihpc
+      rwa [Nat.add_sub_cancel_left] at h
+    have hdh : 2 ∣ h := by
+      have h := Nat.dvd_add ihh hdj
+      rwa [Nat.sub_add_cancel hjle] at h
+    exact ⟨hdh, by rw [← hocc, hg2]; exact hdj⟩
+
+/-- **T3-N 的构造步**：两步环 `(0,12,2)` → `(12,0,0)` 把非零走法升 2 列、加 2 砖。 -/
+private lemma D4_step2 (n h : ℕ) (hh : D4 n 0 h ≠ 0) : D4 (n + 2) 0 (h + 2) ≠ 0 := by
+  have h1 : D4 (n + 1) 12 (h + 2) ≠ 0 := by
+    refine map_sum_ne_zero_of_mem (f := fun t => D4 n t.1 (h + 2 - t.2.2))
+      (l := steps4.filter (fun t => t.2.1 = 12 ∧ t.2.2 ≤ h + 2)) (a := (0, 12, 2)) ?_ ?_
+    · apply List.mem_filter.mpr
+      exact ⟨by decide, by simp⟩
+    · simpa using hh
+  refine map_sum_ne_zero_of_mem (f := fun t => D4 (n + 1) t.1 (h + 2 - t.2.2))
+    (l := steps4.filter (fun t => t.2.1 = 0 ∧ t.2.2 ≤ h + 2)) (a := (12, 0, 0)) ?_ ?_
+  · apply List.mem_filter.mpr
+    exact ⟨by decide, by simp⟩
+  · simpa using h1
+
+/-- **T3-支撑引理（I2）**：可达状态的掩码位数为偶（`pc mask ≡ 4·n ≡ 0 (mod 2)`）。 -/
+theorem D4_pc_even (n mask h : ℕ) (hh : D4 n mask h ≠ 0) : 2 ∣ pc mask :=
+  (D4_inv n mask h hh).2
+
+/-- **T3-支撑引理（I1）**：可达状态的累计水平砖数恒为偶。 -/
+theorem D4_h_even (n mask h : ℕ) (hh : D4 n mask h ≠ 0) : 2 ∣ h :=
+  (D4_inv n mask h hh).1
+
+/-- **T3-Z（零方向）**：`n` 为奇数时主序列取值为 0。 -/
+theorem a3_odd_eq_zero (n : ℕ) (hn : n % 2 = 1) : a3 n = 0 := by
+  by_contra hc
+  have h2 : 2 ∣ n := D4_h_even n 0 n (by simpa [a3] using hc)
+  rw [Nat.dvd_iff_mod_eq_zero] at h2
+  omega
+
+/-- **T3-N（非零方向）**：`n` 为偶数时主序列取值非零（4×2 块拼接构造）。 -/
+theorem a3_even_ne_zero (k : ℕ) : a3 (2 * k) ≠ 0 := by
+  induction k with
+  | zero => decide
+  | succ k ih =>
+    exact D4_step2 (2 * k) (2 * k) (by simpa [a3] using ih)
+
+/-- **T3-I（支撑刻画，主定理）**：`a3 n` 非零当且仅当 `n` 为偶数。 -/
+theorem a3_ne_zero_iff (n : ℕ) : a3 n ≠ 0 ↔ n % 2 = 0 := by
+  constructor
+  · intro h
+    by_contra hodd
+    have : n % 2 = 1 := by omega
+    exact h (a3_odd_eq_zero n this)
+  · intro h
+    have hn : n = 2 * (n / 2) := by omega
+    rw [hn]
+    exact a3_even_ne_zero (n / 2)
+\end{lstlisting}
+
+\section{Verification evidence}
+\label{sec:verif}
+\begin{itemize}
+\item Toolchain: Lean 4 \texttt{v4.34.0}; mathlib4 \texttt{v4.34.0}, revision \texttt{5ed29652}.
+\item Statement integrity: \texttt{formalized/03-half4-statements.lean}, 104 lines,
+sha256 \texttt{b142670a02c923ff2d90e416957938e222762f139a67d5f64b593ce9064ed74b}.
+Final artifact \texttt{final/03-half4-proved.lean}, 183 lines,
+sha256 \texttt{548f3ef528b432c4c0cbfb95de7993b246d1cc782f9ec2042952af68db30036a}.
+Every listing above is byte-identical to its source (checked by \texttt{audit/inspect-tex.py},
+which asserts that each listed line occurs in its source in order and that the only omitted
+lines are the statement file's placeholder proof bodies).
+\item Kernel check: strict compilation exits 0 with no \texttt{sorry} and no \texttt{admit}.
+\texttt{\#print axioms} output, verbatim:
+\begin{verbatim}
+'D4_pc_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4_h_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a3_odd_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a3_even_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a3_ne_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+Every line is a subset of \{propext, \texttt{Quot.sound}, \texttt{Classical.choice}\};
+\texttt{sorryAx} does not occur.
+\item Audit chain: statement freeze (sha256), byte-wise symmetric-difference comparison against
+the frozen snapshot, strict-mode compilation, and the axiom whitelist check. The comparison
+records 9 of 9 frozen declarations byte-identical and notes that the proof artifact adds five
+auxiliary lemmas, which is allowed. Originals are in the deposit under \texttt{audit/}.
+\end{itemize}
+
+\section{Novelty evidence}
+Under the pipeline's C9 novelty discipline the verdict for this object is \emph{no occupying
+record found}. The full query log, including every zero-hit query, is in the deposit at
+\texttt{audit/c9-record.md}; it is reproduced verbatim from the screening batch and the
+present batch's supplementary search.
+
+Summary of channels. OEIS: the sequence, its compressed subcolumn, its even-index variant and
+its first difference all returned zero hits. Short prefixes of the compressed subcolumn
+matched two entries (A220379 and A292752), but the match breaks at the fifth term; these are
+short-window coincidences, do not constitute an occupying record, and are deliberately not
+cited here as related literature. Channel availability was established by positive controls
+before any zero-hit was read: A001835 and A005178 (the unconstrained $3\times n$ and
+$4\times n$ domino-tiling counts) matched. Literature: four channels were queried (arXiv API,
+Crossref, Mathematics Stack Exchange, zbMATH Open); there were no direct hits on this
+constrained-selection object. Library layer: no hits in mathlib, compfiles, or the scanned
+external repositories.
+
+Two honest limitations are recorded and must not be dropped in any restatement.
+First, the OpenAlex channel was \emph{unreachable} from the machine used for this search
+(Cloudflare-fronted hosts timed out; DNS resolution was verified correct against a public
+resolver, so this is not a DNS-poisoning artifact). Crossref was used as a substitute
+DOI-level index. Coverage is therefore \emph{lower} than in the screening batch, and this is
+a channel gap, not strengthened evidence.
+Second, a zero hit is \emph{not} novelty: the strongest claim licensed here is that no record
+of this constrained-selection object was found in the channels queried.
+No moment or expectation novelty is claimed: mixed moments $E[V^a H^b]$ for general $m\times n$
+boards are already occupied by \emph{Statistics of Domino Tilings on a Rectangular Board},
+Fibonacci Quarterly (2019), doi:10.1080/00150517.2019.12427625~\cite{fq2019}.
+The $3\times n$ and $4\times n$ objects of this family are $m$-dimensional variants of one
+another and are not used as independent novelty evidence for each other; the variant partner
+of the present $4\times n$ track is the $3\times n$ half-horizontal track, which is not cited
+here as support.
+
+\section{Scope and limitations}
+The kernel-level results concern the pure finite-state integer recursion defined above. They
+do \emph{not} establish that $a_3(n)$ equals the number of domino tilings of the $4\times n$
+board in which horizontal dominoes make up exactly half of all tiles. That identification is
+a combinatorial semantics bridge; it is stated here only as a conjecture, is not part of the
+theorem layer, and is supported only by numerical probes and external sequence-database
+evidence. The definitions themselves never mention tilings, dominoes or counting---the state
+is a column mask and the recursion involves only masks and integer counts---so what is
+formalized is a pure integer recursion, and the combinatorial bridge is still \emph{not} in
+the theorem layer. Accordingly, the results are described throughout as structural theorems
+about a recursion, never as a proved statement about tiling counts.
+
+The definition layer of this track was changed, under a user-approved rule-override event
+recorded as O-2, from a pure sequence recurrence to a finite-state integer recursion (a
+dynamic-programming layer) with $D_4\colon \mathbb{N}\to\mathbb{N}\to\mathbb{N}\to\mathbb{N}$
+and $a_3(n) := D_4(n,0,n)$. This is a change of the object being formalized, not a weakening:
+the grading of all five theorems is \emph{complete proof} (0 \texttt{sorry}, axiom whitelist),
+and no extra hypothesis was added. The absence of a constant-coefficient (C-finite) recurrence
+for $a_3$ must be read as \emph{none found at order $\le 60$}, not as \emph{does not exist};
+the order-4 P-recursive relation reported during exploration was not brought into the frozen
+statement and is not claimed here, so this note claims neither a recurrence nor a closed form.
+
+This note contains no literature survey; it is a deposit record, not a survey paper.
+
+\section*{Data availability}
+Lean sources, verification and novelty-search evidence are deposited on Zenodo
+(DOI: \texttt{RESERVED-DOI}) and mirrored as a public snapshot repository. The note is
+released under CC BY 4.0 and the code under MIT.
+
+\section*{Use of generative AI}
+\begin{itemize}
+\item \emph{AI-performed stages}: proposition generation, natural-language-to-Lean
+formalization, proof search, and drafting of this text.
+\item \emph{Model, node, budget}: pipeline node \texttt{anthropic/a6api-main/deepseek-v4.1-flash}
+(wire-id; resolved at level L2 of the pipeline's model-detection ladder, snapshot taken
+2026-09-30 09:35). Source-task budget: sampling 1 of 8 allowed runs on this track (10 of 32
+across four parallel tracks); judgement-class LLM calls 6 of 16 across the batch; Lean
+formal compilations 6 of 12 on this track (19 of 48 across the batch); LaTeX 0. The numbers are
+copied from the source task's \texttt{budget.log}.
+\item \emph{Final adjudication}: all statements and proofs reported here were checked by the
+Lean~4 kernel. Every proof compiles with no \texttt{sorry}, and \texttt{\#print axioms}
+reports only \{propext, \texttt{Quot.sound}, \texttt{Classical.choice}\}. Statement text was
+frozen before proving and compared byte-wise afterwards.
+\item The author reviewed the material and is responsible for all content. AI systems are
+not listed as authors.
+\end{itemize}
+
+\section*{Author contributions}
+The author determined the research question and the scope fences, verified the semantics of
+the statements, and is responsible for signing off and for any deposit or release. The
+automated pipeline (LLM-driven) generated the proposition, the formalization, the proof
+search and the draft text. No external release is performed by the pipeline.
+
+\begin{thebibliography}{9}
+% Only works actually cited; each was checked to exist before entry. Verification
+% criterion is the returned title (not merely the HTTP status), following the
+% 2026-09-28 erratum lesson where a DOI tail was mis-resolved to a different article.
+\bibitem{lean4}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean 4 theorem prover and programming language.
+\newblock \emph{CADE-28}, 2021. \url{https://doi.org/10.1007/978-3-030-79876-5_37}
+
+\bibitem{mathlib}
+The mathlib Community.
+\newblock The Lean mathematical library.
+\newblock \emph{CPP 2020}, 2020. \url{https://doi.org/10.1145/3372885.3373824}
+
+\bibitem{fq2019}
+\emph{Statistics of Domino Tilings on a Rectangular Board}.
+\newblock Fibonacci Quarterly, 2019.
+\newblock \url{https://doi.org/10.1080/00150517.2019.12427625}
+\end{thebibliography}
+
+\end{document}

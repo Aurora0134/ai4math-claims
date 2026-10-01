@@ -1,0 +1,8 @@
+$ bash scripts/lean-verify tasks/20260930-mossad42-quad/audit/final-t3.lean
+exit=0
+
+'D4_pc_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4_h_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a3_odd_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a3_even_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a3_ne_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]

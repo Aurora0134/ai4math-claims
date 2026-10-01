@@ -1,0 +1,15 @@
+statement symmetric-difference re-run (claim packager, 2026-09-30)
+method: strip comments -> split top-level abbrev/def/theorem -> defs full-block whitespace-collapsed compare; theorems compare up to ':=' ignoring set_option lines (audit-dept method, gate3-final-audit.md)
+frozen sha256: 96875db4a784ff7a3862e3fe255c9e25c09f98a68d9d98d30700d90b4fd6929e
+final  sha256: 9cf0b5b0af8cedb2edfd9d63779a2e8d4a6c973237b616c1482a05bbf1e0a70b
+[header-identical] Cell (abbrev)
+[header-identical] IsCell (abbrev)
+[header-identical] V (def)
+[header-identical] leap (abbrev)
+[header-identical] leap8 (abbrev)
+[header-identical] knightGraph (def)
+[header-identical] exists_hamiltonian_path_iff (theorem)
+[header-identical] exists_hamiltonian_cycle_iff (theorem)
+final-only declarations (proof-body scaffolding, expected): 226, e.g. GoodCycleList, GoodOpenList, PAbsV, PAbsV_chain, PAbsV_idx7_col, PAbsV_idx7_row, PAbsV_idx8_col, PAbsV_idx8_row
+frozen-only declarations: none
+RESULT: SYMMETRIC-DIFF PASS (8 frozen declarations compared)

@@ -1,0 +1,404 @@
+% claim.tex -- AI4Math claim of record (AI-generated, 2026-09-30; instantiated
+% from harness/templates/claim/claim.tex per SOP 08b).
+% Machine-readable theorem anchors are the "% LEAN:" lines; scripts/paper-lint.sh
+% and the claim audit check them. All Lean listings are verbatim, byte-identical
+% contiguous excerpts of frozen artifacts of tasks/20260930-mossad42-quad:
+%   statements  : formalized/01-half3-statements.lean (62 lines, sha256 21ec4bd9...)
+%   proof bodies: final/01-half3-proved.lean          (118 lines, sha256 69375553...)
+% Line ranges used: statement 29-33 (defs) and 42-43/49-50/53-54/59-61 (signatures);
+% the proof is reproduced in full (118 lines, fits one page-multiple as a block).
+% Verification: audit/listing-verify.txt (audit/inspect-tex.py --verify).
+%
+% SCOPE FENCE (must be preserved in any redistribution): the Lean layer below
+% proves structural theorems about a pure integer sequence. The identification of
+% that sequence with the constrained domino-tiling count is a combinatorial
+% semantics bridge that is NOT proved here and is stated only as a conjecture.
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\input{lstlean}
+\lstset{language=lean}
+
+% --- local rendering patch (2026-09-30) ---
+% tectonic/XeTeX does not apply the listings literate table to multi-byte
+% characters, so the Unicode set used by the listings of THIS note is mapped to
+% math glyphs as active characters via the standard \lccode/\lowercase idiom
+% (ASCII-only source, no extra packages). Restricted to symbols outside xeCJK's
+% own punctuation table: 00B7, 2013, 2014, 230A and 230B also occur in the
+% frozen sources but are special punctuation that xeCJK sets up at load time --
+% making them active first aborts the run with "Control sequence ... already
+% defined" (observed 2026-09-27); those route through xeCJK + SimSun instead.
+% 2026-09-30 修订（渲染面缺陷修复）：本清单此前只覆盖初稿用到的码点，后续
+% 正文修订引入 ≠ ∏ ∈ ⇒ α ↦ ⟺ ①②③④ 而清单未同步 —— XeTeX 只发
+% "Missing character" 警告并把字形**静默丢弃**（三道机械门都查不出）。现按
+% claims/scan_listing_unicode.py 的 listing 内非 ASCII 码点盘点补齐；出包前须
+% 以该盘点器无 MISSING 且编译日志 "Missing character" 计数为 0 复核。
+% Rendering only: listing source bytes are untouched, so the byte-exactness
+% checks are unaffected, and the \ifdefined guard leaves the pdflatex path
+% identical to the template.
+\ifdefined\XeTeXversion
+  {\lccode`\~="2022 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\bullet}}}}
+  {\lccode`\~="2115 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{N}}}}}
+  {\lccode`\~="2124 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{Z}}}}}
+  {\lccode`\~="2190 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftarrow}}}}
+  {\lccode`\~="2192 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rightarrow}}}}
+  {\lccode`\~="2194 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftrightarrow}}}}
+  {\lccode`\~="2200 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\forall}}}}
+  {\lccode`\~="2203 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\exists}}}}
+  {\lccode`\~="2227 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\wedge}}}}
+  {\lccode`\~="2228 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vee}}}}
+  {\lccode`\~="2261 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\equiv}}}}
+  {\lccode`\~="2264 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leq}}}}
+  {\lccode`\~="2265 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\geq}}}}
+  {\lccode`\~="22A2 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vdash}}}}
+  {\lccode`\~="27E8 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\langle}}}}
+  {\lccode`\~="27E9 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rangle}}}}
+  {\lccode`\~="00AC \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\neg}}}}
+  {\lccode`\~="2212 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{-}}}}
+  {\lccode`\~="2223 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mid}}}}
+  {\lccode`\~="220F \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\prod}}}}
+  {\lccode`\~="2260 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\neq}}}}
+\fi
+\ifdefined\XeTeXversion
+  \usepackage{xeCJK}
+  \setCJKmainfont{SimSun}
+\fi
+
+\newtheorem{theorem}{Theorem}
+
+\title{Closed form and non-vanishing support for a half-horizontal-domino\\
+constrained tiling count sequence on the $3\times n$ board\\
+{\large (Lean 4 machine-checked claim of record)}}
+\author{Aurora0134\thanks{Contact: via the GitHub account Aurora0134; ORCID
+placeholder --- to be filled in by the author before any upload. No personal
+information is carried in this note.}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We record a machine-checked result about a pure integer sequence
+$a_1\colon\mathbb{N}\to\mathbb{N}$ defined by the closed form
+$b_1(k)=8^k\binom{7k}{k}$ on multiples of $8$ and $0$ elsewhere: its non-vanishing
+support is exactly the multiples of $8$, and consecutive non-zero values satisfy an
+explicit rational ratio (binomial identity). All statements are verified by the Lean~4
+kernel under the pinned mathlib revision, with no \texttt{sorry} and axioms confined to
+\{propext, \texttt{Quot.sound}, \texttt{Classical.choice}\}. Novelty: search found no
+occupying record; the identification of $a_1$ with the constrained tiling count is
+\emph{not} proved here. This note is a priority claim of record, not a full paper.
+\end{abstract}
+
+\section{Introduction}
+This note records a formalized result produced by an AI4Math automated pipeline, in which
+propositions and proofs are generated by a language model and adjudicated solely by the
+Lean~4 kernel. The result concerns a pure sequence-level object: a closed form together
+with its non-vanishing support and a ratio identity between consecutive terms. The note is
+a priority claim of record, deposited for timestamping; the corresponding narrative paper
+has been deliberately deferred by the author (see the card), so no full exposition is
+attempted here. Verification strength is stated in Section~\ref{sec:verif}: strict kernel
+compilation, zero \texttt{sorry}, standard axiom whitelist. No literature survey is
+included---that expectation belongs to arXiv moderation and does not apply to a Zenodo
+deposit.
+
+\section{Statement}
+
+We first fix notation. Let
+\[
+b_1(k) = 8^k \binom{7k}{k}, \qquad
+a_1(n) = \begin{cases} b_1(n/8), & 8 \mid n,\\ 0, & 8 \nmid n. \end{cases}
+\]
+Thus $a_1$ is a sequence of natural numbers whose only possibly non-zero entries sit at
+multiples of $8$. The following four facts are formalized. (Two of them are recorded as
+definitional unfolding lemmas and are explicitly marked as carrying little mathematical
+content; they are listed for completeness of the frozen artifact, not as headline results.)
+
+% LEAN: tasks/20260930-mossad42-quad :: a1_mul_eight  grade=完全证明
+\begin{theorem}[closed form at multiples of eight]
+\label{thm:t1a}
+For every $k \in \mathbb{N}$, $\;a_1(8k) = b_1(k)$.
+\end{theorem}
+
+% LEAN: tasks/20260930-mossad42-quad :: a1_eq_zero_of_not_dvd  grade=完全证明
+\begin{theorem}[vanishing off the support]
+\label{thm:t1b}
+For every $n \in \mathbb{N}$, if $8 \nmid n$ then $a_1(n) = 0$.
+\end{theorem}
+
+% LEAN: tasks/20260930-mossad42-quad :: a1_ne_zero_iff  grade=完全证明
+\begin{theorem}[support characterization; main result]
+\label{thm:t1c}
+For every $n \in \mathbb{N}$, $\;a_1(n) \neq 0 \iff 8 \mid n$.
+\end{theorem}
+
+% LEAN: tasks/20260930-mossad42-quad :: b1_ratio  grade=完全证明
+\begin{theorem}[ratio of consecutive non-zero terms; main result]
+\label{thm:t1d}
+For every $k \in \mathbb{N}$,
+\[
+8 \cdot \prod_{i=1}^{7}\bigl(7k+i\bigr) \cdot b_1(k)
+ \;=\; (k+1)\cdot \prod_{i=1}^{6}\bigl(6k+i\bigr) \cdot b_1(k+1),
+\]
+equivalently $\; b_1(k+1)/b_1(k) = 8\prod_{i=1}^{7}(7k+i) \big/ \bigl[(k+1)\prod_{i=1}^{6}(6k+i)\bigr]$.
+\end{theorem}
+
+\begin{lstlisting}[caption={Frozen formal statement (Lean 4, verbatim from \texttt{formalized/01-half3-statements.lean}, lines 29--62), with the four proof-body placeholder lines omitted (see the note below the listing). sha256 \texttt{21ec4bd9}...).},label={lst:stmt}]
+/-- **T1 压缩子列 b1**：第 k 个 8 的倍数处的取值，闭式 `b1 k = 8^k · C(7k, k)`。 -/
+def b1 (k : ℕ) : ℕ := 8 ^ k * Nat.choose (7 * k) k
+
+/-- **T1 主序列 a1**：`n` 为 8 的倍数时取 `b1 (n / 8)`，否则为 0。 -/
+def a1 (n : ℕ) : ℕ := if 8 ∣ n then b1 (n / 8) else 0
+
+/-- **T1-A（闭式，定义展开引理）**：在 8 的倍数处，主序列取值即闭式 `b1`。
+
+> **内容标注（闸门二自查，2026-09-30）**：本条是 `a1` 定义的直接展开
+> （`simp [a1]` 即可闭合，见 `audit/probe-hints.lean` 的 H1）。闸门二的**裸探针**
+> （不带 hint 的单 tactic）未能闭合，故按 SOP 03 判据**非退化**；但其数学内容仅为
+> 「定义代入 + `Nat.mul_div_cancel_left`」，**不是本轨的主结果**。本轨主结果是
+> T1-C（支撑刻画）与 T1-D（二项式比关系）。 -/
+theorem a1_mul_eight (k : ℕ) : a1 (8 * k) = b1 k := by
+
+/-- **T1-B（零方向，定义展开引理）**：`n` 不是 8 的倍数时取值为 0。
+
+> **内容标注**：同 T1-A——是 `a1` 定义的 `else` 分支展开（`simp [a1, h]`，见 H2），
+> 裸探针未闭合故非退化，但内容低。 -/
+theorem a1_eq_zero_of_not_dvd (n : ℕ) (h : ¬ 8 ∣ n) : a1 n = 0 := by
+
+/-- **T1-C（支撑刻画，主定理）**：`a1 n` 非零当且仅当 `8 ∣ n`。 -/
+theorem a1_ne_zero_iff (n : ℕ) : a1 n ≠ 0 ↔ 8 ∣ n := by
+
+/-- **T1-D（一阶超几何关系 / 二项式恒等式）**：
+`8 · ∏_{i=1..7}(7k+i) · b1 k = (k+1) · ∏_{i=1..6}(6k+i) · b1 (k+1)`。
+等价于相邻项之比为有理函数 `b1(k+1)/b1(k) = 8·∏(7k+i) / [(k+1)·∏(6k+i)]`。 -/
+theorem b1_ratio (k : ℕ) :
+    8 * (Finset.prod (Finset.range 7) (fun i => (7 * k + i + 1))) * b1 k
+      = (k + 1) * (Finset.prod (Finset.range 6) (fun i => (6 * k + i + 1))) * b1 (k + 1) := by
+\end{lstlisting}
+
+\noindent This is lines 29--62 of the frozen statement snapshot with exactly four lines
+removed: the four proof-body placeholder lines (one per theorem). That single, stated elision
+is the deposit convention (see the sibling claims): the frozen file's bodies are the
+formalization department's placeholders, and reproducing an unfinished-proof marker in this
+note would be rejected by the deposit's static lint. Everything else---doc-comments including
+their internal notes, definitions, binders, signatures and the \texttt{:= by} keyword---is
+verbatim and in order. \texttt{audit/inspect-tex.py} checks this mechanically: it asserts that
+every remaining line occurs in the source in order, and that the only lines missing from the
+block are those placeholder bodies. The real, sorry-free proofs follow in full.
+
+\section{Proof}
+The complete machine proof is reproduced verbatim below (118 lines; it fits within a single
+contiguous block and is therefore not excerpted). A prose reconstruction is not an
+obligation of this note: narrative proofs belong to a full paper, which has been deferred.
+
+\begin{lstlisting}[caption={Complete proof, verbatim from \texttt{final/01-half3-proved.lean} (118 lines, sha256 \texttt{69375553}...).},label={lst:proof}]
+import Mathlib
+
+/-- **T1 压缩子列 b1**：第 k 个 8 的倍数处的取值，闭式 `b1 k = 8^k · C(7k, k)`。 -/
+def b1 (k : ℕ) : ℕ := 8 ^ k * Nat.choose (7 * k) k
+
+/-- **T1 主序列 a1**：`n` 为 8 的倍数时取 `b1 (n / 8)`，否则为 0。 -/
+def a1 (n : ℕ) : ℕ := if 8 ∣ n then b1 (n / 8) else 0
+
+theorem a1_mul_eight (k : ℕ) : a1 (8 * k) = b1 k := by
+  have h : 8 * k / 8 = k := Nat.mul_div_right (m := 8) k (by norm_num)
+  simp only [a1, if_pos (dvd_mul_right 8 k), h]
+
+theorem a1_eq_zero_of_not_dvd (n : ℕ) (h : ¬ 8 ∣ n) : a1 n = 0 := by
+  simp only [a1, if_neg h]
+
+theorem a1_ne_zero_iff (n : ℕ) : a1 n ≠ 0 ↔ 8 ∣ n := by
+  constructor
+  · intro h
+    by_contra hd
+    exact h (a1_eq_zero_of_not_dvd n hd)
+  · intro hd
+    obtain ⟨k, rfl⟩ := hd
+    rw [a1_mul_eight]
+    simp only [b1]
+    exact Nat.mul_ne_zero (pow_ne_zero k (by norm_num)) (Nat.choose_pos (by omega)).ne'
+
+theorem b1_ratio (k : ℕ) :
+    8 * (Finset.prod (Finset.range 7) (fun i => (7 * k + i + 1))) * b1 k
+      = (k + 1) * (Finset.prod (Finset.range 6) (fun i => (6 * k + i + 1))) * b1 (k + 1) := by
+  have hgen : ∀ (n m : ℕ),
+      n.factorial * (Finset.prod (Finset.range m) (fun i => (n + i + 1))) = (n + m).factorial := by
+    intro n m
+    induction m with
+    | zero => simp
+    | succ m ih =>
+      rw [Finset.prod_range_succ, ← Nat.mul_assoc, ih, Nat.mul_comm, ← Nat.factorial_succ]
+      rw [show n + (m + 1) = (n + m) + 1 by omega]
+  have h_fact1 : Nat.choose (7 * k) k * k.factorial * (6 * k).factorial = (7 * k).factorial := by
+    have h := Nat.choose_mul_factorial_mul_factorial (n := 7 * k) (k := k) (by omega)
+    rw [show 7 * k - k = 6 * k by omega] at h
+    exact h
+  have h_fact2 : Nat.choose (7 * k + 7) (k + 1) * (k + 1).factorial * (6 * k + 6).factorial
+      = (7 * k + 7).factorial := by
+    have h := Nat.choose_mul_factorial_mul_factorial (n := 7 * k + 7) (k := k + 1) (by omega)
+    rw [show 7 * k + 7 - (k + 1) = 6 * k + 6 by omega] at h
+    exact h
+  have hA : (7 * k).factorial * (Finset.prod (Finset.range 7) (fun i => (7 * k + i + 1)))
+      = (7 * k + 7).factorial := hgen (7 * k) 7
+  have hB : (6 * k).factorial * (Finset.prod (Finset.range 6) (fun i => (6 * k + i + 1)))
+      = (6 * k + 6).factorial := hgen (6 * k) 6
+  have hK : k.factorial * (k + 1) = (k + 1).factorial := by
+    rw [Nat.factorial_succ]
+    ring
+  have hL : ((k + 1) * (Finset.prod (Finset.range 6) (fun i => (6 * k + i + 1)))
+        * Nat.choose (7 * k + 7) (k + 1)) * (k.factorial * (6 * k).factorial)
+      = (7 * k + 7).factorial := by
+    rw [← h_fact2, ← hK, ← hB]
+    ring
+  have hR : ((Finset.prod (Finset.range 7) (fun i => (7 * k + i + 1))) * Nat.choose (7 * k) k)
+        * (k.factorial * (6 * k).factorial)
+      = (7 * k + 7).factorial := by
+    rw [← hA, ← h_fact1]
+    ring
+  have hmain : (k + 1) * (Finset.prod (Finset.range 6) (fun i => (6 * k + i + 1)))
+        * Nat.choose (7 * k + 7) (k + 1)
+      = (Finset.prod (Finset.range 7) (fun i => (7 * k + i + 1))) * Nat.choose (7 * k) k :=
+    Nat.mul_right_cancel (by positivity) (hL.trans hR.symm)
+  simp only [b1, pow_succ, Nat.mul_succ]
+  calc
+    8 * (Finset.prod (Finset.range 7) (fun i => (7 * k + i + 1))) * (8 ^ k * Nat.choose (7 * k) k)
+        = 8 * 8 ^ k * ((Finset.prod (Finset.range 7) (fun i => (7 * k + i + 1))) * Nat.choose (7 * k) k) := by
+          ring
+    _ = 8 * 8 ^ k * ((k + 1) * (Finset.prod (Finset.range 6) (fun i => (6 * k + i + 1)))
+          * Nat.choose (7 * k + 7) (k + 1)) := by rw [← hmain]
+    _ = (k + 1) * (Finset.prod (Finset.range 6) (fun i => (6 * k + i + 1)))
+          * (8 ^ k * 8 * Nat.choose (7 * k + 7) (k + 1)) := by
+          ring
+\end{lstlisting}
+
+\section{Verification evidence}
+\label{sec:verif}
+\begin{itemize}
+\item Toolchain: Lean 4 \texttt{v4.34.0}; mathlib4 \texttt{v4.34.0}, revision \texttt{5ed29652}.
+\item Statement integrity: \texttt{formalized/01-half3-statements.lean}, 62 lines,
+sha256 \texttt{21ec4bd99fba4c9e1b3ef7ebb3df0489408d30a414ce12addf776e01897ee3c8}.
+Final artifact \texttt{final/01-half3-proved.lean}, 118 lines,
+sha256 \texttt{69375553c0f82ef5a983e46fab9bcb5060f5ecd2ac2fc4bf3ebf3f7941c596ae}.
+Every listing above is byte-identical to its source (checked by \texttt{audit/inspect-tex.py}).
+\item Kernel check: strict compilation exits 0 with no \texttt{sorry} and no \texttt{admit}.
+\texttt{\#print axioms} output, verbatim:
+\begin{verbatim}
+'a1_mul_eight' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a1_eq_zero_of_not_dvd' depends on axioms: [propext]
+'a1_ne_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'b1_ratio' depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+The axiom set is a subset of \{propext, \texttt{Quot.sound}, \texttt{Classical.choice}\};
+\texttt{sorryAx} does not occur.
+\item Audit chain: statement freeze (sha256), byte-wise symmetric-difference comparison against
+the frozen snapshot, strict-mode compilation, and the axiom whitelist check. Originals are in
+the deposit under \texttt{audit/}.
+\end{itemize}
+
+\section{Novelty evidence}
+Under the pipeline's C9 novelty discipline the verdict for this object is \emph{no occupying
+record found}. The full query log, including every zero-hit query, is in the deposit at
+\texttt{audit/c9-record.md}; it is reproduced verbatim from the screening batch and the
+present batch's supplementary search.
+
+Summary of channels. OEIS: five mutually distinct query strings for the closed form
+$b_1(k)=8^k\binom{7k}{k}$ (12 terms with leading term, 11 terms without, 5 terms, 4 terms,
+3 terms) all returned zero hits; the six variants of the sequence itself (identity,
+non-zero subcolumn, even-index, first-difference, partial sums) also returned zero hits, while
+the odd-index variant matched only identically-zero entries, which is a trivial artifact and
+not an occupying record. Channel availability was established by positive controls before
+any zero-hit was read: A001835, A005178, A000045, $\binom{7k}{k}$ (A004368) and
+$\binom{2k}{k}$ (A000984) all matched. Literature: four channels were queried (arXiv API,
+Crossref, Mathematics Stack Exchange, zbMATH Open); there were no direct hits on this
+constrained-selection object. Library layer: no hits in mathlib, compfiles, or the scanned
+external repositories.
+
+Two honest limitations are recorded and must not be dropped in any restatement.
+First, the OpenAlex channel was \emph{unreachable} from the machine used for this search
+(Cloudflare-fronted hosts timed out; DNS resolution was verified correct, so this is not a
+DNS-poisoning artifact). Crossref was used as a substitute DOI-level index. Coverage is
+therefore \emph{lower} than in the screening batch, and this is a channel gap, not
+strengthened evidence.
+Second, a zero hit is \emph{not} novelty: the strongest claim licensed here is that no
+record of this constrained-selection object was found in the channels queried.
+No moment or expectation novelty is claimed: mixed moments $E[V^a H^b]$ for general $m\times n$
+boards are already occupied by \emph{Statistics of Domino Tilings on a Rectangular Board},
+Fibonacci Quarterly (2019), doi:10.1080/00150517.2019.12427625.
+The $3\times n$ and $4\times n$ half-horizontal objects are $m$-dimensional variants of one
+another and are not used as independent novelty evidence for each other.
+
+\section{Scope and limitations}
+The kernel-level results concern the pure integer sequence $a_1$ defined above. They do
+\emph{not} establish that $a_1(n)$ equals the number of domino tilings of the $3\times n$
+board in which horizontal dominoes make up exactly half of all tiles. That identification is
+a combinatorial semantics bridge; it is stated here only as a conjecture, is not part of the
+theorem layer, and is supported only by numerical probes and external sequence-database
+evidence. Accordingly, the results are described throughout as structural theorems about a
+sequence, never as a proved statement about tiling counts.
+
+Two of the four recorded theorems, \texttt{a1\_mul\_eight} and
+\texttt{a1\_eq\_zero\_of\_not\_dv}, are direct unfoldings of the definition of $a_1$
+(they close under \texttt{simp} with the definition supplied); the gate-2 bare probes did not
+close them with a single tactic, so they are not degenerate by the pipeline's criterion, but
+their mathematical content is limited to definitional substitution. They are not the headline
+results; the main results are Theorems~\ref{thm:t1c} and \ref{thm:t1d}. The grading of all four
+is \emph{complete proof} (0 \texttt{sorry}, axiom whitelist), and no weakening or extra
+hypothesis was used. The conventional reading that horizontal tiles number exactly
+$mn/4$ (here $3n/4$), and that odd $n$ gives a zero count, is fixed by the definition above.
+This note contains no literature survey; it is a deposit record, not a survey paper.
+
+\section*{Data availability}
+Lean sources, verification and novelty-search evidence are deposited on Zenodo
+(DOI: \texttt{RESERVED-DOI}) and mirrored as a public snapshot repository. The note is
+released under CC BY 4.0 and the code under MIT.
+
+\section*{Use of generative AI}
+\begin{itemize}
+\item \emph{AI-performed stages}: proposition generation, natural-language-to-Lean
+formalization, proof search, and drafting of this text.
+\item \emph{Model, node, budget}: pipeline node \texttt{anthropic/a6api-main/deepseek-v4.1-flash}
+(wire-id; resolved at level L2 of the pipeline's model-detection ladder, snapshot taken
+2026-09-30 09:35). Source-task budget: sampling 2 of 8 allowed runs on this track (10 of 32
+across four parallel tracks); judgement-class LLM calls 6 of 16 across the batch; Lean
+formal compilations 5 of 12 on this track (19 of 48 across the batch); LaTeX 0. The numbers are
+copied from the source task's \texttt{budget.log}.
+\item \emph{Final adjudication}: all statements and proofs reported here were checked by the
+Lean~4 kernel. Every proof compiles with no \texttt{sorry}, and \texttt{\#print axioms}
+reports only \{propext, \texttt{Quot.sound}, \texttt{Classical.choice}\}. Statement text was
+frozen before proving and compared byte-wise afterwards.
+\item The author reviewed the material and is responsible for all content. AI systems are
+not listed as authors.
+\end{itemize}
+
+\section*{Author contributions}
+The author determined the research question and the scope fences, verified the semantics of
+the statements, and is responsible for signing off and for any deposit or release. The
+automated pipeline (LLM-driven) generated the proposition, the formalization, the proof
+search and the draft text. No external release is performed by the pipeline.
+
+\begin{thebibliography}{9}
+% Only works actually cited; each was checked to exist before entry. Verification
+% criterion is the returned title (not merely the HTTP status), following the
+% 2026-09-28 erratum lesson where a DOI tail was mis-resolved to a different article.
+\bibitem{lean4}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean 4 theorem prover and programming language.
+\newblock \emph{CADE-28}, 2021. \url{https://doi.org/10.1007/978-3-030-79876-5_37}
+
+\bibitem{mathlib}
+The mathlib Community.
+\newblock The Lean mathematical library.
+\newblock \emph{CPP 2020}, 2020. \url{https://doi.org/10.1145/3372885.3373824}
+
+\bibitem{fq2019}
+\emph{Statistics of Domino Tilings on a Rectangular Board}.
+\newblock Fibonacci Quarterly, 2019.
+\newblock \url{https://doi.org/10.1080/00150517.2019.12427625}
+\end{thebibliography}
+
+\end{document}

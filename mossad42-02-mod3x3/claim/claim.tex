@@ -1,0 +1,480 @@
+% claim.tex -- AI4Math claim of record (AI-generated, 2026-09-30; instantiated
+% from harness/templates/claim/claim.tex per SOP 08b).
+% Machine-readable theorem anchors are the "% LEAN:" lines; scripts/paper-lint.sh
+% and the claim audit check them. All Lean listings are verbatim, byte-identical
+% contiguous excerpts of frozen artifacts of tasks/20260930-mossad42-quad:
+%   statements  : formalized/02-mod3x3-statements.lean (86 lines, sha256 da4eae94...)
+%   proof bodies: final/02-mod3x3-proved.lean          (139 lines, sha256 79c19719...)
+% Line ranges used: statement 38-85 (defs 43-58 and 64-73, signatures 76-77,
+% 81-82, 85-86); the proof is a CONTIGUOUS EXCERPT, lines 36-139.
+% Verification: audit/listing-verify.txt (audit/inspect-tex.py --verify).
+%
+% SCOPE FENCE (must be preserved in any redistribution): the Lean layer below
+% proves structural theorems about a pure integer sequence. The identification of
+% that sequence with the constrained domino-tiling count is a combinatorial
+% semantics bridge that is NOT proved here and is stated only as a conjecture.
+% The mod-3 object of this track is the sum of tiling counts over tilings whose
+% HORIZONTAL-DOMINO COUNT is congruent to 0 modulo 3; it must not be abbreviated
+% to "tilings mod 3", which is the residue of the total count and a different object.
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\input{lstlean}
+\lstset{language=lean}
+
+% --- local rendering patch (2026-09-30) ---
+% tectonic/XeTeX does not apply the listings literate table to multi-byte
+% characters, so the Unicode set used by the listings of THIS note is mapped to
+% math glyphs as active characters via the standard \lccode/\lowercase idiom
+% (ASCII-only source, no extra packages). Restricted to symbols outside xeCJK's
+% own punctuation table: 00B7, 2013, 2014, 230A and 230B also occur in the
+% frozen sources but are special punctuation that xeCJK sets up at load time --
+% making them active first aborts the run with "Control sequence ... already
+% defined" (observed 2026-09-27); those route through xeCJK + SimSun instead.
+% 2026-09-30 修订（渲染面缺陷修复）：本清单此前只覆盖初稿用到的码点，后续
+% 正文修订引入 ≠ ∏ ∈ ⇒ α ↦ ⟺ ①②③④ 而清单未同步 —— XeTeX 只发
+% "Missing character" 警告并把字形**静默丢弃**（三道机械门都查不出）。现按
+% claims/scan_listing_unicode.py 的 listing 内非 ASCII 码点盘点补齐；出包前须
+% 以该盘点器无 MISSING 且编译日志 "Missing character" 计数为 0 复核。
+% Rendering only: listing source bytes are untouched, so the byte-exactness
+% checks are unaffected, and the \ifdefined guard leaves the pdflatex path
+% identical to the template.
+\ifdefined\XeTeXversion
+  {\lccode`\~="2022 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\bullet}}}}
+  {\lccode`\~="2115 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{N}}}}}
+  {\lccode`\~="2124 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{Z}}}}}
+  {\lccode`\~="2190 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftarrow}}}}
+  {\lccode`\~="2192 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rightarrow}}}}
+  {\lccode`\~="2194 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftrightarrow}}}}
+  {\lccode`\~="2200 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\forall}}}}
+  {\lccode`\~="2203 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\exists}}}}
+  {\lccode`\~="2227 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\wedge}}}}
+  {\lccode`\~="2228 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vee}}}}
+  {\lccode`\~="2261 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\equiv}}}}
+  {\lccode`\~="2264 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leq}}}}
+  {\lccode`\~="2265 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\geq}}}}
+  {\lccode`\~="22A2 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vdash}}}}
+  {\lccode`\~="27E8 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\langle}}}}
+  {\lccode`\~="27E9 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rangle}}}}
+  {\lccode`\~="00AC \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\neg}}}}
+  {\lccode`\~="2212 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{-}}}}
+  {\lccode`\~="2223 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mid}}}}
+\fi
+\ifdefined\XeTeXversion
+  \usepackage{xeCJK}
+  \setCJKmainfont{SimSun}
+\fi
+
+\newtheorem{theorem}{Theorem}
+
+\title{Mod-8 congruence and an interleaving bridge for the horizontal-domino-count\\
+ residue-class constrained tiling count on the $3\times n$ board\\
+ {\large (Lean 4 machine-checked claim of record)}}
+\author{Aurora0134\thanks{Contact: via the GitHub account Aurora0134; ORCID
+placeholder --- to be filled in by the author before any upload. No personal
+information is carried in this note.}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We record a machine-checked result about two pure integer sequences
+$a_2,b_2\colon\mathbb{N}\to\mathbb{Z}$ defined by an initial segment together with
+integer-coefficient recurrences: the compressed subcolumn $b_2$ satisfies the strong
+congruence $b_2(k)\equiv 1 \pmod 8$ for every $k\in\mathbb{N}$, the sequence $a_2$
+vanishes at every odd index, and the two \emph{independently defined} sequences agree on
+the even indices through the interleaving bridge $a_2(2k)=b_2(k)$. All statements are
+verified by the Lean~4 kernel under the pinned mathlib revision, with no \texttt{sorry}
+and axioms confined to \{propext, \texttt{Quot.sound}\} (the whitelist also allows
+\texttt{Classical.choice}, which this track does not use). Novelty: search found no
+occupying record. This note is a priority claim of record, not a full paper.
+\end{abstract}
+
+\section{Introduction}
+This note records a formalized result produced by an AI4Math automated pipeline, in which
+propositions and proofs are generated by a language model and adjudicated solely by the
+Lean~4 kernel. The result concerns pure sequence-level objects: an initial-segment
+recurrence pair $(a_2,b_2)$, a strong congruence for the compressed subcolumn, and the
+interleaving identity that ties the two definitions together. The note is a priority claim
+of record, deposited for timestamping; the corresponding narrative paper has been
+deliberately deferred by the author (see the card), so no full exposition is attempted
+here. Verification strength is stated in Section~\ref{sec:verif}: strict kernel
+compilation, zero \texttt{sorry}, standard axiom whitelist. The mod-3 object that motivates
+the sequence is the sum of tiling counts over tilings counted by the number of horizontal
+dominoes, modulo 3; the kernel layer does not prove that identification, and the sequence
+is described throughout as a pure integer object. No literature survey is
+included---that expectation belongs to arXiv moderation and does not apply to a Zenodo
+deposit.
+
+\section{Statement}
+
+We first fix notation. Let $a_2\colon\mathbb{N}\to\mathbb{Z}$ be the sequence with initial
+values
+\[
+a_2(0),\dots,a_2(11) = 1, 0, 1, 0, 1, 0, 9, 0, 57, 0, 225, 0
+\]
+and even-lag recurrence
+\[
+a_2(n) = 6a_2(n-2) - 15a_2(n-4) + 28a_2(n-6) - 15a_2(n-8) + 6a_2(n-10) - a_2(n-12),
+\]
+and let $b_2\colon\mathbb{N}\to\mathbb{Z}$ be the \emph{independently} defined sequence with
+initial values
+\[
+b_2(0),\dots,b_2(5) = 1, 1, 1, 9, 57, 225
+\]
+and order-6 recurrence
+\[
+b_2(k) = 6b_2(k-1) - 15b_2(k-2) + 28b_2(k-3) - 15b_2(k-4) + 6b_2(k-5) - b_2(k-6).
+\]
+Neither definition refers to tilings, dominoes or counting; both are pure integer
+recursions, so the theorems below are structural theorems about sequences. The following
+three facts are formalized.
+
+% LEAN: tasks/20260930-mossad42-quad :: b2_mod8  grade=完全证明
+\begin{theorem}[mod-8 congruence for the compressed subcolumn; main result]
+\label{thm:t2a}
+For every $k \in \mathbb{N}$, $\;b_2(k) \bmod 8 = 1$.
+\end{theorem}
+
+% LEAN: tasks/20260930-mossad42-quad :: a2_interleave  grade=完全证明
+\begin{theorem}[interleaving bridge; main result]
+\label{thm:t2b}
+For every $k \in \mathbb{N}$, $\;a_2(2k) = b_2(k)$.
+\end{theorem}
+
+% LEAN: tasks/20260930-mossad42-quad :: a2_odd_eq_zero  grade=完全证明
+\begin{theorem}[vanishing at odd indices]
+\label{thm:t2c}
+For every $n \in \mathbb{N}$, if $n \bmod 2 = 1$ then $a_2(n) = 0$.
+\end{theorem}
+
+\begin{lstlisting}[caption={Frozen formal statement (Lean 4, verbatim from \texttt{formalized/02-mod3x3-statements.lean}, lines 38--85), with the three proof-body placeholder lines omitted (see the note below the listing). sha256 \texttt{da4eae94}...).},label={lst:stmt}]
+import Mathlib
+
+/-- **T2 主序列 a2（order-12 仅偶滞后递推）**。
+初值 a2(0..11) = 1, 0, 1, 0, 1, 0, 9, 0, 57, 0, 225, 0；
+递推 a2(n) = 6·a2(n−2) − 15·a2(n−4) + 28·a2(n−6) − 15·a2(n−8) + 6·a2(n−10) − a2(n−12)。 -/
+def a2 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 0
+  | 2 => 1
+  | 3 => 0
+  | 4 => 1
+  | 5 => 0
+  | 6 => 9
+  | 7 => 0
+  | 8 => 57
+  | 9 => 0
+  | 10 => 225
+  | 11 => 0
+  | n + 12 =>
+      6 * a2 (n + 10) - 15 * a2 (n + 8) + 28 * a2 (n + 6)
+        - 15 * a2 (n + 4) + 6 * a2 (n + 2) - a2 n
+
+/-- **T2 压缩子列 b2（独立定义：6 个初值 + order-6 递推）**。
+初值 b2(0..5) = 1, 1, 1, 9, 57, 225；
+递推 b2(k) = 6·b2(k−1) − 15·b2(k−2) + 28·b2(k−3) − 15·b2(k−4) + 6·b2(k−5) − b2(k−6)。
+（**独立定义**，非 `a2 (2k)` 的派生——后者会使递推退化为定义展开，见文件头返工记录。） -/
+def b2 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 1
+  | 2 => 1
+  | 3 => 9
+  | 4 => 57
+  | 5 => 225
+  | k + 6 =>
+      6 * b2 (k + 5) - 15 * b2 (k + 4) + 28 * b2 (k + 3)
+        - 15 * b2 (k + 2) + 6 * b2 (k + 1) - b2 k
+
+/-- **T2-A（主定理：强同余）**：压缩子列模 8 恒为 1。 -/
+theorem b2_mod8 (k : ℕ) : b2 k % 8 = 1 := by
+
+/-- **T2-B（交织桥）**：两个独立定义的序列在偶位处相合——`a2 (2k) = b2 k`。
+这是本轨的**主桥**（两个独立递推定义之间的等式，需真正归纳，非定义展开）。 -/
+theorem a2_interleave (k : ℕ) : a2 (2 * k) = b2 k := by
+
+/-- **T2-C（零方向）**：主序列的奇数位恒为 0。 -/
+theorem a2_odd_eq_zero (n : ℕ) (hn : n % 2 = 1) : a2 n = 0 := by
+\end{lstlisting}
+
+\noindent This is lines 38--85 of the frozen statement snapshot with exactly three lines
+removed: the three proof-body placeholder lines (one per theorem). That single, stated
+elision is the deposit convention (see the sibling claims): the frozen file's bodies are
+the formalization department's placeholders, and reproducing an unfinished-proof marker in
+this note would be rejected by the deposit's static lint. Everything else---doc-comments
+including their internal notes, definitions, binders, signatures and the \texttt{:= by}
+keyword---is verbatim and in order. \texttt{audit/inspect-tex.py} checks this mechanically:
+it asserts that every remaining line occurs in the source in order, and that the only lines
+missing from the block are those placeholder bodies. The real, sorry-free proofs follow in
+excerpt.
+
+\section{Proof}
+The complete machine proof is 139 lines long and therefore exceeds a comfortable page; the
+listing below is a \emph{contiguous excerpt}, lines 36--139 of
+\texttt{final/02-mod3x3-proved.lean}, which covers the whole development: the two
+definitions, the main congruence Theorem~\ref{thm:t2a} with its full proof body, the
+interleaving bridge Theorem~\ref{thm:t2b} with its full proof body, and the odd-index
+vanishing Theorem~\ref{thm:t2c} with its full proof body. The only material left out is lines
+1--35 of the file: the header comment block (1--34), which is project metadata rather than
+mathematical content, and one blank line. The full text, header included, is in the deposit
+under \texttt{proofs/02-mod3x3-proved.lean}. A prose reconstruction is not an obligation of
+this note: narrative proofs belong to a full paper, which has been deferred.
+
+\begin{lstlisting}[caption={Verbatim excerpt, lines 36--139 of \texttt{final/02-mod3x3-proved.lean} (139 lines, sha256 \texttt{79c19719}...); the full text is in the deposit's \texttt{proofs/}.},label={lst:proof}]
+import Mathlib
+
+/-- **T2 主序列 a2（order-12 仅偶滞后递推）**。
+初值 a2(0..11) = 1, 0, 1, 0, 1, 0, 9, 0, 57, 0, 225, 0；
+递推 a2(n) = 6·a2(n−2) − 15·a2(n−4) + 28·a2(n−6) − 15·a2(n−8) + 6·a2(n−10) − a2(n−12)。 -/
+def a2 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 0
+  | 2 => 1
+  | 3 => 0
+  | 4 => 1
+  | 5 => 0
+  | 6 => 9
+  | 7 => 0
+  | 8 => 57
+  | 9 => 0
+  | 10 => 225
+  | 11 => 0
+  | n + 12 =>
+      6 * a2 (n + 10) - 15 * a2 (n + 8) + 28 * a2 (n + 6)
+        - 15 * a2 (n + 4) + 6 * a2 (n + 2) - a2 n
+
+/-- **T2 压缩子列 b2（独立定义：6 个初值 + order-6 递推）**。
+初值 b2(0..5) = 1, 1, 1, 9, 57, 225；
+递推 b2(k) = 6·b2(k−1) − 15·b2(k−2) + 28·b2(k−3) − 15·b2(k−4) + 6·b2(k−5) − b2(k−6)。
+（**独立定义**，非 `a2 (2k)` 的派生——后者会使递推退化为定义展开，见文件头返工记录。） -/
+def b2 : ℕ → ℤ
+  | 0 => 1
+  | 1 => 1
+  | 2 => 1
+  | 3 => 9
+  | 4 => 57
+  | 5 => 225
+  | k + 6 =>
+      6 * b2 (k + 5) - 15 * b2 (k + 4) + 28 * b2 (k + 3)
+        - 15 * b2 (k + 2) + 6 * b2 (k + 1) - b2 k
+
+/-- **T2-A（主定理：强同余）**：压缩子列模 8 恒为 1。 -/
+theorem b2_mod8 (k : ℕ) : b2 k % 8 = 1 := by
+  refine Nat.strong_induction_on k (fun k ih => ?_)
+  by_cases hlt : k < 6
+  · interval_cases k <;> norm_num [b2]
+  · obtain ⟨j, rfl⟩ : ∃ j, k = j + 6 := ⟨k - 6, by omega⟩
+    have h5 : b2 (j + 5) % 8 = 1 := ih (j + 5) (by omega)
+    have h4 : b2 (j + 4) % 8 = 1 := ih (j + 4) (by omega)
+    have h3 : b2 (j + 3) % 8 = 1 := ih (j + 3) (by omega)
+    have h2 : b2 (j + 2) % 8 = 1 := ih (j + 2) (by omega)
+    have h1 : b2 (j + 1) % 8 = 1 := ih (j + 1) (by omega)
+    have h0 : b2 j % 8 = 1 := ih j (by omega)
+    rw [show b2 (j + 6) = 6 * b2 (j + 5) - 15 * b2 (j + 4) + 28 * b2 (j + 3)
+          - 15 * b2 (j + 2) + 6 * b2 (j + 1) - b2 j from by simp only [b2]]
+    omega
+
+/-- **T2-B（交织桥）**：两个独立定义的序列在偶位处相合——`a2 (2k) = b2 k`。
+这是本轨的**主桥**（两个独立递推定义之间的等式，需真正归纳，非定义展开）。 -/
+theorem a2_interleave (k : ℕ) : a2 (2 * k) = b2 k := by
+  refine Nat.strong_induction_on k (fun k ih => ?_)
+  by_cases hlt : k < 6
+  · interval_cases k <;> decide
+  · obtain ⟨j, rfl⟩ : ∃ j, k = j + 6 := ⟨k - 6, by omega⟩
+    have e5 : a2 (2 * j + 10) = b2 (j + 5) := by
+      rw [show 2 * j + 10 = 2 * (j + 5) by ring]
+      exact ih (j + 5) (by omega)
+    have e4 : a2 (2 * j + 8) = b2 (j + 4) := by
+      rw [show 2 * j + 8 = 2 * (j + 4) by ring]
+      exact ih (j + 4) (by omega)
+    have e3 : a2 (2 * j + 6) = b2 (j + 3) := by
+      rw [show 2 * j + 6 = 2 * (j + 3) by ring]
+      exact ih (j + 3) (by omega)
+    have e2 : a2 (2 * j + 4) = b2 (j + 2) := by
+      rw [show 2 * j + 4 = 2 * (j + 2) by ring]
+      exact ih (j + 2) (by omega)
+    have e1 : a2 (2 * j + 2) = b2 (j + 1) := by
+      rw [show 2 * j + 2 = 2 * (j + 1) by ring]
+      exact ih (j + 1) (by omega)
+    have e0 : a2 (2 * j) = b2 j := ih j (by omega)
+    rw [show 2 * (j + 6) = 2 * j + 12 by ring]
+    rw [show a2 (2 * j + 12) = 6 * a2 (2 * j + 10) - 15 * a2 (2 * j + 8) + 28 * a2 (2 * j + 6)
+          - 15 * a2 (2 * j + 4) + 6 * a2 (2 * j + 2) - a2 (2 * j) from by simp only [a2]]
+    rw [e5, e4, e3, e2, e1, e0]
+    simp only [b2]
+
+/-- **T2-C（零方向）**：主序列的奇数位恒为 0。 -/
+theorem a2_odd_eq_zero (n : ℕ) (hn : n % 2 = 1) : a2 n = 0 := by
+  revert hn
+  refine Nat.strong_induction_on n (fun n ih hn => ?_)
+  by_cases hlt : n < 12
+  · interval_cases n <;> simp_all [a2]
+  · obtain ⟨m, rfl⟩ : ∃ m, n = m + 12 := ⟨n - 12, by omega⟩
+    have h1 : (m + 10) % 2 = 1 := by omega
+    have h2 : (m + 8) % 2 = 1 := by omega
+    have h3 : (m + 6) % 2 = 1 := by omega
+    have h4 : (m + 4) % 2 = 1 := by omega
+    have h5 : (m + 2) % 2 = 1 := by omega
+    have h6 : m % 2 = 1 := by omega
+    have e1 : a2 (m + 10) = 0 := ih (m + 10) (by omega) h1
+    have e2 : a2 (m + 8) = 0 := ih (m + 8) (by omega) h2
+    have e3 : a2 (m + 6) = 0 := ih (m + 6) (by omega) h3
+    have e4 : a2 (m + 4) = 0 := ih (m + 4) (by omega) h4
+    have e5 : a2 (m + 2) = 0 := ih (m + 2) (by omega) h5
+    have e6 : a2 m = 0 := ih m (by omega) h6
+    simp only [a2]
+    rw [e1, e2, e3, e4, e5, e6]
+    ring
+\end{lstlisting}
+
+\section{Verification evidence}
+\label{sec:verif}
+\begin{itemize}
+\item Toolchain: Lean 4 \texttt{v4.34.0}; mathlib4 \texttt{v4.34.0}, revision \texttt{5ed29652}.
+\item Statement integrity: \texttt{formalized/02-mod3x3-statements.lean}, 86 lines,
+sha256 \texttt{da4eae94971f8a5e8f1d74f973183b1643158bb7ff96e88db97a09832db50901}.
+Final artifact \texttt{final/02-mod3x3-proved.lean}, 139 lines,
+sha256 \texttt{79c19719835ac4ccbffcc72707fd81dde2e52d32b8e55a4fe89dad1341c70901}.
+Every listing above is byte-identical to its source (checked by \texttt{audit/inspect-tex.py},
+which asserts that each listed line occurs in its source in order and that the only omitted
+lines are the statement file's placeholder proof bodies).
+\item Kernel check: strict compilation exits 0 with no \texttt{sorry} and no \texttt{admit}.
+\texttt{\#print axioms} output, verbatim:
+\begin{verbatim}
+'b2_mod8' depends on axioms: [propext, Quot.sound]
+'a2_interleave' depends on axioms: [propext, Quot.sound]
+'a2_odd_eq_zero' depends on axioms: [propext, Quot.sound]
+\end{verbatim}
+All three are subsets of \{propext, \texttt{Quot.sound}, \texttt{Classical.choice}\}; this
+track does not use \texttt{Classical.choice} at all, and \texttt{sorryAx} does not occur.
+\item Audit chain: statement freeze (sha256), byte-wise symmetric-difference comparison against
+the frozen snapshot, strict-mode compilation, and the axiom whitelist check. Originals are in
+the deposit under \texttt{audit/}.
+\item Gate-2 rework (recorded because it changed the theorem set). The first frozen version
+defined \texttt{b2} as the derived subcolumn \texttt{a2 (2 * k)}. Because \texttt{a2} itself
+is a recurrence with even lags only, the then-listed theorem asserting the order-6
+recurrence of \texttt{b2} reduced to a definitional unfolding, and the gate-2 bare probes
+\texttt{rfl}, \texttt{trivial} and \texttt{aesop} each closed it in one tactic: the pipeline's
+degeneracy criterion flagged it as a degenerate proposition with no mathematical content.
+The rework made \texttt{b2} an independent definition (six initial values plus its own
+order-6 recurrence), withdrew the derived recurrence theorem---it is now the definition of
+\texttt{b2}, not a theorem---and added Theorem~\ref{thm:t2b}, the interleaving bridge between
+two independent definitions, which needs genuine induction and is not a one-line
+\texttt{simp}. After the rework the bare probes return zero passes.
+\end{itemize}
+
+\section{Novelty evidence}
+Under the pipeline's C9 novelty discipline the verdict for this object is \emph{no occupying
+record found}. The full query log, including every zero-hit query, is in the deposit at
+\texttt{audit/c9-record.md}; it is reproduced verbatim from the screening batch and the
+present batch's supplementary search.
+
+Summary of channels. OEIS: the sequence, its compressed subcolumn, its even-index variant,
+its first difference and its partial sums all returned zero hits. The odd-index variant
+matched ten entries, but every one of them is a zero sequence or a characteristic function
+(all-zero strings of the kind the database returns for identically zero input), which is a
+trivial artifact and not an occupying record. Channel availability was established by
+positive controls before any zero-hit was read: A001835 and A005178 (the unconstrained
+$3\times n$ and $4\times n$ domino-tiling counts) matched, as did A000045. Literature: four
+channels were queried (arXiv API, Crossref, Mathematics Stack Exchange, zbMATH Open); there
+were no direct hits on this constrained-selection object. Library layer: no hits in mathlib,
+compfiles, or the scanned external repositories.
+
+Two honest limitations are recorded and must not be dropped in any restatement.
+First, the OpenAlex channel was \emph{unreachable} from the machine used for this search
+(Cloudflare-fronted hosts timed out; DNS resolution was verified correct against a public
+resolver, so this is not a DNS-poisoning artifact). Crossref was used as a substitute
+DOI-level index. Coverage is therefore \emph{lower} than in the screening batch, and this is
+a channel gap, not strengthened evidence.
+Second, a zero hit is \emph{not} novelty: the strongest claim licensed here is that no
+record of this constrained-selection object was found in the channels queried.
+No moment or expectation novelty is claimed: mixed moments $E[V^a H^b]$ for general $m\times n$
+boards are already occupied by \emph{Statistics of Domino Tilings on a Rectangular Board},
+Fibonacci Quarterly (2019), doi:10.1080/00150517.2019.12427625~\cite{fq2019}.
+The $3\times n$ and $4\times n$ objects of this family are $m$-dimensional variants of one
+another and are not used as independent novelty evidence for each other; the variant partner
+of the present $3\times n$ mod-3 track is the $4\times n$ mod-3 track, which is not cited
+here as support.
+
+\section{Scope and limitations}
+The kernel-level results concern the pure integer sequences $a_2$ and $b_2$ defined above.
+They do \emph{not} establish that $a_2(n)$ equals the sum of the domino-tiling counts of the
+$3\times n$ board over those tilings counted by the number of horizontal dominoes, modulo 3.
+That identification is a combinatorial semantics bridge; it is stated here only as a
+conjecture, is not part of the theorem layer, and is supported only by numerical probes and
+external sequence-database evidence. Accordingly, the results are described throughout as
+structural theorems about sequences, never as a proved statement about tiling counts.
+The mod-3 object is exactly the sum over tilings whose horizontal-domino count is congruent
+to $0$ modulo $3$; it is not the residue of the total tiling count modulo $3$, which is a
+different object and is not what is formalized here.
+
+Two points about the theorem set must be stated plainly. First, the withdrawn item: the
+earlier derived recurrence for $b_2$ was removed because it was degenerate, so this note does
+not claim a proved order-6 recurrence; the order-6 recurrence is now simply the definition of
+$b_2$, and the three recorded theorems are the entire content of the track. Second, the
+rework history recorded in Section~\ref{sec:verif}: the first frozen version defined $b_2$
+from $a_2$, which made its recurrence a mere definitional unfolding; that version failed the
+degeneracy gate and was replaced by an independent definition plus a genuine interleaving
+bridge between two independent definitions.
+
+The grading of all three theorems is \emph{complete proof} (0 \texttt{sorry}, axiom
+whitelist), and no weakening or extra hypothesis was used. This note contains no literature
+survey; it is a deposit record, not a survey paper.
+
+\section*{Data availability}
+Lean sources, verification and novelty-search evidence are deposited on Zenodo
+(DOI: \texttt{RESERVED-DOI}) and mirrored as a public snapshot repository. The note is
+released under CC BY 4.0 and the code under MIT.
+
+\section*{Use of generative AI}
+\begin{itemize}
+\item \emph{AI-performed stages}: proposition generation, natural-language-to-Lean
+formalization, proof search, and drafting of this text.
+\item \emph{Model, node, budget}: pipeline node \texttt{anthropic/a6api-main/deepseek-v4.1-flash}
+(wire-id; resolved at level L2 of the pipeline's model-detection ladder, snapshot taken
+2026-09-30 09:35). Source-task budget: sampling 1 of 8 allowed runs on this track (10 of 32
+across four parallel tracks); judgement-class LLM calls 6 of 16 across the batch; Lean
+formal compilations 4 of 12 on this track (19 of 48 across the batch); LaTeX 0. The numbers are
+copied from the source task's \texttt{budget.log}.
+\item \emph{Final adjudication}: all statements and proofs reported here were checked by the
+Lean~4 kernel. Every proof compiles with no \texttt{sorry}, and \texttt{\#print axioms}
+reports only \{propext, \texttt{Quot.sound}\} for the three theorems. Statement text was
+frozen before proving and compared byte-wise afterwards.
+\item The author reviewed the material and is responsible for all content. AI systems are
+not listed as authors.
+\end{itemize}
+
+\section*{Author contributions}
+The author determined the research question and the scope fences, verified the semantics of
+the statements, and is responsible for signing off and for any deposit or release. The
+automated pipeline (LLM-driven) generated the proposition, the formalization, the proof
+search and the draft text. No external release is performed by the pipeline.
+
+\begin{thebibliography}{9}
+% Only works actually cited; each was checked to exist before entry. Verification
+% criterion is the returned title (not merely the HTTP status), following the
+% 2026-09-28 erratum lesson where a DOI tail was mis-resolved to a different article.
+\bibitem{lean4}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean 4 theorem prover and programming language.
+\newblock \emph{CADE-28}, 2021. \url{https://doi.org/10.1007/978-3-030-79876-5_37}
+
+\bibitem{mathlib}
+The mathlib Community.
+\newblock The Lean mathematical library.
+\newblock \emph{CPP 2020}, 2020. \url{https://doi.org/10.1145/3372885.3373824}
+
+\bibitem{fq2019}
+\emph{Statistics of Domino Tilings on a Rectangular Board}.
+\newblock Fibonacci Quarterly, 2019.
+\newblock \url{https://doi.org/10.1080/00150517.2019.12427625}
+\end{thebibliography}
+
+\end{document}

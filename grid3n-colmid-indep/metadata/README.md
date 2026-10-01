@@ -18,12 +18,8 @@ python claims/grid3n-colmid-indep/audit/sanitize-package.py --check-only
 
 ## DOI
 
-- **Not reserved**: produced by the author's "Get a DOI now!" on the Zenodo
-  upload page. This package contains no real DOI.
-- Backfill points: this file + `claims/grid3n-colmid-indep/card.md` +
-  `run-state.md`; the note's Data availability section is already phrased as
-  "reserved at upload" (no placeholder string is carried).
-
+- **Reserved (prereserved via API)**: `10.5281/zenodo.23080740` — reserved by `scripts/zenodo-deposit.py prepare` on 2026-10-01; **publish is pending and is the human author's own step** (the pipeline has no publish code path).
+- Backfill points after publish: this file + `claims/grid3n-colmid-indep/card.md` + `run-state.md` (all in the source repository, not shipped in this package).
 ## Reproduction
 
 ```bash

@@ -1,0 +1,55 @@
+# 监察院终审裁决 · tasks/20260929-l14c-graphside-pipeline · Phase 2 r3
+
+（裁决人 = 会话子代理 agent-21，dept-audit，glm-5.3 节点，2026-10-01；本文本 = 裁决最终消息逐字落盘，主代理仅加本抬头。）
+
+## ① 总裁决：**PASS（签发）**
+
+七项检查全过，零项失败。主代理四道自报全部经独立复跑再现，无与自报不符处。
+
+## ② 逐项核查证据
+
+**1. 独立严格重编 ✓**
+- `bash scripts/lean-verify tasks/.../attempts/phase2/r3/bridge.lean` → **exit 0**，耗时 ~73s，诊断落 `audit/compile-debug/audit-p2r3-recompile.out`
+- `grep -c "error:"` = **0**；`grep -cE '\bsorry\b|\badmit\b'` = **0**；输出仅 linter 风格警告（unused tactic `push_cast`/`(try decide)` 等，per SOP 05 不作否决依据）
+
+**2. 独立公理审计 ✓（11 声明，含任务单指定的 cell_C4）**
+- 自建探针 `audit/compile-debug/audit-p2r3-axioms.lean`（bridge.lean 全文 + 11 条 `#print axioms`，CRLF 一致处理），lake env lean **exit 0**，0 error；探针留档不删
+- 全部 11 条公理集 ⊆ {propext, Classical.choice, Quot.sound}，**零 sorryAx、零 Lean.ofReduceBool**：
+  - `hosoya_prism_del_spoke` / `hosoya_prism_del_rim` / `PrismR3.delspoke_eq` / `delrim_eq` / `cell_C4` / `c5` / `c6` / `dspoke_val` / `drim_val` → `[propext, Classical.choice, Quot.sound]`
+  - `PrismR3.aspoke_strong` / `arim_strong` → `[propext, Quot.sound]`（与主代理自报一致）
+
+**3. 冻结面 ✓**
+- `sha256sum formalized/statement.lean` = `d186ff1651a4383e7e213b42ba4ec8c0171d9e7004231db2764370cd967ca39e` ✓ 未动
+- 冻结节 L1843–1844/1852–1853 与 statement L90–91/96–97 **逐字节一致**（含 `∀`/`ℤ` Unicode，程序化 `line in bridge` 全四行 True）
+- 基座 def：bridge L28–47 的 `prismDelRim`/`aspoke`/`arim` 与冻结快照 L64–83 逐字 IDENTICAL（空白不敏感比对）；`prism`/`prismDelSpoke`/`hosoya`/`edgeSupp` 未重声明，由 `import Library.HosoyaPrismSplit` 提供，库内 L34–60 与冻结文本 L41–62 逐字一致
+
+**4. 重声明/污染检查 ✓**
+- bridge.lean（statement 未被 import）内重声明面 = 基座拷贝 3 def + 1 instance + 冻结节 2 定理，无其它冲突；155 个声明全在 `namespace PrismR3`（L49–1836）内
+- 新名 `aspoke_strong/arim_strong/dspoke_val/drim_val/delspoke_eq/delrim_eq/cell_C4/c5/c6/dspoke_cast` 与既有库件（Apery*/Bezout*/Crt*/Fermat*/Gauss*/GraphsidePhase1/HosoyaPrismSplit/LadderHosoya/PrismHosoya）**零碰撞**（仅在 PrismBridge.lean 自身命中）
+- `native_decide`=0、`sorryAx`=0、`admit`=0、`axiom`=0、`unsafe`=0、`opaque`=0、`#eval`/`#exit`/`macro_rules`/`partial def`=0；`set_option` 命中 2 处 = `maxRecDepth 40000`、`maxHeartbeats 1000000`（资源上限，非内核信任面选项，合法）
+
+**5. 退化抽查 ✓（非 trivial 包装）**
+- `c6`（L1585–1628）：8 步库件递推实例链（PrismR2.T1/T7/T4/T3/T6/T1/T5/T2，每步 rfl 索引桥 + omega 数值消元 22+8→…→103+47=150），非 decide 裸打
+- `dspoke_cast`（L1805–1812）：三式 `hosoya_prism_mc`(bridge L391) + `delspoke_eq` + `p_decomp`(L902) 真 omega 消元
+- 被引库件四件（HosoyaPrismSplit/GraphsidePhase1/LadderHosoya/PrismHosoya）grep 0 sorry / 0 native_decide；T1–T7 全在 PrismHosoya.lean（PrismR2）；`hosoya_prism_split_spoke` 在 HosoyaPrismSplit.lean L416（Phase 0 已审件）
+
+**6. 入库一致性 ✓**
+- `diff -q` r3 ↔ `verify-proj/Library/PrismBridge.lean`：逐字节一致（双 sha256 = `399ee81fe363f639811a3408397b14259357ea1e5d195f3e916fd7b7c07af6c1`）
+- `PrismBridge.olean` = 4,169,872 B（Oct 1 10:15），与我重编产物同量级 ✓；库源 Library/PrismBridge.lean 落盘时间 Oct 1 10:13（源先于 olean，序正常）
+
+**7. 边界核 ✓**
+- lakefile.lean（2026-09-24 07:46）/ lake-manifest.json（2026-09-24 07:27）/ lean-toolchain（2026-09-24 01:35）均早于今日 08:00，未触碰；harness/config.json（2026-09-25 09:08）未触碰
+
+**预算**：本审计实跑 2 次（重编 + 探针）≤ 授权 4 次；compile 顶经 O-7（card.md/budget.log 双写）扩至 10，主代理 #11–#14 + 审计 2 次 = 6/10，合规。
+
+## ③ 异常与备注（不构成否决）
+
+1. 主代理探针 p2-r3-axioms.lean 为 10 声明（无 cell_C4），监察院探针按任务单补齐至 11 声明——两者结论一致。
+2. c6_small（L1577–1581）有三层冗余 `(try decide)`（unused-tactic 警告来源），纯样式冗余，不影响 kernel 裁决。
+3. `aspoke/arim/prismDelRim` 在 statement.lean 与 bridge.lean 双处定义属宪条 2 允许的「逐字拷贝、不许改」形态（bridge 未 import statement，无冲突；已逐字核同）。
+
+## ④ 结论分级建议：**完全证明**
+
+两冻结定理 0 sorry、公理集严格 ⊆ {propext, Classical.choice, Quot.sound}、statement sha256 未动、无脚手架残留——按 SOP 05 分级取「完全证明」，无需降级措辞。报告如需提及，可加一句限定语：「完全证明，kernel 终裁于 Lean v4.34.0（lean-verify 严格模式 exit 0 + `#print axioms` 11 声明白名单核验，监察院 2026-10-01 独立复跑）」。
+
+审计取证文件（留档）：`audit/compile-debug/audit-p2r3-recompile.out`、`audit-p2r3-axioms.lean`、`audit-p2r3-axioms.out`、`audit-p2r3-stmt-base-L52-83.txt`、`audit-p2r3-bridge-base-L28-47.txt`。

@@ -1,0 +1,9 @@
+$ bash scripts/lean-verify tasks/20260930-mossad42-quad/audit/final-t1.lean
+exit=0
+
+tasks/20260930-mossad42-quad/audit/final-t1.lean:44:17: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+tasks/20260930-mossad42-quad/audit/final-t1.lean:51:17: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+'a1_mul_eight' depends on axioms: [propext, Classical.choice, Quot.sound]
+'a1_eq_zero_of_not_dvd' depends on axioms: [propext]
+'a1_ne_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'b1_ratio' depends on axioms: [propext, Classical.choice, Quot.sound]

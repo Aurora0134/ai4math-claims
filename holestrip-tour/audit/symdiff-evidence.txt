@@ -1,0 +1,38 @@
+[同] abbrev Cell
+  frozen: abbrev Cell (n : ℕ)
+  final : abbrev Cell (n : ℕ)
+
+[同] abbrev IsCell
+  frozen: abbrev IsCell (n : ℕ) (p : Cell n) : Prop
+  final : abbrev IsCell (n : ℕ) (p : Cell n) : Prop
+
+[同] def V
+  frozen: def V (n : ℕ)
+  final : def V (n : ℕ)
+
+[同] abbrev leap
+  frozen: abbrev leap {n : ℕ} (a b : Cell n) : Prop
+  final : abbrev leap {n : ℕ} (a b : Cell n) : Prop
+
+[同] abbrev leap8
+  frozen: abbrev leap8 {n : ℕ} (a b : Cell n) : Prop
+  final : abbrev leap8 {n : ℕ} (a b : Cell n) : Prop
+
+[同] def knightGraph
+  frozen: def knightGraph (n : ℕ) : SimpleGraph (V n)
+  final : def knightGraph (n : ℕ) : SimpleGraph (V n)
+
+[同] theorem exists_hamiltonian_path_iff
+  frozen: theorem exists_hamiltonian_path_iff (n : ℕ) : (∃ a b : V n, ∃ w : (knightGraph n).Walk a b, w.IsHamiltonian) ↔ n = 1 ∨ n = 4 ∨ n = 5 ∨ 8 ≤ n
+  final : theorem exists_hamiltonian_path_iff (n : ℕ) : (∃ a b : V n, ∃ w : (knightGraph n).Walk a b, w.IsHamiltonian) ↔ n = 1 ∨ n = 4 ∨ n = 5 ∨ 8 ≤ n
+
+[同] theorem exists_hamiltonian_cycle_iff
+  frozen: theorem exists_hamiltonian_cycle_iff (n : ℕ) : (∃ a : V n, ∃ w : (knightGraph n).Walk a a, w.IsHamiltonianCycle) ↔ Even n ∧ 8 ≤ n
+  final : theorem exists_hamiltonian_cycle_iff (n : ℕ) : (∃ a : V n, ∃ w : (knightGraph n).Walk a a, w.IsHamiltonianCycle) ↔ Even n ∧ 8 ≤ n
+
+SYMDIFF PASS
+sorry code-text occurrences: 0
+admit code-text occurrences: 0
+native_decide code-text occurrences: 0
+sorryAx code-text occurrences: 0
+final file lines: 2634

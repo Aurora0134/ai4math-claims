@@ -1,0 +1,6 @@
+tex blocks found: 2
+[ OK ] statement 块：79 行为源文件的按序子序列；显式省略 proof body 占位行 2 行（规则见脚本 docstring）
+[ OK ] proof 块：145 行为源文件的按序子序列（04-mod3x4-proved.lean）
+[ OK ] proof 块内 0 sorry / 0 admit
+
+RESULT: PASS

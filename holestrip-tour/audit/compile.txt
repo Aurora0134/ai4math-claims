@@ -1,0 +1,22 @@
+== paper-lint (gate 1), run from repo root, final build ==
+PASS: paper-lint 全绿 (claims/holestrip-tour/claim.tex)
+  [2026-09-30 订正：本文件前版头部在 zenodo.json 修复前记「PASS: paper-lint 全绿」，
+  与 audit/lint.txt 当时实记的 RED（zenodo.json 不可解析）相矛盾——zenodo.json 头部
+  两行 # 注释已删（监察院精简主张审计首审 F1，blocker），lint 复跑 exit 0 后本文件
+  重写。时间线：zenodo.json 末次修改 10:00:49 < lint RED 10:07:58 < 修复后 lint 复跑
+  exit 0。]
+== tectonic compile (gate 2) ==
+round 1 (initial): claim.xdv 17 pages 452700 bytes; claim.pdf 172723 bytes; exit 0
+  Missing character: 4 (U+2460..U+2463 circled digits, lmmono10-italic inside listing;
+  xeCJK does not cover them in a monospaced listing) -> explicit \textcircled mapping added
+round 2 (post-fix): claim.xdv 17 pages 452688 bytes; claim.pdf 174455 bytes; exit 0
+Missing character count: 0; Overfull count: 0
+round 3 (audit-fix: zenodo.json repair, Scope (b) rewording, disclosure (b) completion,
+  bibliography-header correction; listings untouched): claim.pdf 174929 bytes,
+  17 pages; exit 0
+Missing character count: 0 (final round); Overfull count: 0 (final round)
+undefined count: 2 (both benign font-shape substitutions: TU/SimSun(0)/m/it italic
+  fallback and OMS/lmtt/m/n symbol shape; no citation/reference undefined)
+listing integrity re-verified post-audit-fix-edit: inspect-tex --verify
+  statement 2 ranges + final 4 ranges + axioms block = 7/7 PASS
+  (all round-3 edits lie outside every lstlisting block; listing bytes untouched)

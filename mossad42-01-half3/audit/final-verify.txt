@@ -1,0 +1,10 @@
+﻿# final/ 四轨终态件复核（主代理，2026-09-30）
+
+命名对应 formalized/ 的 statement 冻结件；每件经 scripts/lean-verify 严格模式独立复跑。
+
+- `01-half3-proved.lean`（源 attempts/t1/proof.lean）：exit=0
+- `02-mod3x3-proved.lean`（源 attempts/t2/proof.lean）：exit=0
+- `03-half4-proved.lean`（源 attempts/t3/proof.lean）：exit=0
+- `04-mod3x4-proved.lean`（源 attempts/t4/proof.lean）：exit=0
+
+复现：`bash scripts/lean-verify tasks/20260930-mossad42-quad/final/<name>-proved.lean`

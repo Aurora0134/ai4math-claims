@@ -1,0 +1,11 @@
+# statement 冻结快照（宪条 2）
+
+冻结时间：2026-09-30 ｜ 冻结人：主代理（形式化部交付后立即冻结）
+
+- `01-half3-statements.lean`：sha256 = `21ec4bd99fba4c9e1b3ef7ebb3df0489408d30a414ce12addf776e01897ee3c8`，62 行
+- `02-mod3x3-statements.lean`：sha256 = `da4eae94971f8a5e8f1d74f973183b1643158bb7ff96e88db97a09832db50901`，86 行
+- `03-half4-statements.lean`：sha256 = `b142670a02c923ff2d90e416957938e222762f139a67d5f64b593ce9064ed74b`，104 行
+- `04-mod3x4-statements.lean`：sha256 = `b39708311b6fabd6e8828c1886823049a6d0d28c6e66d9c876a68fe65c377880`，106 行
+
+> 快照与冻结件同内容（statement 文件本身不含证明体，proof body 全为 sorry 占位）。
+> 此后任何人不得改动 statement 部分；监察院按此比对（对称差）。

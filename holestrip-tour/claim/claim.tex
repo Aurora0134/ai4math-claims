@@ -1,0 +1,777 @@
+% claim.tex -- AI4Math claim of record (AI-generated, 2026-09-30; instantiated
+% from harness/templates/claim/claim.tex per SOP 08b).
+% Machine-readable theorem anchors are the "% LEAN:" lines; scripts/paper-lint.sh
+% and the claim audit check them. All Lean listings are verbatim, byte-identical
+% contiguous excerpts of frozen artifacts of tasks/20260928-holestrip-tour-pipeline:
+%   statements : formalized/holestrip-tour.statement.txt (84 lines, LF;
+%                sha256 96875db4a784ff7a3862e3fe255c9e25c09f98a68d9d98d30700d90b4fd6929e;
+%                byte-identical to formalized/holestrip-tour.lean)
+%   proof file : attempts/stage4b-full.lean (130,382 bytes; 2,633 newline-terminated
+%                lines, CRLF-dominant mixed endings on the working disk; excerpts
+%                LF-normalised per the chorded-cycle precedent, byte-exact
+%                original shipped in proofs/)
+% Line ranges used: statement 43-76, 79-83; final 1589-1644, 2001-2036,
+% 2447-2575, 2577-2633. The frozen statement file's literal "sorry"
+% occurrences (the two theorem proof placeholders at lines 77 and 84, plus
+% one mention in the head comment block at line 18) all lie outside the
+% excerpt ranges, as required by the paper-lint listing gate; the final proof
+% file contains zero sorry/admit/native_decide anywhere. Verification:
+% audit/listing-verify.txt (audit/inspect-tex.py --verify).
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\input{lstlean}
+\lstset{language=lean}
+
+% --- local rendering patch (2026-09-30) ---
+% tectonic/XeTeX does not apply the listings literate table to multi-byte
+% characters, so the Unicode set used by the listings of THIS note is mapped
+% to math glyphs as active characters via the standard \lccode/\lowercase
+% idiom (ASCII-only source, no extra packages). Characters deliberately NOT
+% mapped: U+00B7 (middle dot) and U+2014 (em-dash), which xeCJK sets up at
+% load time (making them active first aborts the run; observed 2026-09-27).
+% U+2460-2463 (circled digits 1-4, case labels) ARE mapped, via the text-mode
+% \textcircled macro (observed 2026-09-30: xeCJK does not carry them inside a
+% monospaced listing). Rendering only: listing source bytes are
+% untouched, so the byte-exactness checks are unaffected, and the \ifdefined
+% guard leaves the pdflatex path identical to the template.
+\ifdefined\XeTeXversion
+  {\lccode`\~="00AC \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\neg}}}}
+  {\lccode`\~="00D7 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\times}}}}
+  {\lccode`\~="0394 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\Delta}}}}
+  {\lccode`\~="03A3 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\Sigma}}}}
+  {\lccode`\~="03B1 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\alpha}}}}
+  {\lccode`\~="2115 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{N}}}}}
+  {\lccode`\~="2190 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftarrow}}}}
+  {\lccode`\~="2192 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rightarrow}}}}
+  {\lccode`\~="2194 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftrightarrow}}}}
+  {\lccode`\~="21A6 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mapsto}}}}
+  {\lccode`\~="21D2 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\Rightarrow}}}}
+  {\lccode`\~="2200 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\forall}}}}
+  {\lccode`\~="2203 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\exists}}}}
+  {\lccode`\~="2208 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\in}}}}
+  {\lccode`\~="2209 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\notin}}}}
+  {\lccode`\~="2212 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{-}}}}
+  {\lccode`\~="2227 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\wedge}}}}
+  {\lccode`\~="2228 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vee}}}}
+  {\lccode`\~="222A \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\cup}}}}
+  {\lccode`\~="2260 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\neq}}}}
+  {\lccode`\~="2264 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leq}}}}
+  {\lccode`\~="2265 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\geq}}}}
+  {\lccode`\~="2286 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\subseteq}}}}
+  {\lccode`\~="2460 \lowercase{\global\catcode`~=\active \global\def~{\textcircled{\tiny 1}}}}
+  {\lccode`\~="2461 \lowercase{\global\catcode`~=\active \global\def~{\textcircled{\tiny 2}}}}
+  {\lccode`\~="2462 \lowercase{\global\catcode`~=\active \global\def~{\textcircled{\tiny 3}}}}
+  {\lccode`\~="2463 \lowercase{\global\catcode`~=\active \global\def~{\textcircled{\tiny 4}}}}
+  {\lccode`\~="27E8 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\langle}}}}
+  {\lccode`\~="27E9 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rangle}}}}
+  {\lccode`\~="27FA \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\Longleftrightarrow}}}}
+\fi
+\ifdefined\XeTeXversion
+  \usepackage{xeCJK}
+  \setCJKmainfont{SimSun}
+\fi
+
+\newtheorem{theorem}{Theorem}
+
+\title{The 3\,$\times$\,$n$ holed-strip knight graph with two far corners
+removed: open and closed tour existence characterisation\\ (Lean 4
+machine-checked claim of record)}
+\author{Aurora0134\thanks{Contact: via the GitHub account Aurora0134; ORCID
+placeholder --- to be filled in by the author before any upload. No personal
+information is carried in this note.}}
+\date{September 30, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $K_n$ be the knight graph of the $3\times n$ chessboard with the two far
+corners $(0,0)$ and $(2,n-1)$ removed. We prove, with machine-checked Lean 4
+proofs, the exact existence characterisation of tours on $K_n$: an open tour
+(Hamiltonian path) exists if and only if $n\in\{1,4,5\}\cup\{n\ge 8\}$, and a
+closed tour (Hamiltonian cycle) exists if and only if $n$ is even and
+$n\ge 8$. Both theorems compile with no \texttt{sorry}, and
+\texttt{\#print axioms} reports only \{propext, Quot.sound,
+Classical.choice\}. Four rounds of novelty review found no occupying record
+for the family: the nearest published neighbours remove one square from
+$3\times n$ boards or two squares from $4\times n$ boards, and none of them
+treats two-square $3\times n$ boards. This note is a priority claim of
+record, not a full paper.
+\end{abstract}
+
+\section{Introduction}
+
+We study the knight graph $K_n$ of the $3\times n$ chessboard with the two
+far corners removed --- a deficient-board variant of the classical $3\times
+n$ knight's-tour problem whose undirected tour counts are registered as OEIS
+A169696 \cite{a169696}. For this variant we establish the complete
+existence characterisation for both open and closed tours, formalised and
+proved in Lean 4 with every assertion adjudicated by the kernel. The result
+was produced by the AI4Math pipeline (LLM generation under Lean-kernel
+adjudication); this note is a priority claim of record, and the full
+narrative paper is prepared separately. All formal statements and proofs
+were checked by the Lean 4 kernel: every proof compiles with no
+\texttt{sorry}, and \texttt{\#print axioms} reports only \{propext,
+Quot.sound, Classical.choice\}.
+
+\section{Statement}
+
+Throughout, a board cell is a pair $(r,c)$ with $r\in\{0,1,2\}$ and
+$c\in\{0,\dots,n-1\}$; $K_n$ has as vertices the $3n-2$ cells other than
+$(0,0)$ and $(2,n-1)$, two vertices being adjacent when they are a knight's
+move apart (row difference $1$ and column difference $2$, or row difference
+$2$ and column difference $1$). An open tour is a Hamiltonian path of
+$K_n$; a closed tour is a Hamiltonian cycle. Both notions use the standard
+mathlib predicates \cite{mathlib} (\texttt{Walk.IsHamiltonian} and
+\texttt{Walk.IsHamiltonianCycle}).
+
+% LEAN: tasks/20260928-holestrip-tour-pipeline :: exists_hamiltonian_path_iff  grade=完全证明
+\begin{theorem}[open tours]\label{thm:open}
+$K_n$ has an open tour if and only if $n=1$, or $n=4$, or $n=5$, or
+$n\ge 8$.
+\end{theorem}
+
+% LEAN: tasks/20260928-holestrip-tour-pipeline :: exists_hamiltonian_cycle_iff  grade=完全证明
+\begin{theorem}[closed tours]\label{thm:closed}
+$K_n$ has a closed tour if and only if $n$ is even and $n\ge 8$.
+\end{theorem}
+
+The case $n=1$ in Theorem~\ref{thm:open} is the one-point graph: the empty
+walk is a (trivial) Hamiltonian path. This reading was fixed before the
+statement freeze (the pre-freeze correction F0b recorded in the task card,
+backed by a kernel probe); the closed-tour side is unaffected because
+\texttt{IsHamiltonianCycle} excludes the empty walk.
+
+\begin{lstlisting}[caption={Frozen statement (verbatim lines 43--76 of the
+frozen statement file, sha256 \texttt{96875db4...}): board encoding, the
+knight graph, and the head of Theorem~\ref{thm:open}. The proof body
+placeholder lies outside the excerpt.},label={lst:stmt-open}]
+/-- 3×n 棋盘的格子坐标。 -/
+abbrev Cell (n : ℕ) := Fin 3 × Fin n
+
+/-- 棋盘格子（非洞）：删去 (0,0) 与 (2, n−1)，用 `.val` 编码（见文件头注释）。 -/
+abbrev IsCell (n : ℕ) (p : Cell n) : Prop :=
+  ¬ (p.1.val = 0 ∧ p.2.val = 0) ∧ ¬ (p.1.val = 2 ∧ p.2.val + 1 = n)
+
+/-- 顶点类型：3n−2 个非洞格子。 -/
+def V (n : ℕ) := {p : Cell n // IsCell n p}
+
+instance (n : ℕ) : Fintype (V n) := Subtype.fintype _
+instance (n : ℕ) : DecidableEq (V n) := Subtype.instDecidableEq
+
+/-- 骑士走法的四个代表方向（b − a ∈ {(1,2),(2,1),(−1,2),(−2,1)}）；
+    `fromRel` 自动对称化，补全另外四个方向（(|Δ行|,|Δ列|) ∈ {(1,2),(2,1)} 全 8 组合）。 -/
+abbrev leap {n : ℕ} (a b : Cell n) : Prop :=
+  ((a.1 : ℕ) + 1 = (b.1 : ℕ) ∧ (a.2 : ℕ) + 2 = (b.2 : ℕ)) ∨
+  ((a.1 : ℕ) + 2 = (b.1 : ℕ) ∧ (a.2 : ℕ) + 1 = (b.2 : ℕ)) ∨
+  ((b.1 : ℕ) + 1 = (a.1 : ℕ) ∧ (a.2 : ℕ) + 2 = (b.2 : ℕ)) ∨
+  ((b.1 : ℕ) + 2 = (a.1 : ℕ) ∧ (a.2 : ℕ) + 1 = (b.2 : ℕ))
+
+/-- 完整 8 向（对称）骑士关系。 -/
+abbrev leap8 {n : ℕ} (a b : Cell n) : Prop := leap a b ∨ leap b a
+
+/-- K_n：3×n 棋盘删 (0,0)、(2,n−1) 后的骑士图。 -/
+def knightGraph (n : ℕ) : SimpleGraph (V n) :=
+  SimpleGraph.fromRel (fun a b : V n => leap8 a.1 b.1)
+
+/-- **定理 O**（开巡游，命题 (a) 前半）：K_n 存在哈密顿路径
+    当且仅当 n ∈ {4, 5} ∪ {n ≥ 8}。
+    n=1 为单点图平凡路径情形（见文件头修正注记）。 -/
+theorem exists_hamiltonian_path_iff (n : ℕ) :
+    (∃ a b : V n, ∃ w : (knightGraph n).Walk a b, w.IsHamiltonian) ↔
+      n = 1 ∨ n = 4 ∨ n = 5 ∨ 8 ≤ n := by
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Frozen statement, verbatim lines 79--83: the head
+of Theorem~\ref{thm:closed}.},label={lst:stmt-closed}]
+/-- **定理 C**（闭巡游，命题 (a) 后半）：K_n 存在哈密顿圈
+    当且仅当 n 为偶数且 n ≥ 8。 -/
+theorem exists_hamiltonian_cycle_iff (n : ℕ) :
+    (∃ a : V n, ∃ w : (knightGraph n).Walk a a, w.IsHamiltonianCycle) ↔
+      Even n ∧ 8 ≤ n := by
+\end{lstlisting}
+
+\section{Proof}
+
+The complete machine proof is the file \texttt{stage4b-full.lean} (2{,}633
+lines), shipped byte-exactly in \texttt{proofs/}; the listings below are
+verbatim contiguous excerpts, in the order in which they appear in that
+file. In outline: the positive side is an induction machine on explicit
+vertex lists --- closed tours for even $n\ge 8$ by four explicit base lists
+($n=8,10,12,14$) plus an insertion step that splices a fixed 8-column wedge
+into a designated break edge (strong induction over $n \bmod 8$); open tours
+for odd $n\ge 9$ by two base lists ($n=9,11$) plus a $4$-column step; the
+small cases $n=1,4,5$ by explicit witness lists whose adjacency, coverage
+and non-repetition are checked by \texttt{decide}. The negative side is
+degree and parity arguments for $n\le 4$ and the odd closed case, plus ---
+for the two hard zero values $n=6,7$ --- a cut barrier: a general lemma
+stating that if deleting a vertex list $S$ leaves more than $|S|+1$ labelled
+blocks, then no Hamiltonian path exists, applied to explicit certificates
+whose correctness is decided by the kernel. The two final theorems assemble
+these pieces by case analysis on $n$ (\texttt{omega} splits $n<8$ into
+$0,\dots,7$).
+
+\begin{lstlisting}[caption={Verbatim lines 1589--1644: the closed-tour
+induction assembly --- \texttt{closed\_good\_list} (strong induction,
+bases $8/10/12/14$, step $n\mapsto n+8$) and \texttt{closed\_cycle\_exists}
+(loading the good list as a Hamiltonian cycle).},label={lst:proof-closed}]
+/-- 闭侧好列表存在性：偶数 n ≥ 8 ⇒ 存在 GoodCycleList
+    （强归纳：小 n 四基座 8/10/12/14，步进 m ↦ m+8）。 -/
+theorem closed_good_list : ∀ n : ℕ, 8 ≤ n → Even n → ∃ l : List (V n), GoodCycleList l := by
+  intro n
+  apply Nat.strong_induction_on
+    (p := fun n => 8 ≤ n → Even n → ∃ l : List (V n), GoodCycleList l)
+  intro n ih hn heven
+  rcases Nat.lt_or_ge n 16 with h16 | h16
+  · -- 小 n：8 ≤ n < 16 且偶数 ⇒ n ∈ {8, 10, 12, 14}
+    rcases heven with ⟨m, hm⟩
+    have hn' : n = 8 ∨ n = 10 ∨ n = 12 ∨ n = 14 := by omega
+    rcases hn' with h | h | h | h
+    · subst h; exact ⟨baseV8, baseV8_good⟩
+    · subst h; exact ⟨baseV10, baseV10_good⟩
+    · subst h; exact ⟨baseV12, baseV12_good⟩
+    · subst h; exact ⟨baseV14, baseV14_good⟩
+  · -- n ≥ 16：从 n − 8 步进
+    have hn8 : n - 8 < n := by omega
+    have hn8' : 8 ≤ n - 8 := by omega
+    have heven8 : Even (n - 8) := by
+      rcases heven with ⟨m, hm⟩
+      exact ⟨m - 4, by omega⟩
+    obtain ⟨l, hg⟩ := ih (n - 8) hn8 hn8' heven8
+    obtain ⟨l', hg'⟩ := step_closed_list hn8' hg
+    rw [← show n - 8 + 8 = n from by omega]
+    exact ⟨l', hg'⟩
+
+/-- 闭巡游存在性（正向）：偶数 n ≥ 8 ⇒ K_n 存在哈密顿圈
+    （GoodCycleList 经 cycleOfChain 装载为 IsHamiltonianCycle）。 -/
+theorem closed_cycle_exists : ∀ n : ℕ, Even n → 8 ≤ n →
+    ∃ a : V n, ∃ w : (knightGraph n).Walk a a, w.IsHamiltonianCycle := by
+  intro n heven hn
+  obtain ⟨l, hg⟩ := closed_good_list n hn heven
+  obtain ⟨hne, hnd, hcov, hchain, hclose, j, hj1r, hj1c, hj2r, hj2c⟩ := hg
+  obtain ⟨v1, v2, v3, h12, h13, h23⟩ := three_vertices_exist hn
+  have hlen : 3 ≤ l.length := by
+    have hsub : [v1, v2, v3] ⊆ l := fun a ha => by
+      rw [List.mem_cons, List.mem_cons, List.mem_singleton] at ha
+      rcases ha with h | h | h
+      · rw [h]; exact hcov v1
+      · rw [h]; exact hcov v2
+      · rw [h]; exact hcov v3
+    have hnd3 : ([v1, v2, v3] : List (V n)).Nodup := by
+      rw [List.nodup_cons, List.nodup_cons]
+      refine ⟨?_, ?_, List.nodup_singleton v3⟩
+      · intro h
+        rw [List.mem_cons, List.mem_singleton] at h
+        rcases h with h | h
+        · exact h12 h
+        · exact h13 h
+      · intro h
+        rw [List.mem_singleton] at h
+        exact h23 h
+    have := (hnd3.subperm hsub).length_le
+    simpa using this
+  exact cycleOfChain l hne hnd hlen hcov hchain (hclose hne)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Verbatim lines 2001--2036: the open-tour
+induction assembly for odd $n\ge 9$ (bases $9/11$, step $n\mapsto n+4$).},label={lst:proof-open}]
+/-! ### 12.5 奇归纳组装（T3a 收官） -/
+
+/-- 开侧好列表存在性：奇数 n ≥ 9 ⇒ 存在 GoodOpenList
+    （强归纳：小 n 两基座 9/11，步进 m ↦ m+4）。 -/
+theorem open_good_list : ∀ n : ℕ, 9 ≤ n → Odd n → ∃ l : List (V n), GoodOpenList l := by
+  intro n
+  apply Nat.strong_induction_on
+    (p := fun n => 9 ≤ n → Odd n → ∃ l : List (V n), GoodOpenList l)
+  intro n ih hn hodd
+  rcases Nat.lt_or_ge n 13 with h13 | h13
+  · -- 小 n：奇数且 9 ≤ n < 13 ⇒ n ∈ {9, 11}
+    have hn' : n = 9 ∨ n = 11 := by
+      rcases hodd with ⟨m, hm⟩
+      omega
+    rcases hn' with h | h
+    · subst h; exact ⟨openBase9V, openBase9V_good⟩
+    · subst h; exact ⟨openBase11V, openBase11V_good⟩
+  · -- n ≥ 13：从 n − 4 步进
+    have hn4 : n - 4 < n := by omega
+    have hn4' : 9 ≤ n - 4 := by omega
+    have hodd4 : Odd (n - 4) := by
+      rcases hodd with ⟨m, hm⟩
+      exact ⟨m - 2, by omega⟩
+    obtain ⟨l, hg⟩ := ih (n - 4) hn4 hn4' hodd4
+    obtain ⟨l', hg'⟩ := step_open_list hn4' hg
+    rw [← show n - 4 + 4 = n from by omega]
+    exact ⟨l', hg'⟩
+
+/-- 开巡游存在性（正向·奇）：奇数 n ≥ 9 ⇒ K_n 存在哈密顿路径
+    （GoodOpenList 经 pathOfChain 装载为 IsHamiltonian）。 -/
+theorem open_tour_exists_odd : ∀ n : ℕ, 9 ≤ n → Odd n →
+    ∃ a b : V n, ∃ w : (knightGraph n).Walk a b, w.IsHamiltonian := by
+  intro n hn hodd
+  obtain ⟨l, hg⟩ := open_good_list n hn hodd
+  obtain ⟨hne, hnd, hcov, hchain, hend⟩ := hg
+  exact pathOfChain l hne hnd hcov hchain
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Verbatim lines 2447--2575: the cut barrier. The
+generic lemmas \texttt{cut\_card\_bound} (label count along a chain),
+\texttt{cut\_bound} and \texttt{no\_hamiltonian\_of\_cut}, then the explicit
+$n=6$ certificate (6 middle-column vertices, 8 blocks) and $n=7$ certificate
+(5 vertices, 7 blocks). The two \texttt{set\_option} resource-relaxation
+lines preceding this section are omitted from the excerpt; the full file
+carries them.},label={lst:proof-cut}]
+/-! ## 15. 割集阻障（T4-open：n = 6/7 开侧否定） -/
+
+theorem cut_card_bound {α : Type*} [DecidableEq α] {S : List α} {N : ℕ} {lab : α → Fin N}
+    {G : SimpleGraph α}
+    (hadj : ∀ a b : α, G.Adj a b → a ∉ S → b ∉ S → lab a = lab b) :
+    ∀ {L : List α}, L.IsChain G.Adj →
+      ((L.filter (· ∉ S)).map lab).toFinset.card ≤ 1 + L.tail.countP (· ∈ S) := by
+  intro L
+  induction L with
+  | nil => intro _; simp
+  | cons x xs ih =>
+      intro hL
+      cases xs with
+      | nil => by_cases hx : x ∈ S <;> simp [hx]
+      | cons y ys =>
+          obtain ⟨hxy, htail⟩ := List.isChain_cons_cons.mp hL
+          have hih := ih htail
+          rw [List.tail_cons] at hih
+          rw [List.tail_cons]
+          by_cases hx : x ∈ S <;> by_cases hy : y ∈ S
+          · -- ① x ∈ S, y ∈ S
+            have hF : (x :: y :: ys).filter (· ∉ S) = (y :: ys).filter (· ∉ S) :=
+              List.filter_cons_of_neg (by simp [hx])
+            rw [hF]
+            have hc : (y :: ys).countP (· ∈ S) = ys.countP (· ∈ S) + 1 := by simp [hy]
+            rw [hc]; omega
+          · -- ② x ∈ S, y ∉ S
+            have hF : (x :: y :: ys).filter (· ∉ S) = (y :: ys).filter (· ∉ S) :=
+              List.filter_cons_of_neg (by simp [hx])
+            rw [hF]
+            have hc : (y :: ys).countP (· ∈ S) = ys.countP (· ∈ S) := by simp [hy]
+            rw [hc]; omega
+          · -- ③ x ∉ S, y ∈ S
+            have hF : (x :: y :: ys).filter (· ∉ S) = x :: (y :: ys).filter (· ∉ S) :=
+              List.filter_cons_of_pos (by simp [hx])
+            rw [hF, List.map_cons, List.toFinset_cons]
+            have hc : (y :: ys).countP (· ∈ S) = ys.countP (· ∈ S) + 1 := by simp [hy]
+            rw [hc]
+            exact le_trans (Finset.card_insert_le (lab x) _) (by omega)
+          · -- ④ x ∉ S, y ∉ S
+            have hF : (x :: y :: ys).filter (· ∉ S) = x :: (y :: ys).filter (· ∉ S) :=
+              List.filter_cons_of_pos (by simp [hx])
+            rw [hF, List.map_cons, List.toFinset_cons]
+            have hc : (y :: ys).countP (· ∈ S) = ys.countP (· ∈ S) := by simp [hy]
+            rw [hc]
+            have hlab : lab x = lab y := hadj x y hxy hx hy
+            have hymem : lab y ∈ (((y :: ys).filter (· ∉ S)).map lab).toFinset :=
+              List.mem_toFinset.mpr (List.mem_map_of_mem (f := lab)
+                (List.mem_filter.mpr ⟨by simp, by simp [hy]⟩))
+            rw [hlab, Finset.insert_eq_of_mem hymem]
+            omega
+
+theorem cut_bound {V : Type*} [Fintype V] [DecidableEq V] {G : SimpleGraph V} {N : ℕ}
+    (S : List V) (hSnd : S.Nodup) (lab : V → Fin N)
+    (hadj : ∀ a b : V, G.Adj a b → a ∉ S → b ∉ S → lab a = lab b)
+    (hsurj : ∀ i : Fin N, ∃ v : V, v ∉ S ∧ lab v = i)
+    {a b : V} {w : G.Walk a b} (hw : w.IsHamiltonian) :
+    N ≤ S.length + 1 := by
+  have hchain : w.support.IsChain G.Adj := SimpleGraph.Walk.isChain_adj_support w
+  have hnd : w.support.Nodup :=
+    List.nodup_iff_count_le_one.mpr (fun v => by have h := hw v; omega)
+  have hcut := cut_card_bound hadj hchain
+  have hcover : ∀ i : Fin N, i ∈ ((w.support.filter (· ∉ S)).map lab).toFinset := by
+    intro i
+    obtain ⟨v, hvS, hvl⟩ := hsurj i
+    have hvm : v ∈ w.support := List.count_pos_iff.mp (by have h := hw v; omega)
+    rw [← hvl]
+    exact List.mem_toFinset.mpr (List.mem_map_of_mem (f := lab)
+      (List.mem_filter.mpr ⟨hvm, by simp [hvS]⟩))
+  have hNcard : N = (Finset.univ : Finset (Fin N)).card := by
+    rw [Finset.card_univ, Fintype.card_fin]
+  have hcle : (Finset.univ : Finset (Fin N)).card
+      ≤ ((w.support.filter (· ∉ S)).map lab).toFinset.card :=
+    Finset.card_le_card (fun i _ => hcover i)
+  have htail : w.support.tail.countP (· ∈ S) ≤ w.support.countP (· ∈ S) :=
+    List.Sublist.countP_le (List.tail_sublist w.support)
+  have hlen : w.support.countP (· ∈ S) = (w.support.filter (· ∈ S)).length :=
+    List.countP_eq_length_filter
+  have hsub : List.Subperm (w.support.filter (· ∈ S)) S :=
+    List.Nodup.subperm (hnd.filter _)
+      (fun x hx => of_decide_eq_true (List.mem_filter.mp hx).2)
+  have hflen := hsub.length_le
+  omega
+
+theorem no_hamiltonian_of_cut {V : Type*} [Fintype V] [DecidableEq V] {G : SimpleGraph V} {N : ℕ}
+    (S : List V) (hSnd : S.Nodup) (lab : V → Fin N)
+    (hadj : ∀ a b : V, G.Adj a b → a ∉ S → b ∉ S → lab a = lab b)
+    (hsurj : ∀ i : Fin N, ∃ v : V, v ∉ S ∧ lab v = i)
+    (hN : S.length + 1 < N) :
+    ¬ ∃ a b : V, ∃ w : G.Walk a b, w.IsHamiltonian := by
+  rintro ⟨a, b, w, hw⟩
+  have h := cut_bound S hSnd lab hadj hsurj hw
+  omega
+
+/-- n=6 顶点构造助手。 -/
+def v6 (r : Fin 3) (c : Fin 6) (h : IsCell 6 (r, c) := by decide) : V 6 := ⟨(r, c), h⟩
+
+/-- n=6 割集证书：中间两列 6 格。 -/
+def cutS6 : List (V 6) := [v6 0 2, v6 0 3, v6 1 2, v6 1 3, v6 2 2, v6 2 3]
+
+/-- n=6 连通块标签（S 格与未列格 ↦ 0）。 -/
+def cutLab6 : V 6 → Fin 8 := fun v =>
+  match v.1.1.val, v.1.2.val with
+  | 0, 1 => 0 | 0, 4 => 1 | 0, 5 => 2
+  | 1, 0 => 3 | 1, 1 => 4 | 1, 4 => 5 | 1, 5 => 6
+  | 2, 0 => 0 | 2, 1 => 7 | 2, 4 => 2
+  | _, _ => 0
+
+theorem no_open_tour_6 :
+    ¬ ∃ a b : V 6, ∃ w : (knightGraph 6).Walk a b, w.IsHamiltonian :=
+  no_hamiltonian_of_cut cutS6 (by decide) cutLab6 (by decide) (by decide) (by decide)
+
+/-- n=7 顶点构造助手。 -/
+def v7 (r : Fin 3) (c : Fin 7) (h : IsCell 7 (r, c) := by decide) : V 7 := ⟨(r, c), h⟩
+
+/-- n=7 割集证书：5 格。 -/
+def cutS7 : List (V 7) := [v7 0 2, v7 0 4, v7 1 3, v7 2 2, v7 2 4]
+
+/-- n=7 连通块标签（S 格与未列格 ↦ 0）。 -/
+def cutLab7 : V 7 → Fin 7 := fun v =>
+  match v.1.1.val, v.1.2.val with
+  | 0, 1 => 0 | 0, 3 => 1 | 0, 5 => 2 | 0, 6 => 3
+  | 1, 0 => 4 | 1, 1 => 1 | 1, 2 => 0 | 1, 4 => 3 | 1, 5 => 1 | 1, 6 => 5
+  | 2, 0 => 0 | 2, 1 => 6 | 2, 3 => 1 | 2, 5 => 3
+  | _, _ => 0
+
+theorem no_open_tour_7 :
+    ¬ ∃ a b : V 7, ∃ w : (knightGraph 7).Walk a b, w.IsHamiltonian :=
+  no_hamiltonian_of_cut cutS7 (by decide) cutLab7 (by decide) (by decide) (by decide)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Verbatim lines 2577--2633: the assembly of both
+iff theorems from the stage lemmas, followed by the two closing
+\texttt{\#print axioms} commands.},label={lst:proof-assembly}]
+/-! ## 16. T5 组装：双 iff 主定理（statement 冻结件） -/
+
+/-- **定理 O**（开巡游 iff）：K_n 存在哈密顿路径 ⟺ n = 1 ∨ 4 ∨ 5 ∨ ≥8。 -/
+theorem exists_hamiltonian_path_iff (n : ℕ) :
+    (∃ a b : V n, ∃ w : (knightGraph n).Walk a b, w.IsHamiltonian) ↔
+      n = 1 ∨ n = 4 ∨ n = 5 ∨ 8 ≤ n := by
+  constructor
+  · intro h
+    by_cases h8 : 8 ≤ n
+    · exact Or.inr (Or.inr (Or.inr h8))
+    · push_neg at h8
+      have : n = 0 ∨ n = 1 ∨ n = 2 ∨ n = 3 ∨ n = 4 ∨ n = 5 ∨ n = 6 ∨ n = 7 := by omega
+      rcases this with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+      · exact absurd h no_open_tour_0
+      · exact Or.inl rfl
+      · exact absurd h no_open_tour_2
+      · exact absurd h no_open_tour_3
+      · exact Or.inr (Or.inl rfl)
+      · exact Or.inr (Or.inr (Or.inl rfl))
+      · exact absurd h no_open_tour_6
+      · exact absurd h no_open_tour_7
+  · rintro (rfl | rfl | rfl | h8)
+    · exact open_tour_1
+    · exact open_tour_4
+    · exact open_tour_5
+    · rcases Nat.even_or_odd n with he | ho
+      · exact open_of_closed (closed_cycle_exists n he h8)
+      · obtain ⟨k, rfl⟩ := ho
+        exact open_tour_exists_odd _ (by omega) ⟨k, rfl⟩
+
+/-- **定理 C**（闭巡游 iff）：K_n 存在哈密顿圈 ⟺ Even n ∧ ≥8。 -/
+theorem exists_hamiltonian_cycle_iff (n : ℕ) :
+    (∃ a : V n, ∃ w : (knightGraph n).Walk a a, w.IsHamiltonianCycle) ↔
+      Even n ∧ 8 ≤ n := by
+  constructor
+  · intro h
+    constructor
+    · rcases Nat.even_or_odd n with he | ho
+      · exact he
+      · exact absurd h (no_cycle_odd ho)
+    · by_contra h8
+      push_neg at h8
+      have : n = 0 ∨ n = 1 ∨ n = 2 ∨ n = 3 ∨ n = 4 ∨ n = 5 ∨ n = 6 ∨ n = 7 := by omega
+      rcases this with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+      · exact no_closed_tour_0 h
+      · exact no_cycle_odd ⟨0, rfl⟩ h
+      · exact no_closed_tour_2 h
+      · exact no_cycle_odd ⟨1, rfl⟩ h
+      · exact no_closed_tour_4 h
+      · exact no_cycle_odd ⟨2, rfl⟩ h
+      · exact no_closed_tour_6 h
+      · exact no_cycle_odd ⟨3, rfl⟩ h
+  · rintro ⟨he, h8⟩
+    exact closed_cycle_exists n he h8
+
+#print axioms exists_hamiltonian_path_iff
+#print axioms exists_hamiltonian_cycle_iff
+\end{lstlisting}
+
+\section{Verification evidence}
+
+\begin{itemize}
+\item Toolchain: Lean \texttt{v4.34.0} (\texttt{leanprover/lean4:v4.34.0}),
+mathlib4 \texttt{v4.34.0}, revision \texttt{5ed29652}. Reproduction: with
+that pin, \texttt{lake env lean} on
+\texttt{proofs/01-holestrip-tour-proved.lean} compiles with exit code $0$.
+\item Statement integrity: the frozen statement file (84 lines) has sha256
+\begin{center}
+\texttt{96875db4a784ff7a3862e3fe255c9e25c09f98}\allowbreak
+\texttt{a68d9d98d30700d90b4fd6929e},
+\end{center}
+byte-identical to the frozen Lean file \texttt{holestrip-tour.lean}; the
+final proof file (130{,}382 bytes) has sha256
+\begin{center}
+\texttt{9cf0b5b0af8cedb2edfd9d63779a2e8d4a6c973}\allowbreak
+\texttt{237b616c1482a05bbf1e0a70b}.
+\end{center}
+A re-run of the audit department's symmetric-difference method (comments
+stripped, declarations split, definitions compared full-block, theorems up
+to \texttt{:=}) reports all eight frozen declarations header-identical
+(six definitions and the two main theorems), with no frozen-only
+declaration and proof-body scaffolding added on the final side
+(\texttt{audit/statement-diff.out}).
+\item Kernel check: compiles with $0$ \texttt{sorry} (whole-file scan
+including comments, also covering \texttt{admit} and \texttt{native\_decide}:
+zero hits); \texttt{\#print axioms} output, verbatim (kernel re-run of
+2026-09-30, exit code 0, kept in \texttt{audit/axioms.out}):
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize,frame=none]
+'open_tour_exists_odd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'open_good_list' depends on axioms: [propext, Classical.choice, Quot.sound]
+'step_open_list' depends on axioms: [propext, Classical.choice, Quot.sound]
+'closed_cycle_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'openBase9V_good' depends on axioms: [propext, Classical.choice, Quot.sound]
+'openBase11V_good' depends on axioms: [propext, Classical.choice, Quot.sound]
+'card_V' depends on axioms: [propext, Classical.choice, Quot.sound]
+'no_cycle_odd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'no_open_tour_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'no_closed_tour_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'no_open_tour_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'no_closed_tour_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'open_tour_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'no_open_tour_0' depends on axioms: [propext, Quot.sound]
+'no_closed_tour_0' depends on axioms: [propext, Quot.sound]
+'no_closed_tour_4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'no_closed_tour_6' depends on axioms: [propext, Classical.choice, Quot.sound]
+'exists_hamiltonian_path_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'exists_hamiltonian_cycle_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{lstlisting}
+The two main theorems depend on exactly \{propext, Classical.choice,
+Quot.sound\}; every line is a subset of the whitelist.
+\item Grading by the audit department: both proven theorems
+\emph{complete proof}; the lowest grade reached for the case = \emph{complete
+proof} (final adjudication \texttt{gate3-final-audit.md}: statement
+symmetric difference $8/8$ identical, strict compile exit $0$, zero
+\texttt{sorry}/\texttt{admit}, axiom whitelist subset, no added hypotheses).
+The adjudication also records the non-blocking disclosures carried into
+Section~\ref{sec:limits}.
+\item Audit chain (originals in this deposit under \texttt{audit/} unless
+noted): the final adjudication, the symmetric-difference re-run, the axiom
+re-print, and this note's claim check \texttt{claim-check.md} --- added to
+\texttt{audit/} after the audit department returns its adjudication, and a
+prerequisite for publication.
+\end{itemize}
+
+\section{Novelty evidence}\label{sec:novelty}
+
+Adjudication copied from the pipeline's exclusivity reviews (C9 gate), four
+rounds of which ran before the problem was accepted and during it: verdict
+\textbf{no occupying record found} for the existence characterisation of
+open and closed tours on $K_n$. Value tier: a small original classification
+theorem. The nearest published neighbours are delimited explicitly and none
+of them is this family: Miller--Farnsworth \cite{millerfarnsworth} classify
+closed tours on $3\times n$ boards with \emph{one} square removed;
+Srichote et al.\ \cite{srichote} classify closed tours on $4\times n$ boards
+with \emph{two} squares removed; Bi et al.\ \cite{bi} raised the two-square
+question for $4\times n$ only; DeMaio--Hippchen \cite{demaio} give the
+minimal number of squares to remove, not positions; Schwenk
+\cite{schwenk} and the classical line treat full boards. The registered
+counting sequence for full $3\times n$ boards, OEIS A169696 \cite{a169696},
+is a different object (no holes; counting, not existence). The full query
+log, including every zero-hit query, is in this deposit at
+\texttt{audit/c9-record.md} (four source records, byte-for-byte).
+
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lll}
+\hline
+channel & scope & result \\
+\hline
+literature (journals/theses/preprints) & nearest neighbours read at
+full-text level (Miller--Farnsworth 2013; Srichote et al.\ 2022; Bi et
+al.\ 2015; DeMaio--Hippchen 2009) plus $\sim$15 further query groups
+(phrase, variant, competition, Chinese-language layers) & zero hits for
+$3\times n$ two-square tours; all future-work statements point elsewhere \\
+OEIS \cite{oeis} & 50+ independent query strings over four rounds: sequence
+variants (including $1,6,0,0,351,602,\dots$), keyword sweeps over all
+knight-tour entries, comment sections of A169696 / A169764 / A070030 &
+all zero; no deficient-board tour entry exists \\
+formalisation ecosystem & Isabelle AFP \texttt{Knights\_Tour} (2022; boards
+as arbitrary cell sets, no deficient-board theorem proved); Lean
+\texttt{KnightMove} (2026, unpublished; vertex-deletion invariants, not
+tour existence, no $3\times n$); Coq/Mizar; mathlib predicate layer &
+no same-form result anywhere; mathlib has the Hamiltonian predicates but no
+board object \\
+recreational layer & Jelliss \emph{Knight's Tour Notes} index, $3\times n$
+open/closed pages, holey-board pages & full-board theorems only; no
+deficient $3\times n$ content \\
+\hline
+\end{tabular}%
+}
+\end{center}
+
+The channels are named so a later reader can re-run them; if any channel
+later returns a same-form record, the tier above weakens accordingly, and
+this deposit will be amended by a later version rather than by editing this
+record. Residual risks are ledgered in the C9 record (the Jelliss 2019
+monograph and Chessics issues were checked at index level only; the Van
+Rees classroom notes were reachable at bibliographic level only; the
+StackExchange API was rate-limited during one round; Thai-language
+literature was checked through the journal's own site).
+
+\section{Scope and limitations}\label{sec:limits}
+
+(a) The kernel results are Theorems~\ref{thm:open} and~\ref{thm:closed} and
+nothing else. (b) The counting companion of the same family (the number of
+open/closed tours of $K_n$) is auxiliary computational data of the source
+task; it is not claimed here and not submitted to OEIS (the historical
+OEIS sequence queries of the novelty record, all zero-hit, are included in
+the record verbatim), and it is not part of this note. (c) The case $n=1$ of Theorem~\ref{thm:open} comes from the
+pre-freeze correction F0b (recorded in the task card). (d) Scaffolding
+disclosure, from the final adjudication: the cut-barrier section was
+drafted by a pipeline worker run and integrated by the main agent (four
+integration-level repairs); the final assembly section was written by the
+main agent after a scratch pre-run. This affects provenance, not the
+grading: the graded object is the final kernel-checked artifact. (e) The
+delivered file relaxes elaboration resources
+(\texttt{maxHeartbeats} 4{,}000{,}000 and \texttt{maxRecDepth} 8{,}000)
+before the cut-barrier section; this affects elaboration time limits only,
+not the kernel trust base. (f) An earlier search-based route to the
+$n=6,7$ impossibility (a decidability checker) was abandoned after a
+resource-exhaustion probe and is kept in the source task's archive; the
+delivered route is the cut certificate. (g) The novelty search is scoped
+to reachable channels; the residual risks listed in
+Section~\ref{sec:novelty} are carried rather than resolved. (h) All listed
+listings are byte-exact contiguous excerpts of the frozen artifacts
+(LF-normalised where the source has CRLF-dominant mixed endings; the
+byte-exact originals are shipped in \texttt{proofs/}).
+
+\section*{Data availability}
+
+The Lean sources (\texttt{proofs/}: frozen statement file, final proof
+file, \texttt{lean-toolchain}), the verification and audit logs, and the
+full novelty-search record are packed in the Zenodo deposit of this note
+(DOI reserved at upload). The note is under CC BY 4.0, the code under MIT.
+The upload steps are listed in \texttt{UPLOAD.md} in the source repository
+(not shipped in this deposit).
+
+\section*{Use of generative AI}
+
+(a) AI performed: candidate generation and the four-round exclusivity
+review; autoformalisation of the definitions and statements; the roundtrip
+semantic check; proof search and proof-script writing (worker agents, with
+a main-agent integration round on the cut-barrier section as recorded in
+the ledger); error classification and repair; the computational exploration
+scripts; and the assembly of this note including its verbatim listings.
+(b) Model, node and budget: the proving phase ran on the node designated
+by the author for each session (\texttt{anthropic/stepfun/step-5-preview}
+after a mid-task switch directed by the author; \texttt{anthropic/a6api-main/kimi-k3}
+before it), consuming $29$ agent-run samples of a permitted $36$; $4$
+llm-calls of a permitted $6$ (one node smoke plus three roundtrip attempts
+that failed at the transport layer, after which the semantic roundtrip was
+re-routed through the agent channel and ledgered under the sampling
+column); $49$ strict kernel compiles of a permitted $56$, plus
+compile-debug probes ledgered separately; this note's lane consumed $0$
+pipeline LLM calls against a cap of $4$ and three formal LaTeX rounds of a
+permitted ten (two assembly rounds plus one audit-fix round), with three
+compile-debug render probes and one kernel re-verification of the shipped
+axioms listing ledgered separately; the assembly node was
+\texttt{anthropic/a6api-main/deepseek-v4.1-flash}. (c) Final adjudication: all formal statements and proofs
+reported in this note were checked by the Lean 4 kernel (Lean v4.34.0,
+mathlib v4.34.0): every proof compiles with no \texttt{sorry}, and
+\texttt{\#print axioms} reports only \{propext, Quot.sound,
+Classical.choice\}. (d) The AI system is not an author; the human author
+reviewed the evidence and is responsible for all content.
+
+\section*{Author contributions}
+
+CRediT-style: the human author adjudicated topic selection, statement
+semantics, sign-off and deposit decisions; the AI4Math pipeline (an LLM)
+generated the candidate proposition, the proof searches, the computational
+exploration scripts and the text drafts. The AI system is not listed as an
+author.
+
+\begin{thebibliography}{9}
+% Each entry verified on 2026-09-30 against Crossref title/volume/page
+% metadata, the zbMATH Open API record (an:1538.05160), and live OEIS
+% fetches (A169696). Raw responses:
+% audit/bib-verify/ in the source repository. No entry is quoted from memory.
+\bibitem{lean4}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean 4 theorem prover and programming language.
+\newblock \emph{CADE-28}, 2021. \url{https://doi.org/10.1007/978-3-030-79876-5_37}
+
+\bibitem{mathlib}
+The mathlib Community.
+\newblock The Lean mathematical library.
+\newblock \emph{CPP 2020}, 2020. \url{https://doi.org/10.1145/3372885.3373824}
+
+\bibitem{millerfarnsworth}
+J.~Miller and D.~Farnsworth.
+\newblock Knight's tours on $3\times n$ chessboards with a single square
+removed.
+\newblock \emph{Open J.\ Discrete Math.} 3(1):56--59, 2013.
+\url{https://doi.org/10.4236/ojdm.2013.31012}
+
+\bibitem{srichote}
+W.~Srichote, R.~Boonklurb, T.~Kaewwannarat, and S.~Singhun.
+\newblock Closed knight's tours on $4\times n$ chessboards with two squares
+removed.
+\newblock \emph{Thai J.\ Math.}, Special Issue: Annual Meeting in
+Mathematics 2021, 64--81, 2022. (Zbl 1538.05160)
+
+\bibitem{bi}
+Z.~Bi, S.~Butler, A.~DeGraaf, and E.~Doebel.
+\newblock Knight's tours on boards with odd dimensions.
+\newblock \emph{Involve} 8(4):615--627, 2015.
+\url{https://doi.org/10.2140/involve.2015.8.615}
+
+\bibitem{demaio}
+J.~DeMaio and T.~Hippchen.
+\newblock Closed knight's tours with minimal square removal for all
+rectangular boards.
+\newblock \emph{Math.\ Mag.} 82(3):219--225, 2009.
+\url{https://doi.org/10.1080/0025570X.2009.11953624}
+
+\bibitem{schwenk}
+A.~J.~Schwenk.
+\newblock Which rectangular chessboards have a knight's tour?
+\newblock \emph{Math.\ Mag.} 64(5):325--332, 1991.
+\url{https://doi.org/10.1080/0025570X.1991.11977627}
+
+\bibitem{oeis}
+OEIS Foundation Inc.
+\newblock The On-Line Encyclopedia of Integer Sequences.
+\newblock \url{https://oeis.org}
+
+\bibitem{a169696}
+OEIS Foundation Inc.
+\newblock Sequence A169696: Number of undirected knight's tours on a $3\times n$
+board.
+\newblock \url{https://oeis.org/A169696}
+\end{thebibliography}
+
+\end{document}

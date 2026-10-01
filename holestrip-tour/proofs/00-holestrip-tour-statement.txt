@@ -1,0 +1,84 @@
+import Mathlib
+
+open SimpleGraph
+
+/-!
+# holestrip-tour — statement 形式化（F0 轮）
+
+NL 冻结口径（逐字，唯一语义源）：
+> 设 K_n 为 3 行 n 列棋盘删去左上角格 (0,0) 与右下角格 (2,n−1) 后所得的骑士图
+> （顶点 = 其余 3n−2 个格；两顶点相邻当且仅当其为骑士走法，
+> 即行差 1 列差 2 或行差 2 列差 1）。
+> 命题 (a)：K_n 存在哈密顿路径（开巡游）当且仅当 n ∈ {4, 5} ∪ {n ≥ 8}；
+> K_n 存在哈密顿圈（闭巡游）当且仅当 n 为偶数且 n ≥ 8。
+> 修正（2026-09-28 F0b，闸门二冻结前）：开侧阈值补入 n=1——K_1 单点图含平凡哈密顿路径（nil walk，mathlib Hamiltonian.lean IsHamiltonian 定义 + kernel 探针 attempts/probe-n1.lean）；n ≥ 2 部分与题库原口径一致；闭侧不变。语义源 = 任务卡《冻结前修正记录》。
+
+本文件只形式化命题 (a)；计数序列命题 (b) 不在范围。
+两个 iff 为全量 `∀ n : ℕ` 命题（以小写参数 n 显式给出），无额外假设。
+proof body 一律 `sorry`——证明是下游军政部的事。
+
+## 结构说明 / 高危结构处置
+
+- 顶点型 `{p : Fin 3 × Fin n // IsCell n p}`：避免 `Fin (n−1)` 减法（高危减法已改写）。
+- 洞编码（高危：`Fin n` 字面量）：`(0,0)` 与 `(2,n−1)` 一律用 `.val` 比较，
+  而非 `Fin n` 字面量——字面量 `(0 : Fin n)` 在无 `NeZero n` 假设时不合法，
+  故 `p ≠ (0,0)` 改写为等价安全形态 `¬ (p.1.val = 0 ∧ p.2.val = 0)`，
+  右洞 `(2, n−1)` 写为 `p.1.val = 2 ∧ p.2.val + 1 = n`。
+- 退化语义（与 NL 一致，勿「修正」）：
+  - `n = 0`：`Fin 3 × Fin 0` 为空，`V 0` 空，两侧命题均为假；
+  - `n = 1`：`V 1 = {(1,0)}` 单点；开侧 LHS 为真（nil walk 即平凡哈密顿路径）——这正是开侧刻画含 n=1 的原因；闭侧 LHS 为假（`IsCircuit` 要求非 nil）。
+- 骑士邻接 = `leap`（四代表方向）+ `leap8`（对称并）+ `SimpleGraph.fromRel`
+  自动对称化，即冒烟件 `holed3x6-forcing.lean` 3×6 固定版结构的参数 `n : ℕ` 泛化。
+- 哈密顿谓词：
+  - 开巡游：mathlib `SimpleGraph.Walk.IsHamiltonian`
+    （语义 = `∀ v, w.support.count v = 1`，支撑每顶点计数恰 1）；
+  - 闭巡游：mathlib 现成结构 `SimpleGraph.Walk.IsHamiltonianCycle`
+    （`Mathlib/Combinatorics/SimpleGraph/Hamiltonian.lean`；
+    extends `IsCycle` 且 `w.tail.IsHamiltonian`）——闭合圈访问每个顶点恰一次，
+    闭合行走的首格在 support 首尾重复出现只算一次（mathlib 引理
+    `IsHamiltonianCycle.count_support_self` 与 `support_count_of_ne` 印证此语义），
+    与 NL 逐字对应，无需自定义。
+-/
+
+/-- 3×n 棋盘的格子坐标。 -/
+abbrev Cell (n : ℕ) := Fin 3 × Fin n
+
+/-- 棋盘格子（非洞）：删去 (0,0) 与 (2, n−1)，用 `.val` 编码（见文件头注释）。 -/
+abbrev IsCell (n : ℕ) (p : Cell n) : Prop :=
+  ¬ (p.1.val = 0 ∧ p.2.val = 0) ∧ ¬ (p.1.val = 2 ∧ p.2.val + 1 = n)
+
+/-- 顶点类型：3n−2 个非洞格子。 -/
+def V (n : ℕ) := {p : Cell n // IsCell n p}
+
+instance (n : ℕ) : Fintype (V n) := Subtype.fintype _
+instance (n : ℕ) : DecidableEq (V n) := Subtype.instDecidableEq
+
+/-- 骑士走法的四个代表方向（b − a ∈ {(1,2),(2,1),(−1,2),(−2,1)}）；
+    `fromRel` 自动对称化，补全另外四个方向（(|Δ行|,|Δ列|) ∈ {(1,2),(2,1)} 全 8 组合）。 -/
+abbrev leap {n : ℕ} (a b : Cell n) : Prop :=
+  ((a.1 : ℕ) + 1 = (b.1 : ℕ) ∧ (a.2 : ℕ) + 2 = (b.2 : ℕ)) ∨
+  ((a.1 : ℕ) + 2 = (b.1 : ℕ) ∧ (a.2 : ℕ) + 1 = (b.2 : ℕ)) ∨
+  ((b.1 : ℕ) + 1 = (a.1 : ℕ) ∧ (a.2 : ℕ) + 2 = (b.2 : ℕ)) ∨
+  ((b.1 : ℕ) + 2 = (a.1 : ℕ) ∧ (a.2 : ℕ) + 1 = (b.2 : ℕ))
+
+/-- 完整 8 向（对称）骑士关系。 -/
+abbrev leap8 {n : ℕ} (a b : Cell n) : Prop := leap a b ∨ leap b a
+
+/-- K_n：3×n 棋盘删 (0,0)、(2,n−1) 后的骑士图。 -/
+def knightGraph (n : ℕ) : SimpleGraph (V n) :=
+  SimpleGraph.fromRel (fun a b : V n => leap8 a.1 b.1)
+
+/-- **定理 O**（开巡游，命题 (a) 前半）：K_n 存在哈密顿路径
+    当且仅当 n ∈ {4, 5} ∪ {n ≥ 8}。
+    n=1 为单点图平凡路径情形（见文件头修正注记）。 -/
+theorem exists_hamiltonian_path_iff (n : ℕ) :
+    (∃ a b : V n, ∃ w : (knightGraph n).Walk a b, w.IsHamiltonian) ↔
+      n = 1 ∨ n = 4 ∨ n = 5 ∨ 8 ≤ n := by
+  sorry
+
+/-- **定理 C**（闭巡游，命题 (a) 后半）：K_n 存在哈密顿圈
+    当且仅当 n 为偶数且 n ≥ 8。 -/
+theorem exists_hamiltonian_cycle_iff (n : ℕ) :
+    (∃ a : V n, ∃ w : (knightGraph n).Walk a a, w.IsHamiltonianCycle) ↔
+      Even n ∧ 8 ≤ n := by
+  sorry
