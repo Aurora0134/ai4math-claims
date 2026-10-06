@@ -1,0 +1,5 @@
+MATCH lst:stmt   source=fence range=lean-fence bytes=2207 -> byte-identical
+MATCH lst:chain  source=final range=96-168 bytes=5637 -> byte-identical
+MATCH lst:tail   source=final range=735-767 bytes=1771 -> byte-identical
+MATCH lst:main   source=final range=771-1094 bytes=19702 -> byte-identical
+VERDICT: PASS (all listings byte-identical to frozen sources)

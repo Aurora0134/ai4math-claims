@@ -1,0 +1,24 @@
+IN  Nat.Prime.dvd_primorial_iff
+IN  Nat.factorization
+IN  Nat.factorization_factorial
+IN  Nat.isSquare_iff_even_factorization
+IN  Nat.log
+IN  Nat.log_lt_of_lt_pow
+IN  concave_log_affine
+IN  exists_sq_factorial_mul_primorial_iff
+IN  factorization_factorial_mul_primorial
+IN  isSquare_factorial_mul_primorial_iff
+IN  isSquare_iff_exists_sq
+IN  lemmaB_hop
+IN  lemmaB_upto_999999
+IN  nonsquare_six_to_twenty_one
+IN  not_isSquare_of_odd_factorization
+IN  primorial
+IN  primorial_factorization_eq_one
+IN  primorial_factorization_eq_zero
+IN  real_tail_inequality
+IN  tailR_le_of_no_prime
+IN  tailR_lower_strict
+IN  tailR_lower_twelve
+IN  tail_main_inequality_nat
+VERDICT: PASS (all \lean{} identifiers occur in the final proof file)

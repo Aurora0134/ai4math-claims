@@ -1,0 +1,194 @@
+% lstlean.tex — Lean style for the listings package.
+% Lineage: Jeremy Avigad (2015), adapted from Assia Mahboubi's SSR style;
+% inspired by Olivier Verdier's unixode.sty for the Unicode literate table.
+% No CTAN package or upstream repo exists; papers carry this file in their
+% source package (cap set arXiv:1907.01449, sphere eversion arXiv:2210.07746).
+% AI4Math adaptation (AI-generated, 2026-09-26): sorry/admit/sorryAx elevated
+% to a dedicated error tier, matching the pipeline's 0-sorry constitution.
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red keywords
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue tactics
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey comments
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue symbols
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green sorts
+\definecolor{errorcolor}{rgb}{0.6, 0, 0}         % dark red: sorry/admit
+\definecolor{stringcolor}{rgb}{0.5, 0.1, 0.5}    % purple strings
+
+\lstdefinelanguage{lean}{
+  % Anything between $ becomes LaTeX math mode
+  mathescape=false,
+  % Comments may or not include Latex commands
+  texcl=false,
+  % keywords, list taken from lean-syntax.txt
+  morekeywords=[1]{import, prelude, protected, private, noncomputable,
+    definition, meta, renaming, hiding, parameter, parameters, begin,
+    constant, constants, lemma, variable, variables, theory, print,
+    theorem, example, open, section, namespace, universe, universes, end,
+    modifier, modifiers, using, export, exposing, axiom, inductive,
+    coinductive, with, structure, class, instance, attribute, local, where,
+    by, have, show, let, in, if, then, else, match, do, for, fun, assume,
+    from, take, calc, include, omit, infix, infixl, infixr, notation,
+    macro, syntax, elab, set_option, initialize, deriving, opaque, abbrev,
+    mutual, partial, scoped, termination_by, decreasing_by},
+  % Sorts
+  morekeywords=[2]{Sort, Type, Prop},
+  % tactics, list taken from lean-syntax.txt (tactic keywords)
+  morekeywords=[3]{intro, intros, apply, exact, refine, rfl, simp, simp_all,
+    simpa, simp_rw, rw, rewrite, erewrite, ring, ring_nf, omega, decide,
+    norm_num, norm_cast, induction, cases, rcases, obtain, constructor,
+    ext, funext, conv, congr, field_simp, linarith, nlinarith, positivity,
+    tauto, trivial, aesop, use, by_cases, by_contra, push_neg, contrapose,
+    symm, trans, assumption, contradiction, exfalso, specialize,
+    generalize, revert, clear, rename_i, subst, unfold, delta, change,
+    convert, split_ifs, interval_cases, fin_cases, zify, gcongr,
+    nth_rewrite, suffices, generalizing, at, only, native_decide},
+  % warnings - constitution tier: must never survive into a final proof
+  morekeywords=[4]{sorry, admit, sorryAx},
+  literate=
+    {α}{{\ensuremath{\alpha}}}1
+    {β}{{\ensuremath{\beta}}}1
+    {γ}{{\ensuremath{\gamma}}}1
+    {δ}{{\ensuremath{\delta}}}1
+    {ε}{{\ensuremath{\varepsilon}}}1
+    {ζ}{{\ensuremath{\zeta}}}1
+    {η}{{\ensuremath{\eta}}}1
+    {θ}{{\ensuremath{\theta}}}1
+    {ι}{{\ensuremath{\iota}}}1
+    {κ}{{\ensuremath{\kappa}}}1
+    {λ}{{\ensuremath{\lambda}}}1
+    {μ}{{\ensuremath{\mu}}}1
+    {ν}{{\ensuremath{\nu}}}1
+    {ξ}{{\ensuremath{\xi}}}1
+    {π}{{\ensuremath{\pi}}}1
+    {ρ}{{\ensuremath{\rho}}}1
+    {σ}{{\ensuremath{\sigma}}}1
+    {τ}{{\ensuremath{\tau}}}1
+    {υ}{{\ensuremath{\upsilon}}}1
+    {φ}{{\ensuremath{\varphi}}}1
+    {χ}{{\ensuremath{\chi}}}1
+    {ψ}{{\ensuremath{\psi}}}1
+    {ω}{{\ensuremath{\omega}}}1
+    {Γ}{{\ensuremath{\Gamma}}}1
+    {Δ}{{\ensuremath{\Delta}}}1
+    {Θ}{{\ensuremath{\Theta}}}1
+    {Λ}{{\ensuremath{\Lambda}}}1
+    {Ξ}{{\ensuremath{\Xi}}}1
+    {Π}{{\ensuremath{\Pi}}}1
+    {Σ}{{\ensuremath{\Sigma}}}1
+    {Φ}{{\ensuremath{\Phi}}}1
+    {Ψ}{{\ensuremath{\Psi}}}1
+    {Ω}{{\ensuremath{\Omega}}}1
+    {ℵ}{{\ensuremath{\aleph}}}1
+    {∀}{{\ensuremath{\forall}}}1
+    {∃!}{{\ensuremath{\exists}!}}1
+    {∃}{{\ensuremath{\exists}}}1
+    {∈}{{\ensuremath{\in}}}1
+    {∉}{{\ensuremath{\notin}}}1
+    {∘}{{\ensuremath{\circ}}}1
+    {∩}{{\ensuremath{\cap}}}1
+    {∪}{{\ensuremath{\cup}}}1
+    {⊆}{{\ensuremath{\subseteq}}}1
+    {⊂}{{\ensuremath{\subset}}}1
+    {⊇}{{\ensuremath{\supseteq}}}1
+    {⊃}{{\ensuremath{\supset}}}1
+    {⊄}{{\ensuremath{\nsubseteq}}}1
+    {∅}{{\ensuremath{\emptyset}}}1
+    {∧}{{\ensuremath{\wedge}}}1
+    {∨}{{\ensuremath{\vee}}}1
+    {¬}{{\ensuremath{\neg}}}1
+    {⊤}{{\ensuremath{\top}}}1
+    {⊥}{{\ensuremath{\bot}}}1
+    {↔}{{\ensuremath{\leftrightarrow}}}1
+    {→}{{\ensuremath{\rightarrow}}}1
+    {←}{{\ensuremath{\leftarrow}}}1
+    {↑}{{\ensuremath{\uparrow}}}1
+    {⇒}{{\ensuremath{\Rightarrow}}}1
+    {⇐}{{\ensuremath{\Leftarrow}}}1
+    {⟹}{{\ensuremath{\Longrightarrow}}}1
+    {↦}{{\ensuremath{\mapsto}}}1
+    {≤}{{\ensuremath{\leq}}}1
+    {≥}{{\ensuremath{\geq}}}1
+    {≠}{{\ensuremath{\neq}}}1
+    {≈}{{\ensuremath{\approx}}}1
+    {≡}{{\ensuremath{\equiv}}}1
+    {≃}{{\ensuremath{\simeq}}}1
+    {≅}{{\ensuremath{\cong}}}1
+    {×}{{\ensuremath{\times}}}1
+    {·}{{\ensuremath{\cdot}}}1
+    {±}{{\ensuremath{\pm}}}1
+    {⊕}{{\ensuremath{\oplus}}}1
+    {⊗}{{\ensuremath{\otimes}}}1
+    {⋆}{{\ensuremath{\star}}}1
+    {▸}{{\ensuremath{\blacktriangleright}}}1
+    {⟨}{{\ensuremath{\langle}}}1
+    {⟩}{{\ensuremath{\rangle}}}1
+    {⦃}{{\ensuremath{\{\!\mid}}}1
+    {⦄}{{\ensuremath{\mid\!\}}}}1
+    {⟦}{{\ensuremath{[\![}}}1
+    {⟧}{{\ensuremath{]\!]}}}1
+    {⌊}{{\ensuremath{\lfloor}}}1
+    {⌋}{{\ensuremath{\rfloor}}}1
+    {⌈}{{\ensuremath{\lceil}}}1
+    {⌉}{{\ensuremath{\rceil}}}1
+    {√}{{\ensuremath{\surd}}}1
+    {∣}{{\ensuremath{\mid}}}1
+    {∤}{{\ensuremath{\nmid}}}1
+    {∎}{{\ensuremath{\blacksquare}}}1
+    {⋯}{{\ensuremath{\cdots}}}1
+    {…}{{\ensuremath{\ldots}}}1
+    {∑}{{\ensuremath{\sum}}}1
+    {∏}{{\ensuremath{\prod}}}1
+    {⁻¹}{{\ensuremath{^{-1}}}}1
+    {¹}{{\ensuremath{^1}}}1
+    {²}{{\ensuremath{^2}}}1
+    {³}{{\ensuremath{^3}}}1
+    {ⁿ}{{\ensuremath{^n}}}1
+    {ᵐ}{{\ensuremath{^m}}}1
+    {₀}{{\ensuremath{_0}}}1
+    {₁}{{\ensuremath{_1}}}1
+    {₂}{{\ensuremath{_2}}}1
+    {₃}{{\ensuremath{_3}}}1
+    {₄}{{\ensuremath{_4}}}1
+    {₅}{{\ensuremath{_5}}}1
+    {ₙ}{{\ensuremath{_n}}}1
+    {ₘ}{{\ensuremath{_m}}}1
+    {ₖ}{{\ensuremath{_k}}}1
+    {ᵢ}{{\ensuremath{_i}}}1
+    {ⱼ}{{\ensuremath{_j}}}1
+    {ℤ}{{\ensuremath{\mathbb{Z}}}}1
+    {ℕ}{{\ensuremath{\mathbb{N}}}}1
+    {ℚ}{{\ensuremath{\mathbb{Q}}}}1
+    {ℝ}{{\ensuremath{\mathbb{R}}}}1
+    {ℂ}{{\ensuremath{\mathbb{C}}}}1
+    {𝔽}{{\ensuremath{\mathbb{F}}}}1
+    {𝒫}{{\ensuremath{\mathcal{P}}}}1
+    {∗}{{\ensuremath{\ast}}}1
+    {•}{{\ensuremath{\bullet}}}1,
+  % Comments
+  morecomment=[l]{--},
+  morecomment=[s]{/-}{-/},
+  morestring=[b]",
+  stringstyle=\color{stringcolor},
+  keepspaces=true,
+  keywordstyle=[1]\color{keywordcolor}\bfseries,
+  keywordstyle=[2]\color{sortcolor}\bfseries,
+  keywordstyle=[3]\color{tacticcolor}\bfseries,
+  keywordstyle=[4]\color{errorcolor}\bfseries\underline,
+  escapeinside={(*@}{@*)},
+  columns=fullflexible,
+  basicstyle=\ttfamily\small,
+  commentstyle=\color{commentcolor}\itshape,
+  breaklines=true,
+  showstringspaces=false,
+  frame=single,
+  framesep=2mm,
+  xleftmargin=4mm,
+  numbers=left,
+  numberstyle=\tiny\color{commentcolor},
+  numbersep=6pt,
+}
+
+% Inline Lean code in prose: \lean{Int.ModEq.pow}
+\newcommand{\lean}[1]{\lstinline[language=lean,basicstyle=\ttfamily\normalsize]|#1|}

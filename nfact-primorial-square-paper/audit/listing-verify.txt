@@ -1,0 +1,6 @@
+PASS lst:stmt: byte-identical to snapshot lean fence (2207 bytes)
+PASS lst:chain: byte-identical to final-nfact-primorial-square.lean lines 96-168 (5637 bytes)
+PASS lst:tail: byte-identical to final-nfact-primorial-square.lean lines 735-767 (1771 bytes)
+PASS lst:main: byte-identical to final-nfact-primorial-square.lean lines 771-1094 (19702 bytes)
+PASS lst:axioms: byte-identical to zenodo/audit/axioms.out (934 bytes)
+VERDICT: PASS (all listings byte-identical)

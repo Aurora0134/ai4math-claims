@@ -1,0 +1,249 @@
+<!-- AI 生成（监察院终态审计工人 audit-final / tower M6，2026-10-06，kimi 端点 anthropic/a6api-main/kimi-k3；宪条 6 标注） -->
+================================================================================
+闸门三 · 监察院终态审计报告（SOP 05）
+任务：x² = n!·n# 完全解集定理（tasks/20261006-nfact-primorial-square）
+执行：tower 工人 audit-final（mission M6，只读审查 + 本 worktree 落件）
+时点：2026-10-06 05:42–05:47 +0800
+环境：Lean v4.34.0 + mathlib4 v4.34.0（rev 5ed29652，钉死版）；主仓 verify-proj
+================================================================================
+
+【输入件（只读，未改）】
+- 终件：主仓 tasks/20261006-nfact-primorial-square/attempts/final-nfact-primorial-square.lean
+  sha256 = 276cb2e698f6d201752eed3cb1104254d976f1a392ba3860a194eaa66986070a
+  62242 字节 / 1094 行 / mtime 2026-10-06 05:37:28 +0800
+- 冻结快照：主仓 tasks/20261006-nfact-primorial-square/formalized/nfact-primorial-square.statement.txt
+  （8 条 statement 文本 + kernel #check goal state 实录，闸门二通过后冻结）
+- 参考不采信：attempts/tower-reverify-final.md（塔台复验记录）；本审计全部判定独立重做。
+  独立性说明：终件 sha256 与该记录申报值逐字一致（仅证明文件未被改动，不构成判定依据）。
+
+================================================================================
+检查 1/4：statement 对比（终件 8 条 theorem 声明头部 vs 冻结快照；忽略空白与注释）
+================================================================================
+方法（机械可复现）：
+- 快照侧：取快照 ```lean 围栏块，每条自「^theorem <名>」至下一条 docstring 前（快照无 proof body）。
+- 终件侧：每条自「^theorem <名>」至首个「:=」前（即剔除 proof body）。
+- 比较前两脚本剥注释（行注释 -- 与块注释 /- -/，docstring 属注释）后按两种空白口径比对：
+  口径A=空白串折叠为单空格；口径B=删除全部空白。两口径均 MATCH 才记 MATCH。
+- 另核：每条定理名在快照与终件中作为「^theorem <名>」出现次数须恰为 1（防同名遮蔽）。
+
+脚本与输出原文（脚本全文见文末《复现命令清单》§R1）：
+
+== uniqueness: count of '^theorem <name>' (must be exactly 1 in each) ==
+  isSquare_factorial_mul_primorial_iff: snapshot=1 final=1
+  exists_sq_factorial_mul_primorial_iff: snapshot=1 final=1
+  isSquare_iff_all_factorization_odd: snapshot=1 final=1
+  exists_prime_between_div_three_and_div_two: snapshot=1 final=1
+  witnesses_zero_to_five: snapshot=1 final=1
+  primorial_factorization_eq_one: snapshot=1 final=1
+  primorial_factorization_eq_zero: snapshot=1 final=1
+  factorization_factorial_mul_primorial: snapshot=1 final=1
+
+== header comparison (snapshot segment = 'theorem'..next docstring; final segment = 'theorem'..first ':=') ==
+  [MATCH/MATCH] isSquare_factorial_mul_primorial_iff
+  [MATCH/MATCH] exists_sq_factorial_mul_primorial_iff
+  [MATCH/MATCH] isSquare_iff_all_factorization_odd
+  [MATCH/MATCH] exists_prime_between_div_three_and_div_two
+  [MATCH/MATCH] witnesses_zero_to_five
+  [MATCH/MATCH] primorial_factorization_eq_one
+  [MATCH/MATCH] primorial_factorization_eq_zero
+  [MATCH/MATCH] factorization_factorial_mul_primorial
+
+== supplementary observation: docstring comparison (comments; NOT part of verdict) ==
+  [MATCH] isSquare_factorial_mul_primorial_iff
+  [MATCH] exists_sq_factorial_mul_primorial_iff
+  [DIFF] isSquare_iff_all_factorization_odd
+    snapshot: /-- **引理 A（等价估值判据）**：对 `n ≥ 1`，`n! · n#` 是完全平方 ⟺ 对每个素数 `p ≤ n`，`ν_p(n!)` 为奇数。 -/
+    final   : /-- **引理 A（等价估值判据）**：对 `n ≥ 1`，`n! · n#` 是完全平方 ⟺ 对每个素数 `p ≤ n`，`ν_p(n!)` 为奇数。 （`Nat.factorization m p` 即 ν_p(m)：素数 p 在 m 中的指数。） -/
+  [DIFF] exists_prime_between_div_three_and_div_two
+    snapshot: /-- **引理 B（区间素数引理）**：对每个整数 `n ≥ 22`，存在素数 `p` 使 `n/3 < p ≤ n/2`。 -/
+    final   : /-- **引理 B（区间素数引理）**：对每个整数 `n ≥ 22`，存在素数 `p` 使 `n/3 < p ≤ n/2`。 （`/ `为 ℕ 整除：区间即 `⌊n/3⌋ < p ≤ ⌊n/2⌋`，与 NL 原文的实数区间解读在素数存在性上 一致——p 为整数，`n/3 < p ⟺ ⌊n/3⌋ < p`，`p ≤ n/2 ⟺ p ≤ ⌊n/2⌋`，详见 faithful.md。） -/
+  [DIFF] witnesses_zero_to_five
+    snapshot: /-- **见证层（主定理 ⟸ 向的显式平方根）**：n = 0..5 各点 `x² = n!·n#`，x = 1, 1, 2, 6, 12, 60。 -/
+    final   : /-- **见证层（主定理 ⟸ 向的显式平方根）**：n = 0..5 各点 `x² = n!·n#`， x = 1, 1, 2, 6, 12, 60（与 NL 主命题的对应关系逐点一致）。 -/
+  [MATCH] primorial_factorization_eq_one
+  [MATCH] primorial_factorization_eq_zero
+  [MATCH] factorization_factorial_mul_primorial
+
+VERDICT check-1 (headers 8/8 MATCH under both whitespace rules): PASS
+
+docstring 差异说明（透明报告，不入裁决）：3 条 docstring 在终件中各追加了一句解释性文字
+（ν_p 记法说明 / ℕ 整除区间口径说明 / 与 NL 主命题对应关系说明）。docstring 属注释，按
+「忽略空白与注释」口径不计入 statement 比对；所增文字为阐释性内容，未更动命题文本。
+补充：终件较快照源文件另有 ① 头部 `open Nat Finset`（快照口径 open Nat；多 open 一个
+Finset）② 两行 set_option（maxRecDepth 8192 / maxHeartbeats 2000000，纯资源限额，不改语义）
+③ 支撑命名空间 NFactPrimorialSquareChain 与若干辅助 theorem。三者对 8 条冻结 statement 的
+语义影响由检查 2 的 #check 逐字比对 kernel 目标态兜底排除（8/8 一致，见下）。
+
+【检查 1 判定】PASS —— 8/8 声明头部与冻结快照一致（两口径），无 statement 篡改。
+
+================================================================================
+检查 2/4：严格编译（scripts/lean-verify 严格准则；与检查 4 合并一次编译，SOP 05 动作 2）
+================================================================================
+探针件（本审计自建，未复用 attempts/m5-axioms-probe.lean）：
+tmp-probe/audit-final/m6-probe.lean = 终件逐字拷贝 + 尾部 26 行探针（8 行 #check @、8 行
+#check、8 行 #print axioms + 1 行注释 + 1 空行）。「探针前缀 = 终件逐字」机械证据：
+
+  final size: 62242
+  276cb2e698f6d201752eed3cb1104254d976f1a392ba3860a194eaa66986070a *-        （head -c 62242 探针）
+  276cb2e698f6d201752eed3cb1104254d976f1a392ba3860a194eaa66986070a *…/final-nfact-primorial-square.lean
+
+编译命令（主仓根发起，flags 先于路径）：
+  source scripts/lake-env.sh && scripts/lean-verify --full tmp-probe/audit-final/m6-probe.lean
+
+结果原文：
+  LEAN_VERIFY_EXIT=0
+  诊断全文中 error 出现次数 = 0；warning 共 3 条（SOP 05：linter/deprecated 警告不作否决）：
+  ① m6-probe.lean:708:78: warning: exponent 100000 exceeds the threshold 256, exponentiation
+     operation was not evaluated, use `set_option exponentiation.threshold <num>` …
+     （elaborator 归约性能启发式提示；kernel 对证明项独立全量检查，不受影响）
+  ② m6-probe.lean:740:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+  ③ m6-probe.lean:794:52: warning: Variable name `hn` is not explicitly referenced.（linter）
+  编译墙钟约 36.9s。
+
+附带语义核验（#check 8 条 vs 快照 goal state 实录，空白折叠口径逐字比对）：
+  snapshot record entries parsed: 8/8
+  [MATCH] isSquare_factorial_mul_primorial_iff
+  [MATCH] exists_sq_factorial_mul_primorial_iff
+  [MATCH] isSquare_iff_all_factorization_odd
+  [MATCH] exists_prime_between_div_three_and_div_two
+  [MATCH] witnesses_zero_to_five
+  [MATCH] primorial_factorization_eq_one
+  [MATCH] primorial_factorization_eq_zero
+  [MATCH] factorization_factorial_mul_primorial
+  （kernel 实化类型与快照实录 8/8 一致；含快照实录特有的「后三条带 @ 前缀」形态在本审计
+   独立复跑中逐字重现——二者同源同工具链的旁证。）
+
+【检查 2 判定】PASS —— exit 0、0 error、8/8 #check 与冻结快照 kernel 实录一致。
+
+================================================================================
+检查 3/4：sorry 审计（双保险 grep；lean-verify 严格模式已内置 \bsorry\b|\badmit\b 兜底）
+================================================================================
+命令与输出原文：
+  $ grep -inE "sorry|admit" tasks/20261006-nfact-primorial-square/attempts/final-nfact-primorial-square.lean
+  （无输出）exit=1
+  $ grep -inE "sorry|admit" tmp-probe/audit-final/m6-probe.lean
+  （无输出）exit=1
+  $ grep -cE '\bsorry\b|\badmit\b' <终件> <探针>
+  终件:0  探针:0
+（exit=1 = grep 无命中；大小写不敏感与词边界两口径均 0 命中，含注释。）
+
+另扫描非常规占位/绕 kernel 手段（终件全文）：axiom / unsafe / opaque / native_decide /
+implemented_by —— 0 命中（exit=1）。
+
+【检查 3 判定】PASS —— 0 sorry、0 admit，无绕 kernel 构造。
+
+================================================================================
+检查 4/4：公理审计（#print axioms × 8，白名单 {propext, Quot.sound, Classical.choice} 子集）
+================================================================================
+与检查 2 同一次编译的尾部探针输出，原文逐字（含第 4 条折行形态）：
+
+  'NFactPrimorialSquare.isSquare_factorial_mul_primorial_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'NFactPrimorialSquare.exists_sq_factorial_mul_primorial_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'NFactPrimorialSquare.isSquare_iff_all_factorization_odd' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'NFactPrimorialSquare.exists_prime_between_div_three_and_div_two' depends on axioms: [propext,
+   Classical.choice,
+   Quot.sound]
+  'NFactPrimorialSquare.witnesses_zero_to_five' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'NFactPrimorialSquare.primorial_factorization_eq_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'NFactPrimorialSquare.primorial_factorization_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+  'NFactPrimorialSquare.factorization_factorial_mul_primorial' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+机械解析（折行续接后比对，白名单差集为空方记 OK）：
+  [OK] isSquare_factorial_mul_primorial_iff: [Classical.choice, Quot.sound, propext]
+  [OK] exists_sq_factorial_mul_primorial_iff: [Classical.choice, Quot.sound, propext]
+  [OK] isSquare_iff_all_factorization_odd: [Classical.choice, Quot.sound, propext]
+  [OK] exists_prime_between_div_three_and_div_two: [Classical.choice, Quot.sound, propext]
+  [OK] witnesses_zero_to_five: [Classical.choice, Quot.sound, propext]
+  [OK] primorial_factorization_eq_one: [Classical.choice, Quot.sound, propext]
+  [OK] primorial_factorization_eq_zero: [Classical.choice, Quot.sound, propext]
+  [OK] factorization_factorial_mul_primorial: [Classical.choice, Quot.sound, propext]
+  8/8 条目齐全，无 sorryAx，无任何白名单外公理（公理集恰为白名单本身，属其子集）。
+
+【检查 4 判定】PASS —— 8/8 公理全落白名单。
+
+================================================================================
+结论分级（SOP 05 动作 5，取实际达到的最低级）
+================================================================================
+  完全证明要件逐项：0 sorry ✓（检查 3）｜白名单公理 ✓（检查 4）｜statement 未动 ✓（检查 1
+  文本口径 + 检查 2 kernel 目标态口径双证）｜严格编译 exit 0 / 0 error ✓（检查 2）｜
+  未带额外假设（statement 逐字一致即无新增假设）✓
+
+  ★ 分级结论：完全证明 ★
+
+  覆盖命题（冻结 8 条）：主定理 iff 形态（n!·n# 为平方 ⟺ n ≤ 5）+ 主定理存在见证形态
+  （∃x, x² = n!·n# ⟺ n ∈ {0,…,5}）+ 引理 A（等价估值判据，n ≥ 1）+ 引理 B（区间素数，
+  n ≥ 22）+ 见证层六点（x = 1,1,2,6,12,60）+ 辅助三件，全部 0 sorry、白名单公理闭合。
+
+================================================================================
+复现命令清单（全部从主仓根 <AI4MATH-REPO-ROOT> 发起；临时件用后删）
+================================================================================
+R0. 建 scratch：mkdir -p tmp-probe/audit-final
+
+R1. 检查 1（statement 对比）：将下列脚本存为 tmp-probe/audit-final/compare_stmt.py，
+    跑 `python tmp-probe/audit-final/compare_stmt.py`：
+
+    #!/usr/bin/env python3
+    import re, sys
+    sys.stdout.reconfigure(encoding="utf-8")
+    SNAP = r"<AI4MATH-REPO-ROOT>\tasks\20261006-nfact-primorial-square\formalized\nfact-primorial-square.statement.txt"
+    FINAL = r"<AI4MATH-REPO-ROOT>\tasks\20261006-nfact-primorial-square\attempts\final-nfact-primorial-square.lean"
+    NAMES = ["isSquare_factorial_mul_primorial_iff","exists_sq_factorial_mul_primorial_iff",
+             "isSquare_iff_all_factorization_odd","exists_prime_between_div_three_and_div_two",
+             "witnesses_zero_to_five","primorial_factorization_eq_one",
+             "primorial_factorization_eq_zero","factorization_factorial_mul_primorial"]
+    strip = lambda s: re.sub(r"--[^\n]*","",re.sub(r"/-.*?-/","",s,flags=re.S))
+    collapse = lambda s: re.sub(r"\s+"," ",strip(s)).strip()
+    squeeze = lambda s: re.sub(r"\s+","",strip(s))
+    hits = lambda t,n: [m.start() for m in re.finditer(r"(?m)^theorem "+re.escape(n)+r"\b",t)]
+    block = re.search(r"```lean\n(.*?)```",open(SNAP,encoding="utf-8").read(),flags=re.S).group(1)
+    fin = open(FINAL,encoding="utf-8").read()
+    ok = True
+    for n in NAMES:
+        assert len(hits(block,n))==1 and len(hits(fin,n))==1, n   # 唯一性
+        i = hits(block,n)[0]; j2 = block.find("\n/--",i)
+        seg_s = block[i:] if j2==-1 else block[i:j2]
+        j = hits(fin,n)[0]; seg_f = fin[j:fin.find(":=",j)]
+        r = (collapse(seg_s)==collapse(seg_f), squeeze(seg_s)==squeeze(seg_f))
+        ok &= all(r); print(("MATCH" if all(r) else "DIFF"), n)
+    print("VERDICT:", "PASS" if ok else "FAIL")
+
+R2. 检查 3（sorry 审计）：
+    grep -inE "sorry|admit" tasks/20261006-nfact-primorial-square/attempts/final-nfact-primorial-square.lean
+    grep -cE '\bsorry\b|\badmit\b' tasks/20261006-nfact-primorial-square/attempts/final-nfact-primorial-square.lean
+    grep -nE '^[[:space:]]*(axiom|unsafe|opaque)\b|native_decide|implemented_by' tasks/20261006-nfact-primorial-square/attempts/final-nfact-primorial-square.lean
+
+R3. 检查 2+4（探针构造 + 合并编译）：
+    cp tasks/20261006-nfact-primorial-square/attempts/final-nfact-primorial-square.lean tmp-probe/audit-final/m6-probe.lean
+    # 尾部追加 26 行（逐字）：
+    #   （空行）
+    #   -- M6 gate3 audit probe (appended by audit-final; bytes above = final file verbatim)
+    #   #check @NFactPrimorialSquare.isSquare_factorial_mul_primorial_iff
+    #   #check @NFactPrimorialSquare.exists_sq_factorial_mul_primorial_iff
+    #   #check @NFactPrimorialSquare.isSquare_iff_all_factorization_odd
+    #   #check @NFactPrimorialSquare.exists_prime_between_div_three_and_div_two
+    #   #check @NFactPrimorialSquare.witnesses_zero_to_five
+    #   #check @NFactPrimorialSquare.primorial_factorization_eq_one
+    #   #check @NFactPrimorialSquare.primorial_factorization_eq_zero
+    #   #check @NFactPrimorialSquare.factorization_factorial_mul_primorial
+    #   #check NFactPrimorialSquare.<同序 8 名>            × 8 行
+    #   #print axioms NFactPrimorialSquare.<同序 8 名>     × 8 行
+    # 前缀逐字验证：head -c 62242 tmp-probe/audit-final/m6-probe.lean | sha256sum
+    #   须 = 276cb2e698f6d201752eed3cb1104254d976f1a392ba3860a194eaa66986070a
+    source scripts/lake-env.sh && scripts/lean-verify --full tmp-probe/audit-final/m6-probe.lean
+    # 判据：exit 0；输出 0 error；8/8 #check 与快照 goal state 实录一致（空白折叠）；
+    #       8/8 #print axioms ⊆ {propext, Quot.sound, Classical.choice} 且无 sorryAx。
+
+R4. scratch 清理（临时文件纪律）：rm -rf tmp-probe/audit-final
+
+================================================================================
+审计轨与边界声明
+================================================================================
+- 本审计不采信任何 LLM 自评（含塔台复验记录与工人申报）；全部判定 = 本报告所列机械步骤
+  的独立重跑输出。
+- 终件与冻结快照全程只读；探针件为临时副本，用后删除（R4）。
+- 本件落点：tower worktree wt-6 deliverables/audit/final-nfact-primorial-square.txt
+  （按派发纪律由塔台整合至主仓 tasks/20261006-nfact-primorial-square/audit/ 同名件）。
+- 观察项（不影响判定，如实记录）：3 条 docstring 追加解释句（注释级）；open 增 Finset；
+  set_option 资源限额两行；支撑命名空间与辅助定理若干——8 条冻结 statement 的文本与
+  kernel 目标态均逐字一致，语义零漂移。
+================================================================================
