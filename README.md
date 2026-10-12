@@ -28,6 +28,8 @@
 | `ladder-pend3-interleave/` | 阶梯图 pendant 匹配计数序列 ap3：三受审定理（交织结构 `ap3_interleave` + mod-2 周期 15 + mod-4 周期 30；语义桥属猜想层，未进 kernel） | 同上结构 | 同上；C9 记录逐字（含零命中查询） | 10.5281/zenodo.23080747 |
 | `nfact-primorial-square/` | 丢番图方程 x² = n!·n#（阶乘乘 primorial）的完全解集：解恰为 n ∈ {0,…,5}（x = 1,1,2,6,12,60）——Novaković 2026（arXiv:2601.16757）正文自陈未解情形之一的完全答案（八条冻结 statement：主定理 iff 双形态 + 估值判据引理 A + 区间素数引理 B（素数证书链 + Erdős 风格阶乘比尾巴）+ 见证层 + 辅助三件，通用 n 完全证明，终件 1094 行） | 同上结构（短笺含逐字冻结快照与终件摘录；C9 全量查新记录随包） | 同上；引理 B 的 n ≥ 22 排除为纯定理（不依赖任何计算界） | 10.5281/zenodo.23177003（概念 DOI；v1.0.1 = …23177585） |
 | `nfact-primorial-square-paper/` | 同一 kernel 成果的正式论文轨（SOP 08）：arXiv 级叙述性论文源 + PDF + 证据包（与占位包 proofs 逐字节共享，体裁不同；含 Bertrand 黑盒拼接路的方法级否证一节） | paper/（tex+PDF）+ proofs/ + audit/ + metadata/ | 同上；主张审计（SOP 08 工序 6）零发现 | 10.5281/zenodo.23179326 |
+| `dfact-lcm-square/` | 丢番图方程 x² = n!!·lcm(1..n)（双阶乘乘最小公倍数）的完全解集：解恰为 n ∈ {0,1,2,5,7}（x = 1,1,2,30,210，各恰等于 n#）——Novaković 2026（arXiv:2601.16757）同句自陈未解第二情形的完全答案（十二条定理：主定理 iff + 奇偶判据引理 A′ + 见证层五点 + 两臂排除，通用 n 完全证明，终件 334 行；独立终审裁决书「完全证明」随包） | 同上结构（短笺含逐字冻结快照与终件摘录；查新记录随包：邻域 7 篇全文逐字核零覆盖 + Semantic Scholar 锚点引用实测 0） | Lean 4 kernel 全编译（严格 EXIT=0、0 sorry、公理 12/12 白名单）；冻结 sha256 在包内 | 10.5281/zenodo.23309732（概念 DOI；v1.0.0 = …23309733） |
+| `dfact-lcm-square-paper/` | 同一 kernel 成果的正式论文轨（SOP 08）：arXiv 级叙述性论文源 + PDF + 证据包（与占位包 proofs 逐字节共享，体裁不同；元数据 related_identifiers 与占位包互链） | paper/（tex+PDF）+ proofs/ + audit/ + metadata/ | 同上；独立终审裁决书 + 严格编译/公理探针跑档随包 | 10.5281/zenodo.23309983（概念 DOI；v1.0.0 = …23309984） |
 
 ## 工具链钉版
 

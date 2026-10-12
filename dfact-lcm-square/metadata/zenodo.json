@@ -1,0 +1,43 @@
+{
+  "title": "Priority claim: complete solution set of x^2 = n!! * lcm(1..n) (exactly n in {0,1,2,5,7}) — Lean 4 formalized proof + claim note",
+  "upload_type": "software",
+  "version": "1.0.0",
+  "access_right": "open",
+  "publication_date": "2026-10-12",
+  "language": "eng",
+  "description": "Priority claim of record: the complete solution set of the Diophantine equation x^2 = n!! * lcm(1..n) over the natural numbers -- exactly n in {0,1,2,5,7} (with x = 1,1,2,30,210), the second of the two cases that Novakovic 2026 (arXiv:2601.16757) states as open in his own text. Contains the claim note (LaTeX source + PDF), the Lean 4 proof sources (mathlib v4.34.0, rev 5ed29652, 0 sorry, #print axioms whitelist verified), audit evidence (compile log, statement integrity comparison, axiom print, degenerate probes, independent final audit verdict) and the full novelty search record. The note is released under CC BY 4.0 and the code under MIT. This artifact was developed with AI assistance under the author's direction; all statements and proofs were checked by the Lean 4 kernel (0 sorry; axioms limited to {propext, Quot.sound, Classical.choice}), and the author is responsible for the final review. The narrative paper, if published, will cite this DOI.",
+  "creators": [
+    {
+      "name": "Aurora0134",
+      "affiliation": ""
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "formalized mathematics",
+    "Lean 4",
+    "mathlib",
+    "theorem proving",
+    "machine-assisted proof",
+    "priority claim",
+    "Diophantine equation",
+    "double factorial",
+    "least common multiple"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/Aurora0134/ai4math-claims",
+      "relation": "isIdenticalTo",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "https://arxiv.org/abs/2601.16757",
+      "relation": "references",
+      "resource_type": "publication-preprint"
+    }
+  ],
+  "communities": [
+    {"identifier": "aitp"}
+  ],
+  "notes": "Claim of record for priority. Developed with AI assistance under human direction; all statements and proofs verified by the Lean 4 kernel (0 sorry; axioms: propext, Quot.sound, Classical.choice). Novelty search record (full query log) included in audit/. The author reviewed and is responsible for all content."
+}

@@ -1,0 +1,22 @@
+IN  Nat.bertrand
+IN  Nat.doubleFactorial
+IN  Nat.doubleFactorial_two_mul
+IN  Nat.factorial_eq_mul_doubleFactorial
+IN  Nat.factorization
+IN  Nat.factorization_factorial
+IN  Nat.factorization_lcmUpto
+IN  Nat.isSquare_iff_even_factorization
+IN  Nat.lcmUpto
+IN  dfact_lcm_square_solution_set
+IN  exists_sq_dfact_lcm_iff
+IN  isSquare_iff_exists_sq
+IN  nonsquare_at_11
+IN  nonsquare_at_13
+IN  nonsquare_at_29
+IN  nonsquare_at_3
+IN  nonsquare_at_31
+IN  nonsquare_at_9
+IN  not_isSquare_of_odd_factorization
+IN  n‼
+IN  odd_dfact_lcm_nonsquare_of_prime
+VERDICT: PASS (all \lean{} identifiers occur in the final proof file)

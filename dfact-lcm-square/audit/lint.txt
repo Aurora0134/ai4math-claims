@@ -1,0 +1,31 @@
+static gate record for this package (the repository's paper lint tool)
+
+command : the static gate of the author's repository, run on the paper source of this
+          package; the file it read is byte-identical to the copy shipped as
+          paper/paper.tex, and the gate also reads the listings style file beside it,
+          proofs/*.lean and audit/*.md of this tree
+exit    : 0
+verdict : PASS -- all static checks green
+run date: 2026-10-07
+
+Checks the gate runs, and the state of this paper:
+  environment balance; lstlisting begin/end balance (every listing matched); no
+  sorry/admit/sorryAx inside any listing; no non-ASCII byte outside listings, inline
+  code or comments; no template placeholder or draft marker left; author line = the
+  account name Aurora0134; metadata author line identical to it and no orcid placeholder;
+  required sections present (Introduction, Data availability, Use of generative AI,
+  Limitations); theorem anchors -- every theorem of the body carries a machine-readable
+  anchor line naming the working task and the grade 'complete proof'; citation keys are a
+  subset of the bibliography keys; and the outbound-cleanliness check over the paper, the
+  listings style file, proofs/*.lean and audit/*.md (no mechanism self-description, no
+  channel-prefixed model identifier, no working-record path, no internal code name, no
+  Chinese byte; the only exempt line form is the theorem anchor, and it is the only line
+  form of the package that carries text in that language).
+
+Wording of this record: the tool prints its banner in the working language of the
+author's repository; the raw console line of the same run is kept with the working
+record of the author's repository and is not shipped, and it is rendered in English here,
+because the package carries no Chinese text apart from the exempted theorem anchor lines.
+The face of this check is the .tex sources, proofs/*.lean and audit/*.md: the machine
+records of this directory with the extensions .txt and .log are outside it, and their
+wording was reviewed by hand (see audit/package-notes.md).

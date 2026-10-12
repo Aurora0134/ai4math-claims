@@ -1,0 +1,211 @@
+Independent final audit verdict (auditor role, final-audit procedure)
+Subject: candidate 01, complete solution set of x^2 = n!! * lcm(1..n) = {0,1,2,5,7}
+==================================================================================
+Auditor: an independent reviewer of the author's working process
+         (read-only; separate from the proving stage; its dispatch
+         bookkeeping is not reproduced here)
+Date: 2026-10-06
+Audited file: the integrated final development
+         <source-task>/attempts/final-dfact-lcm-square.lean
+Discipline statement: every check was redone independently; the worker's
+         self-audit was not relied upon (its existing audit/ files serve only
+         as cross-reference, not as evidence). Exit codes were read directly
+         (no pipes). Compilation ran through the repository's own verify script
+         with the central verify project.
+
+--------------------------------------------------------------------------------
+VERDICT: complete proof (the highest grade), cleared for presentation to the
+human signing gate.
+--------------------------------------------------------------------------------
+
+1. Artifact identity
+- sha256 measured 1107cad44affa0bc84bb4a285c0381d6e6a0afd15c08d935cbda0cee7a256d8e
+  -- matches what was dispatched. OK
+- Line count: measured 333 lines (both wc -l and grep -c '' agree; the last line
+  ends with a newline), while the dispatch, the task card, the handoff and the
+  report all say "334 lines" -- a one-off difference in convention. Identity is
+  anchored by sha256 and is unaffected (finding P2-1).
+
+2. Final-state four checks (all redone independently)
+1. Strict compilation: the repository's verify script in strict mode (error
+   rejection plus a textual sorry/admit fallback), EXIT=0 (read directly;
+   recorded in the source repository's strict-compile log, of which the
+   load-bearing lines ship here as strict-compile.txt),
+   0 errors. Exactly one warning = L257 push_neg deprecated (style level, the
+   same line as in the worker's record; three same-shaped precedents in the
+   anchor final file), not a rejecting item. OK
+2. Text scan (8 forbidden words sorry/admit/native_decide/axiom/opaque/unsafe/
+   implemented_by/extern): code layer (comment-stripped word-boundary scan)
+   0 hits; extended words nativeDecide/ofReduceBool/partial/set_option also
+   0 hits. The only raw grep hit = L21 header note "forbid native_decide"
+   (a comment, not code; finding P2-2). `decide` (kernel-legal decision)
+   occurs 34 times, belonging to the witness layer and the explicit hM
+   decomposition design. OK
+3. Axiom audit: the probe file (in the source repository) is a byte-for-byte copy of
+   the final file (base section sha256 measured 1107cad4...6d8e, identical to
+   the final file) plus 12 trailing #print axioms lines (full coverage of the
+   12 theorems). Compilation EXIT=0 (read directly); 12/12 theorems have axiom
+   set exactly [propext, Classical.choice, Quot.sound], no sorryAx, no extra
+   axioms (its output ships here as axioms.out; #print axioms is a
+   transitive closure, so the axioms of the two library dependencies are
+   covered too). OK
+4. Statement symmetric difference: a comparison script (in the source repository) pairs
+   declarations by name, extracts and compares them verbatim after whitespace
+   normalization -- the three frozen statements (main iff / lemma A' /
+   witness layer) versus the final file: 3/3 IDENTICAL, SYMDIFF CLEAN; and both
+   frozen-side sources (the lean block of formalized/statement.txt and
+   formalized/dfact-lcm-square.lean) also compare IDENTICAL. The final file has
+   12 theorems in total; the 9 items outside the freeze set (the six
+   nonsquare_at_*, the two arms, and the existential accompanying form) are
+   legitimate proof-side additions. OK
+
+3. Dependency and convention checks
+1. The signatures of the two library dependencies match the final file's
+   consumption verbatim (read directly from the repository's library sources):
+   - NFactPrimorialSquare.not_isSquare_of_odd_factorization {m p e : N} (hm : m != 0)
+     (h : m.factorization p = 2 * e + 1) : ~ IsSquare m
+     (NFactPrimorialSquare.lean:838);
+   - IntervalPrimeQuarter.exists_prime_between_quarter_and_third (n : N) (hn : 33 <= n) :
+     exists p : N, p.Prime and n / 4 < p and p <= n / 3
+     (IntervalPrimeQuarter.lean:17).
+   Both olean files were confirmed present in the library build directory. OK
+2. Architecture matches the task card's conventions: exclusion routes close
+   through the library bridge; the middle band {15,...,27} is handled by the
+   generic odd arm with p=5/7 pointwise, plus {3,9,11,13,29,31} explicit
+   witnesses, plus the even arm's Bertrand postulate, plus lemma B' for odd
+   n >= 33; the true-name convention (Nat.lcmUpto /
+   Nat.factorization_lcmUpto) is applied throughout the final file. OK
+3. Citation red lines are met (report.md section 4, item by item on file):
+   arXiv:2606.23485 section 5.3.1 and arXiv:2610.01899 must be cited;
+   erdosproblems #399 is not used as an open anchor (already DISPROVED, only a
+   same-family adjacency); the A055204 distinction statement; the disclosure
+   that the intersection of the solution set with Brocard's {5,7} is a
+   numerical coincidence; the AI-generation markings are present on every
+   file. No over-reaching "new mechanism" wording was found. OK
+
+4. Degeneracy detection (two solution-set perturbation probes; both should and
+   did turn red; each probe is a byte-for-byte copy of the final file with one
+   line of the main theorem's statement changed)
+- Probe A (superset, +n=3, a probe file in the source repository): EXIT=1 (read
+  directly). Error location: L310 the main theorem's mpr direction fails at
+  rcases/subst (the 5 witness patterns do not cover the 6th disjunct n=3,
+  leaving h : n = 7 or n = 3 |- IsSquare (n!! * n.lcmUpto)); L322 section 7's
+  accompanying form has unsolved goals (the perturbed iff no longer matches the
+  Finset solution set). The errors land exactly on the perturbed theorem and
+  its direct downstream. OK
+- Probe B (subset, -n=5, a probe file in the source repository): EXIT=1 (read directly).
+  Error location: L268 the main theorem's mp direction fails at omega (n=5 is
+  odd, >= 4, no longer excluded, so 9 <= n is unprovable -- the perturbation
+  hits the load-bearing spot); L314 mpr direction type mismatch (the h5 witness
+  5!! * lcm does not match the substituted 7!! * lcm); L315 the proof structure
+  breaks down; L322 downstream unsolved goals. OK
+- Conclusion: the proof is load-bearing in both directions on the exact
+  solution set {0,1,2,5,7}; the statement is not decoration.
+  (The worker's self-audit used 12 single-tactic load-bearing probes; the two
+  probes here are the solution-set perturbation type designated by the
+  dispatcher, supplied independently.)
+
+5. Independent numerical recomputation (depending on none of the worker's
+   intermediate artifacts; a recomputation script in the source repository,
+   exact big integers, whose measured output is quoted above)
+- The 5 solution-point witnesses all pass: x^2 == n!! * lcm(1..n) for
+  (n,x) = (0,1),(1,1),(2,2),(5,30),(7,210), with product values
+  1,1,4,900,44100. OK
+- The 6 non-solution-point explicit decomposition witnesses all pass: the
+  measured M(n) values equal the final file's hM lines one by one
+  (18 = 2^1 * 9; 2381400 = 3^5 * 9800; 288149400 = 3^5 * 1185800;
+  48697248600 = 3^5 * 200400200;
+  14417724349712758811987250000 = 7^3 * 42034181777588218110750000;
+  13855433100073961218319747250000 = 7^3 * 40394848688262277604430750000),
+  and in each case p does not divide the cofactor, the exponent is odd, and the
+  isqrt test confirms non-squareness -- all four conditions hold. OK
+- Full-range scan over n in [0,64] for squareness: the solution set is exactly
+  {0,1,2,5,7}, matching the main theorem (this covers every pointwise segment
+  of the middle band). OK
+- Incidental check: the 5 solution roots are exactly n# (0#,1#,2#,5#,7# =
+  1,1,2,30,210) -- an informal-level accompanying observation, numerically
+  consistent. OK (The n >= 33 range is covered at the theorem level by
+  lemma B', not numerically verifiable; the kernel has decided it.)
+
+6. Anti-failure structure scan
+- No axiom / unsafe / partial / opaque / @[implemented_by] / extern /
+  nativeDecide / ofReduceBool; no set_option (neither heartbeat nor recursion
+  depth was adjusted); imports are only Mathlib plus the two already-registered
+  library modules. OK
+
+7. Wording qualifications (the report must carry these when signed; grade rules)
+1. Mechanism-classical qualification: the proof mechanism is the anchor
+   criterion bridge (odd exponent implies non-square) + an Erdos-type interval
+   prime (lemma B', (n/4, n/3], a registered library item) + Bertrand's
+   postulate + Legendre's formula, all classical mechanisms; the wording "new
+   mechanism" is forbidden.
+2. Status wording: Novakovic 2026 (arXiv:2601.16757) self-reports the second
+   case as open in the same sentence; this work gives the complete solution
+   set iff, strictly stronger than the finiteness being asked about. Quoting
+   that paper's self-reported sentence must be verbatim.
+3. Two mandatory citations: arXiv:2606.23485 section 5.3.1 (Peixoto, primorial
+   core Pell, adjacent object that does not characterize this equation) and
+   arXiv:2610.01899 (factorial square products and Erdos-Graham, a different
+   object with a citation obligation).
+4. erdosproblems #399 is not an open anchor (DISPROVED on 2026-02-04); mention
+   it only as a same-family adjacency (already refuted).
+5. A055204 distinction statement: A055204 asks for the smallest a making
+   n! * a(n) a square; this work asks for the complete solution set of
+   n!! * lcm(1..n) -- different objects, and this proposition is not an
+   instance of A055204.
+6. The intersection {5,7} of the solution set with Brocard's solutions
+   {4,5,7} is a numerical coincidence; no Brocard-direction conclusion is
+   claimed.
+7. "The solution root x = n#" is an informal-level accompanying observation and
+   was not formalized as a theorem; the signed wording must not present it as a
+   proved proposition.
+8. Dependency qualification: the main theorem rests on
+   Library.NFactPrimorialSquare and Library.IntervalPrimeQuarter (each
+   delivered by its own separate development and its own final state;
+   the load-bearing nature of the quarter lemma's [33,1213891] chain
+   item and its [4x10^5, infinity) tail item is borne by that
+   development's own final state).
+9. AI-generation marking (constitution): all downstream artifacts carry it;
+   external sending is always manual by the user.
+
+8. Findings
+- P1: none.
+- P2-1 (a convention slip, not a defect of the audited file): the dispatch and
+  the task card / handoff / report all say the final file has "334 lines",
+  while the measured count is 333 lines (both wc -l and grep -c ''; the last
+  line ends with a newline). sha256 matches, so identity is unaffected.
+- P2-2 (a scan-word-list observation, not a defect): the final file's header
+  note at L21 contains the word "native_decide" (the discipline note "forbid
+  native_decide"). The code layer has 0 hits, and the verify script's strict
+  mode textual fallback (sorry|admit) is unaffected; if a later audit adopts a
+  raw word list that includes native_decide, this comment hit should be known.
+
+9. Verdict
+COMPLETE PROOF: the main theorem iff + lemma A' + witness layer + six-point
+witnesses + two arms + section 7's accompanying form, 12 theorems in total, all
+kernel-closed; strict EXIT=0, 0 sorry, 12/12 axioms exactly on the whitelist,
+statements identical to the frozen file declaration by declaration, 2/2
+solution-set perturbation probes turning red as they should, independent
+numerical recomputation all passing. Cleared for presentation to the human
+signing gate; the signed wording must carry section 7's qualifications.
+
+Evidence: which checks are evidenced by files in this package, and which
+stay in the source repository
+
+Shipped in this package:
+- strict-compile.txt -- the strict-mode compilation log of the final file
+  (EXIT=0, read directly; the single deprecation warning quoted above).
+- axioms.out -- the #print axioms output for the twelve theorems, all on the
+  whitelist.
+- This verdict, including the measured values quoted above (line count, exit
+  codes, error locations of the two perturbation probes, the six explicit
+  factorizations, the [0,64] scan result).
+
+Staying in the source repository (not shipped; process material):
+- the axiom probe file (a byte-for-byte copy of the final file plus twelve
+  #print axioms lines) and its compile log;
+- the statement symmetric-difference comparison script and its output
+  (3/3 IDENTICAL, SYMDIFF CLEAN);
+- the two perturbation probe files and their compile logs (both EXIT=1);
+- the independent numerical recomputation script and its output
+  (TOTAL: ALL OK).

@@ -1,0 +1,25 @@
+claim note compilation record of the copy exactly as deposited under claim/
+(XeLaTeX via the repository's portable TeX entry point, Unicode engine)
+
+command : the paper compile gate of the author's repository, run on claim/claim.tex
+exit    : 0
+verdict : PASS -- compiled to PDF
+run date: 2026-10-07
+engine  : tectonic 0.17.0 (pinned, portable); XeTeX path, so the note's rendering
+          patch (active-character block) is active and listings render its symbols
+output  : claim.pdf (7 pages)
+
+Notes taken from the same run:
+  - the engine reported no "Missing character" warning: every symbol the
+    listings use is rendered.
+  - the engine reported only overfull/underfull hbox warnings and the one
+    style-level deprecation warning the note's verification section names;
+    none is an error, and the run exits 0.
+
+Wording of this record: the engine's console output is English; the leading
+banner of the repository's own entry point carries the working language of the
+author's repository and is not reproduced here, so that this file carries no
+text in that language. The full engine transcript of the same run (claim.log)
+is kept with the working record of the author's repository and is not shipped;
+the load-bearing lines are quoted above. This record replaces the raw console
+capture that shipped in v1 of this package, which carried that banner.

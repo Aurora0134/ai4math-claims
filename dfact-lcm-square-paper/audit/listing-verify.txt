@@ -1,0 +1,7 @@
+PASS lst:stmt: byte-identical to dfact-lcm-square.statement.lean lines 40-42+46-49+55-56 (529 bytes)
+PASS lst:crit: byte-identical to final-dfact-lcm-square.lean lines 38-45 (418 bytes)
+PASS lst:wit: byte-identical to final-dfact-lcm-square.lean lines 49-67 (836 bytes)
+PASS lst:even: byte-identical to final-dfact-lcm-square.lean lines 210-241 (1497 bytes)
+PASS lst:main: byte-identical to final-dfact-lcm-square.lean lines 252-262 (314 bytes)
+PASS lst:axioms: byte-identical to zenodo/audit/axioms.out (1522 bytes)
+VERDICT: PASS (all listings byte-identical)

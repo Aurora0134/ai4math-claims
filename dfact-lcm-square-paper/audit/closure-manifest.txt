@@ -1,0 +1,19 @@
+import closure of the deposited final development, measured on the
+files of the accompanying library in the author's working tree:
+bytes, lines and sha256 of each module the final file imports.
+
+The two modules below are NOT part of this deposit. The final
+development imports them (the import lines are among the first lines
+of proofs/final-dfact-lcm-square.lean); the paper's Limitations state
+this boundary, and this manifest records it in measurable form. Each
+module is a separate development of the same grade, with its own
+final state; the grades recorded here are inherited by this deposit,
+not re-established by it.
+
+module (as imported)      bytes  lines  sha256
+NFactPrimorialSquare      62502   1101  05472f4ca5f7f700a2418f8ad870a7ef8534ecfc4648355886a736adb2041da3
+IntervalPrimeQuarter       1189     23  401d4736c6b884794424e2aae39a176fbf0a8d59f2a0466e89754050150c1fce
+
+consumed declaration (the name this deposit's proofs use)
+NFactPrimorialSquare     used 8 time(s): not_isSquare_of_odd_factorization
+IntervalPrimeQuarter     used 1 time(s): exists_prime_between_quarter_and_third

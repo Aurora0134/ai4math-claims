@@ -1,0 +1,19 @@
+<source-task>/attempts/axioms-probe.lean:257:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+'DFactLcmSquare.isSquare_dfact_mul_lcmUpto_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DFactLcmSquare.dfact_lcm_witnesses' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DFactLcmSquare.nonsquare_at_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DFactLcmSquare.nonsquare_at_9' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DFactLcmSquare.nonsquare_at_11' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DFactLcmSquare.nonsquare_at_13' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DFactLcmSquare.nonsquare_at_29' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DFactLcmSquare.nonsquare_at_31' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DFactLcmSquare.odd_dfact_lcm_nonsquare_of_prime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DFactLcmSquare.even_dfact_lcm_nonsquare' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DFactLcmSquare.dfact_lcm_square_solution_set' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DFactLcmSquare.exists_sq_dfact_lcm_iff' depends on axioms: [propext, Classical.choice, Quot.sound]

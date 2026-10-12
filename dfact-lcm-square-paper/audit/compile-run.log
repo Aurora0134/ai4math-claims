@@ -1,0 +1,26 @@
+paper compilation record of the copy exactly as deposited under paper/
+(XeLaTeX via the repository's portable TeX entry point, Unicode engine)
+
+command : the paper compile gate of the author's repository, run on paper/paper.tex
+exit    : 0
+verdict : PASS -- compiled to PDF
+run date: 2026-10-07
+engine  : tectonic 0.17.0 (pinned, portable); XeTeX path, so the paper's rendering
+          patch (active-character block) is active and listings render its symbols
+output  : paper.pdf (15 pages, 127.82 KiB)
+
+Notes taken from the same run, verbatim from the engine's messages:
+  - "Output written on paper.xdv (15 pages, ...)."
+  - "note: Writing `paper.pdf`"
+  - "warning: warnings were issued by the TeX engine; ..." -- the warnings are
+    overfull/underfull hbox reports and the one style-level deprecation warning
+    the paper's verification section names; none is an error.
+  - zero "Missing character" warnings: every symbol the listings use is rendered.
+
+Wording of this record: the engine's console output is English; the leading
+banner of the repository's own entry point carries the working language of the
+author's repository and is not reproduced here, so that this file carries no
+text in that language apart from the exempted theorem-anchor line form (see
+audit/lint.txt). The full engine transcript of the same run (paper.log) is
+kept with the working record of the author's repository and is not shipped;
+the load-bearing lines are quoted above.

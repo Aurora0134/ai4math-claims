@@ -1,0 +1,281 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\input{lstlean}
+\lstset{language=lean}
+
+% XeTeX rendering patch: listings' literate table does not apply to multibyte
+% characters under XeTeX, so the Unicode symbols used in Lean sources are mapped
+% to math glyphs via active characters (ASCII-only source, no extra packages);
+% xeCJK+SimSun covers any CJK characters inside listings. Rendering-only: the
+% listing source bytes are unchanged; the \ifdefined guard keeps the pdflatex
+% path unaffected.
+\ifdefined\XeTeXversion
+  {\lccode`\~="2115 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\mathbb{N}}}}}
+  {\lccode`\~="2192 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\rightarrow}}}}
+  {\lccode`\~="2194 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\leftrightarrow}}}}
+  {\lccode`\~="2200 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\forall}}}}
+  {\lccode`\~="2227 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\wedge}}}}
+  {\lccode`\~="2228 \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\vee}}}}
+  {\lccode`\~="203C \lowercase{\global\catcode`~=\active \global\def~{!!}}}
+\fi
+\ifdefined\XeTeXversion
+  \usepackage{xeCJK}
+  \setCJKmainfont{SimSun}
+\fi
+
+\newtheorem{theorem}{Theorem}
+
+\title{The Diophantine equation $x^2 = n!! \cdot \operatorname{lcm}(1,\dots,n)$: the complete solution set, formalized and machine-checked in Lean 4}
+\author{Aurora0134\thanks{Contact: via the GitHub account Aurora0134.}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We determine the complete solution set of $x^2 = n!! \cdot \operatorname{lcm}(1,\dots,n)$ over
+the natural numbers: the product is a perfect square if and only if
+$n \in \{0,1,2,5,7\}$, with square roots $x = 1,1,2,30,210$. This is the second of the
+two equations that Novakovi'c (arXiv:2601.16757) states in his own text as open, and the
+answer given here is strictly stronger than the finiteness he asks for. The result, an
+iff-characterization together with its parity criterion and witness layer, is formalized in
+Lean 4 (12 theorems, 333 lines) and machine-checked: every proof compiles with no
+\texttt{sorry}, and \texttt{\#print axioms} reports only
+\{propext, Quot.sound, Classical.choice\}. An exclusivity search across OEIS value columns,
+arXiv metadata, seven neighbouring full texts, the public Lean ecosystem and mathlib found
+no occupying record for the statement itself. This note is a priority claim of record, not a
+full paper.
+\end{abstract}
+
+\section{Introduction}
+We give the complete solution set of the Diophantine equation
+$x^2 = n!! \cdot \operatorname{lcm}(1,\dots,n)$, where $n!!$ is the double factorial and
+$\operatorname{lcm}(1,\dots,n)$ is the least common multiple of the integers from $1$ to $n$.
+The equation is the second of the pair that Novakovi'c (arXiv:2601.16757) lists as open in
+his own text; a companion result settled the first equation
+$x^2 = n! \cdot n\#$. This note is a priority claim of record for the present result: the
+narrative paper follows separately. The formalization was checked by the Lean 4 kernel, with
+no \texttt{sorry} and an axiom set limited to the three standard proof-relevant axioms.
+
+\section{Statement}
+% LEAN: tasks/20261006-dfact-lcm-square :: DFactLcmSquare.dfact_lcm_square_solution_set  grade=完全证明
+\begin{theorem}\label{thm:solutionset}
+For every natural number $n$, $n!! \cdot \operatorname{lcm}(1,\dots,n)$ is a perfect square
+if and only if $n = 0$ or $n = 1$ or $n = 2$ or $n = 5$ or $n = 7$.
+\end{theorem}
+
+% LEAN: tasks/20261006-dfact-lcm-square :: DFactLcmSquare.isSquare_dfact_mul_lcmUpto_iff  grade=完全证明
+\begin{theorem}\label{thm:parity}
+For every natural number $n$, $n!! \cdot \operatorname{lcm}(1,\dots,n)$ is a perfect square
+if and only if, for every prime $p$, the total exponent
+$\nu_p(n!!) + \lfloor \log_p n \rfloor$ is even.
+\end{theorem}
+
+% LEAN: tasks/20261006-dfact-lcm-square :: DFactLcmSquare.dfact_lcm_witnesses  grade=完全证明
+\begin{theorem}\label{thm:witnesses}
+The five solution points hold:
+$1^2 = 0!! \cdot \operatorname{lcm}(1,\dots,0)$, $1^2 = 1!! \cdot \operatorname{lcm}(1,\dots,1)$,
+$2^2 = 2!! \cdot \operatorname{lcm}(1,\dots,2)$, $30^2 = 5!! \cdot \operatorname{lcm}(1,\dots,5)$
+and $210^2 = 7!! \cdot \operatorname{lcm}(1,\dots,7)$.
+\end{theorem}
+
+\begin{lstlisting}[caption={Formal statements (Lean 4, frozen snapshot \texttt{9baa672f}).},label={lst:stmt}]
+theorem isSquare_dfact_mul_lcmUpto_iff (n : ℕ) :
+    IsSquare (n‼ * Nat.lcmUpto n) ↔
+      ∀ p : ℕ, p.Prime → Even ((n‼).factorization p + p.log n) := by
+  rw [Nat.isSquare_iff_even_factorization]
+  refine forall_congr' fun p => imp_congr_right fun hp => ?_
+
+theorem dfact_lcm_witnesses :
+    1 ^ 2 = 0‼ * Nat.lcmUpto 0 ∧ 1 ^ 2 = 1‼ * Nat.lcmUpto 1 ∧
+      2 ^ 2 = 2‼ * Nat.lcmUpto 2 ∧ 30 ^ 2 = 5‼ * Nat.lcmUpto 5 ∧
+        210 ^ 2 = 7‼ * Nat.lcmUpto 7 := by
+  decide
+
+theorem dfact_lcm_square_solution_set (n : ℕ) :
+    IsSquare (n‼ * Nat.lcmUpto n) ↔ n = 0 ∨ n = 1 ∨ n = 2 ∨ n = 5 ∨ n = 7 := by
+\end{lstlisting}
+
+\section{Proof}
+The complete machine proof is in \texttt{proofs/final-dfact-lcm-square.lean} of this
+package (333 lines, 12 theorems). The key excerpt below shows the opening of the main
+theorem: the forward direction is by contradiction, splits at $n = 4$, and dispatches the
+two remaining ranges to the even arm, the odd arm and the witness layer.
+
+\begin{lstlisting}[caption={Excerpt: the main theorem, forward direction (frozen artifact, sha256 \texttt{1107cad4}).},label={lst:proof}]
+theorem dfact_lcm_square_solution_set (n : ℕ) :
+    IsSquare (n‼ * Nat.lcmUpto n) ↔ n = 0 ∨ n = 1 ∨ n = 2 ∨ n = 5 ∨ n = 7 := by
+  constructor
+  · intro h
+    by_contra hne
+    push_neg at hne
+    rcases lt_or_ge n 4 with hlt | hge
+\end{lstlisting}
+
+The proof has three parts. Theorem~\ref{thm:parity} reduces squareness to a parity
+condition on prime exponents, using $\operatorname{lcm}(1,\dots,n)$'s factorization
+$\nu_p(\operatorname{lcm}(1,\dots,n)) = \lfloor \log_p n \rfloor$. Even $n \geq 4$ are
+excluded by Bertrand's postulate: a prime $p \in (n/2, n]$ contributes $\nu_p(n!!) = 0$ and
+$\lfloor \log_p n \rfloor = 1$, an odd total. Odd $n \geq 33$ are excluded by an interval
+prime lemma for the interval $(n/4, n/3]$, proved in the accompanying
+library development from a finite
+certificate chain and a tail estimate, not as an instance of a published interval
+theorem, and imported by the final file rather than restated in it: the prime $p$ found there contributes $\nu_p(n!!) = 2$ and
+$\lfloor \log_p n \rfloor = 1$, again an odd total. The remaining band $9 \leq n \leq 32$ and
+the small cases $n = 3$ are handled by six explicit non-square witnesses with named
+odd-exponent primes. Theorem~\ref{thm:witnesses} supplies the five solution points, which
+gives the converse direction.
+
+\section{Verification evidence}
+\begin{itemize}
+\item Toolchain: Lean 4 v4.34.0, mathlib4 v4.34.0 (rev \texttt{5ed29652}).
+\item Statement integrity: the frozen statement file has sha256
+      \texttt{9baa672fa40e74626369e4803d66bedd9b808860975a832447f89a2021f0dca0};
+      the final proof file has sha256
+      \texttt{1107cad44affa0bc84bb4a285c0381d6e6a0afd15c08d935cbda0cee7a256d8e}.
+\item Kernel check: strict-mode compilation of the final file exits 0 with no
+      \texttt{sorry} (the only diagnostic is one deprecation warning on \texttt{push\_neg}).
+      \texttt{\#print axioms} output for the twelve theorems:
+\begin{verbatim}
+'DFactLcmSquare.isSquare_dfact_mul_lcmUpto_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DFactLcmSquare.dfact_lcm_witnesses' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DFactLcmSquare.dfact_lcm_square_solution_set' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DFactLcmSquare.exists_sq_dfact_lcm_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+\item Audit trail: the frozen statement's kernel well-definedness record, the strict
+      compilation log, the axiom print, the statement diff (clean, declaration by
+      declaration), the degenerate-probe outputs (the statement is load-bearing: perturbing
+      the solution set turns the proof red) and the independent final audit's verdict are in
+      \texttt{audit/} of this package.
+\item The deposited \texttt{.lean} files are copies in which comments carrying
+      pre-publication workflow narrative were blanked; the blanking never touches code, and
+      per-file byte equality of the comment-free code view is asserted by the generating
+      script (record: \texttt{audit/comment-elision-record.md}).
+\end{itemize}
+
+\section{Novelty evidence}
+The exclusivity search's four-state adjudication is \textbf{no occupying record found},
+with the statement layer clean at every channel that reaches it.
+
+\begin{itemize}
+\item \textbf{OEIS value columns.} The solution-$n$ column, the solution-root column
+      $x = 1,1,2,30,210$, the object value column
+      $a(n) = n!! \cdot \operatorname{lcm}(1,\dots,n)$ (four prefix variants, plus
+      alternating-parity sub-columns and drop-prefix cuts in the review pass), the square
+      value column and the squarefree-part columns were searched, together with keyword
+      layers. The object and solution-root columns are \textbf{null} across all prefix
+      variants. The residual hits are unrelated items, or A061742 = $(p_n\#)^2$, which is
+      entered precisely because $x = n\#$ and is not a registration of this equation.
+\item \textbf{arXiv metadata.} Fourteen load-bearing query forms were run, with the
+      positive control \texttt{all:"double factorial"} = 34 hits confirming the channel was
+      live: no same form at the metadata layer.
+\item \textbf{Neighbouring full texts.} Seven items were read in full (2601.16757,
+      2510.24312, 2602.09687, 2602.23838, 2604.09730, 2610.01899, 2606.23485), together
+      with all 17 references of the anchor: zero coverage of this equation.
+\item \textbf{Citation axis.} Semantic Scholar and OpenAlex, two independent channels, on
+      the anchor: \texttt{cited\_by\_count} = 0 on both, i.e.\ the anchor's open case has
+      not been closed by anyone citing it.
+\item \textbf{Public Lean ecosystem.} The whole public-conjectures repository at content
+      level: \texttt{doubleFactorial} occurs in exactly one file (A001818, a different
+      object); the statement layer has zero registration.
+\item \textbf{mathlib.} Ripgrep with the positive control \texttt{Nat.Prime} = 21 files:
+      \texttt{doubleFactorial} occurs in 4 files, none in a number-theoretic square
+      context; \texttt{lcmUpto} in one; the two objects never co-occur.
+\end{itemize}
+
+Two boundaries are recorded explicitly rather than left implicit. First, the
+$\operatorname{lcm}(1,\dots,n)$ side of the object is occupied at the sequence level:
+OEIS A056839 registers the squarefree part of $\operatorname{lcm}(1,\dots,n)$. That entry
+does not mention the double factorial anywhere, and it registers a sequence, not the
+characterizing solution set of this equation. Second, the review layer records that
+Crossref is a relevance-ranked channel and that the OpenAlex title search missed the anchor
+by indexing status; neither is used as a load-bearing zero hit. The full query record,
+including every zero hit, is in \texttt{audit/novelty-record.md} of this package.
+
+\section{Scope and limitations}
+The graded conclusion for this result is \emph{complete proof}: the twelve theorems
+compile strictly with zero \texttt{sorry} and an axiom set limited to
+\{propext, Quot.sound, Classical.choice\}, and the statements match the frozen snapshot
+declaration by declaration. Three boundaries are stated rather than implied. The interval
+prime lemma for $(n/4, n/3]$ used in the odd arm is proved in the accompanying
+library development as a finite
+certificate chain plus an Erd\H{o}s-style tail argument; this note does not claim it as an
+instance of any published interval theorem, and it is imported rather than shipped, so a
+kernel compile of the deposited final file needs those library modules beside it (their
+identity is recorded in the audit record of this package). The observation that the solution roots are
+$x = n\#$ is a numerical observation recorded alongside the theorem, not a separate
+formalized statement. This note contains no literature survey and makes no claim about
+related equations: the companion equation $x^2 = n! \cdot n\#$ was settled separately, and
+the intersection $\{5,7\}$ of this solution set with the Brocard solutions $\{4,5,7\}$ is a
+numerical coincidence with no implication in either direction.
+
+\section*{Data availability}
+The Lean sources, the compile and axiom records and the exclusivity-search record are
+packaged on Zenodo (DOI: \texttt{10.5281/zenodo.23309733}). The note is released under CC BY 4.0 and
+the code under MIT.
+
+\section*{Use of generative AI}
+The formalization and proof reported in this note were developed with AI assistance
+(large language model: \texttt{kimi-k3}) under human direction and review. All statements
+and proofs reported here were checked by the Lean 4 kernel (Lean v4.34.0, mathlib
+v4.34.0): every proof compiles with no \texttt{sorry}, and \texttt{\#print axioms} reports
+only \{propext, Quot.sound, Classical.choice\}. The author reviewed all content and takes
+full responsibility for it.
+
+\section*{Author contributions}
+The author selected the problem, verified the semantics of the formal statements against
+the informal ones, and reviewed the kernel evidence and the exclusivity record before
+signing off this deposit.
+
+\begin{thebibliography}{9}
+\bibitem{novakovic2026}
+S.~Novakovi'c.
+\newblock The Diophantine equation $P(x)=\overset{r}{\underset{i=1}{\prod}}H_{n_i}$.
+\newblock arXiv:2601.16757, 2026.
+
+\bibitem{novakovic2025}
+S.~Novakovi'c.
+\newblock Diophantine equations involving double factorials.
+\newblock arXiv:2510.24312, 2025.
+
+\bibitem{novakovic2026b}
+S.~Novakovi'c.
+\newblock On a generalization of the Brocard--Ramanujan Diophantine equation.
+\newblock arXiv:2602.09687, 2026.
+
+\bibitem{novakovic2026c}
+S.~Novakovi'c.
+\newblock Products of factorials which are products of factorials.
+\newblock arXiv:2602.23838, 2026.
+
+\bibitem{novakovic2026d}
+S.~Novakovi'c.
+\newblock A comment on the equation $n!!=a_1!!\cdots a_t!!$.
+\newblock arXiv:2604.09730, 2026.
+
+\bibitem{yudin2026}
+F.~Yudin.
+\newblock Square products of factorials and a conjecture of Erd\H{o}s and Graham.
+\newblock arXiv:2610.01899, 2026.
+
+\bibitem{peixoto2026}
+L.~V. Peixoto.
+\newblock The Brocard Problem: Structural Invariants, $p$-Adic Density, and the Generative Sieve.
+\newblock arXiv:2606.23485, 2026.
+
+\bibitem{lean4}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean 4 theorem prover and programming language.
+\newblock \emph{CADE-28}, 2021. \url{https://doi.org/10.1007/978-3-030-79876-5_37}
+
+\bibitem{mathlib}
+The mathlib Community.
+\newblock The Lean mathematical library.
+\newblock \emph{CPP 2020}, 2020. \url{https://doi.org/10.1145/3372885.3373824}
+\end{thebibliography}
+
+\end{document}
