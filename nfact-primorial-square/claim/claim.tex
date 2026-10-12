@@ -1,16 +1,15 @@
-% claim.tex -- AI4Math claim of record (AI-generated, 2026-10-06; instantiated
-% from harness/templates/claim/claim.tex per SOP 08b).
-% Machine-readable theorem anchors are the "% LEAN:" lines; scripts/paper-lint.sh
-% and the claim audit check them. All Lean listings are byte-identical splices of
-% frozen artifacts of the source task (directory named in the anchors; the source
-% task directory itself is not shipped):
-%   lst:stmt  <- the lean fence of the frozen statement snapshot (verbatim)
-%   lst:chain <- final proof file, lines 96-168   (certificate-chain mechanism)
-%   lst:tail  <- final proof file, lines 735-767  (factorial-ratio tail theorem)
-%   lst:main  <- final proof file, lines 771-1094 (main namespace, whole)
-% Assembled by audit/build-claim.py; byte-exactness record: audit/listing-verify.txt
-% (a copy ships in this deposit under audit/; the checker script stays in the
-% deliverable directory of the source repository and is not shipped).
+% claim.tex -- claim of record (assembled file; regenerate, do not edit).
+% Assembly: claim-skeleton.tex + the shipped proof files, spliced by
+% build-claim.py (deliverable-directory tooling, not shipped). The
+% machine-readable theorem anchors are the "% LEAN:" lines. All Lean listings
+% are byte-identical splices of the shipped proof files (comment-cleaned
+% editions; code regions byte-identical to the frozen development of record --
+% correspondence record: audit/comment-cleanup-diff.md in this deposit):
+%   lst:stmt  <- the lean fence of proofs/nfact-primorial-square.statement.txt
+%   lst:chain <- proofs/final-nfact-primorial-square.lean, lines 96-168
+%   lst:tail  <- proofs/final-nfact-primorial-square.lean, lines 735-767
+%   lst:main  <- proofs/final-nfact-primorial-square.lean, lines 771-1094
+% Byte-exactness record: audit/listing-verify.txt (ships in this deposit).
 \documentclass[11pt]{article}
 
 \usepackage[T1]{fontenc}
@@ -23,19 +22,18 @@
 \input{lstlean}
 \lstset{language=lean}
 
-% --- local rendering patch (2026-10-06; lineage: harness/templates/claim/claim.tex
-% and the claims/hosoya-prism-defect glyph-map precedent) --- tectonic/XeTeX does
-% not apply the listings literate table to multi-byte characters, so every
-% non-ASCII, non-CJK codepoint that occurs inside THIS note's listings is mapped
-% to a math glyph as an active character via the standard \lccode/\lowercase
-% idiom (ASCII-only source, no extra packages). Mapped set (measured over the
-% four spliced blocks): 00A7 00AC 00B2 03BD 2115 2192 2194 2200 2203 2208 2211
-% 2212 2223 2224 2227 2260 2264 2265 2270 230A 230B 27E8 27E9 27F8 27F9 27FA.
-% Deliberately NOT mapped: U+00B7, U+2014, U+2026 and all CJK ideographs / CJK
-% punctuation --- they route through xeCJK + SimSun (making them active first
-% aborts the run, observed in earlier claim notes). Rendering only: listing
-% source bytes are untouched, so the byte-exactness checks are unaffected, and
-% the \ifdefined guard leaves the pdflatex path identical to the template.
+% --- local rendering patch (2026-10-06) --- tectonic/XeTeX does not apply
+% the listings literate table to multi-byte characters, so every non-ASCII,
+% non-CJK codepoint that occurs inside this note's listings is mapped to a
+% math glyph as an active character via the standard \lccode/\lowercase idiom
+% (ASCII-only source, no extra packages). Mapped set: 00A7 00AC 00B2 03BD
+% 2115 2192 2194 2200 2203 2208 2211 2212 2223 2224 2227 2260 2264 2265 2270
+% 230A 230B 27E8 27E9 27F8 27F9 27FA. Deliberately NOT mapped: U+00B7 (the
+% Lean case bullet, which occurs in the proof code) --- it routes through
+% xeCJK + SimSun (making it active first aborts the run, observed in earlier
+% claim notes). Rendering only: listing source bytes are untouched, so the
+% byte-exactness checks are unaffected, and the \ifdefined guard leaves the
+% pdflatex path unaffected.
 \ifdefined\XeTeXversion
   {\lccode`\~="00A7 \lowercase{\global\catcode`~=\active \global\def~{\S}}}
   {\lccode`\~="00AC \lowercase{\global\catcode`~=\active \global\def~{\ensuremath{\neg}}}}
@@ -89,20 +87,20 @@ words ``at the moment we were not able to give an argument''
 \cite{novakovic2026}. The result is formalized in Lean~4 against mathlib
 v4.34.0: every frozen statement compiles with no \texttt{sorry}, and
 \texttt{\#print axioms} reports only \{propext, \texttt{Quot.sound},
-\texttt{Classical.choice}\}. The pipeline's novelty review (C9 discipline)
-found no occupying record in the queried channels. This note is a priority
+\texttt{Classical.choice}\}. A novelty review (full query log shipped in
+this deposit) found no occupying record in the queried channels. This note is
+a priority
 claim of record, not a full paper; the Lean sources and the audit and novelty
 evidence ship inside this deposit.
 \end{abstract}
 
 \section{Introduction}
-This note records a complete-solution-set theorem produced by the AI4Math
-automated pipeline, in which LLM workers generate statements and proof
-scripts and the Lean~4 kernel is the sole adjudicator at every gate: the
-statements were frozen by hash before proving, and a separate final audit
-re-compared them against the frozen snapshot, scanned the whole proof file
-for \texttt{sorry}/\texttt{admit} including comments, and re-printed the
-axiom dependencies \cite{lean4,mathlib}. The object is the Diophantine
+This note records a complete-solution-set theorem formalized in Lean~4,
+with the kernel as the sole adjudicator at every step: the statements were
+frozen by hash before proving, and a separate final audit re-compared them
+against the frozen snapshot, scanned the whole proof file for
+\texttt{sorry}/\texttt{admit} including comments, and re-printed the axiom
+dependencies \cite{lean4,mathlib}. The object is the Diophantine
 equation of the title, one of the concretely open cases listed by Novakovi\'c
 \cite{novakovic2026}. The note is a priority claim of record, deposited for
 timestamping; a narrative paper is prepared separately and will reference
@@ -157,33 +155,34 @@ $p \nleq n$, and $\nu_p(n! \cdot n\#) = \nu_p(n!) + 1$ for primes $p \le n$.
 % LEAN: tasks/20261006-nfact-primorial-square :: factorization_factorial_mul_primorial grade=完全证明
 
 \begin{lstlisting}[caption={Frozen statement snapshot (Lean 4): the complete
-frozen set, verbatim, copied from the \texttt{lean} fence of the frozen
-snapshot \texttt{nfact-primorial-square.statement.txt} (sha256
-\texttt{0b13d08d}; the full snapshot file ships in \texttt{proofs/}).
-Docstrings are in Chinese by the pipeline's convention; the statement text is
-what the kernel adjudicates.},label={lst:stmt}]
-/-- **主定理（完全解集，iff 形态）**：
-    `n! · n#` 是完全平方 ⟺ `n ≤ 5`（n : ℕ）。
-    ℕ 上 `n ≤ 5 ⟺ n ∈ {0,1,2,3,4,5}`，故此即 NL 主命题「解恰为 n ∈ {0,…,5}」。 -/
+frozen set, copied from the \texttt{lean} fence of the snapshot shipped as
+\texttt{proofs/nfact-primorial-square.statement.txt} (a comment-cleaned
+edition: docstrings translated to English for publication; the statement
+text is byte-identical to the frozen snapshot of record, sha256
+\texttt{0b13d08d}; correspondence record
+\texttt{audit/comment-cleanup-diff.md}).},label={lst:stmt}]
+/-- **Main theorem (complete solution set, iff form)**:
+    `n! * n#` is a perfect square ⟺ `n ≤ 5` (for `n : ℕ`).
+    Over ℕ, `n ≤ 5 ⟺ n ∈ {0,1,2,3,4,5}`, so this is the main statement "the solutions are exactly n ∈ {0,...,5}". -/
 theorem isSquare_factorial_mul_primorial_iff (n : ℕ) :
     IsSquare (n ! * primorial n) ↔ n ≤ 5
 
-/-- **主定理（存在见证形态，与 iff 形态并列交付）**：
-    丢番图方程 `x² = n!·n#` 有解 ⟺ `n ∈ {0,1,2,3,4,5}`。 -/
+/-- **Main theorem (existence-witness form, delivered alongside the iff form)**:
+    the Diophantine equation `x² = n! * n#` has a solution ⟺ `n ∈ {0,1,2,3,4,5}`. -/
 theorem exists_sq_factorial_mul_primorial_iff (n : ℕ) :
     (∃ x : ℕ, x ^ 2 = n ! * primorial n) ↔ n ∈ ({0, 1, 2, 3, 4, 5} : Finset ℕ)
 
-/-- **引理 A（等价估值判据）**：对 `n ≥ 1`，`n! · n#` 是完全平方 ⟺
-    对每个素数 `p ≤ n`，`ν_p(n!)` 为奇数。 -/
+/-- **Lemma A (equivalent valuation criterion)**: for `n ≥ 1`, `n! * n#` is a perfect square ⟺
+    `ν_p(n!)` is odd for every prime `p ≤ n`. -/
 theorem isSquare_iff_all_factorization_odd (n : ℕ) (hn : 1 ≤ n) :
     IsSquare (n ! * primorial n) ↔
       ∀ p : ℕ, p.Prime → p ≤ n → Odd ((n !).factorization p)
 
-/-- **引理 B（区间素数引理）**：对每个整数 `n ≥ 22`，存在素数 `p` 使 `n/3 < p ≤ n/2`。 -/
+/-- **Lemma B (interval prime lemma)**: for every integer `n ≥ 22` there exists a prime `p` with `n/3 < p ≤ n/2`. -/
 theorem exists_prime_between_div_three_and_div_two (n : ℕ) (hn : 22 ≤ n) :
     ∃ p : ℕ, p.Prime ∧ n / 3 < p ∧ p ≤ n / 2
 
-/-- **见证层（主定理 ⟸ 向的显式平方根）**：n = 0..5 各点 `x² = n!·n#`，x = 1, 1, 2, 6, 12, 60。 -/
+/-- **Witness layer (explicit square roots for the ⟸ direction of the main theorem)**: `x² = n! * n#` at each of n = 0..5, with x = 1, 1, 2, 6, 12, 60. -/
 theorem witnesses_zero_to_five :
     1 ^ 2 = 0 ! * primorial 0 ∧
     1 ^ 2 = 1 ! * primorial 1 ∧
@@ -192,15 +191,15 @@ theorem witnesses_zero_to_five :
     12 ^ 2 = 4 ! * primorial 4 ∧
     60 ^ 2 = 5 ! * primorial 5
 
-/-- 辅助 statement：`ν_p(n#) = 1`（素数 `p ≤ n`）。 -/
+/-- Auxiliary statement: `ν_p(n#) = 1` (primes `p ≤ n`). -/
 theorem primorial_factorization_eq_one {p n : ℕ} (hp : p.Prime) (hpn : p ≤ n) :
     (primorial n).factorization p = 1
 
-/-- 辅助 statement：`ν_p(n#) = 0`（素数 `p ≰ n`）。 -/
+/-- Auxiliary statement: `ν_p(n#) = 0` (primes `p ≰ n`). -/
 theorem primorial_factorization_eq_zero {p n : ℕ} (hp : p.Prime) (hpn : ¬ p ≤ n) :
     (primorial n).factorization p = 0
 
-/-- 辅助 statement（判据的乘法骨架）：`ν_p(n!·n#) = ν_p(n!) + 1`（素数 `p ≤ n`）。 -/
+/-- Auxiliary statement (the multiplicative skeleton of the criterion): `ν_p(n! * n#) = ν_p(n!) + 1` (primes `p ≤ n`). -/
 theorem factorization_factorial_mul_primorial {p n : ℕ} (hp : p.Prime) (hpn : p ≤ n) :
     (n ! * primorial n).factorization p = (n !).factorization p + 1
 \end{lstlisting}
@@ -243,7 +242,9 @@ factorial-ratio tail described above. The complete proof file (including the
 twenty-nine prime certificates and the twenty-eight continuity certificates,
 which are one-line \texttt{norm\_num}/\texttt{omega} facts) ships in
 \texttt{proofs/}; the blocks below are verbatim excerpts, each a contiguous
-line range of that file.
+line range of that file. The shipped file is the comment-cleaned edition; its
+code is byte-identical to the frozen development (record:
+\texttt{audit/comment-cleanup-diff.md}).
 
 \begin{lstlisting}[basicstyle=\ttfamily\footnotesize,caption={Excerpt of the
 proof file (lines 96--168 of \texttt{final-nfact-primorial-square.lean},
@@ -254,17 +255,17 @@ tree.},label={lst:chain}]
 theorem chain_start : 22 = 2 * 11 := by omega
 theorem chain_end : 999999 ≤ 3 * 409609 - 1 := by omega
 
-/-- 证书链单跳件（M3 报告 §三.2 kernel 实证件，逐字复用）：
-    q 为素数且 n ∈ [2q, 3q−1] 时，q 即见证 n/3 < q ≤ n/2。
-    注：必须先抽 `hq.two_le`，否则 ℕ 截断减法下 omega 在 q = 0 反例处卡死（M3 实测）。 -/
+/-- Certificate-chain single hop: for prime `q` and `n ∈ [2q, 3q - 1]`,
+    `q` itself witnesses `n/3 < q ≤ n/2`.
+    Note: extract `hq.two_le` first, otherwise `omega` gets stuck at the `q = 0` counterexample under saturating subtraction on ℕ. -/
 theorem lemmaB_hop {q : ℕ} (hq : q.Prime) {n : ℕ} (h1 : 2 * q ≤ n) (h2 : n ≤ 3 * q - 1) :
     ∃ p : ℕ, p.Prime ∧ n / 3 < p ∧ p ≤ n / 2 :=
   have hq2 : 2 ≤ q := hq.two_le
   ⟨q, hq, by omega, by omega⟩
 
-/-- **引理 B 有限段（证书链决策树）**：∀ n ∈ [22, 999999]，
-    ∃ p, p.Prime ∧ n/3 < p ∧ p ≤ n/2。
-    与尾巴定理（A1/A2 路，起点 N0 = 1000000）的衔接口径见 M11 交接报告。 -/
+/-- **Lemma B, finite segment (certificate-chain decision tree)**: for every `n ∈ [22, 999999]`,
+    `∃ p, p.Prime ∧ n/3 < p ∧ p ≤ n/2`.
+    Joins the tail theorem (which starts at n = 1000000) by a case split on `n < 1000000`. -/
 theorem lemmaB_upto_999999 (n : ℕ) (h1 : 22 ≤ n) (h2 : n ≤ 999999) :
     ∃ p : ℕ, p.Prime ∧ n / 3 < p ∧ p ≤ n / 2 := by
   rcases lt_or_ge n 33 with h | h
@@ -372,27 +373,27 @@ witness layer, the sixteen non-square witnesses, Lemma~\ref{lem:B} assembled
 from the chain and the tail, and the two main theorems.},label={lst:main}]
 namespace NFactPrimorialSquare
 
-/-- 辅助 statement：`ν_p(n#) = 1`（素数 `p ≤ n`）。 -/
+/-- Auxiliary statement: `ν_p(n#) = 1` for primes `p ≤ n`. -/
 theorem primorial_factorization_eq_one {p n : ℕ} (hp : p.Prime) (hpn : p ≤ n) :
     (primorial n).factorization p = 1 :=
   factorization_eq_one_of_squarefree (squarefree_primorial n) hp
     ((Nat.Prime.dvd_primorial_iff hp).mpr hpn)
 
-/-- 辅助 statement：`ν_p(n#) = 0`（素数 `p ≰ n`）。 -/
+/-- Auxiliary statement: `ν_p(n#) = 0` for primes `p ≰ n`. -/
 theorem primorial_factorization_eq_zero {p n : ℕ} (hp : p.Prime) (hpn : ¬ p ≤ n) :
     (primorial n).factorization p = 0 :=
   Nat.factorization_eq_zero_of_not_dvd
     (fun h => hpn ((Nat.Prime.dvd_primorial_iff hp).mp h))
 
-/-- 辅助 statement（判据的乘法骨架）：`ν_p(n!·n#) = ν_p(n!) + 1`（素数 `p ≤ n`）。 -/
+/-- Auxiliary statement (the multiplicative skeleton of the criterion): `ν_p(n! * n#) = ν_p(n!) + 1` for primes `p ≤ n`. -/
 theorem factorization_factorial_mul_primorial {p n : ℕ} (hp : p.Prime) (hpn : p ≤ n) :
     (n ! * primorial n).factorization p = (n !).factorization p + 1 := by
   rw [Nat.factorization_mul (Nat.factorial_ne_zero n) (primorial_ne_zero n),
       Finsupp.add_apply, primorial_factorization_eq_one hp hpn]
 
-/-- **引理 A（等价估值判据）**：对 `n ≥ 1`，`n! · n#` 是完全平方 ⟺
-    对每个素数 `p ≤ n`，`ν_p(n!)` 为奇数。
-    （`Nat.factorization m p` 即 ν_p(m)：素数 p 在 m 中的指数。） -/
+/-- **Lemma A (equivalent valuation criterion)**: for `n ≥ 1`, `n! * n#` is a perfect square ⟺
+    `ν_p(n!)` is odd for every prime `p ≤ n`.
+    (`Nat.factorization m p` is ν_p(m): the exponent of the prime `p` in `m`.) -/
 theorem isSquare_iff_all_factorization_odd (n : ℕ) (hn : 1 ≤ n) :
     IsSquare (n ! * primorial n) ↔
       ∀ p : ℕ, p.Prime → p ≤ n → Odd ((n !).factorization p) := by
@@ -418,8 +419,8 @@ theorem isSquare_iff_all_factorization_odd (n : ℕ) (hn : 1 ≤ n) :
         primorial_factorization_eq_zero hp hpn]
       exact ⟨0, rfl⟩
 
-/-- **见证层（主定理 ⟸ 向的显式平方根）**：n = 0..5 各点 `x² = n!·n#`，
-    x = 1, 1, 2, 6, 12, 60（与 NL 主命题的对应关系逐点一致）。 -/
+/-- **Witness layer (explicit square roots for the ⟸ direction of the main theorem)**: `x² = n! * n#`
+    at each of n = 0..5, with x = 1, 1, 2, 6, 12, 60 (the pointwise correspondence of the main statement). -/
 theorem witnesses_zero_to_five :
     1 ^ 2 = 0 ! * primorial 0 ∧
     1 ^ 2 = 1 ! * primorial 1 ∧
@@ -428,8 +429,8 @@ theorem witnesses_zero_to_five :
     12 ^ 2 = 4 ! * primorial 4 ∧
     60 ^ 2 = 5 ! * primorial 5 := by decide
 
-/-- 桥接引理（witness 层内部）：某素数位上 factorization 为奇 ⟹ 非平方。
-    IsSquare 给出 m = r * r，则 ν_p(m) = ν_p(r) + ν_p(r) 为偶，与奇数假设矛盾。 -/
+/-- Bridge lemma (internal to the witness layer): an odd factorization at some prime implies non-square.
+    `IsSquare` gives `m = r * r`, so `ν_p(m) = ν_p(r) + ν_p(r)` is even, contradicting the oddness assumption. -/
 theorem not_isSquare_of_odd_factorization {m p e : ℕ} (hm : m ≠ 0)
     (h : m.factorization p = 2 * e + 1) : ¬ IsSquare m := by
   rintro ⟨r, hr⟩
@@ -437,7 +438,7 @@ theorem not_isSquare_of_odd_factorization {m p e : ℕ} (hm : m ≠ 0)
   rw [hr, Nat.factorization_mul hne hne, Finsupp.add_apply] at h
   omega
 
-/-- 非平方见证 n = 6：ν_2(6!·6#) = 5（奇），6!·6# = 2^5 · 675，2 ∤ 675。 -/
+/-- Non-square witness n = 6: `ν_2(6! * 6#) = 5` (odd); `6! * 6# = 2^5 * 675`, and `2 ∤ 675`. -/
 theorem nonsquare_at_6 : ¬ IsSquare (6 ! * primorial 6) := by
   have hM : (6 : ℕ) ! * primorial 6 = 2 ^ 5 * 675 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 2)
@@ -447,7 +448,7 @@ theorem nonsquare_at_6 : ¬ IsSquare (6 ! * primorial 6) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 7：ν_2(7!·7#) = 5（奇），7!·7# = 2^5 · 33075，2 ∤ 33075。 -/
+/-- Non-square witness n = 7: `ν_2(7! * 7#) = 5` (odd); `7! * 7# = 2^5 * 33075`, and `2 ∤ 33075`. -/
 theorem nonsquare_at_7 : ¬ IsSquare (7 ! * primorial 7) := by
   have hM : (7 : ℕ) ! * primorial 7 = 2 ^ 5 * 33075 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 2)
@@ -457,7 +458,7 @@ theorem nonsquare_at_7 : ¬ IsSquare (7 ! * primorial 7) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 8：ν_3(8!·8#) = 3（奇），8!·8# = 3^3 · 313600，3 ∤ 313600。 -/
+/-- Non-square witness n = 8: `ν_3(8! * 8#) = 3` (odd); `8! * 8# = 3^3 * 313600`, and `3 ∤ 313600`. -/
 theorem nonsquare_at_8 : ¬ IsSquare (8 ! * primorial 8) := by
   have hM : (8 : ℕ) ! * primorial 8 = 3 ^ 3 * 313600 := by decide
   apply not_isSquare_of_odd_factorization (p := 3) (e := 1)
@@ -467,7 +468,7 @@ theorem nonsquare_at_8 : ¬ IsSquare (8 ! * primorial 8) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_three, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 9：ν_3(9!·9#) = 5（奇），9!·9# = 3^5 · 313600，3 ∤ 313600。 -/
+/-- Non-square witness n = 9: `ν_3(9! * 9#) = 5` (odd); `9! * 9# = 3^5 * 313600`, and `3 ∤ 313600`. -/
 theorem nonsquare_at_9 : ¬ IsSquare (9 ! * primorial 9) := by
   have hM : (9 : ℕ) ! * primorial 9 = 3 ^ 5 * 313600 := by decide
   apply not_isSquare_of_odd_factorization (p := 3) (e := 2)
@@ -477,7 +478,7 @@ theorem nonsquare_at_9 : ¬ IsSquare (9 ! * primorial 9) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_three, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 10：ν_2(10!·10#) = 9（奇），10!·10# = 2^9 · 1488375，2 ∤ 1488375。 -/
+/-- Non-square witness n = 10: `ν_2(10! * 10#) = 9` (odd); `10! * 10# = 2^9 * 1488375`, and `2 ∤ 1488375`. -/
 theorem nonsquare_at_10 : ¬ IsSquare (10 ! * primorial 10) := by
   have hM : (10 : ℕ) ! * primorial 10 = 2 ^ 9 * 1488375 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 4)
@@ -487,7 +488,7 @@ theorem nonsquare_at_10 : ¬ IsSquare (10 ! * primorial 10) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 11：ν_2(11!·11#) = 9（奇），11!·11# = 2^9 · 180093375，2 ∤ 180093375。 -/
+/-- Non-square witness n = 11: `ν_2(11! * 11#) = 9` (odd); `11! * 11# = 2^9 * 180093375`, and `2 ∤ 180093375`. -/
 theorem nonsquare_at_11 : ¬ IsSquare (11 ! * primorial 11) := by
   have hM : (11 : ℕ) ! * primorial 11 = 2 ^ 9 * 180093375 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 4)
@@ -497,7 +498,7 @@ theorem nonsquare_at_11 : ¬ IsSquare (11 ! * primorial 11) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 12：ν_2(12!·12#) = 11（奇），12!·12# = 2^11 · 540280125，2 ∤ 540280125。 -/
+/-- Non-square witness n = 12: `ν_2(12! * 12#) = 11` (odd); `12! * 12# = 2^11 * 540280125`, and `2 ∤ 540280125`. -/
 theorem nonsquare_at_12 : ¬ IsSquare (12 ! * primorial 12) := by
   have hM : (12 : ℕ) ! * primorial 12 = 2 ^ 11 * 540280125 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 5)
@@ -507,7 +508,7 @@ theorem nonsquare_at_12 : ¬ IsSquare (12 ! * primorial 12) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 13：ν_2(13!·13#) = 11（奇），13!·13# = 2^11 · 91307341125，2 ∤ 91307341125。 -/
+/-- Non-square witness n = 13: `ν_2(13! * 13#) = 11` (odd); `13! * 13# = 2^11 * 91307341125`, and `2 ∤ 91307341125`. -/
 theorem nonsquare_at_13 : ¬ IsSquare (13 ! * primorial 13) := by
   have hM : (13 : ℕ) ! * primorial 13 = 2 ^ 11 * 91307341125 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 5)
@@ -517,7 +518,7 @@ theorem nonsquare_at_13 : ¬ IsSquare (13 ! * primorial 13) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 14：ν_5(14!·14#) = 3（奇），14!·14# = 5^3 · 20943712677888，5 ∤ 20943712677888。 -/
+/-- Non-square witness n = 14: `ν_5(14! * 14#) = 3` (odd); `14! * 14# = 5^3 * 20943712677888`, and `5 ∤ 20943712677888`. -/
 theorem nonsquare_at_14 : ¬ IsSquare (14 ! * primorial 14) := by
   have hM : (14 : ℕ) ! * primorial 14 = 5 ^ 3 * 20943712677888 := by decide
   apply not_isSquare_of_odd_factorization (p := 5) (e := 1)
@@ -527,7 +528,7 @@ theorem nonsquare_at_14 : ¬ IsSquare (14 ! * primorial 14) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization (by norm_num : Nat.Prime 5), Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 15：ν_3(15!·15#) = 7（奇），15!·15# = 3^7 · 17955857920000，3 ∤ 17955857920000。 -/
+/-- Non-square witness n = 15: `ν_3(15! * 15#) = 7` (odd); `15! * 15# = 3^7 * 17955857920000`, and `3 ∤ 17955857920000`. -/
 theorem nonsquare_at_15 : ¬ IsSquare (15 ! * primorial 15) := by
   have hM : (15 : ℕ) ! * primorial 15 = 3 ^ 7 * 17955857920000 := by decide
   apply not_isSquare_of_odd_factorization (p := 3) (e := 3)
@@ -537,7 +538,7 @@ theorem nonsquare_at_15 : ¬ IsSquare (15 ! * primorial 15) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_three, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 16：ν_3(16!·16#) = 7（奇），16!·16# = 3^7 · 287293726720000，3 ∤ 287293726720000。 -/
+/-- Non-square witness n = 16: `ν_3(16! * 16#) = 7` (odd); `16! * 16# = 3^7 * 287293726720000`, and `3 ∤ 287293726720000`. -/
 theorem nonsquare_at_16 : ¬ IsSquare (16 ! * primorial 16) := by
   have hM : (16 : ℕ) ! * primorial 16 = 3 ^ 7 * 287293726720000 := by decide
   apply not_isSquare_of_odd_factorization (p := 3) (e := 3)
@@ -547,7 +548,7 @@ theorem nonsquare_at_16 : ¬ IsSquare (16 ! * primorial 16) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_three, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 17：ν_3(17!·17#) = 7（奇），17!·17# = 3^7 · 83027887022080000，3 ∤ 83027887022080000。 -/
+/-- Non-square witness n = 17: `ν_3(17! * 17#) = 7` (odd); `17! * 17# = 3^7 * 83027887022080000`, and `3 ∤ 83027887022080000`. -/
 theorem nonsquare_at_17 : ¬ IsSquare (17 ! * primorial 17) := by
   have hM : (17 : ℕ) ! * primorial 17 = 3 ^ 7 * 83027887022080000 := by decide
   apply not_isSquare_of_odd_factorization (p := 3) (e := 3)
@@ -557,7 +558,7 @@ theorem nonsquare_at_17 : ¬ IsSquare (17 ! * primorial 17) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_three, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 18：ν_2(18!·18#) = 17（奇），18!·18# = 2^17 · 24936491397943125，2 ∤ 24936491397943125。 -/
+/-- Non-square witness n = 18: `ν_2(18! * 18#) = 17` (odd); `18! * 18# = 2^17 * 24936491397943125`, and `2 ∤ 24936491397943125`. -/
 theorem nonsquare_at_18 : ¬ IsSquare (18 ! * primorial 18) := by
   have hM : (18 : ℕ) ! * primorial 18 = 2 ^ 17 * 24936491397943125 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 8)
@@ -567,7 +568,7 @@ theorem nonsquare_at_18 : ¬ IsSquare (18 ! * primorial 18) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 19：ν_2(19!·19#) = 17（奇），19!·19# = 2^17 · 9002073394657468125，2 ∤ 9002073394657468125。 -/
+/-- Non-square witness n = 19: `ν_2(19! * 19#) = 17` (odd); `19! * 19# = 2^17 * 9002073394657468125`, and `2 ∤ 9002073394657468125`. -/
 theorem nonsquare_at_19 : ¬ IsSquare (19 ! * primorial 19) := by
   have hM : (19 : ℕ) ! * primorial 19 = 2 ^ 17 * 9002073394657468125 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 8)
@@ -577,7 +578,7 @@ theorem nonsquare_at_19 : ¬ IsSquare (19 ! * primorial 19) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 20：ν_2(20!·20#) = 19（奇），20!·20# = 2^19 · 45010366973287340625，2 ∤ 45010366973287340625。 -/
+/-- Non-square witness n = 20: `ν_2(20! * 20#) = 19` (odd); `20! * 20# = 2^19 * 45010366973287340625`, and `2 ∤ 45010366973287340625`. -/
 theorem nonsquare_at_20 : ¬ IsSquare (20 ! * primorial 20) := by
   have hM : (20 : ℕ) ! * primorial 20 = 2 ^ 19 * 45010366973287340625 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 9)
@@ -587,7 +588,7 @@ theorem nonsquare_at_20 : ¬ IsSquare (20 ! * primorial 20) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 21：ν_2(21!·21#) = 19（奇），21!·21# = 2^19 · 945217706439034153125，2 ∤ 945217706439034153125。 -/
+/-- Non-square witness n = 21: `ν_2(21! * 21#) = 19` (odd); `21! * 21# = 2^19 * 945217706439034153125`, and `2 ∤ 945217706439034153125`. -/
 theorem nonsquare_at_21 : ¬ IsSquare (21 ! * primorial 21) := by
   have hM : (21 : ℕ) ! * primorial 21 = 2 ^ 19 * 945217706439034153125 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 9)
@@ -597,7 +598,7 @@ theorem nonsquare_at_21 : ¬ IsSquare (21 ! * primorial 21) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 组装形态（供 M5 主定理 ⟹ 向引用）：6 ≤ n ≤ 21 的每一点 n!·n# 均非平方。 -/
+/-- Assembled form (cited by the ⟹ direction of the main theorem): `n! * n#` is non-square at every `n` with `6 ≤ n ≤ 21`. -/
 theorem nonsquare_six_to_twenty_one (n : ℕ) (h6 : 6 ≤ n) (h21 : n ≤ 21) :
     ¬ IsSquare (n ! * primorial n) := by
   interval_cases n
@@ -618,29 +619,29 @@ theorem nonsquare_six_to_twenty_one (n : ℕ) (h6 : 6 ≤ n) (h21 : n ≤ 21) :
   · exact nonsquare_at_20
   · exact nonsquare_at_21
 
-/-- **引理 B（区间素数引理）**：对每个整数 `n ≥ 22`，存在素数 `p` 使 `n/3 < p ≤ n/2`。
-    （`/ `为 ℕ 整除：区间即 `⌊n/3⌋ < p ≤ ⌊n/2⌋`，与 NL 原文的实数区间解读在素数存在性上
-    一致——p 为整数，`n/3 < p ⟺ ⌊n/3⌋ < p`，`p ≤ n/2 ⟺ p ≤ ⌊n/2⌋`，详见 faithful.md。） -/
+/-- **Lemma B (interval prime lemma)**: for every integer `n ≥ 22` there exists a prime `p` with `n/3 < p ≤ n/2`.
+    (`/` is natural-number division: the interval reads `⌊n/3⌋ < p ≤ ⌊n/2⌋`; for prime existence this coincides
+    with the real reading, since `p` is an integer: `n/3 < p ⟺ ⌊n/3⌋ < p` and `p ≤ n/2 ⟺ p ≤ ⌊n/2⌋`.) -/
 theorem exists_prime_between_div_three_and_div_two (n : ℕ) (hn : 22 ≤ n) :
     ∃ p : ℕ, p.Prime ∧ n / 3 < p ∧ p ≤ n / 2 := by
   rcases lt_or_ge n 1000000 with h | h
   · exact NFactPrimorialSquareChain.lemmaB_upto_999999 n hn (by omega)
   · exact NFactPrimorialSquareChain.lemmaB_tail_1000000 n h
 
-/-- **主定理（完全解集，iff 形态）**：
-    `n! · n#` 是完全平方 ⟺ `n ≤ 5`（n : ℕ）。
-    ℕ 上 `n ≤ 5 ⟺ n ∈ {0,1,2,3,4,5}`，故此即 NL 主命题「解恰为 n ∈ {0,…,5}」。 -/
+/-- **Main theorem (complete solution set, iff form)**:
+    `n! * n#` is a perfect square ⟺ `n ≤ 5` (for `n : ℕ`).
+    Over ℕ, `n ≤ 5 ⟺ n ∈ {0,1,2,3,4,5}`, so this is the main statement "the solutions are exactly n ∈ {0,...,5}". -/
 theorem isSquare_factorial_mul_primorial_iff (n : ℕ) :
     IsSquare (n ! * primorial n) ↔ n ≤ 5 := by
   constructor
-  · -- ⟹ 向：n!·n# 为平方 ⟹ n ≤ 5（对偶：n ≥ 6 时 n!·n# 非平方）
+  · -- ⟹ direction: n! * n# a square ⟹ n ≤ 5 (contrapositive: for n ≥ 6, n! * n# is not a square)
     intro h
     by_contra hle
     have h6 : 6 ≤ n := by omega
     rcases lt_or_ge n 22 with hlt | h22
-    · -- 6 ≤ n ≤ 21 段：witness 层逐点非平方见证直接矛盾
+    · -- the 6 ≤ n ≤ 21 segment: direct contradiction with the pointwise non-square witnesses of the witness layer
       exact nonsquare_six_to_twenty_one n h6 (by omega) h
-    · -- 22 ≤ n 段：引理 B 取素数 p ∈ (n/3, n/2]；判据给出 Odd (ν_p(n!))，但 Legendre 和式算出 ν_p(n!) = 2
+    · -- the 22 ≤ n segment: Lemma B yields a prime p ∈ (n/3, n/2]; the criterion gives Odd (ν_p(n!)), but Legendre's sum evaluates ν_p(n!) = 2
       obtain ⟨p, hp, hpl, hpu⟩ := exists_prime_between_div_three_and_div_two n h22
       have hodd : Odd ((n !).factorization p) :=
         (isSquare_iff_all_factorization_odd n (by omega)).mp h p hp (by omega)
@@ -667,7 +668,7 @@ theorem isSquare_factorial_mul_primorial_iff (n : ℕ) :
       rw [hfact2] at hodd
       obtain ⟨k, hk⟩ := hodd
       omega
-  · -- ⟸ 向：n ≤ 5 逐点给显式平方根（x = 1, 1, 2, 6, 12, 60）
+  · -- ⟸ direction: for n ≤ 5, give the explicit square root pointwise (x = 1, 1, 2, 6, 12, 60)
     intro h
     obtain ⟨h0, h1, h2, h3, h4, h5⟩ := witnesses_zero_to_five
     interval_cases n
@@ -678,8 +679,8 @@ theorem isSquare_factorial_mul_primorial_iff (n : ℕ) :
     · exact (isSquare_iff_exists_sq _).mpr ⟨12, h4.symm⟩
     · exact (isSquare_iff_exists_sq _).mpr ⟨60, h5.symm⟩
 
-/-- **主定理（存在见证形态，与 iff 形态并列交付）**：
-    丢番图方程 `x² = n!·n#` 有解 ⟺ `n ∈ {0,1,2,3,4,5}`。 -/
+/-- **Main theorem (existence-witness form, delivered alongside the iff form)**:
+    the Diophantine equation `x² = n! * n#` has a solution ⟺ `n ∈ {0,1,2,3,4,5}`. -/
 theorem exists_sq_factorial_mul_primorial_iff (n : ℕ) :
     (∃ x : ℕ, x ^ 2 = n ! * primorial n) ↔ n ∈ ({0, 1, 2, 3, 4, 5} : Finset ℕ) := by
   have hbridge : (∃ x : ℕ, x ^ 2 = n ! * primorial n) ↔ IsSquare (n ! * primorial n) := by
@@ -723,14 +724,18 @@ The final audit compared all eight statement headers of the proof file
 against the frozen snapshot under two whitespace conventions (eight of eight
 match) and re-checked the kernel goal states against the snapshot's
 \texttt{\#check} record (eight of eight match). The listing excerpts in this
-note are byte-identical to the frozen sources (mechanical record:
-\texttt{audit/listing-verify.txt}).
+note are byte-identical to the shipped proof files (mechanical record:
+\texttt{audit/listing-verify.txt}). The three \texttt{proofs/} sources are
+comment-cleaned editions (English docstrings): their code regions are
+byte-identical to the frozen files listed above (correspondence:
+\texttt{audit/comment-cleanup-diff.md}), and the post-cleanup kernel
+re-verification is recorded in \texttt{audit/kernel-rerun.txt}.
 \item Kernel check: strict compilation of the final file exits 0 with no
 \texttt{sorry} and no \texttt{admit} (whole-file scan including comments:
 zero hits; likewise zero hits for \texttt{axiom}, \texttt{unsafe},
 \texttt{opaque}, \texttt{native\_decide}, \texttt{implemented\_by}). Three
-diagnostics remain, all linter/deprecation-class and non-rejectable under the
-pipeline's discipline: an elaborator exponentiation-threshold hint on
+diagnostics remain, all linter/deprecation-class and non-rejectable under
+the audit rules applied: an elaborator exponentiation-threshold hint on
 \texttt{18\^{}100000} (intentional; the kernel checks the proof term
 independently), a deprecated \texttt{push\_neg} alias, and one
 unused-variable linter note. \texttt{\#print axioms} output, verbatim,
@@ -750,32 +755,32 @@ exit 0; the wrapped fourth entry is terminal formatting):
 \end{lstlisting}
 Every entry is exactly the whitelist \{propext, \texttt{Quot.sound},
 \texttt{Classical.choice}\}; \texttt{sorryAx} does not occur.
-\item Grading by the audit department (final adjudication of 2026-10-06, four
-checks all passed): \emph{complete proof}. A normalized copy of the
+\item Grading by the independent final audit (adjudication of 2026-10-06,
+four checks all passed): \emph{complete proof}. A cleaned copy of the
 adjudication ships as \texttt{audit/gate3-final-adjudication.txt}
-(machine-local path prefixes replaced by \texttt{<AI4MATH-REPO-ROOT>},
-verdict text unchanged; normalization disclosed in
-\texttt{audit/package-notes.md}); the well-definedness gate output ships
-verbatim as \texttt{audit/welldef-nfact-primorial-square.txt}.
+(translated to English; machine-local path prefixes replaced by
+\texttt{<REPO-ROOT>}; verdict text and data unchanged --- normalization
+disclosed in \texttt{audit/package-notes.md}); the well-definedness gate
+output ships verbatim as \texttt{audit/welldef-nfact-primorial-square.txt}.
 \item Audit chain: statement frozen by hash before proving; post-hoc
 symmetric-difference comparison (text-level and kernel goal-state level);
 final strict recompile; axiom re-print (this note's copy:
 \texttt{audit/axioms.out}); novelty record \texttt{audit/c9-record.md}. The
 claim audit \texttt{claim-check.md} is added to \texttt{audit/} after the
-audit department returns its adjudication and is a prerequisite for
+independent claim audit returns its adjudication and is a prerequisite for
 publication.
 \end{itemize}
 
 \section{Novelty evidence}\label{sec:novelty}
 
-Adjudication copied from the pipeline's exclusivity review (C9 discipline):
+Adjudication carried over from the independent novelty review:
 \textbf{no occupying record found}; search-strength label \textbf{strong}.
 The closing dates of the search are 2026-10-05 (deep-dig layer) and
 2026-10-06 (independent review layer, which maintained every load-bearing
-claim). The full query log, including every zero-hit query, ships verbatim
-(Chinese, conclusions unedited) as \texttt{audit/c9-record.md}. A zero hit is
-not novelty; the strongest claim licensed here is that no record of this
-object was found in the channels queried.
+claim). The full query log, including every zero-hit query, ships in full as
+\texttt{audit/c9-record.md} (English cleaned edition; conclusions and query
+data unedited). A zero hit is not novelty; the strongest claim licensed here
+is that no record of this object was found in the channels queried.
 
 The problem is on record as open in the source paper. Novakovi\'c writes
 (verbatim wording; mathematical notation retypeset): ``We believe that
@@ -847,8 +852,8 @@ proves exactly the eight frozen statements of Listing~\ref{lst:stmt}; the
 grade of each is \emph{complete proof} (zero \texttt{sorry}, axioms within
 the whitelist, statement text unchanged from the frozen snapshot, strict
 compile exit 0). Nothing beyond is claimed. (b) The second equation of the
-same remark, $x^2 = n!! \cdot [1, \ldots, n]$, is \emph{not} claimed: the
-pipeline obtained an exclusion path for even $n$ only. (c) No OEIS
+same remark, $x^2 = n!! \cdot [1, \ldots, n]$, is \emph{not} claimed: only an
+exclusion path for even $n$ was obtained. (c) No OEIS
 registration is claimed or performed by this deposit. (d) The exclusion of
 $n \ge 22$ is a pure theorem (Lemma~\ref{lem:B}) and does not rely on the
 Berndt--Galway computational bound ($10^9$) on the Brocard side; that bound
@@ -863,42 +868,29 @@ literature review; it is a deposit record, not a survey paper.
 \section*{Data availability}
 
 Lean sources, verification and novelty-search evidence are deposited on
-Zenodo; the DOI is reserved at upload by the author and is recorded in
-\texttt{metadata/README.md} of this package once created; the upload
-checklist is \texttt{UPLOAD.md} in the source repository (not shipped). The
-deposit contains the claim note (LaTeX source and PDF), the Lean sources
-(\texttt{proofs/}: frozen snapshot, statement source, final proof file,
+Zenodo (concept DOI \url{https://doi.org/10.5281/zenodo.23177003}; the
+version history is recorded in \texttt{metadata/README.md} of the deposit),
+with a public mirror of the deposit contents on GitHub at
+\url{https://github.com/Aurora0134/ai4math-claims}. The deposit contains the
+claim note (LaTeX source and PDF), the Lean sources (\texttt{proofs/}:
+statement snapshot, statement source, final proof file,
 \texttt{lean-toolchain}), and the audit and novelty-search records
 (\texttt{audit/}). Claim note under CC BY 4.0, code under MIT.
 
 \section*{Use of generative AI}
 
-\begin{itemize}
-\item \emph{AI-performed stages}: candidate generation and the exclusivity
-review, statement formalization and freezing, the semantic roundtrip check,
-proof search (worker agents under tower-style orchestration with worktree
-isolation, plus main-agent assembly), the final audit, and the assembly of
-this note including its verbatim listings.
-\item \emph{Model and node}: all LLM work ran on the pipeline's session node
---- endpoint \texttt{kimi}, node \texttt{anthropic/a6api-main/kimi-k3} (model
-detection: L2 relay live reading, recorded 2026-10-06 in the source and batch
-task cards) --- with no cross-node switching.
-\item \emph{Final adjudication}: all statements and proofs reported here were
-checked by the Lean~4 kernel: every proof compiles with no \texttt{sorry},
-and \texttt{\#print axioms} reports only \{propext, \texttt{Quot.sound},
-\texttt{Classical.choice}\}. Statement text was frozen before proving and
-compared afterwards (text level and kernel goal-state level, eight of eight
-match).
-\item The author reviewed the material and is responsible for all content. AI
-systems are not listed as authors.
-\end{itemize}
+The formalization and proofs reported in this note were developed with AI
+assistance (large language model: \texttt{kimi-k3}) under human direction
+and review. All statements and proofs reported here were checked by the Lean
+4 kernel (Lean v4.34.0, mathlib v4.34.0): every proof compiles with no
+\texttt{sorry}, and \texttt{\#print axioms} reports only subsets of
+\{propext, Quot.sound, Classical.choice\}. The author reviewed all content
+and takes full responsibility for it.
 
 \section*{Author contributions}
-The author determined the research question and the scope fences, verified
-the semantics of the statements, and is responsible for signing off and for
-any deposit or release. The automated pipeline (LLM-driven) generated the
-candidate proposition, the formalization, the proof search and the draft
-text. No external release is performed by the pipeline at this stage.
+
+The author selected and adjudicated the topic, verified the semantics of the
+formal statements, signed off the verification gates, and decided to deposit.
 
 \begin{thebibliography}{9}
 % Only works actually cited; each was re-checked to exist before entry

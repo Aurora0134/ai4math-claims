@@ -1,21 +1,22 @@
-<!-- AI 生成（塔台主代理，2026-10-06，kimi 端点 anthropic/a6api-main/kimi-k3；宪条 6 标注） -->
-# statement 冻结快照：nfact-primorial-square（SOP 03 步骤 2，闸门二通过后落盘）
+# Frozen statement snapshot: nfact-primorial-square
 
-- 冻结时点：2026-10-06（闸门二通过之后、军政部开工之前）
-- 闸门二裁决：`audit/welldef-nfact-primorial-square.txt` = WELLDEF OK + 9/9 探针 FAIL（非退化），
-  复现命令见该文件与 `audit/gate-batch.src.lean`；判定件 = kernel（gate-batch EXIT=0）。
-- 冻结纪律（宪条 2）：进入证明环节后，下列 8 条 statement 文本以此快照为准；证明侧只许改
-  proof body。监察院终态审计按本快照做对称差比对（忽略空白与注释）。
-- 源文件：`formalized/nfact-primorial-square.lean`（proof body 全 sorry 占位，与本快照同源）。
+- Frozen after the well-definedness gate passed and before proof work
+  began. From that point on, the eight statement texts below were the
+  statements of record; the proof side was allowed to change proof bodies
+  only. The final audit re-compared the proof file against this snapshot
+  (whitespace- and comment-insensitive comparison).
+- The statement source file `nfact-primorial-square.lean` (same directory;
+  `sorry` placeholder bodies) carries the same eight statements.
+- Comments and docstrings were translated to English for publication; the
+  statement texts themselves are byte-identical to the frozen original.
 
-## goal state 记录（#check 输出，kernel 实录）
+## Goal-state record (#check output, as printed by the kernel)
 
-取证命令（从主仓根发起，flags 先于文件路径）：
-
-    source scripts/lake-env.sh && scripts/lean-verify --allow-sorry --full <快照核验件>
-
-核验件 = 源文件原文 + 尾部 8 行 `#check @<定理名>`（临时探针，取证后已按临时文件纪律删除）。
-输出原文（8/8 全过，EXIT=0；8 条 sorry 占位警告为 --allow-sorry 放行的设计态，已滤去）：
+The probe file was the statement source plus eight trailing `#check @<name>`
+lines (a temporary probe, deleted after use); it was compiled with the
+repository's Lean verification script in well-definedness mode
+(`--allow-sorry`; the eight `sorry` placeholder warnings are by design and
+were filtered). Output, verbatim (8/8 checks passed, exit 0):
 
 ```
 isSquare_factorial_mul_primorial_iff : ∀ (n : ℕ), IsSquare (n ! * primorial n) ↔ n ≤ 5
@@ -32,31 +33,31 @@ witnesses_zero_to_five : 1 ^ 2 = 0! * primorial 0 ∧
   Nat.Prime p → p ≤ n → (n ! * primorial n).factorization p = n !.factorization p + 1
 ```
 
-## statement 文本（逐字，自源文件拷贝；namespace NFactPrimorialSquare 内，`open Nat`，`import Mathlib`）
+## Statement texts (verbatim code; inside `namespace NFactPrimorialSquare`, with `open Nat`, after `import Mathlib`)
 
 ```lean
-/-- **主定理（完全解集，iff 形态）**：
-    `n! · n#` 是完全平方 ⟺ `n ≤ 5`（n : ℕ）。
-    ℕ 上 `n ≤ 5 ⟺ n ∈ {0,1,2,3,4,5}`，故此即 NL 主命题「解恰为 n ∈ {0,…,5}」。 -/
+/-- **Main theorem (complete solution set, iff form)**:
+    `n! * n#` is a perfect square ⟺ `n ≤ 5` (for `n : ℕ`).
+    Over ℕ, `n ≤ 5 ⟺ n ∈ {0,1,2,3,4,5}`, so this is the main statement "the solutions are exactly n ∈ {0,...,5}". -/
 theorem isSquare_factorial_mul_primorial_iff (n : ℕ) :
     IsSquare (n ! * primorial n) ↔ n ≤ 5
 
-/-- **主定理（存在见证形态，与 iff 形态并列交付）**：
-    丢番图方程 `x² = n!·n#` 有解 ⟺ `n ∈ {0,1,2,3,4,5}`。 -/
+/-- **Main theorem (existence-witness form, delivered alongside the iff form)**:
+    the Diophantine equation `x² = n! * n#` has a solution ⟺ `n ∈ {0,1,2,3,4,5}`. -/
 theorem exists_sq_factorial_mul_primorial_iff (n : ℕ) :
     (∃ x : ℕ, x ^ 2 = n ! * primorial n) ↔ n ∈ ({0, 1, 2, 3, 4, 5} : Finset ℕ)
 
-/-- **引理 A（等价估值判据）**：对 `n ≥ 1`，`n! · n#` 是完全平方 ⟺
-    对每个素数 `p ≤ n`，`ν_p(n!)` 为奇数。 -/
+/-- **Lemma A (equivalent valuation criterion)**: for `n ≥ 1`, `n! * n#` is a perfect square ⟺
+    `ν_p(n!)` is odd for every prime `p ≤ n`. -/
 theorem isSquare_iff_all_factorization_odd (n : ℕ) (hn : 1 ≤ n) :
     IsSquare (n ! * primorial n) ↔
       ∀ p : ℕ, p.Prime → p ≤ n → Odd ((n !).factorization p)
 
-/-- **引理 B（区间素数引理）**：对每个整数 `n ≥ 22`，存在素数 `p` 使 `n/3 < p ≤ n/2`。 -/
+/-- **Lemma B (interval prime lemma)**: for every integer `n ≥ 22` there exists a prime `p` with `n/3 < p ≤ n/2`. -/
 theorem exists_prime_between_div_three_and_div_two (n : ℕ) (hn : 22 ≤ n) :
     ∃ p : ℕ, p.Prime ∧ n / 3 < p ∧ p ≤ n / 2
 
-/-- **见证层（主定理 ⟸ 向的显式平方根）**：n = 0..5 各点 `x² = n!·n#`，x = 1, 1, 2, 6, 12, 60。 -/
+/-- **Witness layer (explicit square roots for the ⟸ direction of the main theorem)**: `x² = n! * n#` at each of n = 0..5, with x = 1, 1, 2, 6, 12, 60. -/
 theorem witnesses_zero_to_five :
     1 ^ 2 = 0 ! * primorial 0 ∧
     1 ^ 2 = 1 ! * primorial 1 ∧
@@ -65,15 +66,15 @@ theorem witnesses_zero_to_five :
     12 ^ 2 = 4 ! * primorial 4 ∧
     60 ^ 2 = 5 ! * primorial 5
 
-/-- 辅助 statement：`ν_p(n#) = 1`（素数 `p ≤ n`）。 -/
+/-- Auxiliary statement: `ν_p(n#) = 1` (primes `p ≤ n`). -/
 theorem primorial_factorization_eq_one {p n : ℕ} (hp : p.Prime) (hpn : p ≤ n) :
     (primorial n).factorization p = 1
 
-/-- 辅助 statement：`ν_p(n#) = 0`（素数 `p ≰ n`）。 -/
+/-- Auxiliary statement: `ν_p(n#) = 0` (primes `p ≰ n`). -/
 theorem primorial_factorization_eq_zero {p n : ℕ} (hp : p.Prime) (hpn : ¬ p ≤ n) :
     (primorial n).factorization p = 0
 
-/-- 辅助 statement（判据的乘法骨架）：`ν_p(n!·n#) = ν_p(n!) + 1`（素数 `p ≤ n`）。 -/
+/-- Auxiliary statement (the multiplicative skeleton of the criterion): `ν_p(n! * n#) = ν_p(n!) + 1` (primes `p ≤ n`). -/
 theorem factorization_factorial_mul_primorial {p n : ℕ} (hp : p.Prime) (hpn : p ≤ n) :
     (n ! * primorial n).factorization p = (n !).factorization p + 1
 ```

@@ -30,7 +30,7 @@ Package hyperref Warning: Rerun to get /PageLabels entry.
 
 (umsa.fd) (umsb.fd)
 
-LaTeX Warning: Citation `novakovic2026' on page 1 undefined on input line 89.
+LaTeX Warning: Citation `novakovic2026' on page 1 undefined on input line 87.
 
 
 Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
@@ -38,243 +38,226 @@ Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
 (xeCJK)                Try to use `\setCJKmonofont[...]{...}' to define it.
 
 
-LaTeX Warning: Citation `lean4' on page 1 undefined on input line 105.
+LaTeX Warning: Citation `lean4' on page 1 undefined on input line 103.
 
 
-LaTeX Warning: Citation `mathlib' on page 1 undefined on input line 105.
+LaTeX Warning: Citation `mathlib' on page 1 undefined on input line 103.
 
 
-LaTeX Warning: Citation `novakovic2026' on page 1 undefined on input line 107.
+LaTeX Warning: Citation `novakovic2026' on page 1 undefined on input line 105.
+
+
+LaTeX Warning: Reference `lem:B' on page 1 undefined on input line 116.
 
 [1]
 
-LaTeX Warning: Reference `lem:B' on page 2 undefined on input line 118.
+LaTeX Warning: Reference `lst:stmt' on page 2 undefined on input line 150.
 
 
-LaTeX Warning: Reference `lst:stmt' on page 2 undefined on input line 152.
+warning: claim.tex:163: Underfull \hbox (badness 5091) in paragraph at lines 163--163
+Underfull \hbox (badness 5091) in paragraph at lines 163--163
+[]\TU/lmr/m/n/10.95 Listing 1: Frozen statement snapshot (Lean 4): the complete
 
 
-warning: claim.tex:164: Underfull \hbox (badness 1939) in paragraph at lines 164--164
-Underfull \hbox (badness 1939) in paragraph at lines 164--164
-\TU/lmr/m/n/10.95 set, verbatim, copied from the \TU/lmtt/m/n/10.95 lean \TU/lm
-r/m/n/10.95 fence of the frozen snapshot
-
-warning: claim.tex:164: Underfull \hbox (badness 1960) in paragraph at lines 164--164
-Underfull \hbox (badness 1960) in paragraph at lines 164--164
-\TU/lmtt/m/n/10.95 nfact-primorial-square.statement.txt \TU/lmr/m/n/10.95 (sha2
-56 \TU/lmtt/m/n/10.95 0b13d08d\TU/lmr/m/n/10.95 ; the full
-
-LaTeX Font Warning: Font shape `TU/SimSun(0)/m/it' undefined
-(Font)              using `TU/SimSun(0)/m/n' instead on input line 165.
-
+warning: claim.tex:163: Underfull \hbox (badness 3343) in paragraph at lines 163--163
+Underfull \hbox (badness 3343) in paragraph at lines 163--163
+\TU/lmr/m/n/10.95 frozen set, copied from the \TU/lmtt/m/n/10.95 lean \TU/lmr/m
+/n/10.95 fence of the snapshot shipped
 [2] [3]
 
-LaTeX Warning: Reference `lem:A' on page 4 undefined on input line 211.
+LaTeX Warning: Reference `lem:A' on page 4 undefined on input line 210.
 
 
-LaTeX Warning: Reference `lem:B' on page 4 undefined on input line 215.
+LaTeX Warning: Reference `lem:B' on page 4 undefined on input line 214.
 
 
-LaTeX Warning: Reference `lem:B' on page 4 undefined on input line 218.
+LaTeX Warning: Reference `lem:B' on page 4 undefined on input line 217.
 
 
-LaTeX Warning: Reference `lst:chain' on page 4 undefined on input line 220.
+LaTeX Warning: Reference `lst:chain' on page 4 undefined on input line 219.
 
 
-LaTeX Warning: Reference `lst:tail' on page 4 undefined on input line 223.
+LaTeX Warning: Reference `lst:tail' on page 4 undefined on input line 222.
 
 
-LaTeX Warning: Reference `thm:witnesses' on page 4 undefined on input line 231.
+LaTeX Warning: Reference `thm:witnesses' on page 4 undefined on input line 230.
 
 
 
-LaTeX Warning: Reference `lst:main' on page 4 undefined on input line 233.
+LaTeX Warning: Reference `lst:main' on page 4 undefined on input line 232.
 
 
-warning: claim.tex:235: Underfull \hbox (badness 1205) in paragraph at lines 210--235
-Underfull \hbox (badness 1205) in paragraph at lines 210--235
+warning: claim.tex:234: Underfull \hbox (badness 1205) in paragraph at lines 209--234
+Underfull \hbox (badness 1205) in paragraph at lines 209--234
 \TU/lmr/m/n/10.95 The proof assembles four components. (1) \TU/lmr/m/it/10.95 T
 he valuation criterion
 
-warning: claim.tex:235: Underfull \hbox (badness 1082) in paragraph at lines 210--235
-Underfull \hbox (badness 1082) in paragraph at lines 210--235
+warning: claim.tex:234: Underfull \hbox (badness 1082) in paragraph at lines 209--234
+Underfull \hbox (badness 1082) in paragraph at lines 209--234
 \TU/lmr/m/n/10.95 (Lemma []): $\OML/cmm/m/it/10.95 n[]$ \TU/lmr/m/n/10.95 contr
 ibutes each prime $\OML/cmm/m/it/10.95 p \OMS/cmsy/m/n/10.95 ^^T \OML/cmm/m/it/
 10.95 n$ \TU/lmr/m/n/10.95 exactly once, so
 
-LaTeX Warning: Reference `lem:B' on page 4 undefined on input line 237.
+LaTeX Warning: Reference `lem:B' on page 4 undefined on input line 236.
 
 
-LaTeX Warning: Reference `lem:B' on page 4 undefined on input line 253.
+LaTeX Warning: Reference `lem:B' on page 4 undefined on input line 254.
 
 
-LaTeX Warning: Reference `lem:B' on page 4 undefined on input line 253.
+LaTeX Warning: Reference `lem:B' on page 4 undefined on input line 254.
 
 
-warning: claim.tex:253: Underfull \hbox (badness 10000) in paragraph at lines 253--253
-Underfull \hbox (badness 10000) in paragraph at lines 253--253
+warning: claim.tex:254: Underfull \hbox (badness 10000) in paragraph at lines 254--254
+Underfull \hbox (badness 10000) in paragraph at lines 254--254
 []\TU/lmr/m/n/10.95 Listing 2: Excerpt of the proof file (lines 96–168 of
 [4] [5] [6]
 
-LaTeX Warning: Reference `lem:B' on page 7 undefined on input line 332.
+LaTeX Warning: Reference `lem:B' on page 7 undefined on input line 333.
 
 
-LaTeX Warning: Reference `lem:B' on page 7 undefined on input line 332.
+LaTeX Warning: Reference `lem:B' on page 7 undefined on input line 333.
 
 [7]
 
-LaTeX Warning: Reference `lem:A' on page 8 undefined on input line 372.
+LaTeX Warning: Reference `lem:A' on page 8 undefined on input line 373.
 
 
-LaTeX Warning: Reference `lem:B' on page 8 undefined on input line 372.
+LaTeX Warning: Reference `lem:B' on page 8 undefined on input line 373.
 
 
-LaTeX Warning: Reference `lem:A' on page 8 undefined on input line 372.
+LaTeX Warning: Reference `lem:A' on page 8 undefined on input line 373.
 
 
-LaTeX Warning: Reference `lem:B' on page 8 undefined on input line 372.
+LaTeX Warning: Reference `lem:B' on page 8 undefined on input line 373.
 
-[8] [9] [10] [11] [12] [13] [14] [15]
-warning: claim.tex:705: Underfull \hbox (badness 1910) in paragraph at lines 702--705
-Underfull \hbox (badness 1910) in paragraph at lines 702--705
+[8] [9] [10] [11] [12] [13] [14] [15] [16]
+warning: claim.tex:706: Underfull \hbox (badness 1910) in paragraph at lines 703--706
+Underfull \hbox (badness 1910) in paragraph at lines 703--706
 []\TU/lmr/m/n/10.95 Toolchain: Lean \TU/lmtt/m/n/10.95 v4.34.0 \TU/lmr/m/n/10.9
 5 (\TU/lmtt/m/n/10.95 leanprover/lean4:v4.34.0\TU/lmr/m/n/10.95 ), math-
 
-warning: claim.tex:707: Overfull \hbox (67.05518pt too wide) in paragraph at lines 705--707
-Overfull \hbox (67.05518pt too wide) in paragraph at lines 705--707
+warning: claim.tex:708: Overfull \hbox (67.05518pt too wide) in paragraph at lines 706--708
+Overfull \hbox (67.05518pt too wide) in paragraph at lines 706--708
 []\TU/lmr/m/n/10.95 Statement integrity: the frozen snapshot \TU/lmtt/m/n/10.95
  nfact-primorial-square.statement.txt
-[16] [17]
-warning: claim.tex:753: Underfull \hbox (badness 5592) in paragraph at lines 751--753
-Underfull \hbox (badness 5592) in paragraph at lines 751--753
+[17]
+warning: claim.tex:758: Underfull \hbox (badness 5592) in paragraph at lines 756--758
+Underfull \hbox (badness 5592) in paragraph at lines 756--758
 \TU/lmr/m/n/10.95 Every entry is exactly the whitelist {propext, \TU/lmtt/m/n/1
 0.95 Quot.sound\TU/lmr/m/n/10.95 ,
 
-warning: claim.tex:760: Overfull \hbox (119.39091pt too wide) in paragraph at lines 753--760
-Overfull \hbox (119.39091pt too wide) in paragraph at lines 753--760
-\TU/lmr/m/n/10.95 well-definedness gate output ships verbatim as \TU/lmtt/m/n/1
-0.95 audit/welldef-nfact-primorial-square.txt\TU/lmr/m/n/10.95 . 
+warning: claim.tex:765: Underfull \hbox (badness 1231) in paragraph at lines 758--765
+Underfull \hbox (badness 1231) in paragraph at lines 758--765
+\TU/lmr/m/n/10.95 verdict text and data unchanged — normalization disclosed in
 
-warning: claim.tex:767: Underfull \hbox (badness 1147) in paragraph at lines 760--767
-Underfull \hbox (badness 1147) in paragraph at lines 760--767
+warning: claim.tex:772: Underfull \hbox (badness 1147) in paragraph at lines 765--772
+Underfull \hbox (badness 1147) in paragraph at lines 765--772
 \TU/lmr/m/n/10.95 symmetric-difference comparison (text-level and kernel goal-s
 tate
 
-warning: claim.tex:767: Underfull \hbox (badness 1478) in paragraph at lines 760--767
-Underfull \hbox (badness 1478) in paragraph at lines 760--767
+warning: claim.tex:772: Underfull \hbox (badness 1478) in paragraph at lines 765--772
+Underfull \hbox (badness 1478) in paragraph at lines 765--772
 \TU/lmr/m/n/10.95 level); final strict recompile; axiom re-print (this note’s c
 opy:
-
-LaTeX Warning: Citation `novakovic2026' on page 18 undefined on input line 784.
-
-
 [18]
 
-LaTeX Warning: Citation `novakovic2026' on page 19 undefined on input line 793.
+LaTeX Warning: Citation `novakovic2026' on page 19 undefined on input line 789.
 
 
 
-warning: claim.tex:796: Underfull \hbox (badness 3138) in paragraph at lines 794--796
-Underfull \hbox (badness 3138) in paragraph at lines 794--796
+LaTeX Warning: Citation `novakovic2026' on page 19 undefined on input line 798.
+
+
+
+warning: claim.tex:801: Underfull \hbox (badness 3138) in paragraph at lines 799--801
+Underfull \hbox (badness 3138) in paragraph at lines 799--801
 []\TU/lmr/m/n/10 primorial $\OMS/cmsy/m/n/10 ^$ \TU/lmr/m/n/10 factorial $\OMS/
 cmsy/m/n/10 ^$ \TU/lmr/m/n/10 perfect
 
-warning: claim.tex:796: Underfull \hbox (badness 1939) in paragraph at lines 794--796
-Underfull \hbox (badness 1939) in paragraph at lines 794--796
+warning: claim.tex:801: Underfull \hbox (badness 1939) in paragraph at lines 799--801
+Underfull \hbox (badness 1939) in paragraph at lines 799--801
 \TU/lmr/m/n/10 square; primorial $\OMS/cmsy/m/n/10 ^$ \TU/lmr/m/n/10 factorial 
 $\OMS/cmsy/m/n/10 ^$
 
-warning: claim.tex:796: Underfull \hbox (badness 1365) in paragraph at lines 794--796
-Underfull \hbox (badness 1365) in paragraph at lines 794--796
+warning: claim.tex:801: Underfull \hbox (badness 1365) in paragraph at lines 799--801
+Underfull \hbox (badness 1365) in paragraph at lines 799--801
 \TU/lmr/m/n/10 square; double factorial $\OMS/cmsy/m/n/10 ^$ \TU/lmr/m/n/10 lea
 st
 
-LaTeX Warning: Citation `peixoto2026' on page 19 undefined on input line 797.
+LaTeX Warning: Citation `peixoto2026' on page 19 undefined on input line 802.
 
 
-warning: claim.tex:800: Underfull \hbox (badness 10000) in paragraph at lines 799--800
-Underfull \hbox (badness 10000) in paragraph at lines 799--800
+warning: claim.tex:805: Underfull \hbox (badness 10000) in paragraph at lines 804--805
+Underfull \hbox (badness 10000) in paragraph at lines 804--805
 []\TU/lmr/m/n/10 brocard/primorial/square/factorial
 
-LaTeX Warning: Citation `novakovic2026' on page 19 undefined on input line 801.
+LaTeX Warning: Citation `novakovic2026' on page 19 undefined on input line 806.
 
 
 
-LaTeX Warning: Citation `novakovic2026b' on page 19 undefined on input line 801
+LaTeX Warning: Citation `novakovic2026b' on page 19 undefined on input line 806
 .
 
 
-warning: claim.tex:806: Underfull \hbox (badness 10000) in paragraph at lines 806--806
-Underfull \hbox (badness 10000) in paragraph at lines 806--806
+warning: claim.tex:811: Underfull \hbox (badness 10000) in paragraph at lines 811--811
+Underfull \hbox (badness 10000) in paragraph at lines 811--811
 \TU/lmr/m/n/10 (formal-conjectures
 
-warning: claim.tex:809: Underfull \hbox (badness 1496) in paragraph at lines 809--809
-Underfull \hbox (badness 1496) in paragraph at lines 809--809
+warning: claim.tex:814: Underfull \hbox (badness 1496) in paragraph at lines 814--814
+Underfull \hbox (badness 1496) in paragraph at lines 814--814
 []\TU/lmr/m/n/10 OEIS value columns
 
-warning: claim.tex:810: Underfull \hbox (badness 10000) in paragraph at lines 809--810
-Underfull \hbox (badness 10000) in paragraph at lines 809--810
+warning: claim.tex:815: Underfull \hbox (badness 10000) in paragraph at lines 814--815
+Underfull \hbox (badness 10000) in paragraph at lines 814--815
 []$\OML/cmm/m/it/10 x$\TU/lmr/m/n/10 : 1,1,2,6,12,60; $\OML/cmm/m/it/10 x[]$\TU
 /lmr/m/n/10 :
 
-warning: claim.tex:815: Overfull \hbox (97.1004pt too wide) in paragraph at lines 788--815
-Overfull \hbox (97.1004pt too wide) in paragraph at lines 788--815
+warning: claim.tex:820: Overfull \hbox (97.1004pt too wide) in paragraph at lines 793--820
+Overfull \hbox (97.1004pt too wide) in paragraph at lines 793--820
  [] 
+[19]
 
-LaTeX Warning: Citation `oeisA055204' on page 19 undefined on input line 819.
-
-
-LaTeX Warning: Citation `erdos399' on page 19 undefined on input line 822.
+LaTeX Warning: Citation `oeisA055204' on page 20 undefined on input line 824.
 
 
-LaTeX Warning: Citation `novakovic2026b' on page 19 undefined on input line 826
+LaTeX Warning: Citation `erdos399' on page 20 undefined on input line 827.
+
+
+LaTeX Warning: Citation `novakovic2026b' on page 20 undefined on input line 831
 .
 
 
-LaTeX Warning: Citation `peixoto2026' on page 19 undefined on input line 828.
+LaTeX Warning: Citation `peixoto2026' on page 20 undefined on input line 833.
 
 
-LaTeX Warning: Citation `yudin2026' on page 19 undefined on input line 831.
+LaTeX Warning: Citation `yudin2026' on page 20 undefined on input line 836.
 
 
-LaTeX Warning: Citation `oeisA166968' on page 19 undefined on input line 834.
+LaTeX Warning: Citation `oeisA166968' on page 20 undefined on input line 839.
 
 
-LaTeX Warning: Reference `lem:B' on page 19 undefined on input line 836.
+LaTeX Warning: Reference `lem:B' on page 20 undefined on input line 841.
 
 
-LaTeX Warning: Reference `lem:B' on page 19 undefined on input line 840.
-
-[19]
-
-LaTeX Warning: Reference `lst:stmt' on page 20 undefined on input line 846.
-
-
-LaTeX Warning: Reference `lem:B' on page 20 undefined on input line 853.
-
-
-LaTeX Warning: Reference `lem:A' on page 20 undefined on input line 855.
+LaTeX Warning: Reference `lem:B' on page 20 undefined on input line 845.
 
 [20]
-warning: claim.tex:892: Underfull \hbox (badness 1314) in paragraph at lines 886--892
-Underfull \hbox (badness 1314) in paragraph at lines 886--892
-\TU/lmr/m/n/10.95 checked by the Lean 4 kernel: every proof compiles with no
 
-warning: claim.tex:892: Underfull \hbox (badness 1062) in paragraph at lines 886--892
-Underfull \hbox (badness 1062) in paragraph at lines 886--892
-\TU/lmtt/m/n/10.95 sorry\TU/lmr/m/n/10.95 , and \TU/lmtt/m/n/10.95 #print axiom
-s \TU/lmr/m/n/10.95 reports only {propext, \TU/lmtt/m/n/10.95 Quot.sound\TU/lmr
-/m/n/10.95 ,
+LaTeX Warning: Reference `lst:stmt' on page 21 undefined on input line 851.
 
-warning: claim.tex:926: Underfull \hbox (badness 3108) in paragraph at lines 923--926
-Underfull \hbox (badness 3108) in paragraph at lines 923--926
+
+LaTeX Warning: Reference `lem:B' on page 21 undefined on input line 858.
+
+
+LaTeX Warning: Reference `lem:A' on page 21 undefined on input line 860.
+
+[21]
+warning: claim.tex:918: Underfull \hbox (badness 3108) in paragraph at lines 915--918
+Underfull \hbox (badness 3108) in paragraph at lines 915--918
 []\TU/lmr/m/n/10.95 S. Novaković.  The Diophantine equation $\OML/cmm/m/it/10.9
 5 P\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x\OT1/cmr/m/n/10.95 ) = [][] \OML/cm
 m/m/it/10.95 H[]$\TU/lmr/m/n/10.95 .
-[21] [22] (claim.aux)
-
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
+[22] [23] (claim.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -288,7 +271,7 @@ Package rerunfilecheck Warning: File `claim.out' has changed.
 
  )
 (see the transcript file for additional information)
-Output written on claim.xdv (22 pages, 712872 bytes).
+Output written on claim.xdv (23 pages, 742356 bytes).
 Transcript written on claim.log.
 note: Rerunning TeX because "claim.out" changed ...
 (claim.tex
@@ -321,127 +304,108 @@ Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
 (xeCJK)                Try to use `\setCJKmonofont[...]{...}' to define it.
 
 [1]
-warning: claim.tex:164: Underfull \hbox (badness 1939) in paragraph at lines 164--164
-Underfull \hbox (badness 1939) in paragraph at lines 164--164
-\TU/lmr/m/n/10.95 set, verbatim, copied from the \TU/lmtt/m/n/10.95 lean \TU/lm
-r/m/n/10.95 fence of the frozen snapshot
+warning: claim.tex:163: Underfull \hbox (badness 5091) in paragraph at lines 163--163
+Underfull \hbox (badness 5091) in paragraph at lines 163--163
+[]\TU/lmr/m/n/10.95 Listing 1: Frozen statement snapshot (Lean 4): the complete
 
-warning: claim.tex:164: Underfull \hbox (badness 1960) in paragraph at lines 164--164
-Underfull \hbox (badness 1960) in paragraph at lines 164--164
-\TU/lmtt/m/n/10.95 nfact-primorial-square.statement.txt \TU/lmr/m/n/10.95 (sha2
-56 \TU/lmtt/m/n/10.95 0b13d08d\TU/lmr/m/n/10.95 ; the full
 
-LaTeX Font Warning: Font shape `TU/SimSun(0)/m/it' undefined
-(Font)              using `TU/SimSun(0)/m/n' instead on input line 165.
-
+warning: claim.tex:163: Underfull \hbox (badness 3343) in paragraph at lines 163--163
+Underfull \hbox (badness 3343) in paragraph at lines 163--163
+\TU/lmr/m/n/10.95 frozen set, copied from the \TU/lmtt/m/n/10.95 lean \TU/lmr/m
+/n/10.95 fence of the snapshot shipped
 [2] [3]
-warning: claim.tex:235: Underfull \hbox (badness 1205) in paragraph at lines 210--235
-Underfull \hbox (badness 1205) in paragraph at lines 210--235
+warning: claim.tex:234: Underfull \hbox (badness 1205) in paragraph at lines 209--234
+Underfull \hbox (badness 1205) in paragraph at lines 209--234
 \TU/lmr/m/n/10.95 The proof assembles four components. (1) \TU/lmr/m/it/10.95 T
 he valuation criterion
 
-warning: claim.tex:235: Underfull \hbox (badness 1215) in paragraph at lines 210--235
-Underfull \hbox (badness 1215) in paragraph at lines 210--235
+warning: claim.tex:234: Underfull \hbox (badness 1215) in paragraph at lines 209--234
+Underfull \hbox (badness 1215) in paragraph at lines 209--234
 \TU/lmr/m/n/10.95 is a square if and only if every $\OML/cmm/m/it/10.95 ^^W[]\O
 T1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 n\OT1/cmr/m/n/10.95 !)$ \TU/lmr/m/n/10.95
  is odd; both directions go
 
-warning: claim.tex:253: Underfull \hbox (badness 10000) in paragraph at lines 253--253
-Underfull \hbox (badness 10000) in paragraph at lines 253--253
+warning: claim.tex:254: Underfull \hbox (badness 10000) in paragraph at lines 254--254
+Underfull \hbox (badness 10000) in paragraph at lines 254--254
 []\TU/lmr/m/n/10.95 Listing 2: Excerpt of the proof file (lines 96–168 of
-[4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15]
-warning: claim.tex:705: Underfull \hbox (badness 1910) in paragraph at lines 702--705
-Underfull \hbox (badness 1910) in paragraph at lines 702--705
+[4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16]
+warning: claim.tex:706: Underfull \hbox (badness 1910) in paragraph at lines 703--706
+Underfull \hbox (badness 1910) in paragraph at lines 703--706
 []\TU/lmr/m/n/10.95 Toolchain: Lean \TU/lmtt/m/n/10.95 v4.34.0 \TU/lmr/m/n/10.9
 5 (\TU/lmtt/m/n/10.95 leanprover/lean4:v4.34.0\TU/lmr/m/n/10.95 ), math-
 
-warning: claim.tex:707: Overfull \hbox (67.05518pt too wide) in paragraph at lines 705--707
-Overfull \hbox (67.05518pt too wide) in paragraph at lines 705--707
+warning: claim.tex:708: Overfull \hbox (67.05518pt too wide) in paragraph at lines 706--708
+Overfull \hbox (67.05518pt too wide) in paragraph at lines 706--708
 []\TU/lmr/m/n/10.95 Statement integrity: the frozen snapshot \TU/lmtt/m/n/10.95
  nfact-primorial-square.statement.txt
-[16] [17]
-warning: claim.tex:753: Underfull \hbox (badness 5592) in paragraph at lines 751--753
-Underfull \hbox (badness 5592) in paragraph at lines 751--753
+[17]
+warning: claim.tex:758: Underfull \hbox (badness 5592) in paragraph at lines 756--758
+Underfull \hbox (badness 5592) in paragraph at lines 756--758
 \TU/lmr/m/n/10.95 Every entry is exactly the whitelist {propext, \TU/lmtt/m/n/1
 0.95 Quot.sound\TU/lmr/m/n/10.95 ,
 
-warning: claim.tex:760: Overfull \hbox (119.39091pt too wide) in paragraph at lines 753--760
-Overfull \hbox (119.39091pt too wide) in paragraph at lines 753--760
-\TU/lmr/m/n/10.95 well-definedness gate output ships verbatim as \TU/lmtt/m/n/1
-0.95 audit/welldef-nfact-primorial-square.txt\TU/lmr/m/n/10.95 . 
+warning: claim.tex:765: Underfull \hbox (badness 1231) in paragraph at lines 758--765
+Underfull \hbox (badness 1231) in paragraph at lines 758--765
+\TU/lmr/m/n/10.95 verdict text and data unchanged — normalization disclosed in
 
-warning: claim.tex:767: Underfull \hbox (badness 1147) in paragraph at lines 760--767
-Underfull \hbox (badness 1147) in paragraph at lines 760--767
+warning: claim.tex:772: Underfull \hbox (badness 1147) in paragraph at lines 765--772
+Underfull \hbox (badness 1147) in paragraph at lines 765--772
 \TU/lmr/m/n/10.95 symmetric-difference comparison (text-level and kernel goal-s
 tate
 
-warning: claim.tex:767: Underfull \hbox (badness 1478) in paragraph at lines 760--767
-Underfull \hbox (badness 1478) in paragraph at lines 760--767
+warning: claim.tex:772: Underfull \hbox (badness 1478) in paragraph at lines 765--772
+Underfull \hbox (badness 1478) in paragraph at lines 765--772
 \TU/lmr/m/n/10.95 level); final strict recompile; axiom re-print (this note’s c
 opy:
 [18]
-warning: claim.tex:796: Underfull \hbox (badness 3138) in paragraph at lines 794--796
-Underfull \hbox (badness 3138) in paragraph at lines 794--796
+warning: claim.tex:801: Underfull \hbox (badness 3138) in paragraph at lines 799--801
+Underfull \hbox (badness 3138) in paragraph at lines 799--801
 []\TU/lmr/m/n/10 primorial $\OMS/cmsy/m/n/10 ^$ \TU/lmr/m/n/10 factorial $\OMS/
 cmsy/m/n/10 ^$ \TU/lmr/m/n/10 perfect
 
-warning: claim.tex:796: Underfull \hbox (badness 1939) in paragraph at lines 794--796
-Underfull \hbox (badness 1939) in paragraph at lines 794--796
+warning: claim.tex:801: Underfull \hbox (badness 1939) in paragraph at lines 799--801
+Underfull \hbox (badness 1939) in paragraph at lines 799--801
 \TU/lmr/m/n/10 square; primorial $\OMS/cmsy/m/n/10 ^$ \TU/lmr/m/n/10 factorial 
 $\OMS/cmsy/m/n/10 ^$
 
-warning: claim.tex:796: Underfull \hbox (badness 1365) in paragraph at lines 794--796
-Underfull \hbox (badness 1365) in paragraph at lines 794--796
+warning: claim.tex:801: Underfull \hbox (badness 1365) in paragraph at lines 799--801
+Underfull \hbox (badness 1365) in paragraph at lines 799--801
 \TU/lmr/m/n/10 square; double factorial $\OMS/cmsy/m/n/10 ^$ \TU/lmr/m/n/10 lea
 st
 
-warning: claim.tex:800: Underfull \hbox (badness 10000) in paragraph at lines 799--800
-Underfull \hbox (badness 10000) in paragraph at lines 799--800
+warning: claim.tex:805: Underfull \hbox (badness 10000) in paragraph at lines 804--805
+Underfull \hbox (badness 10000) in paragraph at lines 804--805
 []\TU/lmr/m/n/10 brocard/primorial/square/factorial
 
-warning: claim.tex:806: Underfull \hbox (badness 10000) in paragraph at lines 806--806
-Underfull \hbox (badness 10000) in paragraph at lines 806--806
+warning: claim.tex:811: Underfull \hbox (badness 10000) in paragraph at lines 811--811
+Underfull \hbox (badness 10000) in paragraph at lines 811--811
 \TU/lmr/m/n/10 (formal-conjectures
 
-warning: claim.tex:809: Underfull \hbox (badness 1496) in paragraph at lines 809--809
-Underfull \hbox (badness 1496) in paragraph at lines 809--809
+warning: claim.tex:814: Underfull \hbox (badness 1496) in paragraph at lines 814--814
+Underfull \hbox (badness 1496) in paragraph at lines 814--814
 []\TU/lmr/m/n/10 OEIS value columns
 
-warning: claim.tex:810: Underfull \hbox (badness 10000) in paragraph at lines 809--810
-Underfull \hbox (badness 10000) in paragraph at lines 809--810
+warning: claim.tex:815: Underfull \hbox (badness 10000) in paragraph at lines 814--815
+Underfull \hbox (badness 10000) in paragraph at lines 814--815
 []$\OML/cmm/m/it/10 x$\TU/lmr/m/n/10 : 1,1,2,6,12,60; $\OML/cmm/m/it/10 x[]$\TU
 /lmr/m/n/10 :
 
-warning: claim.tex:815: Overfull \hbox (97.1004pt too wide) in paragraph at lines 788--815
-Overfull \hbox (97.1004pt too wide) in paragraph at lines 788--815
+warning: claim.tex:820: Overfull \hbox (97.1004pt too wide) in paragraph at lines 793--820
+Overfull \hbox (97.1004pt too wide) in paragraph at lines 793--820
  [] 
-[19] [20]
-warning: claim.tex:892: Underfull \hbox (badness 1314) in paragraph at lines 886--892
-Underfull \hbox (badness 1314) in paragraph at lines 886--892
-\TU/lmr/m/n/10.95 checked by the Lean 4 kernel: every proof compiles with no
-
-warning: claim.tex:892: Underfull \hbox (badness 1062) in paragraph at lines 886--892
-Underfull \hbox (badness 1062) in paragraph at lines 886--892
-\TU/lmtt/m/n/10.95 sorry\TU/lmr/m/n/10.95 , and \TU/lmtt/m/n/10.95 #print axiom
-s \TU/lmr/m/n/10.95 reports only {propext, \TU/lmtt/m/n/10.95 Quot.sound\TU/lmr
-/m/n/10.95 ,
-
-warning: claim.tex:926: Underfull \hbox (badness 3108) in paragraph at lines 923--926
-Underfull \hbox (badness 3108) in paragraph at lines 923--926
+[19] [20] [21]
+warning: claim.tex:918: Underfull \hbox (badness 3108) in paragraph at lines 915--918
+Underfull \hbox (badness 3108) in paragraph at lines 915--918
 []\TU/lmr/m/n/10.95 S. Novaković.  The Diophantine equation $\OML/cmm/m/it/10.9
 5 P\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x\OT1/cmr/m/n/10.95 ) = [][] \OML/cm
 m/m/it/10.95 H[]$\TU/lmr/m/n/10.95 .
-[21] [22] (claim.aux)
-
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
- )
+[22] [23] (claim.aux) )
 (see the transcript file for additional information)
-Output written on claim.xdv (22 pages, 716860 bytes).
+Output written on claim.xdv (23 pages, 746340 bytes).
 Transcript written on claim.log.
 warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
 note: Running xdvipdfmx ...
-[1][2][3][4][5][6][7][8][9][10][11][12][13][14][15][16][17][18][19][20][21][22]224738 bytes written
-note: Writing `claim.pdf` (219.470703125 KiB)
-note: Writing `claim.log` (24.5029296875 KiB)
+[1][2][3][4][5][6][7][8][9][10][11][12][13][14][15][16][17][18][19][20][21][22][23]194719 bytes written
+note: Writing `claim.log` (23.791015625 KiB)
+note: Writing `claim.pdf` (190.1552734375 KiB)
 note: Skipped writing 2 intermediate files (use --keep-intermediates to keep them)

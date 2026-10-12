@@ -1,78 +1,104 @@
-# 包体自我描述：包内有什么、特意不放什么
+# Package self-description: what this package contains (and deliberately omits)
 
-> 本文件是本包的**自我描述件**，先于出包写成（不是事后追记）。
-> 依据 = SOP 08b《已知边界》末条（论文轨同口径沿用）：「包体自我描述的失实是本通道的主要失效模式」。
+This note is written before packaging (not as an afterthought).
 
-## 一、本包是什么
+## What this package is
 
-x² = n!·n# 完全解集定理（源任务 `tasks/20261006-nfact-primorial-square/`，完全证明，闸门三 PASS）
-的**正式论文 + 投稿包**（SOP 08 论文轨）：论文（LaTeX 源 + PDF）、Lean 4 证明源（statement 源 +
-冻结快照 + 终件全文 + 工具链钉）、审计证据（终裁书规范化副本 / 良定义机出件 / 公理打印实录 /
-listing 与具名标识符核验 / 参考文献核验 / 编译与静态门输出 / roundtrip 忠实性记录）与 C9 查新全量
-记录（逐字拼接件）。姊妹占位包（claim of record）单独存缴（概念 DOI 10.5281/zenodo.23177003）。
+Artifact package accompanying the paper "The Diophantine equation
+x^2 = n! * n#: the complete solution set, formalized and machine-checked in
+Lean 4" — the complete solution set of `x^2 = n! * n#` (factorial times
+primorial) over the naturals: exactly `n ∈ {0,1,2,3,4,5}` (with
+`x = 1,1,2,6,12,60`), grading = complete proof. Contents: the paper (LaTeX
+source + PDF), the Lean 4 proof sources (statement source + frozen statement
+snapshot + final development + toolchain pin), and the verification evidence
+(final adjudication, well-definedness gate output, axiom printout, listing
+and named-identifier verification, bibliography verification, compile and
+static-gate logs, roundtrip fidelity record, novelty-search record). A
+companion claim of record for the same kernel result is deposited separately
+(concept DOI 10.5281/zenodo.23177003).
 
-## 二、包结构（生成块：逐件字节数按实测渲染，路径相对 `zenodo/`）
+## Package structure (generated block: per-file byte counts measured, paths relative to `zenodo/`)
 
 <!-- FACTS-BEGIN inv scope=deposit -->
 @row      935  audit/axioms.out
-@row     2826  audit/bib-verify.md
-@row     6263  audit/c9-record.md
-@row    22799  audit/compile-run.log
-@row     6329  audit/faithful.md
-@row    17566  audit/gate3-final-adjudication.txt
+@row     3306  audit/bib-verify.md
+@row     7320  audit/c9-record.md
+@row     2050  audit/comment-cleanup-diff.md
+@row    21724  audit/compile-run.log
+@row     7120  audit/faithful.md
+@row    18544  audit/gate3-final-adjudication.txt
+@row     2928  audit/kernel-rerun.txt
 @row      726  audit/lean-idents.txt
 @row       66  audit/lint.txt
 @row      465  audit/listing-verify.txt
-@row     5818  audit/package-notes.md
-@row     4560  audit/paper-check.md
+@row     5751  audit/package-notes.md
+@row     7738  audit/paper-check.md
 @row      180  audit/welldef-nfact-primorial-square.txt
-@row     8867  metadata/README.md
-@row     2541  metadata/zenodo.json
-@row     7569  paper/lstlean.tex
-@row   259590  paper/paper.pdf
-@row    74307  paper/paper.tex
-@row    62242  proofs/final-nfact-primorial-square.lean
+@row     6912  metadata/README.md
+@row     2474  metadata/zenodo.json
+@row     7557  paper/lstlean.tex
+@row   225277  paper/paper.pdf
+@row    71208  paper/paper.tex
+@row    62026  proofs/final-nfact-primorial-square.lean
 @row       25  proofs/lean-toolchain
-@row     4522  proofs/nfact-primorial-square.lean
-@row     4747  proofs/nfact-primorial-square.statement.txt
+@row     4131  proofs/nfact-primorial-square.lean
+@row     4630  proofs/nfact-primorial-square.statement.txt
 <!-- FACTS-END -->
 
-## 三、**特意不放**的项（每一行都是**不在本包**的件；它们都在源仓任务目录里）
+## Deliberate omissions
 
-| 项（**不在本包**） | 位置 | 为什么不放 |
+- No internal repository working files (task cards, internal reports, process
+  files): the package is self-contained.
+- Raw retrieval captures (JSON / XML / HTML page snapshots) of the novelty
+  search: bulky and largely third-party pages; the conclusions and the query
+  strings are in `audit/c9-record.md` in full.
+- The ecosystem mirror (the formal-conjectures tarball and its extraction):
+  deleted after the search batch; the hit conclusions are in the record.
+- Intermediate proof-search artifacts (per-stage proof files, prompts,
+  diagnostics, handoff reports): process material of the source task; the
+  refuted-route fact is disclosed in the paper's "A refuted route" section,
+  nothing is hidden.
+- The component-level files of the proof (Lemma A / witness layer / Lemma B
+  chain and tail as separate developments): the final file is self-contained
+  (imports only Mathlib) and subsumes all load-bearing content.
+- Build-system files (lakefile, manifest, etc.): the package carries only
+  `proofs/lean-toolchain` (the version pin), no build scripts.
+- The gate probe files and scratch directories: the axiom probe was a
+  verbatim copy of the final file plus a tail of `#print axioms` lines; the
+  final file itself ships, the probe construction is in the adjudication's
+  reproduction command list, and the load-bearing output (the eight
+  depends-on-axioms lines) is verbatim in `audit/axioms.out`.
+- The assembly tooling of the deliverable directory (the build/verify scripts
+  and the skeleton): deliverable-directory working files, not part of the
+  deposit; their verification outputs (listing-verify / lean-idents / lint /
+  compile records) ship.
+- The upload checklist (`UPLOAD.md`): an operations file for the author; it
+  lives in the source repository and is not shipped.
+
+## Mechanical processing of the shipped copies (disclosed item by item; no adjudication content altered)
+
+| processing | files | content |
 |---|---|---|
-| 原始检索回包（JSON / XML / HTML 页面快照） | 源任务与深挖批、复核批的查新目录（源仓，不随包） | 体量大且多为第三方页面快照；C9 的结论与查询串已逐字入 `c9-record.md`。 |
-| 生态镜像（formal-conjectures tarball 与解压体） | 深挖批任务目录（批末已按磁盘生命周期①删除） | 命中结论已在 C9 记录层入库，镜像本体不留。 |
-| 中间轮产物（各 mission 的证明件、prompt 原文、诊断与交接报告） | 源任务目录的 `attempts/` 与 tower 留痕（源仓，不随包） | 过程档案属源任务；路线证伪事实已在论文《A refuted route》节如实叙述，未隐藏。 |
-| 证明链的组件层文件（引理 A / 见证层 / 引理 B 链与尾的分件） | 源任务 `attempts/` 各子目录（源仓，不随包） | 终件是自包含单文件（仅 import Mathlib），组件分件的全部承重内容已并入终件。 |
-| 构建三件套（lakefile / manifest 等） | — | 本包只带 `proofs/lean-toolchain`（版本钉），不含任何构建脚本（宪条 6）。 |
-| 闸门三探针件与本批公理探针的完整编译日志 | 源仓 `tmp-probe/`（用后按临时件纪律清理） | 探针 = 终件逐字拷贝 + 尾部探针行；终件本体随包，探针构造法在终裁书《复现命令清单》与本批卡面逐字在案；承重输出（八条 depends-on-axioms 行）逐字入 `audit/axioms.out`。 |
-| 交付目录根的装配工作件（build / verify / check 脚本与正文骨架） | 交付目录 `audit/`（源仓，不随存缴树） | 装配轨工具件；其核验输出（listing-verify / lean-idents / lint / compile 记录）已随包。 |
+| path normalization | `audit/gate3-final-adjudication.txt` | machine-local path prefixes replaced by `<REPO-ROOT>`, dated task paths by `<source-task-id>`; verdict text and data unchanged |
+| comment-layer cleanup (2026-10-07) | `proofs/final-nfact-primorial-square.lean`, `proofs/nfact-primorial-square.lean`, `proofs/nfact-primorial-square.statement.txt` | comments and docstrings translated to English for publication; code regions byte-identical to the frozen development (record: `audit/comment-cleanup-diff.md`) |
+| English cleaned editions (2026-10-07) | `audit/c9-record.md`, `audit/faithful.md`, `audit/bib-verify.md`, `audit/paper-check.md`, `audit/gate3-final-adjudication.txt` | translated to English, internal references generalized; conclusions and data unchanged (each file carries a version note) |
 
-## 四、包内副本的**机械处理**（逐条披露，裁决内容一字未改）
+The original files stay unmodified in the source repository; the package
+contains copies.
 
-为过机械对账门的「无本机路径」门，入包副本做了下列**可复算文本规范化**：
+## Pages and rendering
 
-| 处理 | 涉及件 | 内容 |
-|---|---|---|
-| 本机路径前缀剥离 | `audit/gate3-final-adjudication.txt` | 文本里出现的本机绝对路径前缀剥为 `<AI4MATH-REPO-ROOT>`（在《复现命令清单》脚本段）。**裁决正文一字未改**；源件全部行尾本即 LF，无需行尾处理。 |
+- The compiled page count is given by the generated block in
+  `metadata/README.md` (measured from the shipped PDF; this file does not
+  restate it).
+- Rendering: the compile log's `Missing character` count is zero; the
+  `Overfull \hbox` count is zero; unresolved `??` references are zero.
 
-**原始件一字未动**：源文件仍留在源任务目录保持原样，本包内的只是入包副本。
-其余入包件（`welldef-nfact-primorial-square.txt`、`faithful.md`、`c9-record.md`、`axioms.out`、
-`listing-verify.txt`、`lean-idents.txt`、`bib-verify.md`、`lint.txt`、`compile-run.log`、`proofs/`
-全部四件、`paper/` 全部三件）均为**逐字节拷贝**，无任何规范化处理。
+## External boundary
 
-## 五、页数与渲染
-
-- 编译页数见 `zenodo/metadata/README.md` 的「包体自述生成块」（生成块，按随包 PDF 实测；本件不复写
-  该数字）。论文轨无页数上限口径。
-- 渲染：编译日志 `Missing character` 计数为零；`Overfull \hbox` 计数为零；`??` 未解析引用零命中。
-
-## 六、外发边界
-
-本包是 **upload-ready 包**：成文质检门前两项（`paper-lint` 全绿 / `tectonic` 硬编译 exit 0）与
-仓库级机械对账门（第四门按默认调用 SKIPPED，见 `metadata/README.md`）均已执行；质检门③主张审计
-由监察院执行，裁决书本体（`audit/paper-check.md`）于裁决后补入存缴树——在裁决前的修订中该件
-not shipped，裁决后即随包（是否已在树内以「包结构」生成块清单为准）。
-本批外发授权 = 批次卡 `tasks/20261006-paper-nfact-primorial/card.md` 覆盖事件 O-1（Zenodo publish +
-GitHub 推送由主代理直接执行，仅本篇）；arXiv 提交不在授权范围（需背书，归用户手动）。
+This package is upload-ready: the static gate and the hard compile were run,
+and the repository's mechanical reconciliation gate is green at packaging
+time. The claim audit (`audit/paper-check.md`) was added to the deposit after
+its adjudication returned. The first version of this deposit was published on
+2026-10-06 (DOI 10.5281/zenodo.23179326); publishing an updated version
+(Zenodo UI New version → Publish) is the author's own action.

@@ -1,32 +1,130 @@
-# paper-check.md — SOP 08 工序 6 主张审计裁决书（papers/nfact-primorial-square）
+# Paper claim audit — nfact-primorial-square (papers track)
 
-> 裁决：dept-audit 只读工人（监察院），2026-10-06，kimi 端点，节点 anthropic/a6api-main/kimi-k3。
-> 落盘：主代理按裁决回交落盘；裁决全程未改包内任何文件（判据 = 审计独立重跑的机械输出，不采信装配轨自报）。
-> 带全部数值的完整版存批次目录 `tasks/20261006-paper-nfact-primorial/audit/paper-audit-verdict-full.md`。
+- Audit: independent read-only review, 2026-10-06, on the session model node
+  (kimi-k3); the auditor did not modify any package file (all rulings rest on
+  the auditor's own mechanical re-runs, not on the assembly track's reports).
+- A fuller numeric version of this verdict is held in the source repository
+  (batch audit records), not shipped.
+- **Verdict: AUDIT PASS (five standard items + two batch-specific clauses,
+  zero findings).**
 
-## 逐项裁定（工序 6 五项 + 批次特款两项）
+> **2026-10-07 version note.** For publication the package texts were cleaned
+> (disclosure section minimized to the fixed three-sentence form; comments
+> and docstrings in the Lean sources translated to English; internal
+> repository references generalized). Code regions, mathematical content, and
+> all conclusions below are unchanged; see `audit/comment-cleanup-diff.md`
+> for the Lean-side correspondence. The sha256 values and the `paper.tex`
+> line numbers quoted below are the pre-cleanup values of record (the shipped
+> `proofs/` copies differ only in the comment layer, and the paper text was
+> re-assembled from its skeleton after the cleanup).
 
-1. **锚点 → 冻结快照 / 分级 / 审计证据：PASS**。全部 `% LEAN:` 锚点（paper.tex L231/237/243/249/255/265/266/267）声明名 = 冻结八条逐字一致，grade 全 = 完全证明，与闸门三裁决书「★ 分级结论：完全证明 ★」一致。冻结快照 sha256 自算 `0b13d08d…f8ea48`、终件 `276cb2e6…86070a`，与论文卡及正文 §Verification 逐字一致；审计证据（welldef / 终裁书）亲读确认并随包（规范化副本）。
-2. **措辞强度 ≤ 分级 + 重点围栏：PASS**。全文无越级断言（we prove/we establish/novel/previously unknown 零命中；「first」均为序数语义或否定式）。围栏逐条落实：第二条缝不主张（L124 + Limitations(b)）；#399 标 DISPROVED 仅同族邻接（反例数值本审计复算吻合）；2602.09687 限「研究对象不含 n#」；失败集 {2,3,9,21} 带定义域 n ≥ 2；A055204 区分写明；Nagura 带「原文未取得」限定；Berndt–Galway 仅背景不承重。参考数值抽验（60²=3600、6!·6#=21600、3·409609−1=1228826、证书链计数）全部吻合。
-3. **lstlisting 逐字节：PASS（双通道）**。重跑包内 `audit/verify-listings.py` 全 MATCH（lst:stmt / lst:chain / lst:tail / lst:main / lst:axioms 五块）；审计自算 diff 独立复核 lst:stmt / lst:chain / lst:tail 三块 diff 为空。zenodo 树副本 sha256 全对上源件（gate3 副本仅路径前缀规范化，已披露）。
-4. **`\lean{}` 标识符实存：PASS**。自 paper.tex 抽取去重标识符逐个 `grep -qF` 终件，全部 IN（清单与 `audit/lean-idents.txt` 一致）。
-5. **披露节 / 署名 / PII：PASS**。四要素齐全 + CRediT + Data availability；作者栏两处一致 = `Aurora0134`；zenodo.json 无 orcid 键；全包 PII 扫描零命中。
-6. **批次特款 A（roundtrip 抽检，工序 3 口径）：一致 ×3**。①§Encoding decisions 的 iff/存在见证双形态散文 ↔ 冻结声明 L41–42/46–47 + 桥接引理，逐项对应；②§Background 的「2p ≤ n < 3p ⟹ ν_p(n!)=2（p²>n 消高次项）+ 引理 B 存在性」↔ 冻结引理 B + 终件组装段，ℕ 口径吻合；③引理 A 散文 ↔ `isSquare_iff_all_factorization_odd (hn : 1 ≤ n)`，hn 未用已在 Limitations(e) 如实披露（「判据成立」非「需要 n ≥ 1」）。三句全部语义一致。
-7. **批次特款 B（DOI 口径）：PASS**。无 arXiv 编号占位（UPLOAD.md 仅一处否定性说明）；Data availability 引占位包概念 DOI `10.5281/zenodo.23177003`（paper.tex / bibitem / zenodo.json 三处一致）；zenodo.json 无 `<<>>` 占位；论文自身 DOI 为预留口径，无既成事实表述。
+## Item-by-item rulings
 
-## 机器门禁复核
+1. **Anchors → frozen snapshot / grading / audit evidence: PASS.** All
+   `% LEAN:` anchor declaration names (audited text lines 231/237/243/249/255/
+   265/266/267) are verbatim the eight frozen statements, all graded complete
+   proof, consistent with the final adjudication's grading line. The frozen
+   snapshot's sha256 (`0b13d08d…f8ea48`) and the final file's
+   (`276cb2e6…86070a`) were recomputed by the auditor and matched the values
+   stated in the paper card and in the Verification section verbatim
+   (pre-cleanup values; see the version note); the audit evidence (the
+   well-definedness ruling / the final adjudication) was read and ships
+   (normalized copy).
+2. **Wording strength ≤ grading + the fenced obligations: PASS.** No
+   overreach anywhere (no "we prove/we establish/novel/previously unknown"
+   overclaims; every "first" is ordinal or negated). The fences are all
+   discharged: the second equation is not claimed (Introduction +
+   Limitations(b)); #399 is marked DISPROVED and used only as same-family
+   adjacency (its counterexample figures recomputed by this audit, match);
+   2602.09687 carries the restricted "its object of study does not contain
+   n#" wording; the failure set {2,3,9,21} carries the domain convention
+   n ≥ 2; the A055204 distinction is written; Nagura carries the
+   "original text not obtained" qualifier; Berndt–Galway is background only,
+   not load-bearing. Numeric spot checks (60²=3600, 6!·6#=21600,
+   3·409609−1=1228826, the certificate-chain count) all matched.
+3. **lstlisting byte-exactness: PASS (two channels).** The shipped listing
+   checker was re-run: all five blocks (lst:stmt / lst:chain / lst:tail /
+   lst:main / lst:axioms) MATCH; the auditor's own independent diffs of
+   lst:stmt / lst:chain / lst:tail were empty. The deposit-tree copies'
+   sha256 all matched their sources (the adjudication copy differs only by
+   the disclosed path-prefix normalization). (After the 2026-10-07 cleanup
+   the checker compares against the shipped comment-cleaned files; the
+   code-region correspondence to the frozen sources is in
+   `audit/comment-cleanup-diff.md`.)
+4. **`\lean{}` identifiers exist: PASS.** Every `\lean{}` identifier named in
+   the paper was extracted, deduplicated, and grep-checked against the final
+   proof file: all present (list identical to the shipped
+   `audit/lean-idents.txt`).
+5. **Disclosure / authorship / PII: PASS (under the disclosure caliber then
+   in force).** The four disclosure elements then required plus the
+   CRediT-style section and Data availability were present; the author line
+   is `Aurora0134` in both places; zenodo.json carries no orcid key; a
+   whole-package PII scan found nothing. (Superseded on 2026-10-07 by the
+   minimal-disclosure caliber: the paper now carries the fixed
+   three-sentence disclosure, and the metadata carries no AI contributor
+   entry.)
+6. **Batch-specific clause A (roundtrip spot checks): consistent ×3.**
+   (i) The prose on the iff/existence-witness double form in §Encoding
+   decisions ↔ the frozen declarations (statement snapshot lines 41–42/46–47)
+   plus the bridge lemma, item by item; (ii) §Background's
+   "2p ≤ n < 3p ⟹ ν_p(n!) = 2 (p² > n kills the higher terms) + Lemma B
+   existence" ↔ the frozen Lemma B plus the final file's assembly segment,
+   consistent under the natural-number reading; (iii) Lemma A's prose ↔
+   `isSquare_iff_all_factorization_odd (hn : 1 ≤ n)`, the unused `hn` already
+   disclosed in Limitations(e) ("the criterion holds", not "requires n ≥ 1").
+   All three semantically consistent.
+7. **Batch-specific clause B (DOI wording): PASS.** No arXiv-number
+   placeholder anywhere (UPLOAD.md carries only a negative note); Data
+   availability cites the companion claim deposit's concept DOI
+   `10.5281/zenodo.23177003` (paper text / bibitem / zenodo.json agree);
+   zenodo.json carries no `<<>>` placeholder; the paper's own DOI was then
+   phrased as reserved-at-upload with no fait-accompli wording. (The deposit
+   was published later the same day; the DOI backfill since then is recorded
+   in `metadata/README.md`.)
 
-门① lint PASS；门② tectonic exit 0（`Missing character` / `Overfull \hbox` / `??` 三零）；机械对账门全绿（gate 4、1 按口径 SKIPPED，未虚报全绿）。0 sorry 独立重扫终件：sorry/admit/axiom/unsafe/opaque/native_decide/implemented_by 零命中；随包 `zenodo/audit/axioms.out` 八条全 = [propext, Classical.choice, Quot.sound]，无 sorryAx。
+## Machine-gate recheck
 
-## 观察项（非发现，不阻签发）
+Gate 1 (paper-lint) exit 0; gate 2 (tectonic) exit 0 with zero missing
+characters, zero overfull hboxes, zero unresolved references; the mechanical
+reconciliation gate green (its gates 4 and 1 SKIPPED per the papers-track
+default invocation, not misreported). Independent re-scan of the final file:
+zero hits for sorry/admit/axiom/unsafe/opaque/native_decide/implemented_by;
+the shipped `audit/axioms.out` shows all eight entries exactly
+[propext, Classical.choice, Quot.sound], no sorryAx.
 
-1. zenodo.json 单 license 字段 = MIT；论文 CC BY 4.0 的 UI 多许可补加留作者（README 已披露）。
-2. §sec:refuted（Bertrand 拼接路否证）以叙事 + 证据范围限定呈现、未占用 theorem 环境，Limitations(j) 已声明数值证据分层——口径合规，作者发布前知悉其为「方法级否证」而非定理。
+## Observations (non-blocking, for the author's awareness before publish)
 
-## 必须披露的限定语（沿用，勿稀释）
+1. zenodo.json's single license field is MIT; the paper's CC BY 4.0 is added
+   through the UI multi-licence control (disclosed in the README).
+2. §sec:refuted (the refuted Bertrand-splice route) is presented as narrative
+   with an explicit evidence-scope bound and occupies no theorem environment;
+   Limitations(j) declares the layering of numeric evidence — within caliber;
+   the author is aware before publishing that it is a method-level
+   refutation, not a theorem.
 
-第二条缝未主张 / Nagura 原文未取得 / Berndt–Galway 不承重 / C9 零命中 = 「所查渠道无占位记录」而非绝对新颖性 / 引理 A 的 hn 未用 / docstring 三处注释级追加 / 无 OEIS 注册主张 / 无「首个形式化」陈述 / arXiv 不在本批。
+## Qualifiers that must stay disclosed (do not dilute)
 
-## 总判定
+The second equation is not claimed / Nagura's original text was not obtained
+/ Berndt–Galway is not load-bearing / the novelty review's zero hits mean
+"no occupying record in the channels queried", not absolute novelty /
+Lemma A's `hn` is unused / three docstrings carry comment-level additions /
+no OEIS registration is claimed / no "first formalization" statement /
+arXiv submission is not part of this batch.
 
-**AUDIT PASS（零发现）。** 成文质检门状态：门① paper-lint exit 0；门② paper-compile exit 0；门③ 主张审计 = 本件 PASS。
+## Final ruling
+
+**AUDIT PASS (zero findings).** Quality-gate status: paper-lint exit 0;
+paper-compile exit 0; this claim audit PASS.
+
+## 2026-10-07 cleanup addendum
+
+- Package texts cleaned for publication under the minimal-disclosure caliber:
+  the paper's disclosure section replaced by the fixed three-sentence form
+  (AI assistance + kernel verification + author responsibility; model name
+  `kimi-k3` without prefixes); Lean comments/docstrings translated to
+  English; audit documents translated and internal repository references
+  generalized; metadata (zenodo.json) updated accordingly (no AI entry in
+  contributors; no internal names in title/keywords/notes).
+- Code regions of all Lean files unchanged (byte-identical to the frozen
+  development; proof in `audit/comment-cleanup-diff.md`). All audit
+  conclusions above stand unchanged.

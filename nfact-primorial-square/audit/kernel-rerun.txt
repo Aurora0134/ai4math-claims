@@ -1,0 +1,40 @@
+# kernel re-verification after comment-layer cleanup (2026-10-07)
+# commands (run from the repository root; paths below relativized):
+#   bash scripts/lean-verify claims/nfact-primorial-square/zenodo/proofs/final-nfact-primorial-square.lean
+#     (strict mode: 0 sorry, 0 error)
+#   bash scripts/lean-verify --allow-sorry claims/nfact-primorial-square/zenodo/proofs/nfact-primorial-square.lean
+#     (well-definedness mode: the statement record carries its eight sorry
+#      placeholder bodies by design; everything else must still compile)
+# result: both exit 0. The final file shows only the three pre-existing
+# diagnostics of the frozen development (elaborator exponentiation-threshold
+# hint on 18^100000; deprecated push_neg alias; one unused-variable linter
+# note) — unchanged. The statement file shows exactly the eight expected
+# placeholder warnings.
+
+== final-nfact-primorial-square.lean (strict) ==
+claims/nfact-primorial-square/zenodo/proofs/final-nfact-primorial-square.lean:708:78: warning: exponent 100000 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+claims/nfact-primorial-square/zenodo/proofs/final-nfact-primorial-square.lean:740:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+claims/nfact-primorial-square/zenodo/proofs/final-nfact-primorial-square.lean:794:52: warning: Variable name `hn` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hn
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+KERNEL_EXIT=0
+
+== nfact-primorial-square.lean (well-definedness mode) ==
+claims/nfact-primorial-square/zenodo/proofs/nfact-primorial-square.lean:30:8: warning: declaration uses `sorry`
+claims/nfact-primorial-square/zenodo/proofs/nfact-primorial-square.lean:38:8: warning: declaration uses `sorry`
+claims/nfact-primorial-square/zenodo/proofs/nfact-primorial-square.lean:45:8: warning: declaration uses `sorry`
+claims/nfact-primorial-square/zenodo/proofs/nfact-primorial-square.lean:53:8: warning: declaration uses `sorry`
+claims/nfact-primorial-square/zenodo/proofs/nfact-primorial-square.lean:59:8: warning: declaration uses `sorry`
+claims/nfact-primorial-square/zenodo/proofs/nfact-primorial-square.lean:70:8: warning: declaration uses `sorry`
+claims/nfact-primorial-square/zenodo/proofs/nfact-primorial-square.lean:75:8: warning: declaration uses `sorry`
+claims/nfact-primorial-square/zenodo/proofs/nfact-primorial-square.lean:80:8: warning: declaration uses `sorry`
+KERNEL_EXIT=0

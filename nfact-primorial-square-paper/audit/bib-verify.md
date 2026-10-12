@@ -1,10 +1,18 @@
-# bib-verify.md -- bibliography existence checks (assembly track, 2026-10-06)
+# bib-verify.md — bibliography existence checks (assembly track, 2026-10-06)
 
 Every bibliography entry of `paper.tex` was re-checked live before inclusion
-(re-run of this script: `python papers/nfact-primorial-square/audit/bib-verify.py`).
-Method per entry below; "read-back" means the named field was read back from the
-live response and matched the entry. The criterion is the read-back field, not the
-HTTP status. No entry is quoted from memory.
+(the re-run script lives in the deliverable directory of the source
+repository, not shipped). Method per entry below; "read-back" means the named
+field was read back from the live response and matched the entry. The
+criterion is the read-back field, not the HTTP status. No entry is quoted
+from memory.
+
+> **2026-10-07 version note.** This is the English cleaned edition of the
+> record; the checks and their outcomes are unchanged. The `claimdeposit`
+> row's read-back title is shown as the deposit's current title: the
+> companion deposit's title was shortened on 2026-10-07 (its v1.0.2,
+> disclosure cleanup); the 2026-10-06 read-back confirmed the same resolution
+> fact — the DOI resolves to the companion claim deposit.
 
 | key | identifier | channel | read-back |
 |---|---|---|---|
@@ -18,15 +26,17 @@ HTTP status. No entry is quoted from memory.
 | erdos399 | erdosproblems.com/399 | live page | reachable; status widget reads DISPROVED |
 | oeisA055204 | OEIS A055204 | OEIS API | name "Squarefree part of n!: n! divided by its largest square divisor." |
 | oeisA166968 | OEIS A166968 | OEIS API | name "Minimum k such that for all m >= k there is a prime p with m < p < m * (n+1)/n." |
-| claimdeposit | DOI 10.5281/zenodo.23177003 | doi.org resolve | title "Priority claim: complete solution set of x^2 = n! * n# (exactly n in {0,...,5}) — Lean 4 formalized proof + claim note (AI4Math pipeline) | Zenodo" |
+| claimdeposit | DOI 10.5281/zenodo.23177003 | doi.org resolve | title "Priority claim: complete solution set of x^2 = n! * n# (exactly n in {0,...,5}) — Lean 4 formalized proof + claim note | Zenodo" (current title; see the version note) |
 
 Notes:
-- The pipeline's arxiv-mcp channel was not used; the four arXiv items were
-  verified by direct HTTPS fetch of the abs pages, reading the citation metadata
-  fields (same fallback as the companion claim package, recorded 2026-10-06).
+- The arXiv MCP retrieval channel was not used; the four arXiv items were
+  verified by direct HTTPS fetch of the abs pages, reading the citation
+  metadata fields (same fallback as the companion claim package, recorded
+  2026-10-06).
 - Nagura 1952: existence and bibliographic data verified via Crossref/Project
   Euclid metadata; the original text was not obtained -- its statement is cited
   as corroborated by several OEIS entries (see the paper's related-work section).
 - The J1 quotation (Novakovic's we-were-not-able sentence) was additionally
-  re-checked verbatim against the pipeline's archived raw text extraction of
-  arXiv:2601.16757 (source task records, not shipped).
+  re-checked verbatim against the archived raw text extraction of
+  arXiv:2601.16757 (source task records, held in the source repository and
+  not shipped).

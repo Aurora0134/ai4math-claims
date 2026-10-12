@@ -18,9 +18,9 @@ memory.
 | oeisA166968 | OEIS A166968 | OEIS API | name "Minimum k such that for all m >= k there is a prime p with m < p < m * (n+1)/n." |
 
 Notes:
-- The pipeline's arxiv-mcp channel was unreachable at assembly time (port
+- The arXiv MCP retrieval channel was unreachable at assembly time (port
   parse error); the four arXiv items were verified by direct HTTPS fetch of
   the abs pages instead, reading the citation metadata fields.
 - The J1 quotation inside the note (Novaković's we-were-not-able sentence) was
-  additionally re-checked verbatim against the pipeline's archived raw text
-  extraction of the paper (source task records, not shipped).
+  additionally re-checked verbatim against the archived raw text extraction of
+  the paper (source task records, not shipped).

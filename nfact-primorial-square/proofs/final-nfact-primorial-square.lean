@@ -1,29 +1,29 @@
 /-
-  AI 生成（assemble-main 塔台工人 M5，2026-10-06，kimi 端点 anthropic/a6api-main/kimi-k3；宪条 6 标注）
-  M5 终态件：x² = n!·n# 完全解集定理 —— 主定理组装，单文件含全部 8 条冻结 statement
-  （statement 文本逐字 = formalized/nfact-primorial-square.statement.txt，宪条 2，仅写 proof body）
-  与全部支撑件，proof 全闭合、零占位。
+  Complete solution set of the Diophantine equation x^2 = n! * n#
+  (factorial times primorial): for n : ℕ the equation has a solution
+  exactly for n ∈ {0, 1, 2, 3, 4, 5}, with x = 1, 1, 2, 6, 12, 60.
 
-  组件来源（均为塔台 kernel 复验过的 merged 组件，逐字照抄）：
-  - namespace NFactPrimorialSquareChain 段 = attempts/lemma-b/lemma-b.lean 前段
-    （M11 证书链截链 lemmaB_upto_999999 + M9 尾巴 lemmaB_tail_1000000 + 单跳件 lemmaB_hop；
-    塔台组装复验记录 attempts/lemma-b/tower-reverify.md）。
-  - namespace NFactPrimorialSquare 内：
-    引理 A 与三辅助（辅助三件在前、引理 A 在后，保持 final-lemma-a.lean 依赖序）
-      = attempts/lemma-a/final-lemma-a.lean（M2）；
-    见证层 witnesses_zero_to_five + 桥 not_isSquare_of_odd_factorization
-      + 16 条 nonsquare_at_<n> + 组装件 nonsquare_six_to_twenty_one
-      = attempts/witnesses/witness-layer.lean（M4）；
-    引理 B exists_prime_between_div_three_and_div_two = attempts/lemma-b/lemma-b.lean 末段（M3）。
-  - 本批新写 proof 仅两条主定理：
-    ① isSquare_factorial_mul_primorial_iff —— ⟸ 向 n ≤ 5 经 interval_cases 六点配 witnesses_zero_to_five
-       与 isSquare_iff_exists_sq 给显式平方根；⟹ 向 by_contra 得 6 ≤ n，6 ≤ n ≤ 21 段引用
-       nonsquare_six_to_twenty_one 直接矛盾，22 ≤ n 段经引理 B 取素数 p ∈ (n/3, n/2]，
-       引理 A 判据给出 Odd (ν_p(n!))，而 Legendre 和式（Nat.factorization_factorial，b = 2，
-       由 p² > n 经 Nat.log_lt_of_lt_pow 得 Nat.log p n < 2）算出 ν_p(n!) = ⌊n/p⌋ = 2（2p ≤ n < 3p），
-       Odd 2 矛盾（omega 拆穿）。
-    ② exists_sq_factorial_mul_primorial_iff —— 经 isSquare_iff_exists_sq 桥到 ①，
-       再 n ≤ 5 ⟺ n ∈ ({0,…,5} : Finset ℕ)（simp 展开成员 + omega）。
+  Final self-contained development: all eight frozen statements (the main
+  theorem in iff form and in existence-witness form, Lemma A (valuation
+  criterion), Lemma B (interval prime lemma), the six-point witness layer,
+  and three auxiliary factorization statements) together with all
+  supporting material; every proof is closed, with no placeholders.
+
+  Structure:
+  - namespace NFactPrimorialSquareChain: Lemma B on 22 ≤ n ≤ 999999 via a
+    certificate chain of twenty-nine primes (each prime q covers
+    2q ≤ n ≤ 3q - 1), plus a factorial-ratio tail theorem for n ≥ 10^6.
+  - namespace NFactPrimorialSquare: the three auxiliary factorization
+    lemmas, Lemma A, the witness layer (six solution witnesses and sixteen
+    non-square witnesses for 6 ≤ n ≤ 21), Lemma B assembled from the chain
+    and the tail, and the two main theorems.
+
+  Main-theorem outline: the ⟸ direction reads explicit square roots off
+  the witness layer; the ⟹ direction excludes n ≥ 6 via the
+  six-to-twenty-one non-square witnesses (6 ≤ n ≤ 21) and, for n ≥ 22,
+  via Lemma B and Lemma A: a prime p with n/3 < p ≤ n/2 satisfies
+  ν_p(n!) = ⌊n/p⌋ = 2 (Legendre's sum; 2p ≤ n < 3p and p² > n), an even
+  number, contradicting the all-odd criterion.
 -/
 import Mathlib
 
@@ -96,17 +96,17 @@ theorem cont_cert_409609 : 2 * 409609 ≤ 3 * 273083 := by omega
 theorem chain_start : 22 = 2 * 11 := by omega
 theorem chain_end : 999999 ≤ 3 * 409609 - 1 := by omega
 
-/-- 证书链单跳件（M3 报告 §三.2 kernel 实证件，逐字复用）：
-    q 为素数且 n ∈ [2q, 3q−1] 时，q 即见证 n/3 < q ≤ n/2。
-    注：必须先抽 `hq.two_le`，否则 ℕ 截断减法下 omega 在 q = 0 反例处卡死（M3 实测）。 -/
+/-- Certificate-chain single hop: for prime `q` and `n ∈ [2q, 3q - 1]`,
+    `q` itself witnesses `n/3 < q ≤ n/2`.
+    Note: extract `hq.two_le` first, otherwise `omega` gets stuck at the `q = 0` counterexample under saturating subtraction on ℕ. -/
 theorem lemmaB_hop {q : ℕ} (hq : q.Prime) {n : ℕ} (h1 : 2 * q ≤ n) (h2 : n ≤ 3 * q - 1) :
     ∃ p : ℕ, p.Prime ∧ n / 3 < p ∧ p ≤ n / 2 :=
   have hq2 : 2 ≤ q := hq.two_le
   ⟨q, hq, by omega, by omega⟩
 
-/-- **引理 B 有限段（证书链决策树）**：∀ n ∈ [22, 999999]，
-    ∃ p, p.Prime ∧ n/3 < p ∧ p ≤ n/2。
-    与尾巴定理（A1/A2 路，起点 N0 = 1000000）的衔接口径见 M11 交接报告。 -/
+/-- **Lemma B, finite segment (certificate-chain decision tree)**: for every `n ∈ [22, 999999]`,
+    `∃ p, p.Prime ∧ n/3 < p ∧ p ≤ n/2`.
+    Joins the tail theorem (which starts at n = 1000000) by a case split on `n < 1000000`. -/
 theorem lemmaB_upto_999999 (n : ℕ) (h1 : 22 ≤ n) (h2 : n ≤ 999999) :
     ∃ p : ℕ, p.Prime ∧ n / 3 < p ∧ p ≤ n / 2 := by
   rcases lt_or_ge n 33 with h | h
@@ -167,7 +167,7 @@ theorem lemmaB_upto_999999 (n : ℕ) (h1 : 22 ≤ n) (h2 : n ≤ 999999) :
                                                         · exact lemmaB_hop (q := 273083) prime_cert_273083 (by omega) (by omega)
                                                         · exact lemmaB_hop (q := 409609) prime_cert_409609 (by omega) (by omega)
 
-/-- 每个素数幂位上的估值单元。 -/
+/-- Valuation unit at a prime-power slot (the summand shape of the tail ratio). -/
 def hval (m : ℕ) : ℕ := m / 2 + m / 6 - (m / 3 + m / 4 + m / 12)
 
 theorem hval_le (m : ℕ) : m / 3 + m / 4 + m / 12 ≤ m / 2 + m / 6 := by omega
@@ -183,7 +183,7 @@ theorem hval_eq_one_iff (m : ℕ) :
     hval m = 1 ↔ m % 12 = 2 ∨ m % 12 = 6 ∨ m % 12 = 7 ∨ m % 12 = 8 ∨ m % 12 = 10 ∨ m % 12 = 11 := by
   unfold hval; omega
 
-/-- 主件：尾巴阶乘比。 -/
+/-- Main object: the tail factorial ratio. -/
 def tailR (n : ℕ) : ℕ := (n/2)! * (n/6)! / ((n/3)! * (n/4)! * (n/12)!)
 
 theorem tailR_factorization_add2 (n : ℕ) (p : ℕ) :
@@ -770,27 +770,27 @@ end NFactPrimorialSquareChain
 
 namespace NFactPrimorialSquare
 
-/-- 辅助 statement：`ν_p(n#) = 1`（素数 `p ≤ n`）。 -/
+/-- Auxiliary statement: `ν_p(n#) = 1` for primes `p ≤ n`. -/
 theorem primorial_factorization_eq_one {p n : ℕ} (hp : p.Prime) (hpn : p ≤ n) :
     (primorial n).factorization p = 1 :=
   factorization_eq_one_of_squarefree (squarefree_primorial n) hp
     ((Nat.Prime.dvd_primorial_iff hp).mpr hpn)
 
-/-- 辅助 statement：`ν_p(n#) = 0`（素数 `p ≰ n`）。 -/
+/-- Auxiliary statement: `ν_p(n#) = 0` for primes `p ≰ n`. -/
 theorem primorial_factorization_eq_zero {p n : ℕ} (hp : p.Prime) (hpn : ¬ p ≤ n) :
     (primorial n).factorization p = 0 :=
   Nat.factorization_eq_zero_of_not_dvd
     (fun h => hpn ((Nat.Prime.dvd_primorial_iff hp).mp h))
 
-/-- 辅助 statement（判据的乘法骨架）：`ν_p(n!·n#) = ν_p(n!) + 1`（素数 `p ≤ n`）。 -/
+/-- Auxiliary statement (the multiplicative skeleton of the criterion): `ν_p(n! * n#) = ν_p(n!) + 1` for primes `p ≤ n`. -/
 theorem factorization_factorial_mul_primorial {p n : ℕ} (hp : p.Prime) (hpn : p ≤ n) :
     (n ! * primorial n).factorization p = (n !).factorization p + 1 := by
   rw [Nat.factorization_mul (Nat.factorial_ne_zero n) (primorial_ne_zero n),
       Finsupp.add_apply, primorial_factorization_eq_one hp hpn]
 
-/-- **引理 A（等价估值判据）**：对 `n ≥ 1`，`n! · n#` 是完全平方 ⟺
-    对每个素数 `p ≤ n`，`ν_p(n!)` 为奇数。
-    （`Nat.factorization m p` 即 ν_p(m)：素数 p 在 m 中的指数。） -/
+/-- **Lemma A (equivalent valuation criterion)**: for `n ≥ 1`, `n! * n#` is a perfect square ⟺
+    `ν_p(n!)` is odd for every prime `p ≤ n`.
+    (`Nat.factorization m p` is ν_p(m): the exponent of the prime `p` in `m`.) -/
 theorem isSquare_iff_all_factorization_odd (n : ℕ) (hn : 1 ≤ n) :
     IsSquare (n ! * primorial n) ↔
       ∀ p : ℕ, p.Prime → p ≤ n → Odd ((n !).factorization p) := by
@@ -816,8 +816,8 @@ theorem isSquare_iff_all_factorization_odd (n : ℕ) (hn : 1 ≤ n) :
         primorial_factorization_eq_zero hp hpn]
       exact ⟨0, rfl⟩
 
-/-- **见证层（主定理 ⟸ 向的显式平方根）**：n = 0..5 各点 `x² = n!·n#`，
-    x = 1, 1, 2, 6, 12, 60（与 NL 主命题的对应关系逐点一致）。 -/
+/-- **Witness layer (explicit square roots for the ⟸ direction of the main theorem)**: `x² = n! * n#`
+    at each of n = 0..5, with x = 1, 1, 2, 6, 12, 60 (the pointwise correspondence of the main statement). -/
 theorem witnesses_zero_to_five :
     1 ^ 2 = 0 ! * primorial 0 ∧
     1 ^ 2 = 1 ! * primorial 1 ∧
@@ -826,8 +826,8 @@ theorem witnesses_zero_to_five :
     12 ^ 2 = 4 ! * primorial 4 ∧
     60 ^ 2 = 5 ! * primorial 5 := by decide
 
-/-- 桥接引理（witness 层内部）：某素数位上 factorization 为奇 ⟹ 非平方。
-    IsSquare 给出 m = r * r，则 ν_p(m) = ν_p(r) + ν_p(r) 为偶，与奇数假设矛盾。 -/
+/-- Bridge lemma (internal to the witness layer): an odd factorization at some prime implies non-square.
+    `IsSquare` gives `m = r * r`, so `ν_p(m) = ν_p(r) + ν_p(r)` is even, contradicting the oddness assumption. -/
 theorem not_isSquare_of_odd_factorization {m p e : ℕ} (hm : m ≠ 0)
     (h : m.factorization p = 2 * e + 1) : ¬ IsSquare m := by
   rintro ⟨r, hr⟩
@@ -835,7 +835,7 @@ theorem not_isSquare_of_odd_factorization {m p e : ℕ} (hm : m ≠ 0)
   rw [hr, Nat.factorization_mul hne hne, Finsupp.add_apply] at h
   omega
 
-/-- 非平方见证 n = 6：ν_2(6!·6#) = 5（奇），6!·6# = 2^5 · 675，2 ∤ 675。 -/
+/-- Non-square witness n = 6: `ν_2(6! * 6#) = 5` (odd); `6! * 6# = 2^5 * 675`, and `2 ∤ 675`. -/
 theorem nonsquare_at_6 : ¬ IsSquare (6 ! * primorial 6) := by
   have hM : (6 : ℕ) ! * primorial 6 = 2 ^ 5 * 675 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 2)
@@ -845,7 +845,7 @@ theorem nonsquare_at_6 : ¬ IsSquare (6 ! * primorial 6) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 7：ν_2(7!·7#) = 5（奇），7!·7# = 2^5 · 33075，2 ∤ 33075。 -/
+/-- Non-square witness n = 7: `ν_2(7! * 7#) = 5` (odd); `7! * 7# = 2^5 * 33075`, and `2 ∤ 33075`. -/
 theorem nonsquare_at_7 : ¬ IsSquare (7 ! * primorial 7) := by
   have hM : (7 : ℕ) ! * primorial 7 = 2 ^ 5 * 33075 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 2)
@@ -855,7 +855,7 @@ theorem nonsquare_at_7 : ¬ IsSquare (7 ! * primorial 7) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 8：ν_3(8!·8#) = 3（奇），8!·8# = 3^3 · 313600，3 ∤ 313600。 -/
+/-- Non-square witness n = 8: `ν_3(8! * 8#) = 3` (odd); `8! * 8# = 3^3 * 313600`, and `3 ∤ 313600`. -/
 theorem nonsquare_at_8 : ¬ IsSquare (8 ! * primorial 8) := by
   have hM : (8 : ℕ) ! * primorial 8 = 3 ^ 3 * 313600 := by decide
   apply not_isSquare_of_odd_factorization (p := 3) (e := 1)
@@ -865,7 +865,7 @@ theorem nonsquare_at_8 : ¬ IsSquare (8 ! * primorial 8) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_three, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 9：ν_3(9!·9#) = 5（奇），9!·9# = 3^5 · 313600，3 ∤ 313600。 -/
+/-- Non-square witness n = 9: `ν_3(9! * 9#) = 5` (odd); `9! * 9# = 3^5 * 313600`, and `3 ∤ 313600`. -/
 theorem nonsquare_at_9 : ¬ IsSquare (9 ! * primorial 9) := by
   have hM : (9 : ℕ) ! * primorial 9 = 3 ^ 5 * 313600 := by decide
   apply not_isSquare_of_odd_factorization (p := 3) (e := 2)
@@ -875,7 +875,7 @@ theorem nonsquare_at_9 : ¬ IsSquare (9 ! * primorial 9) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_three, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 10：ν_2(10!·10#) = 9（奇），10!·10# = 2^9 · 1488375，2 ∤ 1488375。 -/
+/-- Non-square witness n = 10: `ν_2(10! * 10#) = 9` (odd); `10! * 10# = 2^9 * 1488375`, and `2 ∤ 1488375`. -/
 theorem nonsquare_at_10 : ¬ IsSquare (10 ! * primorial 10) := by
   have hM : (10 : ℕ) ! * primorial 10 = 2 ^ 9 * 1488375 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 4)
@@ -885,7 +885,7 @@ theorem nonsquare_at_10 : ¬ IsSquare (10 ! * primorial 10) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 11：ν_2(11!·11#) = 9（奇），11!·11# = 2^9 · 180093375，2 ∤ 180093375。 -/
+/-- Non-square witness n = 11: `ν_2(11! * 11#) = 9` (odd); `11! * 11# = 2^9 * 180093375`, and `2 ∤ 180093375`. -/
 theorem nonsquare_at_11 : ¬ IsSquare (11 ! * primorial 11) := by
   have hM : (11 : ℕ) ! * primorial 11 = 2 ^ 9 * 180093375 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 4)
@@ -895,7 +895,7 @@ theorem nonsquare_at_11 : ¬ IsSquare (11 ! * primorial 11) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 12：ν_2(12!·12#) = 11（奇），12!·12# = 2^11 · 540280125，2 ∤ 540280125。 -/
+/-- Non-square witness n = 12: `ν_2(12! * 12#) = 11` (odd); `12! * 12# = 2^11 * 540280125`, and `2 ∤ 540280125`. -/
 theorem nonsquare_at_12 : ¬ IsSquare (12 ! * primorial 12) := by
   have hM : (12 : ℕ) ! * primorial 12 = 2 ^ 11 * 540280125 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 5)
@@ -905,7 +905,7 @@ theorem nonsquare_at_12 : ¬ IsSquare (12 ! * primorial 12) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 13：ν_2(13!·13#) = 11（奇），13!·13# = 2^11 · 91307341125，2 ∤ 91307341125。 -/
+/-- Non-square witness n = 13: `ν_2(13! * 13#) = 11` (odd); `13! * 13# = 2^11 * 91307341125`, and `2 ∤ 91307341125`. -/
 theorem nonsquare_at_13 : ¬ IsSquare (13 ! * primorial 13) := by
   have hM : (13 : ℕ) ! * primorial 13 = 2 ^ 11 * 91307341125 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 5)
@@ -915,7 +915,7 @@ theorem nonsquare_at_13 : ¬ IsSquare (13 ! * primorial 13) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 14：ν_5(14!·14#) = 3（奇），14!·14# = 5^3 · 20943712677888，5 ∤ 20943712677888。 -/
+/-- Non-square witness n = 14: `ν_5(14! * 14#) = 3` (odd); `14! * 14# = 5^3 * 20943712677888`, and `5 ∤ 20943712677888`. -/
 theorem nonsquare_at_14 : ¬ IsSquare (14 ! * primorial 14) := by
   have hM : (14 : ℕ) ! * primorial 14 = 5 ^ 3 * 20943712677888 := by decide
   apply not_isSquare_of_odd_factorization (p := 5) (e := 1)
@@ -925,7 +925,7 @@ theorem nonsquare_at_14 : ¬ IsSquare (14 ! * primorial 14) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization (by norm_num : Nat.Prime 5), Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 15：ν_3(15!·15#) = 7（奇），15!·15# = 3^7 · 17955857920000，3 ∤ 17955857920000。 -/
+/-- Non-square witness n = 15: `ν_3(15! * 15#) = 7` (odd); `15! * 15# = 3^7 * 17955857920000`, and `3 ∤ 17955857920000`. -/
 theorem nonsquare_at_15 : ¬ IsSquare (15 ! * primorial 15) := by
   have hM : (15 : ℕ) ! * primorial 15 = 3 ^ 7 * 17955857920000 := by decide
   apply not_isSquare_of_odd_factorization (p := 3) (e := 3)
@@ -935,7 +935,7 @@ theorem nonsquare_at_15 : ¬ IsSquare (15 ! * primorial 15) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_three, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 16：ν_3(16!·16#) = 7（奇），16!·16# = 3^7 · 287293726720000，3 ∤ 287293726720000。 -/
+/-- Non-square witness n = 16: `ν_3(16! * 16#) = 7` (odd); `16! * 16# = 3^7 * 287293726720000`, and `3 ∤ 287293726720000`. -/
 theorem nonsquare_at_16 : ¬ IsSquare (16 ! * primorial 16) := by
   have hM : (16 : ℕ) ! * primorial 16 = 3 ^ 7 * 287293726720000 := by decide
   apply not_isSquare_of_odd_factorization (p := 3) (e := 3)
@@ -945,7 +945,7 @@ theorem nonsquare_at_16 : ¬ IsSquare (16 ! * primorial 16) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_three, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 17：ν_3(17!·17#) = 7（奇），17!·17# = 3^7 · 83027887022080000，3 ∤ 83027887022080000。 -/
+/-- Non-square witness n = 17: `ν_3(17! * 17#) = 7` (odd); `17! * 17# = 3^7 * 83027887022080000`, and `3 ∤ 83027887022080000`. -/
 theorem nonsquare_at_17 : ¬ IsSquare (17 ! * primorial 17) := by
   have hM : (17 : ℕ) ! * primorial 17 = 3 ^ 7 * 83027887022080000 := by decide
   apply not_isSquare_of_odd_factorization (p := 3) (e := 3)
@@ -955,7 +955,7 @@ theorem nonsquare_at_17 : ¬ IsSquare (17 ! * primorial 17) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_three, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 18：ν_2(18!·18#) = 17（奇），18!·18# = 2^17 · 24936491397943125，2 ∤ 24936491397943125。 -/
+/-- Non-square witness n = 18: `ν_2(18! * 18#) = 17` (odd); `18! * 18# = 2^17 * 24936491397943125`, and `2 ∤ 24936491397943125`. -/
 theorem nonsquare_at_18 : ¬ IsSquare (18 ! * primorial 18) := by
   have hM : (18 : ℕ) ! * primorial 18 = 2 ^ 17 * 24936491397943125 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 8)
@@ -965,7 +965,7 @@ theorem nonsquare_at_18 : ¬ IsSquare (18 ! * primorial 18) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 19：ν_2(19!·19#) = 17（奇），19!·19# = 2^17 · 9002073394657468125，2 ∤ 9002073394657468125。 -/
+/-- Non-square witness n = 19: `ν_2(19! * 19#) = 17` (odd); `19! * 19# = 2^17 * 9002073394657468125`, and `2 ∤ 9002073394657468125`. -/
 theorem nonsquare_at_19 : ¬ IsSquare (19 ! * primorial 19) := by
   have hM : (19 : ℕ) ! * primorial 19 = 2 ^ 17 * 9002073394657468125 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 8)
@@ -975,7 +975,7 @@ theorem nonsquare_at_19 : ¬ IsSquare (19 ! * primorial 19) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 20：ν_2(20!·20#) = 19（奇），20!·20# = 2^19 · 45010366973287340625，2 ∤ 45010366973287340625。 -/
+/-- Non-square witness n = 20: `ν_2(20! * 20#) = 19` (odd); `20! * 20# = 2^19 * 45010366973287340625`, and `2 ∤ 45010366973287340625`. -/
 theorem nonsquare_at_20 : ¬ IsSquare (20 ! * primorial 20) := by
   have hM : (20 : ℕ) ! * primorial 20 = 2 ^ 19 * 45010366973287340625 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 9)
@@ -985,7 +985,7 @@ theorem nonsquare_at_20 : ¬ IsSquare (20 ! * primorial 20) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 非平方见证 n = 21：ν_2(21!·21#) = 19（奇），21!·21# = 2^19 · 945217706439034153125，2 ∤ 945217706439034153125。 -/
+/-- Non-square witness n = 21: `ν_2(21! * 21#) = 19` (odd); `21! * 21# = 2^19 * 945217706439034153125`, and `2 ∤ 945217706439034153125`. -/
 theorem nonsquare_at_21 : ¬ IsSquare (21 ! * primorial 21) := by
   have hM : (21 : ℕ) ! * primorial 21 = 2 ^ 19 * 945217706439034153125 := by decide
   apply not_isSquare_of_odd_factorization (p := 2) (e := 9)
@@ -995,7 +995,7 @@ theorem nonsquare_at_21 : ¬ IsSquare (21 ! * primorial 21) := by
     Nat.factorization_pow, Finsupp.smul_apply,
     Nat.Prime.factorization Nat.prime_two, Finsupp.single_eq_same]; norm_num [nsmul_eq_mul]
 
-/-- 组装形态（供 M5 主定理 ⟹ 向引用）：6 ≤ n ≤ 21 的每一点 n!·n# 均非平方。 -/
+/-- Assembled form (cited by the ⟹ direction of the main theorem): `n! * n#` is non-square at every `n` with `6 ≤ n ≤ 21`. -/
 theorem nonsquare_six_to_twenty_one (n : ℕ) (h6 : 6 ≤ n) (h21 : n ≤ 21) :
     ¬ IsSquare (n ! * primorial n) := by
   interval_cases n
@@ -1016,29 +1016,29 @@ theorem nonsquare_six_to_twenty_one (n : ℕ) (h6 : 6 ≤ n) (h21 : n ≤ 21) :
   · exact nonsquare_at_20
   · exact nonsquare_at_21
 
-/-- **引理 B（区间素数引理）**：对每个整数 `n ≥ 22`，存在素数 `p` 使 `n/3 < p ≤ n/2`。
-    （`/ `为 ℕ 整除：区间即 `⌊n/3⌋ < p ≤ ⌊n/2⌋`，与 NL 原文的实数区间解读在素数存在性上
-    一致——p 为整数，`n/3 < p ⟺ ⌊n/3⌋ < p`，`p ≤ n/2 ⟺ p ≤ ⌊n/2⌋`，详见 faithful.md。） -/
+/-- **Lemma B (interval prime lemma)**: for every integer `n ≥ 22` there exists a prime `p` with `n/3 < p ≤ n/2`.
+    (`/` is natural-number division: the interval reads `⌊n/3⌋ < p ≤ ⌊n/2⌋`; for prime existence this coincides
+    with the real reading, since `p` is an integer: `n/3 < p ⟺ ⌊n/3⌋ < p` and `p ≤ n/2 ⟺ p ≤ ⌊n/2⌋`.) -/
 theorem exists_prime_between_div_three_and_div_two (n : ℕ) (hn : 22 ≤ n) :
     ∃ p : ℕ, p.Prime ∧ n / 3 < p ∧ p ≤ n / 2 := by
   rcases lt_or_ge n 1000000 with h | h
   · exact NFactPrimorialSquareChain.lemmaB_upto_999999 n hn (by omega)
   · exact NFactPrimorialSquareChain.lemmaB_tail_1000000 n h
 
-/-- **主定理（完全解集，iff 形态）**：
-    `n! · n#` 是完全平方 ⟺ `n ≤ 5`（n : ℕ）。
-    ℕ 上 `n ≤ 5 ⟺ n ∈ {0,1,2,3,4,5}`，故此即 NL 主命题「解恰为 n ∈ {0,…,5}」。 -/
+/-- **Main theorem (complete solution set, iff form)**:
+    `n! * n#` is a perfect square ⟺ `n ≤ 5` (for `n : ℕ`).
+    Over ℕ, `n ≤ 5 ⟺ n ∈ {0,1,2,3,4,5}`, so this is the main statement "the solutions are exactly n ∈ {0,...,5}". -/
 theorem isSquare_factorial_mul_primorial_iff (n : ℕ) :
     IsSquare (n ! * primorial n) ↔ n ≤ 5 := by
   constructor
-  · -- ⟹ 向：n!·n# 为平方 ⟹ n ≤ 5（对偶：n ≥ 6 时 n!·n# 非平方）
+  · -- ⟹ direction: n! * n# a square ⟹ n ≤ 5 (contrapositive: for n ≥ 6, n! * n# is not a square)
     intro h
     by_contra hle
     have h6 : 6 ≤ n := by omega
     rcases lt_or_ge n 22 with hlt | h22
-    · -- 6 ≤ n ≤ 21 段：witness 层逐点非平方见证直接矛盾
+    · -- the 6 ≤ n ≤ 21 segment: direct contradiction with the pointwise non-square witnesses of the witness layer
       exact nonsquare_six_to_twenty_one n h6 (by omega) h
-    · -- 22 ≤ n 段：引理 B 取素数 p ∈ (n/3, n/2]；判据给出 Odd (ν_p(n!))，但 Legendre 和式算出 ν_p(n!) = 2
+    · -- the 22 ≤ n segment: Lemma B yields a prime p ∈ (n/3, n/2]; the criterion gives Odd (ν_p(n!)), but Legendre's sum evaluates ν_p(n!) = 2
       obtain ⟨p, hp, hpl, hpu⟩ := exists_prime_between_div_three_and_div_two n h22
       have hodd : Odd ((n !).factorization p) :=
         (isSquare_iff_all_factorization_odd n (by omega)).mp h p hp (by omega)
@@ -1065,7 +1065,7 @@ theorem isSquare_factorial_mul_primorial_iff (n : ℕ) :
       rw [hfact2] at hodd
       obtain ⟨k, hk⟩ := hodd
       omega
-  · -- ⟸ 向：n ≤ 5 逐点给显式平方根（x = 1, 1, 2, 6, 12, 60）
+  · -- ⟸ direction: for n ≤ 5, give the explicit square root pointwise (x = 1, 1, 2, 6, 12, 60)
     intro h
     obtain ⟨h0, h1, h2, h3, h4, h5⟩ := witnesses_zero_to_five
     interval_cases n
@@ -1076,8 +1076,8 @@ theorem isSquare_factorial_mul_primorial_iff (n : ℕ) :
     · exact (isSquare_iff_exists_sq _).mpr ⟨12, h4.symm⟩
     · exact (isSquare_iff_exists_sq _).mpr ⟨60, h5.symm⟩
 
-/-- **主定理（存在见证形态，与 iff 形态并列交付）**：
-    丢番图方程 `x² = n!·n#` 有解 ⟺ `n ∈ {0,1,2,3,4,5}`。 -/
+/-- **Main theorem (existence-witness form, delivered alongside the iff form)**:
+    the Diophantine equation `x² = n! * n#` has a solution ⟺ `n ∈ {0,1,2,3,4,5}`. -/
 theorem exists_sq_factorial_mul_primorial_iff (n : ℕ) :
     (∃ x : ℕ, x ^ 2 = n ! * primorial n) ↔ n ∈ ({0, 1, 2, 3, 4, 5} : Finset ℕ) := by
   have hbridge : (∃ x : ℕ, x ^ 2 = n ! * primorial n) ↔ IsSquare (n ! * primorial n) := by

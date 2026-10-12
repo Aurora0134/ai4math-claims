@@ -1,26 +1,22 @@
 /-
-  AI 生成（dept-formalize 工人，2026-10-06，kimi 端点 anthropic/a6api-main/kimi-k3；宪条 6 标注）
-  任务：tasks/20261006-nfact-primorial-square —— x² = n!·n# 完全解集定理（S5 具名问题轨）
+  Frozen statements of record: the complete solution set of
+  x^2 = n! * n# (factorial times primorial) over ℕ — the solutions are
+  exactly n ∈ {0, 1, 2, 3, 4, 5} (with x = 1, 1, 2, 6, 12, 60).
 
-  本文件**只含 statement**（proof body 全 `:= by sorry` 占位），不含任何证明。
-  NL 原文（任务卡 §一.1 逐字，statement 语义以此为准）：
+  This file contains the eight frozen statements only; every proof body is
+  a `sorry` placeholder by design: the file records the frozen claims, and
+  the proofs live in `final-nfact-primorial-square.lean` (this directory).
 
-    记 n# = ∏_{p ≤ n, p prime} p（primorial），ν_p(m) 为素数 p 在 m 中的指数。
-    则丢番图方程 x² = n! · n# 在 n ∈ ℕ 中的解恰为 n ∈ {0, 1, 2, 3, 4, 5}
-    （对应 x = 1, 1, 2, 6, 12, 60）。
+  Notation: `primorial` is the top-level mathlib declaration (the primorial
+  n# = product of the primes p ≤ n); `IsSquare` is the square predicate;
+  `Nat.factorization m p` is ν_p(m), the exponent of the prime p in m.
+  The two main-theorem forms are semantically equivalent over ℕ
+  (`n ≤ 5 ⟺ n ∈ {0,...,5}`, via `isSquare_iff_exists_sq`).
 
-    引理 A（等价估值判据）：对 n ≥ 1，n! · n# 是完全平方 ⟺
-      对每个素数 p ≤ n，ν_p(n!) 为奇数。
-
-    引理 B（区间素数引理）：对每个整数 n ≥ 22，存在素数 p 使 n/3 < p ≤ n/2。
-
-  形式化口径（任务卡 §一.2 / C3 已核）：
-  - `primorial` 为顶层声明（Mathlib/NumberTheory/Primorial.lean），禁写 `Nat.primorial`；
-    `n#` 记法为 local，不可外用，本文件一律写 `primorial n`。
-  - 平方谓词用 `IsSquare`（`Nat.isSquare_iff` / `Nat.sqrt_eq_iff` 不在库，禁用）。
-  - 主定理取 iff 形态 `IsSquare (n ! * primorial n) ↔ n ≤ 5`（任务卡 §一.2 指定）；
-    并列交付存在见证形态（`∃ x, x^2 = ... ↔ n ∈ {0,...,5}`）——ℕ 上 `n ≤ 5` 与
-    `n ∈ {0,1,2,3,4,5}` 等价，两形态语义取舍见 faithful.md。
+  Contents: main theorem (iff form), main theorem (existence-witness
+  form), Lemma A (valuation criterion), Lemma B (interval prime lemma),
+  the six-point witness layer, and three auxiliary factorization
+  statements.
 -/
 import Mathlib
 
@@ -28,38 +24,38 @@ open Nat
 
 namespace NFactPrimorialSquare
 
-/-- **主定理（完全解集，iff 形态）**：
-    `n! · n#` 是完全平方 ⟺ `n ≤ 5`（n : ℕ）。
-    ℕ 上 `n ≤ 5 ⟺ n ∈ {0,1,2,3,4,5}`，故此即 NL 主命题「解恰为 n ∈ {0,…,5}」。 -/
+/-- **Main theorem (complete solution set, iff form)**:
+    `n! * n#` is a perfect square ⟺ `n ≤ 5` (for `n : ℕ`).
+    Over ℕ, `n ≤ 5 ⟺ n ∈ {0,1,2,3,4,5}`, so this is the main statement "the solutions are exactly n ∈ {0,...,5}". -/
 theorem isSquare_factorial_mul_primorial_iff (n : ℕ) :
     IsSquare (n ! * primorial n) ↔ n ≤ 5 := by
   sorry
 
-/-- **主定理（存在见证形态，与 iff 形态并列交付）**：
-    丢番图方程 `x² = n!·n#` 有解 ⟺ `n ∈ {0,1,2,3,4,5}`。
-    与 `isSquare_factorial_mul_primorial_iff` 的语义等价性（经 `isSquare_iff_exists_sq`
-    与 ℕ 上 `n ≤ 5 ⟺ n ∈ {0,…,5}`）见 faithful.md。 -/
+/-- **Main theorem (existence-witness form, delivered alongside the iff form)**:
+    the Diophantine equation `x² = n! * n#` has a solution ⟺ `n ∈ {0,1,2,3,4,5}`.
+    The semantic equivalence with `isSquare_factorial_mul_primorial_iff` (via `isSquare_iff_exists_sq`
+    and `n ≤ 5 ⟺ n ∈ {0,...,5}` over ℕ) is recorded in the faithfulness record. -/
 theorem exists_sq_factorial_mul_primorial_iff (n : ℕ) :
     (∃ x : ℕ, x ^ 2 = n ! * primorial n) ↔ n ∈ ({0, 1, 2, 3, 4, 5} : Finset ℕ) := by
   sorry
 
-/-- **引理 A（等价估值判据）**：对 `n ≥ 1`，`n! · n#` 是完全平方 ⟺
-    对每个素数 `p ≤ n`，`ν_p(n!)` 为奇数。
-    （`Nat.factorization m p` 即 ν_p(m)：素数 p 在 m 中的指数。） -/
+/-- **Lemma A (equivalent valuation criterion)**: for `n ≥ 1`, `n! * n#` is a perfect square ⟺
+    `ν_p(n!)` is odd for every prime `p ≤ n`.
+    (`Nat.factorization m p` is ν_p(m): the exponent of the prime `p` in `m`.) -/
 theorem isSquare_iff_all_factorization_odd (n : ℕ) (hn : 1 ≤ n) :
     IsSquare (n ! * primorial n) ↔
       ∀ p : ℕ, p.Prime → p ≤ n → Odd ((n !).factorization p) := by
   sorry
 
-/-- **引理 B（区间素数引理）**：对每个整数 `n ≥ 22`，存在素数 `p` 使 `n/3 < p ≤ n/2`。
-    （`/ `为 ℕ 整除：区间即 `⌊n/3⌋ < p ≤ ⌊n/2⌋`，与 NL 原文的实数区间解读在素数存在性上
-    一致——p 为整数，`n/3 < p ⟺ ⌊n/3⌋ < p`，`p ≤ n/2 ⟺ p ≤ ⌊n/2⌋`，详见 faithful.md。） -/
+/-- **Lemma B (interval prime lemma)**: for every integer `n ≥ 22` there exists a prime `p` with `n/3 < p ≤ n/2`.
+    (`/` is natural-number division: the interval reads `⌊n/3⌋ < p ≤ ⌊n/2⌋`; for prime existence this coincides
+    with the real reading, since `p` is an integer: `n/3 < p ⟺ ⌊n/3⌋ < p` and `p ≤ n/2 ⟺ p ≤ ⌊n/2⌋`.) -/
 theorem exists_prime_between_div_three_and_div_two (n : ℕ) (hn : 22 ≤ n) :
     ∃ p : ℕ, p.Prime ∧ n / 3 < p ∧ p ≤ n / 2 := by
   sorry
 
-/-- **见证层（主定理 ⟸ 向的显式平方根）**：n = 0..5 各点 `x² = n!·n#`，
-    x = 1, 1, 2, 6, 12, 60（与 NL 主命题的对应关系逐点一致）。 -/
+/-- **Witness layer (explicit square roots for the ⟸ direction of the main theorem)**: `x² = n! * n#`
+    at each of n = 0..5, with x = 1, 1, 2, 6, 12, 60 (the pointwise correspondence of the main statement). -/
 theorem witnesses_zero_to_five :
     1 ^ 2 = 0 ! * primorial 0 ∧
     1 ^ 2 = 1 ! * primorial 1 ∧
@@ -69,18 +65,18 @@ theorem witnesses_zero_to_five :
     60 ^ 2 = 5 ! * primorial 5 := by
   sorry
 
-/-- 辅助 statement（引理 A 路线承重，C8 冒烟件已 0 sorry 落地形态复用）：
-    `ν_p(n#) = 1`（素数 `p ≤ n`）。 -/
+/-- Auxiliary statement (load-bearing for the Lemma A route):
+    `ν_p(n#) = 1` for primes `p ≤ n`. -/
 theorem primorial_factorization_eq_one {p n : ℕ} (hp : p.Prime) (hpn : p ≤ n) :
     (primorial n).factorization p = 1 := by
   sorry
 
-/-- 辅助 statement：`ν_p(n#) = 0`（素数 `p ≰ n`）。 -/
+/-- Auxiliary statement: `ν_p(n#) = 0` for primes `p ≰ n`. -/
 theorem primorial_factorization_eq_zero {p n : ℕ} (hp : p.Prime) (hpn : ¬ p ≤ n) :
     (primorial n).factorization p = 0 := by
   sorry
 
-/-- 辅助 statement（判据的乘法骨架）：`ν_p(n!·n#) = ν_p(n!) + 1`（素数 `p ≤ n`）。 -/
+/-- Auxiliary statement (the multiplicative skeleton of the criterion): `ν_p(n! * n#) = ν_p(n!) + 1` for primes `p ≤ n`. -/
 theorem factorization_factorial_mul_primorial {p n : ℕ} (hp : p.Prime) (hpn : p ≤ n) :
     (n ! * primorial n).factorization p = (n !).factorization p + 1 := by
   sorry

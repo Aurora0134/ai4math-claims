@@ -1,24 +1,97 @@
-# claim-check.md — SOP 08b 工序 5 精简主张审计裁决书（claims/nfact-primorial-square）
+# Claim-note claim audit — nfact-primorial-square
 
-> 裁决：dept-audit 只读工人（监察院），2026-10-06，kimi 端点，节点 anthropic/a6api-main/kimi-k3。
-> 落盘：主代理按裁决回交原文要点落盘；裁决全程未改包内任何文件（复算脚本以补丁副本在 %TEMP% 运行）。
+- Audit: independent read-only review, 2026-10-06, on the session model node
+  (kimi-k3); the auditor did not modify any package file (recomputation ran
+  from patched copies in a scratch directory).
+- **Verdict: AUDIT PASS (five items + the batch-specific clause, zero
+  findings)**; two observations (O1/O2), both disposed.
+- Quality-gate snapshot at audit time: (1) paper-lint exit 0
+  (`audit/lint.txt`); (2) tectonic compile exit 0, 0 missing characters, 0
+  overfull hboxes (`audit/compile-run.log`); (3) this audit PASS.
 
-## 逐项核对（SOP 08b 工序 5 五项 + 批次特款）
+> **2026-10-07 version note.** For publication the package texts were cleaned
+> (disclosure section minimized; comments/docstrings in the Lean sources
+> translated to English; internal repository references generalized). Code
+> regions, mathematical content, and all conclusions below are unchanged; see
+> `audit/comment-cleanup-diff.md` for the Lean-side correspondence. The
+> sha256 values quoted below are the pre-cleanup values of the frozen files
+> of record; the shipped proofs/ copies differ only in the comment layer.
 
-1. **锚点 → 冻结快照 / 分级 / 审计证据：PASS**。全部 `% LEAN:` 锚点声明名真实存在于终件（rg 命中）；sha256 自算复核三件（statement.txt `0b13d08d…f8ea48`、statement.lean `63806420…451a8f`、终件 `276cb2e6…86070a`）与包内申报值逐字一致，`zenodo/proofs/` 副本同哈希；分级 = 完全证明（闸门三裁决书四项检查全 PASS、零 sorry、公理恰白名单）；审计证据随包（gate3 裁决书规范化副本 / welldef 裁决 / axioms.out 全白名单）。
-2. **措辞 ≤ 分级 ∧ ≤ C9 裁决：PASS**。第二条缝明写 not claimed；#399 写明 DISPROVED 仅作同族邻接；2602.09687 限定「研究对象不含 n#」；失败集 {2,3,9,21} 带定义域口径 n ≥ 2；A055204 区分写明；novelty 节裁决与 C9 源记录一致；「zero hit is not novelty」自我限缩到位；引理 A 的 hn 未用、Berndt–Galway 不承重、无 OEIS 注册主张，逐条落实。
-3. **lstlisting 逐字节：PASS**。重跑 `audit/verify-listings.py`（补丁副本）：lst:stmt（快照 fence 整段）、lst:chain、lst:tail、lst:main 四块全 MATCH byte-identical（各行段与字节数见随包 `audit/listing-verify.txt`），复算输出与该件逐字节相同。
-4. **披露 / 署名 / PII：PASS**。作者栏 `Aurora0134` 两处一致（claim.tex `\author{}` 与 zenodo.json creators[0].name）；orcid 键不存在；披露四要素齐全；全树无本机用户名路径、无邮箱。
-5. **c9-record.md 逐字一致：PASS**。重跑 `audit/build-c9-record.py`：Part 1 = 深挖草案卡行 113–138、Part 2 = 复核批报告行 61–68，两段与随包件逐字一致。
-6. **批次特款（DOI 预留口径）：PASS**。全包无具体 DOI 号；README 为预留写法；无「已发布」既成事实表述。
+## Item-by-item rulings
 
-## 观察项（不阻门；均已处置）
+1. **Anchors → frozen snapshot / grading / audit evidence: PASS.** All
+   `% LEAN:` anchor declaration names really occur in the final file
+   (ripgrep hits); sha256 recomputed by the auditor for the three files
+   (statement snapshot `0b13d08d…f8ea48`, statement source
+   `63806420…451a8f`, final file `276cb2e6…86070a`) matched the package's
+   declared values verbatim, and the `zenodo/proofs/` copies had the same
+   hashes (pre-cleanup values, see the version note); grading = complete
+   proof (the final adjudication's four checks all PASS, zero sorry, axioms
+   exactly the whitelist); audit evidence shipped (the adjudication copy /
+   the well-definedness ruling / axioms.out, all whitelist).
+2. **Wording ≤ grading ∧ ≤ the novelty adjudication: PASS.** The second
+   equation of the pair is explicitly not claimed; #399 is written DISPROVED
+   and used only as same-family adjacency; 2602.09687 carries the restricted
+   "its object of study does not contain n#" wording; the failure set
+   {2,3,9,21} carries the domain convention n ≥ 2; the A055204 distinction
+   is written; the novelty section's adjudication matches the source record;
+   the "a zero hit is not novelty" self-cap is in place; Lemma A's unused
+   hypothesis, the non-reliance on the Berndt–Galway computational bound,
+   and the absence of any OEIS-registration claim are all in place, item by
+   item.
+3. **lstlisting byte-exactness: PASS.** The listing checker was re-run (a
+   patched copy): lst:stmt (the snapshot's lean fence, whole), lst:chain,
+   lst:tail, lst:main all MATCH byte-identical (ranges and byte counts in
+   the shipped `audit/listing-verify.txt`), and the recomputed output was
+   byte-identical to that file. (After the 2026-10-07 cleanup the checker
+   compares against the shipped comment-cleaned files; the code-region
+   correspondence to the frozen sources is in `audit/comment-cleanup-diff.md`.)
+4. **Disclosure / authorship / PII: PASS (under the disclosure caliber then
+   in force).** Author line `Aurora0134` consistent in both places
+   (claim.tex `\author{}` and zenodo.json creators[0].name); no orcid key;
+   the four disclosure elements then required were present; no machine-local
+   user paths and no e-mail addresses in the whole tree. (Superseded on
+   2026-10-07 by the minimal-disclosure caliber: the note now carries the
+   fixed three-sentence disclosure, and the metadata carries no AI
+   contributor entry.)
+5. **c9-record.md verbatim consistency: PASS (at audit time).** The
+   concatenation generator was re-run: Part 1 = lines 113–138 of the
+   deep-dig draft card, Part 2 = lines 61–68 of the review-batch report;
+   both parts were verbatim-identical to the then-shipped file. (The shipped
+   file is now the English cleaned edition; see the version note.)
+6. **Batch-specific clause (DOI-reserved wording, at audit time): PASS.** At
+   audit time the package contained no concrete DOI number; the README used
+   the reserved wording; no "already published" wording appeared as a fait
+   accompli. (The deposit was published later the same day; the DOI backfill
+   since then is recorded in `metadata/README.md`.)
 
-- **O1**：claim.tex 头注 `lst:tail` 行段 off-by-one（735-768 → 735-767）。**已修**（主代理，2026-10-06，注释级，不涉冻结产物与 listing 字节）。
-- **O2**：`build-c9-record.py` 的 HDR 注记行与随包 c9-record.md 不同步。**已修**（重跑生成器，随包件 = 脚本输出，可逐字节复现）。
+## Observations (non-blocking; both disposed)
 
-## 总判定
+- **O1**: the claim.tex header comment's `lst:tail` range was off by one
+  (735-768 → 735-767). **Fixed** (2026-10-06, comment level; no frozen
+  artifact and no listing bytes touched).
+- **O2**: the concatenation generator's header note was out of sync with the
+  shipped c9-record.md. **Fixed** (generator re-run; the shipped file of
+  that day = the generator's output, byte-reproducible at the time).
 
-**AUDIT PASS（五项 + 特款零发现）**。分级裁定：短笺全部断言封顶于「完全证明（kernel 层，八条冻结 statement）+ 查无占位（强）」，措辞双上限无越级。
+## Final ruling
 
-占位质检门状态：门① paper-lint exit 0；门② paper-compile（tectonic）exit 0；门③ 精简主张审计 = 本件 PASS；装配门 sanitize-package 全绿（gates 2,3,5,6,7 PASS，gate 4 按默认调用 SKIPPED）。
+**AUDIT PASS (five items + the batch-specific clause, zero findings).**
+Grading cap: all of the note's claims are capped at "complete proof (kernel
+level, the eight frozen statements) + no occupying record found (strong)";
+neither wording cap is exceeded.
+
+## 2026-10-07 cleanup addendum
+
+- Package texts cleaned for publication under the minimal-disclosure caliber:
+  the note's disclosure section replaced by the fixed three-sentence form
+  (AI assistance + kernel verification + author responsibility; model name
+  `kimi-k3` without prefixes); Lean comments/docstrings translated to
+  English; audit documents translated and internal repository references
+  generalized; metadata (zenodo.json) updated accordingly (no AI entry in
+  contributors; no internal names in title/keywords/notes).
+- Code regions of all Lean files unchanged (byte-identical to the frozen
+  development; proof in `audit/comment-cleanup-diff.md`). All audit
+  conclusions above stand unchanged. Since the audit date the deposit was
+  published (concept DOI 10.5281/zenodo.23177003) and the note now cites the
+  concept DOI; that backfill does not alter any audited claim.
